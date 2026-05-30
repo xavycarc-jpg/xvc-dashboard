@@ -55,7 +55,7 @@ SCRIPT_DIR       = os.path.dirname(os.path.abspath(__file__))
 CREDENTIALS_FILE = os.path.join(SCRIPT_DIR, 'credentials.json')
 TOKEN_FILE       = os.path.join(SCRIPT_DIR, 'token.json')
 
-NOTION_TOKEN   = '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'
+NOTION_TOKEN = os.environ.get('NOTION_TOKEN')
 NOTION_DB_ID   = 'dd646e89-94f2-43a3-8810-fd69f5fa8486'
 NOTION_HEADERS = {
     'Authorization': f'Bearer {NOTION_TOKEN}',
@@ -65,7 +65,7 @@ NOTION_HEADERS = {
 
 DASHBOARD_FILE = '/Users/xavycarc/Desktop/xvc-dashboard/index.html'
 DASHBOARD_DIR  = '/Users/xavycarc/Desktop/xvc-dashboard'
-GH_TOKEN       = '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'
+GH_TOKEN = os.environ.get('GITHUB_PAT')
 
 fmt  = lambda n: f'{int(n):,}'
 pct  = lambda p: f'{p:.1f}%'
