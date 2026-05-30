@@ -31,8 +31,8 @@ NOTION_HEADERS = {
     'Notion-Version': '2022-06-28',
 }
 
-DASHBOARD_FILE = '/Users/xavycarc/Desktop/xvc-dashboard/index.html'
-DASHBOARD_DIR  = '/Users/xavycarc/Desktop/xvc-dashboard'
+DASHBOARD_FILE = 'index.html'
+DASHBOARD_DIR  = '.'
 GH_TOKEN = os.environ.get('GITHUB_PAT')
 
 fmt  = lambda n: f'{int(n):,}'
