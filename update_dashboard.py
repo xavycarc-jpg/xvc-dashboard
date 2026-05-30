@@ -452,7 +452,7 @@ def main():
         f'Auto-update {date.today()} — '
         f'views:{total_views:,} subs:{ch["subs"]:,} wt:{watch_hours:.0f}h'
     )
-    # result = git_push(commit_msg)
+    result = "push skipped — handled by workflow"
     print(f'  {result}')
 
     print(f'\n✓  Done. Live at https://xavycarc-jpg.github.io/xvc-dashboard/')
