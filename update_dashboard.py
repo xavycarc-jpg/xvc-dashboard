@@ -6,6 +6,38 @@ Pull live YouTube + Notion data, patch index.html, push to GitHub.
 """
 
 import os, re, subprocess
+import json
+from pathlib import Path
+
+STATE_FILE = Path(__file__).parent / 'state.json'
+MILESTONES = [1000, 5000, 10000, 25000, 50000, 100000]
+
+def load_state():
+    if STATE_FILE.exists():
+        with open(STATE_FILE) as f:
+            return json.load(f)
+    return {}
+
+def save_state(video_stats):
+    state = {v['id']: v['views'] for v in video_stats}
+    with open(STATE_FILE, 'w') as f:
+        json.dump(state, f, indent=2)
+
+def check_milestones(video_stats):
+    state = load_state()
+    hits = []
+    for v in video_stats:
+        prev = state.get(v['id'], 0)
+        curr = v['views']
+        for m in MILESTONES:
+            if prev < m <= curr:
+                hits.append((v['title'], m))
+    return hits
+
+def check_new_publishes(video_stats):
+    state = load_state()
+    return [v for v in video_stats if v['id'] not in state]
+
 from datetime import date
 
 import requests
@@ -23,7 +55,7 @@ SCRIPT_DIR       = os.path.dirname(os.path.abspath(__file__))
 CREDENTIALS_FILE = os.path.join(SCRIPT_DIR, 'credentials.json')
 TOKEN_FILE       = os.path.join(SCRIPT_DIR, 'token.json')
 
-NOTION_TOKEN = os.environ.get('NOTION_TOKEN')
+NOTION_TOKEN   = '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'
 NOTION_DB_ID   = 'dd646e89-94f2-43a3-8810-fd69f5fa8486'
 NOTION_HEADERS = {
     'Authorization': f'Bearer {NOTION_TOKEN}',
@@ -31,9 +63,9 @@ NOTION_HEADERS = {
     'Notion-Version': '2022-06-28',
 }
 
-DASHBOARD_FILE = 'index.html'
-DASHBOARD_DIR  = '.'
-GH_TOKEN = os.environ.get('GITHUB_PAT')
+DASHBOARD_FILE = '/Users/xavycarc/Desktop/xvc-dashboard/index.html'
+DASHBOARD_DIR  = '/Users/xavycarc/Desktop/xvc-dashboard'
+GH_TOKEN       = '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'
 
 fmt  = lambda n: f'{int(n):,}'
 pct  = lambda p: f'{p:.1f}%'
@@ -452,8 +484,24 @@ def main():
         f'Auto-update {date.today()} — '
         f'views:{total_views:,} subs:{ch["subs"]:,} wt:{watch_hours:.0f}h'
     )
-    result = "push skipped — handled by workflow"
+    result = git_push(commit_msg)
     print(f'  {result}')
+
+    
+    # [7/7] Slack notifications
+    print('[7/7] Checking Slack notifications...')
+    try:
+        import slack_notify
+        milestone_hits = check_milestones(video_stats)
+        for title, milestone in milestone_hits:
+            slack_notify.notify_milestone(title, milestone)
+        new_videos = check_new_publishes(video_stats)
+        for v in new_videos:
+            slack_notify.notify_publish(v['title'], f"https://youtube.com/watch?v={v['id']}")
+        save_state(video_stats)
+        print(f'  State saved. {len(milestone_hits)} milestone(s), {len(new_videos)} new publish(es).')
+    except Exception as e:
+        print(f'  Slack step skipped: {e}')
 
     print(f'\n✓  Done. Live at https://xavycarc-jpg.github.io/xvc-dashboard/')
     print('─' * 56)
