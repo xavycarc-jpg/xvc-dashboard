@@ -4,392 +4,579 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Xavy — YouTube Mission Control</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
+/* ─────────────────────────────────────────────────────────────
+   Salesforce Lightning Design System — XVC Edition
+───────────────────────────────────────────────────────────── */
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#0e0e0f;--bg2:#161618;--bg3:#1e1e21;
-  --border:rgba(255,255,255,0.07);--border2:rgba(255,255,255,0.13);
-  --text:#f0efe8;--text2:#888885;--text3:#555552;
-  --green:#3ecf8e;--green-bg:#0d2e20;--green-b:rgba(62,207,142,0.25);
-  --blue:#4c9eff;--blue-bg:#0d1e33;--blue-b:rgba(76,158,255,0.25);
-  --amber:#f0a040;--amber-bg:#2e1e0d;--amber-b:rgba(240,160,64,0.25);
-  --red:#f06464;--red-bg:#2e0d0d;--red-b:rgba(240,100,100,0.25);
+  --bg:#F3F3F3;
+  --surface:#FFFFFF;
+  --surface2:#F8F8F8;
+  --border:#DDDBDA;
+  --border2:#C9C7C5;
+  --text:#181818;
+  --text2:#3E3E3C;
+  --text3:#706E6B;
+
+  --blue:#0176D3;
+  --blue-dark:#014486;
+  --blue-bg:#EFF7FE;
+  --blue-b:#A9D3F5;
+
+  --green:#2E844A;
+  --green-bg:#EEF6EE;
+  --green-b:#91DB8B;
+
+  --amber:#C47B07;
+  --amber-bg:#FEF3E2;
+  --amber-b:#F5C975;
+
+  --red:#BA0517;
+  --red-bg:#FDEDEC;
+  --red-b:#F5ACAB;
+
+  --shadow-sm:0 1px 3px rgba(0,0,0,0.07),0 0 0 1px rgba(0,0,0,0.04);
+  --shadow:0 3px 10px rgba(0,0,0,0.09),0 0 0 1px rgba(0,0,0,0.04);
 }
-body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min-height:100vh;padding:2rem 1.25rem 4rem}
-.wrap{max-width:780px;margin:0 auto}
-.mono{font-family:'DM Mono',monospace}
-.lbl{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.1em;color:var(--text3);text-transform:uppercase}
-.card{background:var(--bg2);border:0.5px solid var(--border);border-radius:14px;padding:1rem 1.25rem;margin-bottom:10px}
-.inner{background:var(--bg3);border:0.5px solid var(--border2);border-radius:10px;padding:.4rem .7rem}
-.btrack{background:var(--bg3);border-radius:2px;height:4px;width:100%}
-.bar{border-radius:2px;height:4px}
-.pill{border-radius:20px;border:0.5px solid var(--border);padding:5px 16px;font-size:12px;font-family:'DM Mono',monospace;cursor:pointer;background:transparent;color:var(--text2);transition:all .15s}
-.pill:hover{color:var(--text)}
-.tag{font-size:10px;font-family:'DM Mono',monospace;border-radius:4px;padding:2px 7px;white-space:nowrap}
-.tg{background:var(--green-bg);color:var(--green);border:0.5px solid var(--green-b)}
-.tb{background:var(--blue-bg);color:var(--blue);border:0.5px solid var(--blue-b)}
-.ta{background:var(--amber-bg);color:var(--amber);border:0.5px solid var(--amber-b)}
-.tn{background:var(--bg3);color:var(--text3);border:0.5px solid var(--border)}
-.alert{border-radius:10px;padding:.6rem .9rem;display:flex;align-items:center;gap:10px;font-size:13px}
-.ag{background:var(--green-bg);border:0.5px solid var(--green-b)}
-.aa{background:var(--amber-bg);border:0.5px solid var(--amber-b)}
-.dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+
+body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-serif;min-height:100vh;font-size:14px;line-height:1.5}
+
+/* ── Global label ── */
+.lbl{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text3)}
+
+/* ── Header ── */
+.header{background:var(--blue-dark);padding:0 2rem}
+.header-inner{max-width:920px;margin:0 auto;height:54px;display:flex;justify-content:space-between;align-items:center}
+.header-brand{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#fff;display:flex;align-items:center;gap:10px}
+.header-brand .logo{width:22px;height:22px;background:var(--blue);border-radius:5px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.header-brand .logo::after{content:'▶';font-size:9px;color:#fff;margin-left:1px}
+.header-date{font-size:11px;color:rgba(255,255,255,0.45);letter-spacing:.03em}
+
+/* ── Navigation ── */
+.nav{background:var(--surface);border-bottom:1px solid var(--border);padding:0 2rem;position:sticky;top:0;z-index:100;box-shadow:0 2px 6px rgba(0,0,0,0.07)}
+.nav-inner{max-width:920px;margin:0 auto;display:flex}
+.nav-tab{padding:.72rem 1.1rem;font-size:13px;font-weight:500;color:var(--text3);border:none;background:transparent;cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-1px;transition:color .15s,border-color .15s;letter-spacing:.01em;white-space:nowrap}
+.nav-tab:hover{color:var(--text)}
+.nav-tab.active{color:var(--blue);border-bottom-color:var(--blue);font-weight:700}
+
+/* ── Page ── */
+.wrap{max-width:920px;margin:0 auto;padding:1.75rem 2rem 5rem}
+
+/* ── Cards ── */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:1.25rem 1.5rem;margin-bottom:14px;box-shadow:var(--shadow-sm)}
+.card-hd{display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem}
+
+/* ── Metric tiles ── */
+.metric-tile{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:1.1rem 1.25rem;box-shadow:var(--shadow-sm);position:relative;overflow:hidden}
+.metric-tile::after{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--blue);border-radius:8px 8px 0 0}
+.metric-tile.green::after{background:var(--green)}
+.metric-tile.amber::after{background:var(--amber)}
+.metric-tile.blue::after{background:var(--blue)}
+.m-lbl{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);margin-bottom:.4rem}
+.m-num{font-size:30px;font-weight:700;line-height:1.1;color:var(--text);font-variant-numeric:tabular-nums;letter-spacing:-.01em}
+.m-num.blue{color:var(--blue)}
+.m-num.green{color:var(--green)}
+.m-num.amber{color:var(--amber)}
+.m-sub{font-size:12px;color:var(--text3);margin-top:.3rem}
+
+/* ── Inner ── */
+.inner{background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:.55rem .8rem}
+
+/* ── Progress ── */
+.btrack{background:var(--border);border-radius:4px;height:6px;width:100%;overflow:hidden}
+.bar{border-radius:4px;height:6px;transition:width .35s ease}
+
+/* ── Tags ── */
+.tag{font-size:11px;font-weight:600;border-radius:4px;padding:2px 9px;white-space:nowrap;display:inline-block;line-height:1.6}
+.tg{background:var(--green-bg);color:var(--green);border:1px solid var(--green-b)}
+.tb{background:var(--blue-bg);color:var(--blue);border:1px solid var(--blue-b)}
+.ta{background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber-b)}
+.tr{background:var(--red-bg);color:var(--red);border:1px solid var(--red-b)}
+.tn{background:var(--surface2);color:var(--text3);border:1px solid var(--border2)}
+
+/* ── Alerts ── */
+.alert{border-radius:6px;padding:.7rem 1rem;display:flex;align-items:center;gap:10px;font-size:13px;font-weight:500}
+.ag{background:var(--green-bg);border:1px solid var(--green-b);color:#1c5531}
+.aa{background:var(--amber-bg);border:1px solid var(--amber-b);color:#7a4d04}
+.dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
 .dg{background:var(--green)}.da{background:var(--amber)}
-.clock-cell{background:var(--bg3);border:0.5px solid var(--border2);border-radius:10px;padding:.6rem .4rem;text-align:center;flex:1}
-.g2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
-input[type=number],input[type=text]{background:var(--bg3);border:0.5px solid var(--border2);border-radius:10px;color:var(--text);font-family:'DM Mono',monospace;font-size:13px;padding:.4rem .6rem;width:100%;outline:none}
-.btn{background:var(--bg3);border:0.5px solid var(--border2);border-radius:10px;color:var(--text2);font-family:'DM Mono',monospace;font-size:11px;padding:.4rem .8rem;cursor:pointer}
-.btn:hover{color:var(--text)}
-.btng{background:var(--green-bg);border-color:var(--green-b);color:var(--green)}
+
+/* ── Countdown ── */
+.clock-cell{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:1rem .5rem;text-align:center;flex:1;box-shadow:var(--shadow-sm)}
+.clock-num{font-size:32px;font-weight:700;color:var(--blue);line-height:1;font-variant-numeric:tabular-nums;letter-spacing:-.01em}
+.clock-lbl{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--text3);margin-top:5px}
+
+/* ── Grids ── */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+
+/* ── Inputs ── */
+input[type=number],input[type=text]{background:var(--surface);border:1px solid var(--border2);border-radius:6px;color:var(--text);font-family:'Inter',sans-serif;font-size:13px;padding:.45rem .7rem;width:100%;outline:none;transition:border-color .15s,box-shadow .15s}
+input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(1,118,211,.12)}
+
+/* ── Buttons ── */
+.btn{background:var(--surface);border:1px solid var(--border2);border-radius:6px;color:var(--text2);font-family:'Inter',sans-serif;font-size:12px;font-weight:600;padding:.42rem 1rem;cursor:pointer;transition:all .15s;letter-spacing:.01em}
+.btn:hover{background:var(--surface2)}
+.btng{background:var(--blue);border-color:var(--blue);color:#fff}
+.btng:hover{background:var(--blue-dark);border-color:var(--blue-dark)}
+
+/* ── Tables ── */
 table{width:100%;border-collapse:collapse;font-size:13px}
-th{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);padding:.5rem .6rem;text-align:left;border-bottom:0.5px solid var(--border)}
-td{padding:.55rem .6rem;border-bottom:0.5px solid var(--border);vertical-align:middle}
+thead tr{background:var(--surface2)}
+th{font-size:11px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--text3);padding:.65rem .8rem;text-align:left;border-top:1px solid var(--border);border-bottom:2px solid var(--border2)}
+td{padding:.6rem .8rem;border-bottom:1px solid var(--border);vertical-align:middle;color:var(--text2)}
 tr:last-child td{border-bottom:none}
-tr:hover td{background:rgba(255,255,255,0.02)}
-.tf td{border-top:0.5px solid var(--border2);color:var(--text2);font-family:'DM Mono',monospace;font-size:12px;border-bottom:none}
+tbody tr:hover td{background:var(--blue-bg)}
+.tf td{background:var(--surface2);border-top:2px solid var(--border2);color:var(--text3);font-weight:700;font-size:12px;border-bottom:none}
+
+/* ── Misc ── */
 .scr{overflow-x:auto}
 .tab{display:none}
-.divider{border:none;border-top:0.5px solid var(--border);margin:.75rem 0}
+.divider{border:none;border-top:1px solid var(--border);margin:1rem 0}
+.mono{font-family:'Courier New',Courier,monospace;font-size:12px}
 </style>
 </head>
 <body>
+
+<!-- ── Header ─────────────────────────────────────────────── -->
+<div class="header">
+  <div class="header-inner">
+    <div class="header-brand"><div class="logo"></div>Xavy · YouTube Mission Control</div>
+    <span class="header-date" id="live-date"></span>
+  </div>
+</div>
+
+<!-- ── Navigation ─────────────────────────────────────────── -->
+<div class="nav">
+  <div class="nav-inner" id="tab-nav">
+    <button class="nav-tab active" onclick="show('home',this)">Home</button>
+    <button class="nav-tab" onclick="show('scoreboard',this)">Scoreboard</button>
+    <button class="nav-tab" onclick="show('videos',this)">Videos</button>
+    <button class="nav-tab" onclick="show('growth',this)">Growth</button>
+    <button class="nav-tab" onclick="show('revenue',this)">Revenue</button>
+    <button class="nav-tab" onclick="show('trends',this)">Trends</button>
+  </div>
+</div>
+
 <div class="wrap">
 
-<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem">
-  <span class="mono" style="font-size:12px;letter-spacing:.14em;color:var(--text2);text-transform:uppercase">Xavy — YouTube Mission Control</span>
-  <span class="mono" style="font-size:11px;color:var(--text3)" id="live-date"></span>
-</div>
-
-<div style="display:flex;gap:6px;margin-bottom:1.5rem;flex-wrap:wrap" id="tab-nav">
-  <button class="pill" onclick="show('home',this)">Home</button>
-  <button class="pill" onclick="show('scoreboard',this)">Scoreboard</button>
-  <button class="pill" onclick="show('videos',this)">Videos</button>
-  <button class="pill" onclick="show('growth',this)">Growth</button>
-  <button class="pill" onclick="show('revenue',this)">Revenue</button>
-  <button class="pill" onclick="show('trends',this)">Trends</button>
-</div>
-
-<!-- HOME -->
+<!-- ══════════════════════════════════════════════════════════
+     HOME
+═══════════════════════════════════════════════════════════ -->
 <div id="home" class="tab">
-  <div style="display:flex;gap:8px;margin-bottom:.4rem">
-    <div class="clock-cell"><div class="mono" style="font-size:24px;font-weight:500" id="cd-d">--</div><div class="lbl" style="margin-top:3px">days</div></div>
-    <div class="clock-cell"><div class="mono" style="font-size:24px;font-weight:500" id="cd-h">--</div><div class="lbl" style="margin-top:3px">hrs</div></div>
-    <div class="clock-cell"><div class="mono" style="font-size:24px;font-weight:500" id="cd-m">--</div><div class="lbl" style="margin-top:3px">min</div></div>
-    <div class="clock-cell"><div class="mono" style="font-size:24px;font-weight:500" id="cd-s">--</div><div class="lbl" style="margin-top:3px">sec</div></div>
-  </div>
-  <div style="text-align:center;margin-bottom:1.25rem"><span class="lbl">until July 17, 2027 · deadline · 100 long form videos</span></div>
 
+  <!-- Countdown -->
+  <div class="card" style="margin-bottom:6px">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.9rem">
+      <div>
+        <div class="lbl" style="margin-bottom:2px">Mission Deadline</div>
+        <div style="font-size:15px;font-weight:700;color:var(--text)">100 Long Form Videos · July 17, 2027</div>
+      </div>
+      <span class="tag ta">active</span>
+    </div>
+    <div style="display:flex;gap:8px">
+      <div class="clock-cell"><div class="clock-num" id="cd-d">--</div><div class="clock-lbl">Days</div></div>
+      <div class="clock-cell"><div class="clock-num" id="cd-h">--</div><div class="clock-lbl">Hrs</div></div>
+      <div class="clock-cell"><div class="clock-num" id="cd-m">--</div><div class="clock-lbl">Min</div></div>
+      <div class="clock-cell"><div class="clock-num" id="cd-s">--</div><div class="clock-lbl">Sec</div></div>
+    </div>
+  </div>
+
+  <!-- Key metrics -->
+  <div class="g2" style="margin-bottom:14px">
+    <div class="metric-tile green">
+      <div class="m-lbl">Long Form Published</div>
+      <div class="m-num green" id="h-lf">8</div>
+      <div class="m-sub" id="h-lf-rem">92 remaining to goal of 100</div>
+      <div style="margin-top:.6rem"><div class="btrack"><div class="bar" style="background:var(--green);width:8%" id="h-lf-bar"></div></div></div>
+      <div style="margin-top:.4rem"><span class="tag tg">on track</span></div>
+    </div>
+    <div class="metric-tile blue">
+      <div class="m-lbl">Short Form Published</div>
+      <div class="m-num blue" id="h-sf">4</div>
+      <div class="m-sub">set target in scoreboard</div>
+      <div style="margin-top:.6rem"><div class="btrack"><div class="bar" style="background:var(--blue);width:4%"></div></div></div>
+      <div style="margin-top:.4rem"><span class="tag tb">target TBD</span></div>
+    </div>
+    <div class="metric-tile amber">
+      <div class="m-lbl">Subscribers</div>
+      <div class="m-num amber" id="h-subs">123</div>
+      <div class="m-sub" id="h-subs-rem">877 to gate 1 (1,000)</div>
+      <div style="margin-top:.6rem"><div class="btrack"><div class="bar" style="background:var(--amber);width:12.3%" id="h-subs-bar"></div></div></div>
+      <div style="margin-top:.4rem"><span class="tag ta">pre-monetization</span></div>
+    </div>
+    <div class="metric-tile amber">
+      <div class="m-lbl">Watch Time</div>
+      <div class="m-num amber" id="h-wt">361</div>
+      <div class="m-sub">/ 4,000 hrs · 3,639 remaining</div>
+      <div style="margin-top:.6rem"><div class="btrack"><div class="bar" style="background:var(--amber);width:9%"></div></div></div>
+      <div style="margin-top:.4rem"><span class="tag ta">pre-monetization</span></div>
+    </div>
+  </div>
+
+  <!-- Cadence + performance -->
   <div class="g2">
     <div class="card">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.5rem"><span class="lbl">Long form</span><span class="tag tg">on track</span></div>
-      <div style="display:flex;align-items:baseline;gap:6px;margin-bottom:.5rem"><span class="mono" style="font-size:28px;font-weight:500;color:var(--green)" id="h-lf">8</span><span class="mono" style="font-size:14px;color:var(--text2)">/ 100</span></div>
-      <div class="btrack"><div class="bar" style="background:var(--green);width:8%" id="h-lf-bar"></div></div>
-      <div style="margin-top:.4rem;font-size:11px;color:var(--text3);font-family:'DM Mono',monospace" id="h-lf-rem">92 remaining</div>
-    </div>
-    <div class="card">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.5rem"><span class="lbl">Short form</span><span class="tag tb">target TBD</span></div>
-      <div style="display:flex;align-items:baseline;gap:6px;margin-bottom:.5rem"><span class="mono" style="font-size:28px;font-weight:500;color:var(--blue)" id="h-sf">4</span><span class="mono" style="font-size:14px;color:var(--text2)">published</span></div>
-      <div class="btrack"><div class="bar" style="background:var(--blue);width:4%"></div></div>
-      <div style="margin-top:.4rem;font-size:11px;color:var(--text3);font-family:'DM Mono',monospace">set target in scoreboard</div>
-    </div>
-  </div>
-
-  <div class="g2">
-    <div class="card">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.5rem"><span class="lbl">Subscribers</span><span class="tag ta">pre-monetization</span></div>
-      <div style="display:flex;align-items:baseline;gap:6px;margin-bottom:.5rem"><span class="mono" style="font-size:28px;font-weight:500;color:var(--amber)" id="h-subs">123</span><span class="mono" style="font-size:14px;color:var(--text2)">/ 1,000</span></div>
-      <div class="btrack"><div class="bar" style="background:var(--amber);width:12.3%" id="h-subs-bar"></div></div>
-      <div style="margin-top:.4rem;font-size:11px;color:var(--text3);font-family:'DM Mono',monospace" id="h-subs-rem">877 to gate 1</div>
-    </div>
-    <div class="card">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.5rem"><span class="lbl">Watch time</span><span class="tag ta">pre-monetization</span></div>
-      <div style="display:flex;align-items:baseline;gap:6px;margin-bottom:.5rem"><span class="mono" style="font-size:28px;font-weight:500;color:var(--amber)" id="h-wt">361</span><span class="mono" style="font-size:14px;color:var(--text2)">/ 4,000 hrs</span></div>
-      <div class="btrack"><div class="bar" style="background:var(--amber);width:9%"></div></div>
-      <div style="margin-top:.4rem;font-size:11px;color:var(--text3);font-family:'DM Mono',monospace">3,639 hrs remaining</div>
-    </div>
-  </div>
-
-  <div class="card">
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.65rem"><span class="lbl">This month · cadence</span><span class="tag tg">on pace</span></div>
-    <div style="display:flex;gap:16px;align-items:center">
-      <div style="flex:1">
-        <div style="display:flex;justify-content:space-between;margin-bottom:.3rem"><span style="font-size:13px;color:var(--text2)">Long form</span><span class="mono" style="font-size:13px">0 / 4</span></div>
+      <div class="card-hd"><span class="lbl">This Month · Cadence</span><span class="tag tg">on pace</span></div>
+      <div style="margin-bottom:.85rem">
+        <div style="display:flex;justify-content:space-between;margin-bottom:.35rem"><span style="font-size:13px;color:var(--text2)">Long form</span><span class="mono" style="color:var(--text)">0 / 4</span></div>
         <div class="btrack"><div class="bar" style="background:var(--green);width:0%"></div></div>
       </div>
-      <div style="width:0.5px;height:28px;background:var(--border)"></div>
-      <div style="flex:1">
-        <div style="display:flex;justify-content:space-between;margin-bottom:.3rem"><span style="font-size:13px;color:var(--text2)">Short form</span><span class="mono" style="font-size:13px">0 / —</span></div>
+      <div>
+        <div style="display:flex;justify-content:space-between;margin-bottom:.35rem"><span style="font-size:13px;color:var(--text2)">Short form</span><span class="mono" style="color:var(--text)">0 / —</span></div>
         <div class="btrack"><div class="bar" style="background:var(--blue);width:0%"></div></div>
       </div>
     </div>
+    <div class="card">
+      <div class="card-hd"><span class="lbl">S1 Performance</span></div>
+      <div style="margin-bottom:.85rem">
+        <div style="display:flex;justify-content:space-between;margin-bottom:.35rem"><span style="font-size:13px;color:var(--text2)">Avg Retention</span><span style="font-size:16px;font-weight:700;color:var(--green)">35.6%</span></div>
+        <div class="btrack"><div class="bar" style="background:var(--green);width:35.6%"></div></div>
+        <div style="font-size:11px;color:var(--text3);margin-top:.25rem">avg across 8 S1 videos</div>
+      </div>
+      <div>
+        <div style="display:flex;justify-content:space-between;margin-bottom:.35rem"><span style="font-size:13px;color:var(--text2)">Avg CTR</span><span style="font-size:16px;font-weight:700;color:var(--blue)">5.56%</span></div>
+        <div class="btrack"><div class="bar" style="background:var(--blue);width:55.6%"></div></div>
+        <div style="font-size:11px;color:var(--text3);margin-top:.25rem">avg across 8 S1 videos</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Best performer -->
+  <div class="card" style="border-left:3px solid var(--green)">
+    <div class="card-hd">
+      <div>
+        <div class="lbl" style="margin-bottom:.3rem">Top Performing · Long Form · All Time</div>
+        <div style="font-size:16px;font-weight:700;color:var(--text)">Growing Up Feeling Like You Didn't Belong</div>
+        <div style="font-size:12px;color:var(--text3);margin-top:2px">Dec 16, 2025</div>
+      </div>
+      <span class="tag tg">S1 best</span>
+    </div>
+    <div class="g4" style="margin-top:.25rem">
+      <div class="inner"><div class="lbl" style="margin-bottom:4px">Views</div><div style="font-size:18px;font-weight:700;color:var(--green)">6,462</div></div>
+      <div class="inner"><div class="lbl" style="margin-bottom:4px">Engaged</div><div style="font-size:18px;font-weight:700;color:var(--text)">3,200</div></div>
+      <div class="inner"><div class="lbl" style="margin-bottom:4px">Retention</div><div style="font-size:18px;font-weight:700;color:var(--green)">35.2%</div></div>
+      <div class="inner"><div class="lbl" style="margin-bottom:4px">CTR</div><div style="font-size:18px;font-weight:700;color:var(--blue)">4.15%</div></div>
+    </div>
+  </div>
+
+  <div class="alert ag"><div class="dot dg"></div><span>Channel health <strong>good</strong> — 8 long form videos published. Keep pace: ~5–6/month to hit 100 by deadline.</span><span style="font-size:11px;color:var(--text3);margin-left:auto;white-space:nowrap" id="h-date"></span></div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════════
+     SCOREBOARD
+═══════════════════════════════════════════════════════════ -->
+<div id="scoreboard" class="tab">
+
+  <div class="g2">
+    <div class="card">
+      <div class="card-hd"><span class="lbl">Long Form Publishing</span><span class="tag tg" id="sb-lf-tag">8%</span></div>
+      <div style="display:flex;align-items:center;gap:14px">
+        <div style="flex:1">
+          <div style="display:flex;justify-content:space-between;margin-bottom:.4rem"><span style="font-size:13px;color:var(--text2)">Published</span><span class="mono" style="color:var(--text);font-weight:700" id="sb-lf-txt">8 / 100</span></div>
+          <div class="btrack"><div class="bar" style="background:var(--green);width:8%" id="sb-lf-bar"></div></div>
+          <div style="margin-top:.35rem;font-size:12px;color:var(--text3)" id="sb-lf-rem">92 to go</div>
+        </div>
+        <div style="width:85px"><div class="lbl" style="margin-bottom:5px">Count</div><input type="number" id="inp-lf" value="8" min="0" max="100" oninput="updLF(this.value)"></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-hd"><span class="lbl">Short Form Publishing</span></div>
+      <div style="display:flex;align-items:center;gap:14px">
+        <div style="flex:1">
+          <div style="display:flex;justify-content:space-between;margin-bottom:.4rem"><span style="font-size:13px;color:var(--text2)">Published</span><span class="mono" style="color:var(--text);font-weight:700" id="sb-sf-txt">4 published</span></div>
+          <div class="btrack"><div class="bar" style="background:var(--blue);width:4%" id="sb-sf-bar"></div></div>
+          <div style="margin-top:.35rem;font-size:12px;color:var(--text3)" id="sb-sf-rem">target TBD</div>
+        </div>
+        <div style="display:flex;gap:8px;width:180px">
+          <div style="flex:1"><div class="lbl" style="margin-bottom:5px">Count</div><input type="number" id="inp-sf" value="4" min="0" oninput="updSF()"></div>
+          <div style="flex:1"><div class="lbl" style="margin-bottom:5px">Target</div><input type="number" id="inp-sft" placeholder="—" min="0" oninput="updSF()"></div>
+        </div>
+      </div>
+    </div>
   </div>
 
   <div class="g2">
     <div class="card">
-      <div class="lbl" style="margin-bottom:.5rem">Avg retention · long form</div>
-      <div style="display:flex;align-items:baseline;gap:6px;margin-bottom:.5rem"><span class="mono" style="font-size:26px;font-weight:500;color:var(--green)">35.6%</span></div>
-      <div class="btrack"><div class="bar" style="background:var(--green);width:35.6%"></div></div>
-      <div style="margin-top:.4rem;font-size:11px;color:var(--text3);font-family:'DM Mono',monospace">avg across 8 S1 videos</div>
+      <div class="card-hd"><span class="lbl">Subscribers</span><span class="tag ta">Gate 1: 1K</span></div>
+      <div style="display:flex;align-items:center;gap:14px">
+        <div style="flex:1">
+          <div style="display:flex;justify-content:space-between;margin-bottom:.4rem"><span style="font-size:13px;color:var(--text2)">Progress to 1,000</span><span class="mono" style="color:var(--text);font-weight:700" id="sb-sub-txt">123 / 1,000</span></div>
+          <div class="btrack"><div class="bar" style="background:var(--amber);width:12.3%" id="sb-sub-bar"></div></div>
+          <div style="margin-top:.35rem;font-size:12px;color:var(--text3)" id="sb-sub-rem">877 to gate</div>
+        </div>
+        <div style="width:85px"><div class="lbl" style="margin-bottom:5px">Subs</div><input type="number" id="inp-subs" value="123" min="0" oninput="updSubs(this.value)"></div>
+      </div>
     </div>
     <div class="card">
-      <div class="lbl" style="margin-bottom:.5rem">Avg CTR · long form</div>
-      <div style="display:flex;align-items:baseline;gap:6px;margin-bottom:.5rem"><span class="mono" style="font-size:26px;font-weight:500;color:var(--blue)">5.56%</span></div>
-      <div class="btrack"><div class="bar" style="background:var(--blue);width:55.6%"></div></div>
-      <div style="margin-top:.4rem;font-size:11px;color:var(--text3);font-family:'DM Mono',monospace">avg across 8 S1 videos</div>
+      <div class="card-hd"><span class="lbl">Watch Time</span><span class="tag ta">Gate 1: 4K hrs</span></div>
+      <div style="display:flex;align-items:center;gap:14px">
+        <div style="flex:1">
+          <div style="display:flex;justify-content:space-between;margin-bottom:.4rem"><span style="font-size:13px;color:var(--text2)">Hours logged</span><span class="mono" style="color:var(--text);font-weight:700" id="sb-wt-txt">361 / 4,000 hrs</span></div>
+          <div class="btrack"><div class="bar" style="background:var(--amber);width:9%" id="sb-wt-bar"></div></div>
+          <div style="margin-top:.35rem;font-size:12px;color:var(--text3)" id="sb-wt-rem">3,639 hrs remaining · 9%</div>
+        </div>
+        <div style="width:85px"><div class="lbl" style="margin-bottom:5px">Hours</div><input type="number" id="inp-wt" value="361" min="0" oninput="updWT(this.value)"></div>
+      </div>
     </div>
   </div>
 
-  <div class="card" style="border-color:var(--green-b)">
-    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:.6rem">
-      <div><div class="lbl" style="margin-bottom:.3rem">Top performing · long form · all time</div><div style="font-size:15px;font-weight:500">Growing Up Feeling Like You Didn't Belong</div><div class="mono" style="font-size:12px;color:var(--text2);margin-top:2px">Dec 16, 2025</div></div>
-      <span class="tag tg">S1 best</span>
-    </div>
-    <div style="display:flex;gap:8px;flex-wrap:wrap">
-      <div class="inner"><div class="lbl">Views</div><div class="mono" style="font-size:14px;color:var(--green);margin-top:2px">6,462</div></div>
-      <div class="inner"><div class="lbl">Engaged</div><div class="mono" style="font-size:14px;margin-top:2px">3,200</div></div>
-      <div class="inner"><div class="lbl">Retention</div><div class="mono" style="font-size:14px;color:var(--green);margin-top:2px">35.2%</div></div>
-      <div class="inner"><div class="lbl">CTR</div><div class="mono" style="font-size:14px;margin-top:2px">4.15%</div></div>
-      <div class="inner"><div class="lbl">Subs</div><div class="mono" style="font-size:14px;color:var(--green);margin-top:2px">+4</div></div>
-    </div>
-  </div>
-
-  <div class="alert ag"><div class="dot dg"></div><span>Channel health <span class="mono" style="color:var(--green)">good</span> — 8 long form videos published. Keep pace: ~5–6/month to hit 100 by deadline.</span><span class="mono" style="font-size:11px;color:var(--text3);margin-left:auto" id="h-date"></span></div>
-</div>
-
-<!-- SCOREBOARD -->
-<div id="scoreboard" class="tab">
   <div class="card">
-    <div class="lbl" style="margin-bottom:.75rem">Long form publishing</div>
-    <div style="display:flex;align-items:center;gap:12px">
-      <div style="flex:1">
-        <div style="display:flex;justify-content:space-between;margin-bottom:.3rem"><span style="font-size:13px;color:var(--text2)">Published</span><span class="mono" style="font-size:13px" id="sb-lf-txt">8 / 100</span></div>
-        <div class="btrack"><div class="bar" style="background:var(--green)" id="sb-lf-bar"></div></div>
-        <div style="margin-top:.35rem;font-size:11px;color:var(--text3);font-family:'DM Mono',monospace" id="sb-lf-rem">92 to go</div>
-      </div>
-      <div style="width:90px"><div class="lbl" style="margin-bottom:4px">Count</div><input type="number" id="inp-lf" value="8" min="0" max="100" oninput="updLF(this.value)"></div>
-    </div>
-  </div>
-  <div class="card">
-    <div class="lbl" style="margin-bottom:.75rem">Short form publishing</div>
-    <div style="display:flex;align-items:center;gap:12px">
-      <div style="flex:1">
-        <div style="display:flex;justify-content:space-between;margin-bottom:.3rem"><span style="font-size:13px;color:var(--text2)">Published</span><span class="mono" style="font-size:13px" id="sb-sf-txt">4 published</span></div>
-        <div class="btrack"><div class="bar" style="background:var(--blue);width:4%" id="sb-sf-bar"></div></div>
-        <div style="margin-top:.35rem;font-size:11px;color:var(--text3);font-family:'DM Mono',monospace" id="sb-sf-rem">target TBD</div>
-      </div>
-      <div style="display:flex;gap:8px;width:200px">
-        <div style="flex:1"><div class="lbl" style="margin-bottom:4px">Count</div><input type="number" id="inp-sf" value="4" min="0" oninput="updSF()"></div>
-        <div style="flex:1"><div class="lbl" style="margin-bottom:4px">Target</div><input type="number" id="inp-sft" placeholder="—" min="0" oninput="updSF()"></div>
-      </div>
-    </div>
-  </div>
-  <div class="card">
-    <div class="lbl" style="margin-bottom:.75rem">Subscribers</div>
-    <div style="display:flex;align-items:center;gap:12px">
-      <div style="flex:1">
-        <div style="display:flex;justify-content:space-between;margin-bottom:.3rem"><span style="font-size:13px;color:var(--text2)">Progress to gate 1 (1K)</span><span class="mono" style="font-size:13px" id="sb-sub-txt">123 / 1,000</span></div>
-        <div class="btrack"><div class="bar" style="background:var(--amber);width:12.3%" id="sb-sub-bar"></div></div>
-        <div style="margin-top:.35rem;font-size:11px;color:var(--text3);font-family:'DM Mono',monospace" id="sb-sub-rem">877 to gate</div>
-      </div>
-      <div style="width:90px"><div class="lbl" style="margin-bottom:4px">Subs</div><input type="number" id="inp-subs" value="123" min="0" oninput="updSubs(this.value)"></div>
-    </div>
-  </div>
-  <div class="card">
-    <div class="lbl" style="margin-bottom:.75rem">Watch time · toward 4,000 hr AdSense threshold</div>
-    <div style="display:flex;align-items:center;gap:12px">
-      <div style="flex:1">
-        <div style="display:flex;justify-content:space-between;margin-bottom:.3rem"><span style="font-size:13px;color:var(--text2)">Hours logged</span><span class="mono" style="font-size:13px" id="sb-wt-txt">361 / 4,000 hrs</span></div>
-        <div class="btrack"><div class="bar" style="background:var(--amber);width:9%" id="sb-wt-bar"></div></div>
-        <div style="margin-top:.35rem;font-size:11px;color:var(--text3);font-family:'DM Mono',monospace" id="sb-wt-rem">3,639 hrs remaining · 9%</div>
-      </div>
-      <div style="width:90px"><div class="lbl" style="margin-bottom:4px">Hours</div><input type="number" id="inp-wt" value="361" min="0" oninput="updWT(this.value)"></div>
-    </div>
-  </div>
-  <div class="card">
-    <div class="lbl" style="margin-bottom:.75rem">Upload cadence · this month</div>
+    <div class="card-hd"><span class="lbl">Upload Cadence · This Month</span></div>
     <div class="g2">
       <div>
-        <div class="lbl" style="margin-bottom:6px;color:var(--text2)">Long form</div>
+        <div style="font-size:12px;font-weight:600;color:var(--text2);margin-bottom:8px">Long Form</div>
         <div style="display:flex;gap:8px;margin-bottom:.5rem">
-          <div style="flex:1"><div class="lbl" style="margin-bottom:3px">Published</div><input type="number" id="cad-lf-p" value="0" min="0" oninput="updCad()"></div>
-          <div style="flex:1"><div class="lbl" style="margin-bottom:3px">Target/mo</div><input type="number" id="cad-lf-t" value="4" min="1" oninput="updCad()"></div>
+          <div style="flex:1"><div class="lbl" style="margin-bottom:4px">Published</div><input type="number" id="cad-lf-p" value="0" min="0" oninput="updCad()"></div>
+          <div style="flex:1"><div class="lbl" style="margin-bottom:4px">Target/mo</div><input type="number" id="cad-lf-t" value="4" min="1" oninput="updCad()"></div>
         </div>
         <div class="btrack"><div class="bar" style="background:var(--green);width:0%" id="cad-lf-bar"></div></div>
       </div>
       <div>
-        <div class="lbl" style="margin-bottom:6px;color:var(--text2)">Short form</div>
+        <div style="font-size:12px;font-weight:600;color:var(--text2);margin-bottom:8px">Short Form</div>
         <div style="display:flex;gap:8px;margin-bottom:.5rem">
-          <div style="flex:1"><div class="lbl" style="margin-bottom:3px">Published</div><input type="number" id="cad-sf-p" value="0" min="0" oninput="updCad()"></div>
-          <div style="flex:1"><div class="lbl" style="margin-bottom:3px">Target/mo</div><input type="number" id="cad-sf-t" placeholder="—" min="0" oninput="updCad()"></div>
+          <div style="flex:1"><div class="lbl" style="margin-bottom:4px">Published</div><input type="number" id="cad-sf-p" value="0" min="0" oninput="updCad()"></div>
+          <div style="flex:1"><div class="lbl" style="margin-bottom:4px">Target/mo</div><input type="number" id="cad-sf-t" placeholder="—" min="0" oninput="updCad()"></div>
         </div>
         <div class="btrack"><div class="bar" style="background:var(--blue);width:0%" id="cad-sf-bar"></div></div>
       </div>
     </div>
   </div>
-  <div class="card">
-    <div class="lbl" style="margin-bottom:.75rem">Income milestones · reference</div>
-    <table><thead><tr><th>Milestone</th><th>Est. income</th><th>Status</th></tr></thead><tbody>
-      <tr><td>1K subs + 4K watch hrs → AdSense</td><td class="mono" style="color:var(--text2)">Gate 1</td><td><span class="tag ta">pending</span></td></tr>
-      <tr><td>~10K views/mo</td><td class="mono" style="color:var(--text2)">$20–$50/mo</td><td><span class="tag ta">pending</span></td></tr>
-      <tr><td>~50K views/mo</td><td class="mono" style="color:var(--text2)">$100–$250/mo</td><td><span class="tag tn">later</span></td></tr>
-      <tr><td>First brand deal (5K–10K subs)</td><td class="mono" style="color:var(--text2)">$200–$800</td><td><span class="tag tn">later</span></td></tr>
-      <tr><td>Consistent deals (20K+ subs)</td><td class="mono" style="color:var(--text2)">$1K–$3K/mo</td><td><span class="tag tn">later</span></td></tr>
-      <tr><td>Break-even at $2K/mo</td><td class="mono" style="color:var(--green)">The goal</td><td><span class="tag tn">later</span></td></tr>
-    </tbody></table>
-  </div>
-</div>
 
-<!-- VIDEOS -->
-<div id="videos" class="tab">
   <div class="card">
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.75rem"><span class="lbl">Season 1 · aggregate · all 12 videos</span><span class="tag tb">S1 complete</span></div>
-    <div class="g4">
-      <div class="inner" style="text-align:center"><div class="lbl">Total views</div><div class="mono" style="font-size:15px;color:var(--green);margin-top:3px">28,208</div></div>
-      <div class="inner" style="text-align:center"><div class="lbl">Watch hrs</div><div class="mono" style="font-size:15px;margin-top:3px">361</div></div>
-      <div class="inner" style="text-align:center"><div class="lbl">Subs gained</div><div class="mono" style="font-size:15px;color:var(--green);margin-top:3px">+166</div></div>
-      <div class="inner" style="text-align:center"><div class="lbl">Avg CTR</div><div class="mono" style="font-size:15px;color:var(--blue);margin-top:3px">5.71%</div></div>
-    </div>
-    <div style="margin-top:8px" class="g4">
-      <div class="inner" style="text-align:center"><div class="lbl">Avg retention</div><div class="mono" style="font-size:15px;margin-top:3px">32.5%</div></div>
-      <div class="inner" style="text-align:center"><div class="lbl">Total likes</div><div class="mono" style="font-size:15px;margin-top:3px">127</div></div>
-      <div class="inner" style="text-align:center"><div class="lbl">Total shares</div><div class="mono" style="font-size:15px;margin-top:3px">29</div></div>
-      <div class="inner" style="text-align:center"><div class="lbl">Comments</div><div class="mono" style="font-size:15px;margin-top:3px">18</div></div>
-    </div>
-  </div>
-  <div class="card">
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.75rem"><span class="lbl">Long form · S1</span><span class="tag tg">8 videos</span></div>
+    <div class="card-hd"><span class="lbl">Income Milestones · Reference</span></div>
     <div class="scr"><table>
-      <thead><tr><th>#</th><th>Title</th><th>Published</th><th>Views</th><th>Retention</th><th>CTR</th><th>Subs</th><th>Likes</th></tr></thead>
-      <tbody id="lf-tbody"></tbody>
-      <tfoot><tr class="tf"><td colspan="3">Totals / Averages</td><td id="lf-tv" class="mono"></td><td id="lf-ar" class="mono"></td><td id="lf-ac" class="mono"></td><td id="lf-ts" class="mono"></td><td id="lf-tl" class="mono"></td></tr></tfoot>
-    </table></div>
-  </div>
-  <div class="card">
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.75rem"><span class="lbl">Short form · S1</span><span class="tag tb">4 videos</span></div>
-    <div class="scr"><table>
-      <thead><tr><th>#</th><th>Title</th><th>Published</th><th>Views</th><th>Retention</th><th>CTR</th><th>Likes</th></tr></thead>
-      <tbody id="sf-tbody"></tbody>
-      <tfoot><tr class="tf"><td colspan="3">Totals / Averages</td><td id="sf-tv" class="mono"></td><td id="sf-ar" class="mono"></td><td id="sf-ac" class="mono"></td><td id="sf-tl" class="mono"></td></tr></tfoot>
-    </table></div>
-  </div>
-  <div class="card">
-    <div class="lbl" style="margin-bottom:.75rem">Retention % · long form · by video</div>
-    <div id="ret-bars"></div>
-  </div>
-</div>
-
-<!-- GROWTH -->
-<div id="growth" class="tab">
-  <div class="card">
-    <div class="lbl" style="margin-bottom:.75rem">Key growth metrics · S1 baseline</div>
-    <div class="g4">
-      <div class="inner" style="text-align:center"><div class="lbl">Sub conv. rate</div><div class="mono" style="font-size:15px;color:var(--green);margin-top:3px">0.59%</div><div style="font-size:10px;color:var(--text3);margin-top:2px">subs/views</div></div>
-      <div class="inner" style="text-align:center"><div class="lbl">Avg subs/video</div><div class="mono" style="font-size:15px;margin-top:3px">13.8</div><div style="font-size:10px;color:var(--text3);margin-top:2px">long form</div></div>
-      <div class="inner" style="text-align:center"><div class="lbl">Avg views/video</div><div class="mono" style="font-size:15px;color:var(--blue);margin-top:3px">2,535</div><div style="font-size:10px;color:var(--text3);margin-top:2px">long form</div></div>
-      <div class="inner" style="text-align:center"><div class="lbl">Impressions</div><div class="mono" style="font-size:15px;margin-top:3px">4,097</div><div style="font-size:10px;color:var(--text3);margin-top:2px">S1 total</div></div>
-    </div>
-  </div>
-  <div class="card">
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.75rem"><span class="lbl">Monthly growth log</span><button class="btn btng" onclick="showGF()">+ Add month</button></div>
-    <div class="scr"><table>
-      <thead><tr><th>Month</th><th>Subs gained</th><th>Views</th><th>Watch hrs</th><th>Revenue</th><th>Notes</th></tr></thead>
-      <tbody id="growth-body">
-        <tr><td class="mono" style="color:var(--text2)">Nov 2025</td><td class="mono" style="color:var(--green)">+89</td><td class="mono">18,395</td><td class="mono">196</td><td class="mono" style="color:var(--text3)">$0</td><td style="font-size:12px;color:var(--text2)">S1 launch · 8 videos</td></tr>
-        <tr><td class="mono" style="color:var(--text2)">Dec 2025</td><td class="mono" style="color:var(--green)">+4</td><td class="mono">11,658</td><td class="mono">165</td><td class="mono" style="color:var(--text3)">$0</td><td style="font-size:12px;color:var(--text2)">3 long form released</td></tr>
+      <thead><tr><th>Milestone</th><th>Est. Income</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td>1K subs + 4K watch hrs → AdSense</td><td class="mono">Gate 1</td><td><span class="tag ta">pending</span></td></tr>
+        <tr><td>~10K views/mo</td><td class="mono">$20–$50/mo</td><td><span class="tag ta">pending</span></td></tr>
+        <tr><td>~50K views/mo</td><td class="mono">$100–$250/mo</td><td><span class="tag tn">later</span></td></tr>
+        <tr><td>First brand deal (5K–10K subs)</td><td class="mono">$200–$800</td><td><span class="tag tn">later</span></td></tr>
+        <tr><td>Consistent deals (20K+ subs)</td><td class="mono">$1K–$3K/mo</td><td><span class="tag tn">later</span></td></tr>
+        <tr><td>Break-even at $2K/mo</td><td style="font-weight:700;color:var(--green)">The goal</td><td><span class="tag tg">target</span></td></tr>
       </tbody>
     </table></div>
   </div>
-  <div class="card" id="growth-form" style="display:none">
-    <div class="lbl" style="margin-bottom:.75rem">Add month</div>
-    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:8px">
-      <div><div class="lbl" style="margin-bottom:4px">Month</div><input type="text" id="gf-mo" placeholder="Jan 2026"></div>
-      <div><div class="lbl" style="margin-bottom:4px">Subs gained</div><input type="number" id="gf-s" placeholder="0"></div>
-      <div><div class="lbl" style="margin-bottom:4px">Views</div><input type="number" id="gf-v" placeholder="0"></div>
+
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════════
+     VIDEOS
+═══════════════════════════════════════════════════════════ -->
+<div id="videos" class="tab">
+
+  <div class="card">
+    <div class="card-hd"><span class="lbl">Season 1 · Aggregate · All 12 Videos</span><span class="tag tb">S1 complete</span></div>
+    <div class="g4" style="margin-bottom:10px">
+      <div class="inner" style="text-align:center"><div class="lbl" style="margin-bottom:5px">Total Views</div><div style="font-size:22px;font-weight:700;color:var(--green)">28,208</div></div>
+      <div class="inner" style="text-align:center"><div class="lbl" style="margin-bottom:5px">Watch Hrs</div><div style="font-size:22px;font-weight:700;color:var(--text)">361</div></div>
+      <div class="inner" style="text-align:center"><div class="lbl" style="margin-bottom:5px">Subs Gained</div><div style="font-size:22px;font-weight:700;color:var(--green)">+166</div></div>
+      <div class="inner" style="text-align:center"><div class="lbl" style="margin-bottom:5px">Avg CTR</div><div style="font-size:22px;font-weight:700;color:var(--blue)">5.71%</div></div>
     </div>
-    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:12px">
-      <div><div class="lbl" style="margin-bottom:4px">Watch hrs</div><input type="number" id="gf-w" placeholder="0"></div>
-      <div><div class="lbl" style="margin-bottom:4px">Revenue ($)</div><input type="number" id="gf-r" placeholder="0"></div>
-      <div><div class="lbl" style="margin-bottom:4px">Notes</div><input type="text" id="gf-n" placeholder="optional"></div>
+    <div class="g4">
+      <div class="inner" style="text-align:center"><div class="lbl" style="margin-bottom:5px">Avg Retention</div><div style="font-size:22px;font-weight:700;color:var(--text)">32.5%</div></div>
+      <div class="inner" style="text-align:center"><div class="lbl" style="margin-bottom:5px">Total Likes</div><div style="font-size:22px;font-weight:700;color:var(--text)">127</div></div>
+      <div class="inner" style="text-align:center"><div class="lbl" style="margin-bottom:5px">Total Shares</div><div style="font-size:22px;font-weight:700;color:var(--text)">29</div></div>
+      <div class="inner" style="text-align:center"><div class="lbl" style="margin-bottom:5px">Comments</div><div style="font-size:22px;font-weight:700;color:var(--text)">18</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-hd"><span class="lbl">Long Form · S1</span><span class="tag tg">8 videos</span></div>
+    <div class="scr"><table>
+      <thead><tr><th>#</th><th>Title</th><th>Published</th><th>Views</th><th>Retention</th><th>CTR</th><th>Subs</th><th>Likes</th></tr></thead>
+      <tbody id="lf-tbody"></tbody>
+      <tfoot><tr class="tf"><td colspan="3">Totals / Averages</td><td id="lf-tv"></td><td id="lf-ar"></td><td id="lf-ac"></td><td id="lf-ts"></td><td id="lf-tl"></td></tr></tfoot>
+    </table></div>
+  </div>
+
+  <div class="card">
+    <div class="card-hd"><span class="lbl">Short Form · S1</span><span class="tag tb">4 videos</span></div>
+    <div class="scr"><table>
+      <thead><tr><th>#</th><th>Title</th><th>Published</th><th>Views</th><th>Retention</th><th>CTR</th><th>Likes</th></tr></thead>
+      <tbody id="sf-tbody"></tbody>
+      <tfoot><tr class="tf"><td colspan="3">Totals / Averages</td><td id="sf-tv"></td><td id="sf-ar"></td><td id="sf-ac"></td><td id="sf-tl"></td></tr></tfoot>
+    </table></div>
+  </div>
+
+  <div class="card">
+    <div class="card-hd"><span class="lbl">Retention % · Long Form · By Video</span></div>
+    <div id="ret-bars"></div>
+  </div>
+
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════════
+     GROWTH
+═══════════════════════════════════════════════════════════ -->
+<div id="growth" class="tab">
+
+  <div class="card">
+    <div class="card-hd"><span class="lbl">Key Growth Metrics · S1 Baseline</span></div>
+    <div class="g4">
+      <div class="inner" style="text-align:center"><div class="lbl" style="margin-bottom:5px">Sub Conv. Rate</div><div style="font-size:22px;font-weight:700;color:var(--green)">0.59%</div><div style="font-size:11px;color:var(--text3);margin-top:3px">subs / views</div></div>
+      <div class="inner" style="text-align:center"><div class="lbl" style="margin-bottom:5px">Avg Subs / Video</div><div style="font-size:22px;font-weight:700;color:var(--text)">13.8</div><div style="font-size:11px;color:var(--text3);margin-top:3px">long form</div></div>
+      <div class="inner" style="text-align:center"><div class="lbl" style="margin-bottom:5px">Avg Views / Video</div><div style="font-size:22px;font-weight:700;color:var(--blue)">2,535</div><div style="font-size:11px;color:var(--text3);margin-top:3px">long form</div></div>
+      <div class="inner" style="text-align:center"><div class="lbl" style="margin-bottom:5px">Impressions</div><div style="font-size:22px;font-weight:700;color:var(--text)">4,097</div><div style="font-size:11px;color:var(--text3);margin-top:3px">S1 total</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-hd"><span class="lbl">Monthly Growth Log</span><button class="btn btng" onclick="showGF()">+ Add Month</button></div>
+    <div class="scr"><table>
+      <thead><tr><th>Month</th><th>Subs Gained</th><th>Views</th><th>Watch Hrs</th><th>Revenue</th><th>Notes</th></tr></thead>
+      <tbody id="growth-body">
+        <tr><td class="mono" style="color:var(--text3)">Nov 2025</td><td style="font-weight:700;color:var(--green)">+89</td><td class="mono">18,395</td><td class="mono">196</td><td class="mono" style="color:var(--text3)">$0</td><td style="font-size:12px;color:var(--text3)">S1 launch · 8 videos</td></tr>
+        <tr><td class="mono" style="color:var(--text3)">Dec 2025</td><td style="font-weight:700;color:var(--green)">+4</td><td class="mono">11,658</td><td class="mono">165</td><td class="mono" style="color:var(--text3)">$0</td><td style="font-size:12px;color:var(--text3)">3 long form released</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <div class="card" id="growth-form" style="display:none">
+    <div class="card-hd"><span class="lbl">Add Month</span></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:10px">
+      <div><div class="lbl" style="margin-bottom:5px">Month</div><input type="text" id="gf-mo" placeholder="Jan 2026"></div>
+      <div><div class="lbl" style="margin-bottom:5px">Subs Gained</div><input type="number" id="gf-s" placeholder="0"></div>
+      <div><div class="lbl" style="margin-bottom:5px">Views</div><input type="number" id="gf-v" placeholder="0"></div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:14px">
+      <div><div class="lbl" style="margin-bottom:5px">Watch Hrs</div><input type="number" id="gf-w" placeholder="0"></div>
+      <div><div class="lbl" style="margin-bottom:5px">Revenue ($)</div><input type="number" id="gf-r" placeholder="0"></div>
+      <div><div class="lbl" style="margin-bottom:5px">Notes</div><input type="text" id="gf-n" placeholder="optional"></div>
     </div>
     <div style="display:flex;gap:8px"><button class="btn btng" onclick="saveGF()">Save</button><button class="btn" onclick="hideGF()">Cancel</button></div>
   </div>
+
   <div class="card">
-    <div class="lbl" style="margin-bottom:.75rem">Subscriber conversion · long form · by video</div>
+    <div class="card-hd"><span class="lbl">Subscriber Conversion · Long Form · By Video</span></div>
     <div id="conv-bars"></div>
   </div>
+
 </div>
 
-<!-- REVENUE -->
+
+<!-- ══════════════════════════════════════════════════════════
+     REVENUE
+═══════════════════════════════════════════════════════════ -->
 <div id="revenue" class="tab">
+
   <div class="card">
-    <div class="lbl" style="margin-bottom:.75rem">Monthly income projection</div>
-    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:12px">
-      <div><div class="lbl" style="margin-bottom:4px">AdSense / RPM</div><input type="number" id="rev-a" value="0" oninput="updRev()"><div style="font-size:11px;color:var(--text3);margin-top:4px" class="mono">not yet eligible</div></div>
-      <div><div class="lbl" style="margin-bottom:4px">Brand deals / mo</div><input type="number" id="rev-b" value="0" oninput="updRev()"><div style="font-size:11px;color:var(--text3);margin-top:4px" class="mono">avg monthly</div></div>
-      <div><div class="lbl" style="margin-bottom:4px">Other income</div><input type="number" id="rev-o" value="0" oninput="updRev()"><div style="font-size:11px;color:var(--text3);margin-top:4px" class="mono">merch, consulting</div></div>
+    <div class="card-hd"><span class="lbl">Monthly Income Projection</span></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:1rem">
+      <div>
+        <div class="lbl" style="margin-bottom:5px">AdSense / RPM</div>
+        <input type="number" id="rev-a" value="0" oninput="updRev()">
+        <div style="font-size:11px;color:var(--text3);margin-top:4px">not yet eligible</div>
+      </div>
+      <div>
+        <div class="lbl" style="margin-bottom:5px">Brand Deals / Mo</div>
+        <input type="number" id="rev-b" value="0" oninput="updRev()">
+        <div style="font-size:11px;color:var(--text3);margin-top:4px">avg monthly</div>
+      </div>
+      <div>
+        <div class="lbl" style="margin-bottom:5px">Other Income</div>
+        <input type="number" id="rev-o" value="0" oninput="updRev()">
+        <div style="font-size:11px;color:var(--text3);margin-top:4px">merch, consulting</div>
+      </div>
     </div>
     <div class="divider"></div>
-    <div style="display:flex;justify-content:space-between;align-items:center"><span style="font-size:14px;color:var(--text2)">Monthly total</span><span class="mono" style="font-size:22px;font-weight:500;color:var(--green)" id="rev-total">$0</span></div>
+    <div style="display:flex;justify-content:space-between;align-items:center">
+      <span style="font-size:14px;font-weight:600;color:var(--text2)">Monthly Total</span>
+      <span style="font-size:28px;font-weight:700;color:var(--green)" id="rev-total">$0</span>
+    </div>
   </div>
+
   <div class="card">
-    <div class="lbl" style="margin-bottom:.75rem">Break-even calculator</div>
-    <div class="g2" style="margin-bottom:12px">
-      <div><div class="lbl" style="margin-bottom:4px">Monthly expenses ($)</div><input type="number" id="be-exp" value="2000" oninput="updBE()"></div>
-      <div><div class="lbl" style="margin-bottom:4px">RPM estimate ($)</div><input type="number" id="be-rpm" value="3" step="0.5" oninput="updBE()"><div style="font-size:11px;color:var(--text3);margin-top:4px" class="mono">typical early: $2–$5</div></div>
+    <div class="card-hd"><span class="lbl">Break-Even Calculator</span></div>
+    <div class="g2" style="margin-bottom:1rem">
+      <div>
+        <div class="lbl" style="margin-bottom:5px">Monthly Expenses ($)</div>
+        <input type="number" id="be-exp" value="2000" oninput="updBE()">
+      </div>
+      <div>
+        <div class="lbl" style="margin-bottom:5px">RPM Estimate ($)</div>
+        <input type="number" id="be-rpm" value="3" step="0.5" oninput="updBE()">
+        <div style="font-size:11px;color:var(--text3);margin-top:4px">typical early: $2–$5</div>
+      </div>
     </div>
     <div class="divider"></div>
-    <div class="g2" style="margin-bottom:10px">
-      <div class="inner"><div class="lbl" style="margin-bottom:4px">Views needed/mo</div><div class="mono" style="font-size:18px;color:var(--amber);margin-top:4px" id="be-views">666,667</div><div style="font-size:11px;color:var(--text3);margin-top:3px">at current RPM</div></div>
-      <div class="inner"><div class="lbl" style="margin-bottom:4px">Brand deals needed</div><div class="mono" style="font-size:18px;color:var(--amber);margin-top:4px" id="be-deals">3–10</div><div style="font-size:11px;color:var(--text3);margin-top:3px">at $200–$800 each</div></div>
+    <div class="g2" style="margin-bottom:12px">
+      <div class="inner">
+        <div class="lbl" style="margin-bottom:5px">Views Needed / Mo</div>
+        <div style="font-size:22px;font-weight:700;color:var(--amber)" id="be-views">666,667</div>
+        <div style="font-size:11px;color:var(--text3);margin-top:3px">at current RPM</div>
+      </div>
+      <div class="inner">
+        <div class="lbl" style="margin-bottom:5px">Brand Deals Needed</div>
+        <div style="font-size:22px;font-weight:700;color:var(--amber)" id="be-deals">3–10</div>
+        <div style="font-size:11px;color:var(--text3);margin-top:3px">at $200–$800 each</div>
+      </div>
     </div>
     <div class="alert aa" id="be-alert"><div class="dot da"></div><span id="be-txt">At $0/mo · $2,000 gap to break-even.</span></div>
   </div>
+
   <div class="card">
-    <div class="lbl" style="margin-bottom:.75rem">Income milestones · reference</div>
-    <table><thead><tr><th>Milestone</th><th>Est. income</th></tr></thead><tbody>
-      <tr><td>1K subs + 4K watch hrs → AdSense</td><td class="mono" style="color:var(--text2)">Gate 1</td></tr>
-      <tr><td>~10K views/mo</td><td class="mono" style="color:var(--text2)">$20–$50/mo</td></tr>
-      <tr><td>~50K views/mo</td><td class="mono" style="color:var(--text2)">$100–$250/mo</td></tr>
-      <tr><td>First brand deal (5K–10K subs)</td><td class="mono" style="color:var(--text2)">$200–$800</td></tr>
-      <tr><td>Consistent deals (20K+ subs)</td><td class="mono" style="color:var(--text2)">$1K–$3K/mo</td></tr>
-      <tr><td>Break-even at $2K/mo</td><td class="mono" style="color:var(--green)">The goal</td></tr>
-    </tbody></table>
+    <div class="card-hd"><span class="lbl">Income Milestones · Reference</span></div>
+    <div class="scr"><table>
+      <thead><tr><th>Milestone</th><th>Est. Income</th></tr></thead>
+      <tbody>
+        <tr><td>1K subs + 4K watch hrs → AdSense</td><td class="mono">Gate 1</td></tr>
+        <tr><td>~10K views/mo</td><td class="mono">$20–$50/mo</td></tr>
+        <tr><td>~50K views/mo</td><td class="mono">$100–$250/mo</td></tr>
+        <tr><td>First brand deal (5K–10K subs)</td><td class="mono">$200–$800</td></tr>
+        <tr><td>Consistent deals (20K+ subs)</td><td class="mono">$1K–$3K/mo</td></tr>
+        <tr><td>Break-even at $2K/mo</td><td style="font-weight:700;color:var(--green)">The goal</td></tr>
+      </tbody>
+    </table></div>
   </div>
+
 </div>
 
-<!-- TRENDS -->
+
+<!-- ══════════════════════════════════════════════════════════
+     TRENDS
+═══════════════════════════════════════════════════════════ -->
 <div id="trends" class="tab">
+
   <div class="card">
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.4rem"><span class="lbl">Views per video · chronological</span><span class="tag tg">long form only</span></div>
-    <div style="font-size:12px;color:var(--text3);font-family:'DM Mono',monospace;margin-bottom:.75rem">trailer excluded · V1 = first content video</div>
+    <div class="card-hd"><span class="lbl">Views Per Video · Chronological</span><span class="tag tg">long form only</span></div>
+    <div style="font-size:12px;color:var(--text3);margin-bottom:.85rem">trailer excluded · V1 = first content video</div>
     <canvas id="ch-views" width="700" height="180" style="width:100%;height:180px"></canvas>
   </div>
+
   <div class="card">
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.4rem"><span class="lbl">Retention % · chronological</span><span class="tag tb">quality signal</span></div>
-    <div style="font-size:12px;color:var(--text3);font-family:'DM Mono',monospace;margin-bottom:.75rem">is your storytelling getting stronger?</div>
+    <div class="card-hd"><span class="lbl">Retention % · Chronological</span><span class="tag tb">quality signal</span></div>
+    <div style="font-size:12px;color:var(--text3);margin-bottom:.85rem">is your storytelling getting stronger?</div>
     <canvas id="ch-ret" width="700" height="180" style="width:100%;height:180px"></canvas>
   </div>
+
   <div class="card">
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.4rem"><span class="lbl">CTR % · chronological</span><span class="tag ta">packaging signal</span></div>
-    <div style="font-size:12px;color:var(--text3);font-family:'DM Mono',monospace;margin-bottom:.75rem">are your titles + thumbnails getting stronger?</div>
+    <div class="card-hd"><span class="lbl">CTR % · Chronological</span><span class="tag ta">packaging signal</span></div>
+    <div style="font-size:12px;color:var(--text3);margin-bottom:.85rem">are your titles + thumbnails getting stronger?</div>
     <canvas id="ch-ctr" width="700" height="180" style="width:100%;height:180px"></canvas>
   </div>
+
   <div class="card">
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.4rem"><span class="lbl">Subscribers gained · per video</span><span class="tag tg">audience signal</span></div>
-    <div style="font-size:12px;color:var(--text3);font-family:'DM Mono',monospace;margin-bottom:.75rem">which videos are building your audience?</div>
+    <div class="card-hd"><span class="lbl">Subscribers Gained · Per Video</span><span class="tag tg">audience signal</span></div>
+    <div style="font-size:12px;color:var(--text3);margin-bottom:.85rem">which videos are building your audience?</div>
     <canvas id="ch-subs" width="700" height="160" style="width:100%;height:160px"></canvas>
   </div>
+
   <div class="card">
-    <div class="lbl" style="margin-bottom:.75rem">S1 trend summary · long form</div>
+    <div class="card-hd"><span class="lbl">S1 Trend Summary · Long Form</span></div>
     <div class="g2">
-      <div class="inner"><div class="lbl" style="margin-bottom:4px">Retention trend</div><div class="mono" style="font-size:14px;color:var(--green);margin-top:3px">↑ Improving</div><div style="font-size:11px;color:var(--text3);margin-top:3px">24.8% → 35–41% range</div></div>
-      <div class="inner"><div class="lbl" style="margin-bottom:4px">CTR trend</div><div class="mono" style="font-size:14px;color:var(--amber);margin-top:3px">↓ Mixed</div><div style="font-size:11px;color:var(--text3);margin-top:3px">9.16% spike → ~4% range</div></div>
-      <div class="inner"><div class="lbl" style="margin-bottom:4px">Views trend</div><div class="mono" style="font-size:14px;color:var(--green);margin-top:3px">↑ Strong finish</div><div style="font-size:11px;color:var(--text3);margin-top:3px">Last 2: 5K + 6.4K views</div></div>
-      <div class="inner"><div class="lbl" style="margin-bottom:4px">Best sub converter</div><div class="mono" style="font-size:14px;color:var(--green);margin-top:3px">V1 + V7</div><div style="font-size:11px;color:var(--text3);margin-top:3px">+4 subs · identity themes</div></div>
+      <div class="inner"><div class="lbl" style="margin-bottom:5px">Retention Trend</div><div style="font-size:16px;font-weight:700;color:var(--green)">↑ Improving</div><div style="font-size:11px;color:var(--text3);margin-top:3px">24.8% → 35–41% range</div></div>
+      <div class="inner"><div class="lbl" style="margin-bottom:5px">CTR Trend</div><div style="font-size:16px;font-weight:700;color:var(--amber)">↓ Mixed</div><div style="font-size:11px;color:var(--text3);margin-top:3px">9.16% spike → ~4% range</div></div>
+      <div class="inner"><div class="lbl" style="margin-bottom:5px">Views Trend</div><div style="font-size:16px;font-weight:700;color:var(--green)">↑ Strong Finish</div><div style="font-size:11px;color:var(--text3);margin-top:3px">Last 2: 5K + 6.4K views</div></div>
+      <div class="inner"><div class="lbl" style="margin-bottom:5px">Best Sub Converter</div><div style="font-size:16px;font-weight:700;color:var(--blue)">V1 + V7</div><div style="font-size:11px;color:var(--text3);margin-top:3px">+4 subs · identity themes</div></div>
     </div>
   </div>
+
 </div>
 
 </div><!-- end wrap -->
@@ -415,50 +602,28 @@ const SF=[
   {t:"Self respect won't kiss me at midnight",d:"Dec 28, 2025",views:1691,ret:138.92,ctr:1.89,likes:7},
   {t:"I AM NOT an alcoholic BUT...",d:"Nov 12, 2025",views:1912,ret:112.06,ctr:3.29,likes:28},
 ];
-// Trends: chronological, no trailer
 const TR=[LF[0],LF[1],LF[2],LF[3],LF[4],LF[5],LF[6]];
 
-// TABS — simple direct show/hide
+// TABS
 const TABS=['home','scoreboard','videos','growth','revenue','trends'];
-let activeTab='home';
 
-function show(id, btn){
+function show(id,btn){
   TABS.forEach(t=>document.getElementById(t).style.display='none');
   document.getElementById(id).style.display='block';
-  document.querySelectorAll('#tab-nav .pill').forEach(p=>{
-    p.style.background='transparent';
-    p.style.color='#888885';
-    p.style.fontWeight='400';
-    p.style.borderColor='rgba(255,255,255,0.07)';
-  });
-  btn.style.background='#1e1e21';
-  btn.style.color='#f0efe8';
-  btn.style.fontWeight='500';
-  btn.style.borderColor='rgba(255,255,255,0.13)';
-  activeTab=id;
+  document.querySelectorAll('#tab-nav .nav-tab').forEach(p=>p.classList.remove('active'));
+  btn.classList.add('active');
   if(id==='trends') drawCharts();
 }
 
 // INIT
 window.onload=function(){
-  // Hide all tabs
   TABS.forEach(t=>document.getElementById(t).style.display='none');
-  // Show home
   document.getElementById('home').style.display='block';
-  // Style home button
-  const homeBtn=document.querySelector('#tab-nav .pill');
-  homeBtn.style.background='#1e1e21';
-  homeBtn.style.color='#f0efe8';
-  homeBtn.style.fontWeight='500';
-  homeBtn.style.borderColor='rgba(255,255,255,0.13)';
-  // Set date
   document.getElementById('live-date').textContent=new Date().toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric',year:'numeric'});
   document.getElementById('h-date').textContent=new Date().toLocaleDateString('en-US',{month:'short',year:'numeric'});
-  // Build tables
   buildTables();
   buildBars();
   updBE();
-  // Countdown
   tick();setInterval(tick,1000);
 };
 
@@ -475,7 +640,16 @@ function buildTables(){
   let tv=0,tr=0,tc=0,ts=0,tl=0;
   LF.forEach((v,i)=>{
     tv+=v.views;tr+=v.ret;tc+=v.ctr;ts+=v.subs;tl+=v.likes;
-    lb.innerHTML+=`<tr><td class="mono" style="color:var(--text3)">${i+1}</td><td style="font-size:12px">${v.t}</td><td class="mono" style="color:var(--text3);white-space:nowrap">${v.d}</td><td class="mono" style="color:var(--green)">${fmt(v.views)}</td><td class="mono">${v.ret.toFixed(1)}%</td><td class="mono" style="color:var(--blue)">${v.ctr.toFixed(2)}%</td><td class="mono" style="color:${v.subs>0?'var(--green)':'var(--text3)'}">+${v.subs}</td><td class="mono">${v.likes}</td></tr>`;
+    lb.innerHTML+=`<tr>
+      <td style="color:var(--text3);font-weight:600">${i+1}</td>
+      <td style="font-weight:500;color:var(--text)">${v.t}</td>
+      <td class="mono" style="color:var(--text3);white-space:nowrap">${v.d}</td>
+      <td style="font-weight:700;color:var(--green)">${fmt(v.views)}</td>
+      <td class="mono">${v.ret.toFixed(1)}%</td>
+      <td style="font-weight:600;color:var(--blue)">${v.ctr.toFixed(2)}%</td>
+      <td style="font-weight:700;color:${v.subs>0?'var(--green)':'var(--text3)'}">+${v.subs}</td>
+      <td class="mono">${v.likes}</td>
+    </tr>`;
   });
   document.getElementById('lf-tv').textContent=fmt(tv);
   document.getElementById('lf-ar').textContent=(tr/LF.length).toFixed(1)+'%';
@@ -487,7 +661,15 @@ function buildTables(){
   let sv=0,sr=0,sc=0,sl=0;
   SF.forEach((v,i)=>{
     sv+=v.views;sr+=v.ret;sc+=v.ctr;sl+=v.likes;
-    sb.innerHTML+=`<tr><td class="mono" style="color:var(--text3)">${i+1}</td><td style="font-size:12px">${v.t}</td><td class="mono" style="color:var(--text3);white-space:nowrap">${v.d}</td><td class="mono" style="color:var(--blue)">${fmt(v.views)}</td><td class="mono">${v.ret.toFixed(1)}%</td><td class="mono" style="color:var(--blue)">${v.ctr.toFixed(2)}%</td><td class="mono">${v.likes}</td></tr>`;
+    sb.innerHTML+=`<tr>
+      <td style="color:var(--text3);font-weight:600">${i+1}</td>
+      <td style="font-weight:500;color:var(--text)">${v.t}</td>
+      <td class="mono" style="color:var(--text3);white-space:nowrap">${v.d}</td>
+      <td style="font-weight:700;color:var(--blue)">${fmt(v.views)}</td>
+      <td class="mono">${v.ret.toFixed(1)}%</td>
+      <td style="font-weight:600;color:var(--blue)">${v.ctr.toFixed(2)}%</td>
+      <td class="mono">${v.likes}</td>
+    </tr>`;
   });
   document.getElementById('sf-tv').textContent=fmt(sv);
   document.getElementById('sf-ar').textContent=(sr/SF.length).toFixed(1)+'%';
@@ -500,13 +682,25 @@ function buildBars(){
   const mx=Math.max(...LF.map(v=>v.ret));
   LF.forEach(v=>{
     const p=Math.round((v.ret/mx)*100);
-    rc.innerHTML+=`<div style="display:flex;align-items:center;gap:10px;margin-bottom:6px"><div style="font-size:11px;color:var(--text2);width:180px;flex-shrink:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${v.t}</div><div style="flex:1;display:flex;align-items:center;gap:8px"><div class="btrack" style="flex:1"><div class="bar" style="background:var(--green);width:${p}%"></div></div><span class="mono" style="font-size:12px;width:36px;text-align:right;color:var(--green)">${v.ret.toFixed(1)}%</span></div></div>`;
+    rc.innerHTML+=`<div style="display:flex;align-items:center;gap:12px;margin-bottom:8px">
+      <div style="font-size:12px;color:var(--text2);width:200px;flex-shrink:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:500">${v.t}</div>
+      <div style="flex:1;display:flex;align-items:center;gap:10px">
+        <div class="btrack" style="flex:1"><div class="bar" style="background:var(--green);width:${p}%"></div></div>
+        <span style="font-size:12px;font-weight:700;width:38px;text-align:right;color:var(--green)">${v.ret.toFixed(1)}%</span>
+      </div>
+    </div>`;
   });
   const cc=document.getElementById('conv-bars');
   const ms=Math.max(...LF.map(v=>v.subs),1);
   LF.forEach(v=>{
     const p=Math.round((v.subs/ms)*100);
-    cc.innerHTML+=`<div style="display:flex;align-items:center;gap:10px;margin-bottom:6px"><div style="font-size:11px;color:var(--text2);width:180px;flex-shrink:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${v.t}</div><div style="flex:1;display:flex;align-items:center;gap:8px"><div class="btrack" style="flex:1"><div class="bar" style="background:var(--green);width:${p}%"></div></div><span class="mono" style="font-size:12px;width:36px;text-align:right;color:var(--green)">+${v.subs}</span></div></div>`;
+    cc.innerHTML+=`<div style="display:flex;align-items:center;gap:12px;margin-bottom:8px">
+      <div style="font-size:12px;color:var(--text2);width:200px;flex-shrink:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:500">${v.t}</div>
+      <div style="flex:1;display:flex;align-items:center;gap:10px">
+        <div class="btrack" style="flex:1"><div class="bar" style="background:var(--green);width:${p}%"></div></div>
+        <span style="font-size:12px;font-weight:700;width:38px;text-align:right;color:var(--green)">+${v.subs}</span>
+      </div>
+    </div>`;
   });
 }
 
@@ -517,9 +711,10 @@ function updLF(v){
   document.getElementById('sb-lf-bar').style.width=p;
   document.getElementById('sb-lf-txt').textContent=v+' / 100';
   document.getElementById('sb-lf-rem').textContent=(100-v)+' to go';
+  document.getElementById('sb-lf-tag').textContent=v+'%';
   document.getElementById('h-lf').textContent=v;
   document.getElementById('h-lf-bar').style.width=p;
-  document.getElementById('h-lf-rem').textContent=(100-v)+' remaining';
+  document.getElementById('h-lf-rem').textContent=(100-v)+' remaining to goal of 100';
 }
 function updSF(){
   const v=Math.max(0,+document.getElementById('inp-sf').value||0);
@@ -540,7 +735,7 @@ function updSubs(v){
   document.getElementById('sb-sub-rem').textContent=fmt(gate-v)+' to gate';
   document.getElementById('h-subs').textContent=fmt(v);
   document.getElementById('h-subs-bar').style.width=p+'%';
-  document.getElementById('h-subs-rem').textContent=fmt(gate-v)+' to gate 1';
+  document.getElementById('h-subs-rem').textContent=fmt(gate-v)+' to gate 1 (1,000)';
 }
 function updWT(v){
   v=Math.max(0,+v);
@@ -570,7 +765,7 @@ function updBE(){
   const gap=Math.max(0,exp-cur);
   document.getElementById('be-views').textContent=rpm>0?fmt(Math.ceil(gap/rpm*1000)):'—';
   document.getElementById('be-deals').textContent=Math.ceil(gap/800)+'-'+Math.ceil(gap/200);
-  document.getElementById('be-txt').textContent=gap<=0?'Break-even reached!':'At $'+fmt(cur)+'/mo · $'+fmt(gap)+' gap to break-even.';
+  document.getElementById('be-txt').textContent=gap<=0?'Break-even reached! 🎉':'At $'+fmt(cur)+'/mo · $'+fmt(gap)+' gap to break-even.';
   const al=document.getElementById('be-alert');
   al.className='alert '+(gap<=0?'ag':'aa');
   al.querySelector('.dot').className='dot '+(gap<=0?'dg':'da');
@@ -586,38 +781,44 @@ function saveGF(){
   const w=document.getElementById('gf-w').value||'0';
   const r=document.getElementById('gf-r').value||'0';
   const n=document.getElementById('gf-n').value||'';
-  document.getElementById('growth-body').innerHTML+=`<tr><td class="mono" style="color:var(--text2)">${m}</td><td class="mono" style="color:var(--green)">+${fmt(s)}</td><td class="mono">${fmt(v)}</td><td class="mono">${fmt(w)}</td><td class="mono" style="color:${+r>0?'var(--green)':'var(--text3)'}">$${fmt(r)}</td><td style="font-size:12px;color:var(--text2)">${n}</td></tr>`;
+  document.getElementById('growth-body').innerHTML+=`<tr>
+    <td class="mono" style="color:var(--text3)">${m}</td>
+    <td style="font-weight:700;color:var(--green)">+${fmt(s)}</td>
+    <td class="mono">${fmt(v)}</td>
+    <td class="mono">${fmt(w)}</td>
+    <td class="mono" style="color:${+r>0?'var(--green)':'var(--text3)'}">$${fmt(r)}</td>
+    <td style="font-size:12px;color:var(--text3)">${n}</td>
+  </tr>`;
   hideGF();
   ['gf-mo','gf-s','gf-v','gf-w','gf-r','gf-n'].forEach(id=>document.getElementById(id).value='');
 }
 
-// CANVAS CHARTS
+// CHARTS — light theme
 let chartsDrawn=false;
 function drawCharts(){
   if(chartsDrawn)return;
   chartsDrawn=true;
-  drawBar('ch-views',TR.map(v=>v.views),'#3ecf8e','rgba(62,207,142,0.2)',v=>v>=1000?(v/1000).toFixed(1)+'K':v,v=>v>500);
-  drawLine('ch-ret',TR.map(v=>v.ret),'#4c9eff','rgba(76,158,255,0.08)',v=>v.toFixed(1)+'%');
-  drawLine('ch-ctr',TR.map(v=>v.ctr),'#f0a040','rgba(240,160,64,0.08)',v=>v.toFixed(1)+'%');
-  drawBar('ch-subs',TR.map(v=>v.subs),'#3ecf8e','rgba(85,85,82,0.3)',v=>'+'+v,v=>v>0);
+  drawBar('ch-views',TR.map(v=>v.views),'#0176D3','rgba(1,118,211,0.15)',v=>v>=1000?(v/1000).toFixed(1)+'K':v,v=>v>500);
+  drawLine('ch-ret',TR.map(v=>v.ret),'#2E844A','rgba(46,132,74,0.08)',v=>v.toFixed(1)+'%');
+  drawLine('ch-ctr',TR.map(v=>v.ctr),'#C47B07','rgba(196,123,7,0.08)',v=>v.toFixed(1)+'%');
+  drawBar('ch-subs',TR.map(v=>v.subs),'#2E844A','rgba(221,219,218,0.8)',v=>'+'+v,v=>v>0);
 }
 function drawBar(id,vals,hiCol,loCol,lFn,hiFn){
   const c=document.getElementById(id);
   const W=700,H=c.height;
   c.width=W;
   const ctx=c.getContext('2d');
-  const n=vals.length,pL=44,pR=12,pT=16,pB=32;
+  const n=vals.length,pL=46,pR=12,pT=16,pB=32;
   const cW=W-pL-pR,cH=H-pT-pB;
   const mx=Math.max(...vals)*1.2||1;
   const bW=Math.floor(cW/n*0.5);
   ctx.clearRect(0,0,W,H);
-  // grid
   for(let i=0;i<=4;i++){
     const y=pT+cH-cH/4*i;
-    ctx.strokeStyle='rgba(255,255,255,0.05)';ctx.lineWidth=1;
+    ctx.strokeStyle='rgba(0,0,0,0.07)';ctx.lineWidth=1;
     ctx.beginPath();ctx.moveTo(pL,y);ctx.lineTo(W-pR,y);ctx.stroke();
-    ctx.fillStyle='#555552';ctx.font='9px monospace';ctx.textAlign='right';
-    ctx.fillText(lFn(mx/4*i),pL-4,y+3);
+    ctx.fillStyle='#706E6B';ctx.font='9px Inter,sans-serif';ctx.textAlign='right';
+    ctx.fillText(lFn(mx/4*i),pL-5,y+3);
   }
   vals.forEach((v,i)=>{
     const x=pL+(cW/n)*i+(cW/n-bW)/2;
@@ -625,9 +826,9 @@ function drawBar(id,vals,hiCol,loCol,lFn,hiFn){
     const y=pT+cH-bh;
     ctx.fillStyle=hiFn&&hiFn(v)?hiCol:loCol;
     ctx.beginPath();ctx.roundRect(x,y,bW,bh,3);ctx.fill();
-    ctx.fillStyle='#888885';ctx.font='10px monospace';ctx.textAlign='center';
-    ctx.fillText('V'+(i+1),x+bW/2,H-4);
-    if(bh>14){ctx.fillStyle='#f0efe8';ctx.fillText(lFn(v),x+bW/2,y+11);}
+    ctx.fillStyle='#706E6B';ctx.font='10px Inter,sans-serif';ctx.textAlign='center';
+    ctx.fillText('V'+(i+1),x+bW/2,H-5);
+    if(bh>16){ctx.fillStyle='#fff';ctx.font='bold 10px Inter,sans-serif';ctx.fillText(lFn(v),x+bW/2,y+11);}
   });
 }
 function drawLine(id,vals,col,fill,lFn){
@@ -635,36 +836,35 @@ function drawLine(id,vals,col,fill,lFn){
   const W=700,H=c.height;
   c.width=W;
   const ctx=c.getContext('2d');
-  const n=vals.length,pL=44,pR=12,pT=16,pB=32;
+  const n=vals.length,pL=46,pR=12,pT=16,pB=32;
   const cW=W-pL-pR,cH=H-pT-pB;
   const mn=Math.max(0,Math.min(...vals)*0.8),mx=Math.max(...vals)*1.2||1;
   const rng=mx-mn||1;
   const xOf=i=>pL+i*(cW/(n-1));
   const yOf=v=>pT+cH-((v-mn)/rng)*cH;
   ctx.clearRect(0,0,W,H);
-  // grid
   for(let i=0;i<=4;i++){
     const val=mn+(rng/4*i),y=yOf(val);
-    ctx.strokeStyle='rgba(255,255,255,0.05)';ctx.lineWidth=1;
+    ctx.strokeStyle='rgba(0,0,0,0.07)';ctx.lineWidth=1;
     ctx.beginPath();ctx.moveTo(pL,y);ctx.lineTo(W-pR,y);ctx.stroke();
-    ctx.fillStyle='#555552';ctx.font='9px monospace';ctx.textAlign='right';
-    ctx.fillText(lFn(val),pL-4,y+3);
+    ctx.fillStyle='#706E6B';ctx.font='9px Inter,sans-serif';ctx.textAlign='right';
+    ctx.fillText(lFn(val),pL-5,y+3);
   }
-  // fill
   ctx.beginPath();ctx.moveTo(xOf(0),yOf(vals[0]));
   vals.forEach((v,i)=>{if(i>0)ctx.lineTo(xOf(i),yOf(v));});
   ctx.lineTo(xOf(n-1),pT+cH);ctx.lineTo(xOf(0),pT+cH);ctx.closePath();
   ctx.fillStyle=fill;ctx.fill();
-  // line
-  ctx.beginPath();ctx.strokeStyle=col;ctx.lineWidth=2;ctx.lineJoin='round';
+  ctx.beginPath();ctx.strokeStyle=col;ctx.lineWidth=2.5;ctx.lineJoin='round';
   vals.forEach((v,i)=>i===0?ctx.moveTo(xOf(i),yOf(v)):ctx.lineTo(xOf(i),yOf(v)));
   ctx.stroke();
-  // dots + labels
   vals.forEach((v,i)=>{
-    ctx.beginPath();ctx.arc(xOf(i),yOf(v),4,0,Math.PI*2);ctx.fillStyle=col;ctx.fill();
-    ctx.fillStyle='#f0efe8';ctx.font='10px monospace';ctx.textAlign='center';
-    ctx.fillText(lFn(v),xOf(i),yOf(v)-8);
-    ctx.fillStyle='#888885';ctx.fillText('V'+(i+1),xOf(i),H-4);
+    ctx.beginPath();ctx.arc(xOf(i),yOf(v),5,0,Math.PI*2);
+    ctx.fillStyle='#fff';ctx.fill();
+    ctx.strokeStyle=col;ctx.lineWidth=2;ctx.stroke();
+    ctx.fillStyle='#181818';ctx.font='bold 10px Inter,sans-serif';ctx.textAlign='center';
+    ctx.fillText(lFn(v),xOf(i),yOf(v)-10);
+    ctx.fillStyle='#706E6B';ctx.font='10px Inter,sans-serif';
+    ctx.fillText('V'+(i+1),xOf(i),H-5);
   });
 }
 </script>
