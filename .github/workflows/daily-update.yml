@@ -12,7 +12,7 @@ jobs:
         with:
           python-version: '3.11'
           cache: 'pip'
-      - run: pip install google-api-python-client google-auth-oauthlib google-auth-httplib2
+      - run: pip install google-api-python-client google-auth-oauthlib google-auth-httplib2 requests notion-client PyGithub
       - name: Write credentials
         env:
           CREDENTIALS_JSON: ${{ secrets.GOOGLE_CREDENTIALS_JSON }}
@@ -20,7 +20,11 @@ jobs:
         run: |
           echo "$CREDENTIALS_JSON" > credentials.json
           echo "$TOKEN_JSON" > token.json
-      - run: python update_dashboard.py
+      - name: Run updater
+        env:
+          NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
+          GH_TOKEN: ${{ secrets.GH_PAT }}
+        run: python update_dashboard.py
       - name: Push changes
         run: |
           git config user.name "github-actions[bot]"
