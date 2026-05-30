@@ -343,7 +343,7 @@ def patch_lf_titles(html, titles):
 # ── Git push ──────────────────────────────────────────────────────────────────
 
 
-def git_push(message):
+def # git_push(message):
     remote = f'https://{GH_TOKEN}@github.com/xavycarc-jpg/xvc-dashboard.git'
     subprocess.run(['git', 'remote', 'set-url', 'origin', remote],
                    cwd=DASHBOARD_DIR, check=True, capture_output=True)
@@ -452,7 +452,7 @@ def main():
         f'Auto-update {date.today()} — '
         f'views:{total_views:,} subs:{ch["subs"]:,} wt:{watch_hours:.0f}h'
     )
-    result = git_push(commit_msg)
+    result = # git_push(commit_msg)
     print(f'  {result}')
 
     print(f'\n✓  Done. Live at https://xavycarc-jpg.github.io/xvc-dashboard/')
