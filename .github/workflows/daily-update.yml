@@ -24,6 +24,7 @@ jobs:
         env:
           NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
           GH_TOKEN: ${{ secrets.GH_PAT }}
+          GITHUB_PAT: ${{ secrets.GH_PAT }}
         run: python update_dashboard.py
       - name: Push changes
         run: |
