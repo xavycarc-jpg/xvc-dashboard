@@ -1,5 +1,3 @@
-import os
-import os
 """
 update_dashboard.py
 Pull live YouTube + Notion data, patch index.html, push to GitHub.
@@ -216,6 +214,265 @@ def get_s1_video_ids():
         cursor   = data.get('next_cursor')
     return ids
 
+
+
+NOTION_PIPELINE_DB_ID = '546900d5-7dbf-4c20-83d1-4953d151dde1'
+
+
+def prop_val(prop):
+    """Extract plain text from any Notion property type."""
+    if not prop:
+        return ''
+    t = prop.get('type', '')
+    if t == 'title':
+        return ''.join(r['plain_text'] for r in prop.get('title', []))
+    if t == 'rich_text':
+        return ''.join(r['plain_text'] for r in prop.get('rich_text', []))
+    if t == 'select':
+        s = prop.get('select')
+        return s['name'] if s else ''
+    if t == 'multi_select':
+        return ', '.join(o['name'] for o in prop.get('multi_select', []))
+    if t == 'date':
+        d = prop.get('date')
+        return d['start'] if d else ''
+    if t == 'url':
+        return prop.get('url') or ''
+    if t == 'number':
+        n = prop.get('number')
+        return str(n) if n is not None else ''
+    if t == 'formula':
+        f = prop.get('formula', {})
+        ft = f.get('type', '')
+        if ft == 'string':
+            return f.get('string') or ''
+        if ft == 'number':
+            n = f.get('number')
+            return str(n) if n is not None else ''
+    if t == 'rollup':
+        r = prop.get('rollup', {})
+        if r.get('type') == 'number':
+            n = r.get('number')
+            return str(n) if n is not None else ''
+    return ''
+
+
+def status_cls(status):
+    published  = {'Published', 'Ready to Publish', 'Scheduled Post'}
+    in_progress = {
+        'Top Projects Chosen', 'Research + Brainstorm', 'Outline',
+        'Script Development', 'Script: Visual Map', 'Ready to Film',
+        'Filming: Production', 'VO: Production', 'VO: Revision',
+        'Organizing Files > Edit', 'Hook Only', 'C1: Story', 'C2: Audio',
+        'C3: Color', 'C4: Polish',
+    }
+    if status in published:
+        return 'tg'
+    if status in in_progress:
+        return 'tb'
+    return 'tn'
+
+
+def stag(status):
+    if not status:
+        return '<span class="tag tn">—</span>'
+    cls = status_cls(status)
+    return f'<span class="tag {cls}">{status}</span>'
+
+
+def query_notion(db_id, filter_payload, sorts=None):
+    pages, has_more, cursor = [], True, None
+    payload = {'page_size': 100, 'filter': filter_payload}
+    if sorts:
+        payload['sorts'] = sorts
+    while has_more:
+        if cursor:
+            payload['start_cursor'] = cursor
+        resp = requests.post(
+            f'https://api.notion.com/v1/databases/{db_id}/query',
+            headers=NOTION_HEADERS, json=payload,
+        )
+        resp.raise_for_status()
+        data = resp.json()
+        pages.extend(data.get('results', []))
+        has_more = data.get('has_more', False)
+        cursor   = data.get('next_cursor')
+    return pages
+
+
+def fetch_pipeline_tab():
+    statuses = [
+        'Top Projects Chosen', 'Research + Brainstorm', 'Outline',
+        'Script Development', 'Script: Visual Map', 'Ready to Film',
+        'Filming: Production', 'VO: Production', 'VO: Revision',
+        'Organizing Files > Edit',
+    ]
+    flt = {'or': [{'property': 'PL Status', 'select': {'equals': s}} for s in statuses]}
+    return query_notion(NOTION_PIPELINE_DB_ID, flt)
+
+
+def fetch_editor_tab():
+    phases = ['Hook Only', 'C1: Story', 'C2: Audio', 'C3: Color', 'C4: Polish']
+    flt = {'or': [{'property': 'Edit Phase', 'select': {'equals': p}} for p in phases]}
+    sorts = [{'property': 'Next Cut Due', 'direction': 'ascending'}]
+    return query_notion(NOTION_PIPELINE_DB_ID, flt, sorts)
+
+
+def fetch_publishing_tab():
+    statuses = ['Published', 'Ready to Publish', 'Scheduled Post']
+    flt = {
+        'and': [
+            {'or': [{'property': 'PL Status', 'select': {'equals': s}} for s in statuses]},
+            {'property': 'Format', 'multi_select': {'contains': 'Long form'}},
+        ]
+    }
+    sorts = [{'property': 'Publish Date', 'direction': 'descending'}]
+    return query_notion(NOTION_PIPELINE_DB_ID, flt, sorts)
+
+
+def fetch_billing_tab():
+    invoices = [
+        'A. Full Prod Invoice', 'C. Invoice: 2025',
+        'D. Invoice: 2026 (March)', 'E. Unassigned',
+    ]
+    flt = {'or': [{'property': 'Invoice Credit', 'select': {'equals': i}} for i in invoices]}
+    return query_notion(NOTION_PIPELINE_DB_ID, flt)
+
+
+def rows_pipeline(pages):
+    out = []
+    for p in pages:
+        pr = p['properties']
+        title       = prop_val(pr.get('VLOG Official Title', {}))
+        pl_status   = prop_val(pr.get('PL Status', {}))
+        script_st   = prop_val(pr.get('Script Status', {}))
+        filming     = prop_val(pr.get('Filming Start', {}))
+        pub_date    = prop_val(pr.get('Publish Date', {}))
+        out.append(
+            f'<tr>'
+            f'<td style="font-weight:500;max-width:220px">{title or "—"}</td>'
+            f'<td>{stag(pl_status)}</td>'
+            f'<td><span class="mono" style="font-size:11px">{script_st or "—"}</span></td>'
+            f'<td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">{filming or "—"}</td>'
+            f'<td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">{pub_date or "—"}</td>'
+            f'</tr>'
+        )
+    return '\n'.join(out)
+
+
+def rows_editor(pages):
+    out = []
+    for p in pages:
+        pr = p['properties']
+        title      = prop_val(pr.get('VLOG Official Title', {}))
+        phase      = prop_val(pr.get('Edit Phase', {}))
+        progress   = prop_val(pr.get('Edit: Progress', {}))
+        cut_due    = prop_val(pr.get('Next Cut Due', {}))
+        pub_date   = prop_val(pr.get('Publish Date', {}))
+        due_color  = 'var(--amber)' if cut_due else 'rgba(240,239,232,0.4)'
+        out.append(
+            f'<tr>'
+            f'<td style="font-weight:500;max-width:220px">{title or "—"}</td>'
+            f'<td>{stag(phase)}</td>'
+            f'<td><span class="mono" style="font-size:11px">{progress or "—"}</span></td>'
+            f'<td class="mono" style="color:{due_color};font-size:11px">{cut_due or "—"}</td>'
+            f'<td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">{pub_date or "—"}</td>'
+            f'</tr>'
+        )
+    return '\n'.join(out)
+
+
+def rows_publishing(pages):
+    out = []
+    for p in pages:
+        pr = p['properties']
+        title    = prop_val(pr.get('VLOG Official Title', {}))
+        pub_date = prop_val(pr.get('Publish Date', {}))
+        yt_link  = prop_val(pr.get('YT Link', {}))
+        views    = prop_val(pr.get('Views', {}))
+        pl_st    = prop_val(pr.get('PL Status', {}))
+        season   = prop_val(pr.get('Season & Show', {}))
+        yt_cell  = (f'<a href="{yt_link}" target="_blank" style="color:var(--teal);font-size:11px">↗ YouTube</a>'
+                    if yt_link else '<span style="color:rgba(240,239,232,0.25)">—</span>')
+        try:
+            views_fmt = f'{int(float(views)):,}' if views else '—'
+        except (ValueError, TypeError):
+            views_fmt = views or '—'
+        out.append(
+            f'<tr>'
+            f'<td style="font-weight:500;max-width:200px">{title or "—"}</td>'
+            f'<td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">{pub_date or "—"}</td>'
+            f'<td>{yt_cell}</td>'
+            f'<td class="mono" style="color:var(--teal);font-weight:600">{views_fmt}</td>'
+            f'<td>{stag(pl_st)}</td>'
+            f'<td style="font-size:11px;color:rgba(240,239,232,0.4)">{season or "—"}</td>'
+            f'</tr>'
+        )
+    return '\n'.join(out)
+
+
+def rows_billing(pages):
+    out = []
+    for p in pages:
+        pr = p['properties']
+        title    = prop_val(pr.get('VLOG Official Title', {}))
+        invoice  = prop_val(pr.get('Invoice Credit', {}))
+        payment  = prop_val(pr.get('Edits Payment', {}))
+        progress = prop_val(pr.get('Edit: Progress', {}))
+        credits  = prop_val(pr.get('Credit Count', {}))
+        season   = prop_val(pr.get('Season & Show', {}))
+        try:
+            pay_fmt = f'${float(payment):,.2f}' if payment else '—'
+        except (ValueError, TypeError):
+            pay_fmt = payment or '—'
+        out.append(
+            f'<tr>'
+            f'<td style="font-weight:500;max-width:200px">{title or "—"}</td>'
+            f'<td style="font-size:11px">{invoice or "—"}</td>'
+            f'<td class="mono" style="color:var(--teal);font-weight:600">{pay_fmt}</td>'
+            f'<td><span class="mono" style="font-size:11px">{progress or "—"}</span></td>'
+            f'<td class="mono" style="color:rgba(240,239,232,0.4)">{credits or "—"}</td>'
+            f'<td style="font-size:11px;color:rgba(240,239,232,0.4)">{season or "—"}</td>'
+            f'</tr>'
+        )
+    return '\n'.join(out)
+
+
+def patch_notion_tabs(html, pipeline_p, editor_p, publishing_p, billing_p):
+    import re
+
+    def replace_tbody(html, tbody_id, rows):
+        empty = f'<td colspan="6" style="color:rgba(240,239,232,0.25);text-align:center;padding:20px">Fetching from Notion…</td>'
+        empty5 = f'<td colspan="5" style="color:rgba(240,239,232,0.25);text-align:center;padding:20px">Fetching from Notion…</td>'
+        return re.sub(
+            rf'(<tbody id="{tbody_id}">).*?(</tbody>)',
+            lambda m: m.group(1) + rows + m.group(2),
+            html, flags=re.DOTALL
+        )
+
+    def replace_count(html, elem_id, text):
+        return re.sub(
+            rf'(<span[^>]+id="{elem_id}"[^>]*>)[^<]*(</span>)',
+            rf'\g<1>{text}\g<2>',
+            html
+        )
+
+    pipeline_rows = rows_pipeline(pipeline_p)
+    editor_rows   = rows_editor(editor_p)
+    pub_rows      = rows_publishing(publishing_p)
+    billing_rows  = rows_billing(billing_p)
+
+    html = replace_tbody(html, 'pipeline-tbody', pipeline_rows)
+    html = replace_tbody(html, 'editor-tbody',   editor_rows)
+    html = replace_tbody(html, 'publishing-tbody', pub_rows)
+    html = replace_tbody(html, 'billing-tbody',  billing_rows)
+
+    html = replace_count(html, 'pipeline-count', f'{len(pipeline_p)} projects')
+    html = replace_count(html, 'editor-count',   f'{len(editor_p)} in edit')
+    html = replace_count(html, 'publishing-count', f'{len(publishing_p)} published')
+    html = replace_count(html, 'billing-count',  f'{len(billing_p)} invoices')
+
+    return html
 
 # ── HTML Patching ─────────────────────────────────────────────────────────────
 def patch(html, pattern, repl, label):
@@ -454,6 +711,22 @@ def main():
     print(f'  S1 avg AVD           : {mmss(stats["avg_avd_secs"])}')
     print('─' * 56)
 
+    print('\n[4b/6] Fetching Notion pipeline data...')
+    try:
+        pipeline_pages   = fetch_pipeline_tab()
+        editor_pages     = fetch_editor_tab()
+        publishing_pages = fetch_publishing_tab()
+        billing_pages    = fetch_billing_tab()
+        print(f'  Pipeline   : {len(pipeline_pages)} rows')
+        print(f'  Editor     : {len(editor_pages)} rows')
+        print(f'  Publishing : {len(publishing_pages)} rows')
+        print(f'  Billing    : {len(billing_pages)} rows')
+        notion_tabs_ok = True
+    except Exception as e:
+        print(f'  Notion pipeline fetch failed: {e}')
+        pipeline_pages = editor_pages = publishing_pages = billing_pages = []
+        notion_tabs_ok = False
+
     print('\n[5/6] Patching index.html...')
     with open(DASHBOARD_FILE, 'r', encoding='utf-8') as f:
         html = f.read()
@@ -467,6 +740,10 @@ def main():
             print(f'    {vid} -> {lf_titles.get(vid, "(not found)")}')
 
     html, patch_results = patch_html(html, stats)
+
+    if notion_tabs_ok:
+        html = patch_notion_tabs(html, pipeline_pages, editor_pages, publishing_pages, billing_pages)
+        print('  ✓ Notion tabs patched')
 
     ok_count   = sum(1 for _, ok in patch_results if ok)
     fail_count = sum(1 for _, ok in patch_results if not ok)

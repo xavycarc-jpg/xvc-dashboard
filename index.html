@@ -125,6 +125,10 @@ tbody tr:hover td{background:rgba(255,255,255,0.02)}
     <button class="nav-tab" onclick="show('growth',this)">Growth</button>
     <button class="nav-tab" onclick="show('revenue',this)">Revenue</button>
     <button class="nav-tab" onclick="show('trends',this)">Trends</button>
+    <button class="nav-tab" onclick="show('pipeline',this)">Pipeline</button>
+    <button class="nav-tab" onclick="show('editor',this)">Editor</button>
+    <button class="nav-tab" onclick="show('publishing',this)">Publishing</button>
+    <button class="nav-tab" onclick="show('billing',this)">Billing</button>
   </div>
 </div>
 
@@ -502,6 +506,67 @@ tbody tr:hover td{background:rgba(255,255,255,0.02)}
 
 </div>
 
+
+
+<!-- ══ PIPELINE ═════════════════════════════════════════════ -->
+<div id="pipeline" class="tab">
+  <div class="card">
+    <div class="card-hd">
+      <span class="lbl">Production Pipeline</span>
+      <span class="tag tb" id="pipeline-count">— projects</span>
+    </div>
+    <div class="scr"><table>
+      <thead><tr><th>Title</th><th>PL Status</th><th>Script Status</th><th>Filming Start</th><th>Publish Date</th></tr></thead>
+      <tbody id="pipeline-tbody"><tr><td colspan="5" style="color:rgba(240,239,232,0.25);text-align:center;padding:20px">Fetching from Notion…</td></tr></tbody>
+    </table></div>
+  </div>
+</div>
+
+
+<!-- ══ EDITOR ════════════════════════════════════════════════ -->
+<div id="editor" class="tab">
+  <div class="card teal">
+    <div class="card-hd">
+      <span class="lbl">Editor Progress</span>
+      <span class="tag tg" id="editor-count">— in edit</span>
+    </div>
+    <div class="scr"><table>
+      <thead><tr><th>Title</th><th>Edit Phase</th><th>Progress</th><th>Next Cut Due</th><th>Publish Date</th></tr></thead>
+      <tbody id="editor-tbody"><tr><td colspan="5" style="color:rgba(240,239,232,0.25);text-align:center;padding:20px">Fetching from Notion…</td></tr></tbody>
+    </table></div>
+  </div>
+</div>
+
+
+<!-- ══ PUBLISHING ════════════════════════════════════════════ -->
+<div id="publishing" class="tab">
+  <div class="card teal">
+    <div class="card-hd">
+      <span class="lbl">Publishing Tracker · Long Form</span>
+      <span class="tag tg" id="publishing-count">— published</span>
+    </div>
+    <div class="scr"><table>
+      <thead><tr><th>Title</th><th>Publish Date</th><th>YT Link</th><th>Views</th><th>PL Status</th><th>Season &amp; Show</th></tr></thead>
+      <tbody id="publishing-tbody"><tr><td colspan="6" style="color:rgba(240,239,232,0.25);text-align:center;padding:20px">Fetching from Notion…</td></tr></tbody>
+    </table></div>
+  </div>
+</div>
+
+
+<!-- ══ BILLING ════════════════════════════════════════════════ -->
+<div id="billing" class="tab">
+  <div class="card">
+    <div class="card-hd">
+      <span class="lbl">Billing Tracker</span>
+      <span class="tag ta" id="billing-count">— invoices</span>
+    </div>
+    <div class="scr"><table>
+      <thead><tr><th>Title</th><th>Invoice Credit</th><th>Edits Payment</th><th>Progress</th><th>Credits</th><th>Season &amp; Show</th></tr></thead>
+      <tbody id="billing-tbody"><tr><td colspan="6" style="color:rgba(240,239,232,0.25);text-align:center;padding:20px">Fetching from Notion…</td></tr></tbody>
+    </table></div>
+  </div>
+</div>
+
 </div><!-- /wrap -->
 
 <script>
@@ -526,7 +591,7 @@ const SF=[
 ];
 const TR=[LF[0],LF[1],LF[2],LF[3],LF[4],LF[5],LF[6]];
 
-const TABS=['home','scoreboard','videos','growth','revenue','trends'];
+const TABS=['home','scoreboard','videos','growth','revenue','trends','pipeline','editor','publishing','billing'];
 
 function show(id,btn){
   TABS.forEach(t=>document.getElementById(t).style.display='none');
