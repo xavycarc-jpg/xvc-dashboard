@@ -10,7 +10,7 @@ import requests
 from pathlib import Path
 
 NOTION_TOKEN          = os.environ["NOTION_TOKEN"]
-NOTION_PIPELINE_DB_ID = "546900d5-7dbf-4c20-83d1-4953d151dde1"
+NOTION_PIPELINE_DB_ID = "37e407332f264183acdde5631333f803"
 NOTION_HEADERS = {
     "Authorization": f"Bearer {NOTION_TOKEN}",
     "Content-Type": "application/json",
