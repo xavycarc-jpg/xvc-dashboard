@@ -216,7 +216,7 @@ def get_s1_video_ids():
 
 
 
-NOTION_PIPELINE_DB_ID = '37e407332f264183acdde5631333f803'
+NOTION_PIPELINE_DB_ID = 'dd646e89-94f2-43a3-8810-fd69f5fa8486'
 
 
 def prop_val(prop):
