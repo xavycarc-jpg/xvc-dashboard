@@ -712,20 +712,39 @@ def main():
     print('─' * 56)
 
     print('\n[4b/6] Fetching Notion pipeline data...')
+    import traceback
+    notion_tabs_ok = False
+    pipeline_pages = editor_pages = publishing_pages = billing_pages = []
     try:
-        pipeline_pages   = fetch_pipeline_tab()
-        editor_pages     = fetch_editor_tab()
+        print(f'  DB ID      : {NOTION_PIPELINE_DB_ID}')
+        print(f'  Token set  : {bool(NOTION_TOKEN)}')
+
+        print('  → Pipeline tab ...')
+        pipeline_pages = fetch_pipeline_tab()
+        print(f'    {len(pipeline_pages)} rows returned')
+        if pipeline_pages:
+            keys = list(pipeline_pages[0]['properties'].keys())
+            print(f'    Property keys on first row: {keys}')
+            first_title = pipeline_pages[0]['properties'].get('VLOG Official Title', {})
+            print(f'    First title raw: {first_title}')
+
+        print('  → Editor tab ...')
+        editor_pages = fetch_editor_tab()
+        print(f'    {len(editor_pages)} rows returned')
+
+        print('  → Publishing tab ...')
         publishing_pages = fetch_publishing_tab()
-        billing_pages    = fetch_billing_tab()
-        print(f'  Pipeline   : {len(pipeline_pages)} rows')
-        print(f'  Editor     : {len(editor_pages)} rows')
-        print(f'  Publishing : {len(publishing_pages)} rows')
-        print(f'  Billing    : {len(billing_pages)} rows')
+        print(f'    {len(publishing_pages)} rows returned')
+
+        print('  → Billing tab ...')
+        billing_pages = fetch_billing_tab()
+        print(f'    {len(billing_pages)} rows returned')
+
         notion_tabs_ok = True
+        print('  Notion fetch OK')
     except Exception as e:
-        print(f'  Notion pipeline fetch failed: {e}')
-        pipeline_pages = editor_pages = publishing_pages = billing_pages = []
-        notion_tabs_ok = False
+        print(f'  ✗ Notion pipeline fetch FAILED: {e}')
+        traceback.print_exc()
 
     print('\n[5/6] Patching index.html...')
     with open(DASHBOARD_FILE, 'r', encoding='utf-8') as f:
@@ -742,7 +761,25 @@ def main():
     html, patch_results = patch_html(html, stats)
 
     if notion_tabs_ok:
+        # Diagnostic: show HTML around each tbody before replacement
+        for tid in ['pipeline-tbody', 'editor-tbody', 'publishing-tbody', 'billing-tbody']:
+            m = re.search(rf'<tbody id="{tid}">(.*?)</tbody>', html, re.DOTALL)
+            if m:
+                snippet = m.group(0)[:120].replace('\n', ' ')
+                print(f'  PRE  [{tid}]: {snippet!r}')
+            else:
+                print(f'  PRE  [{tid}]: NOT FOUND IN HTML')
+
         html = patch_notion_tabs(html, pipeline_pages, editor_pages, publishing_pages, billing_pages)
+
+        # Diagnostic: show HTML around each tbody after replacement
+        for tid in ['pipeline-tbody', 'editor-tbody', 'publishing-tbody', 'billing-tbody']:
+            m = re.search(rf'<tbody id="{tid}">(.*?)</tbody>', html, re.DOTALL)
+            if m:
+                snippet = m.group(0)[:120].replace('\n', ' ')
+                print(f'  POST [{tid}]: {snippet!r}')
+            else:
+                print(f'  POST [{tid}]: NOT FOUND')
         print('  ✓ Notion tabs patched')
 
     ok_count   = sum(1 for _, ok in patch_results if ok)
