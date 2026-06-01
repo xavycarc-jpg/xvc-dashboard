@@ -307,13 +307,19 @@ def fetch_pipeline_tab():
         'Filming: Production', 'VO: Production', 'VO: Revision',
         'Organizing Files > Edit',
     ]
-    flt = {'or': [{'property': 'PL Status', 'select': {'equals': s}} for s in statuses]}
+    flt = {'and': [
+        {'or': [{'property': 'PL Status', 'select': {'equals': s}} for s in statuses]},
+        {'or': [{'property': 'Season & Show', 'select': {'equals': s}} for s in ['S2: Re-Invention', 'S1: Starting Over']]},
+    ]}
     return query_notion(NOTION_PIPELINE_DB_ID, flt)
 
 
 def fetch_editor_tab():
     phases = ['Hook Only', 'C1: Story', 'C2: Audio', 'C3: Color', 'C4: Polish']
-    flt = {'or': [{'property': 'Edit Phase', 'select': {'equals': p}} for p in phases]}
+    flt = {'and': [
+        {'or': [{'property': 'Edit Phase', 'select': {'equals': p}} for p in phases]},
+        {'or': [{'property': 'Season & Show', 'select': {'equals': s}} for s in ['S2: Re-Invention', 'S1: Starting Over']]},
+    ]}
     sorts = [{'property': 'Next Cut Due', 'direction': 'ascending'}]
     return query_notion(NOTION_PIPELINE_DB_ID, flt, sorts)
 
