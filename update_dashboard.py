@@ -719,6 +719,42 @@ def main():
         print(f'  DB ID      : {NOTION_PIPELINE_DB_ID}')
         print(f'  Token set  : {bool(NOTION_TOKEN)}')
 
+        # ── Deep diagnostics: confirm the ID type ────────────────────
+        candidate = NOTION_PIPELINE_DB_ID
+        base = 'https://api.notion.com/v1'
+
+        r_db = requests.get(f'{base}/databases/{candidate}', headers=NOTION_HEADERS)
+        print(f'  GET /databases/{candidate}')
+        print(f'    status : {r_db.status_code}')
+        print(f'    body   : {r_db.text[:500]}')
+
+        r_pg = requests.get(f'{base}/pages/{candidate}', headers=NOTION_HEADERS)
+        print(f'  GET /pages/{candidate}')
+        print(f'    status : {r_pg.status_code}')
+        print(f'    body   : {r_pg.text[:500]}')
+
+        if r_pg.status_code == 200:
+            print('  → ID is a PAGE — listing child blocks to find the embedded database ...')
+            r_ch = requests.get(f'{base}/blocks/{candidate}/children', headers=NOTION_HEADERS)
+            print(f'    children status : {r_ch.status_code}')
+            if r_ch.status_code == 200:
+                for blk in r_ch.json().get('results', []):
+                    print(f'    block {blk["id"]}  type={blk["type"]}')
+            else:
+                print(f'    children body : {r_ch.text[:400]}')
+
+        print('  Searching all databases accessible to this integration ...')
+        r_s = requests.post(f'{base}/search', headers=NOTION_HEADERS,
+            json={'filter': {'value': 'database', 'property': 'object'}, 'page_size': 20})
+        print(f'    search status : {r_s.status_code}')
+        if r_s.status_code == 200:
+            for obj in r_s.json().get('results', []):
+                title = ''.join(t.get('plain_text','') for t in obj.get('title',[]))
+                print(f'    db {obj["id"]}  title={title!r}')
+        else:
+            print(f'    search body : {r_s.text[:400]}')
+        # ─────────────────────────────────────────────────────────────
+
         print('  → Pipeline tab ...')
         pipeline_pages = fetch_pipeline_tab()
         print(f'    {len(pipeline_pages)} rows returned')
