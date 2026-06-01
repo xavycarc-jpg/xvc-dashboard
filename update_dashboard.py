@@ -219,10 +219,26 @@ def get_s1_video_ids():
 NOTION_PIPELINE_DB_ID = 'dd646e89-94f2-43a3-8810-fd69f5fa8486'
 
 
-EXCLUDE_TITLES = {"Escaping The Matrix: S1 Finale [V1 Original v15]"}
+PRIORITY_ORDER = {
+    "Top Priority": 0,
+    "High": 1,
+    "Awaiting Prod": 2,
+    "Medium": 3,
+    "Low": 4,
+    "Completed": 5,
+}
 
-EDIT_PRIORITY_ORDER = ["Top Priority", "High", "Awaiting Prod", "Medium", "Low", "Completed"]
-INVOICE_CREDIT_PREFIXES = ["A", "B", "C", "D", "E"]
+INVOICE_ORDER = {
+    "A. Full Prod Invoice": 0,
+    "B. Backlog": 1,
+    "C. Invoice: 2025": 2,
+    "D. Invoice: 2026 (March)": 3,
+    "E. Unassigned": 4,
+}
+
+EXCLUDE_TITLES = {
+    "Escaping The Matrix: S1 Finale [V1 Original v15]"
+}
 
 EXCL_FILTER = {
     "property": "VLOG Official Title",
@@ -230,41 +246,31 @@ EXCL_FILTER = {
 }
 
 
-def _pv(props, name):
-    return prop_val(props.get(name, {}))
+def get_priority(row):
+    val = row.get("properties", {}).get("Edit: Priority", {}).get("select", {})
+    name = val.get("name", "") if val else ""
+    return PRIORITY_ORDER.get(name, 99)
 
+def get_invoice(row):
+    val = row.get("properties", {}).get("Invoice Credit", {}).get("select", {})
+    name = val.get("name", "") if val else ""
+    return INVOICE_ORDER.get(name, 99)
 
-def _ep_rank(page):
-    v = _pv(page["properties"], "Edit: Priority")
-    try:
-        return EDIT_PRIORITY_ORDER.index(v)
-    except ValueError:
-        return len(EDIT_PRIORITY_ORDER)
+def get_date(row, field):
+    val = row.get("properties", {}).get(field, {}).get("date", {})
+    start = val.get("start", "") if val else ""
+    return start or "9999-99-99"
 
+def get_number(row, field):
+    val = row.get("properties", {}).get(field, {}).get("number")
+    return val if val is not None else 99999
 
-def _ic_rank(page):
-    v = _pv(page["properties"], "Invoice Credit")
-    for i, prefix in enumerate(INVOICE_CREDIT_PREFIXES):
-        if v.startswith(prefix):
-            return i
-    return len(INVOICE_CREDIT_PREFIXES)
+def get_title(row):
+    title_arr = row.get("properties", {}).get("VLOG Official Title", {}).get("title", [])
+    return title_arr[0].get("plain_text", "") if title_arr else ""
 
-
-def _date(page, prop):
-    return _pv(page["properties"], prop) or "zzzz"
-
-
-def _num(page, prop):
-    v = _pv(page["properties"], prop)
-    try:
-        return float(v)
-    except (ValueError, TypeError):
-        return float("inf")
-
-
-def _excl(pages):
-    return [pg for pg in pages
-            if _pv(pg["properties"], "VLOG Official Title") not in EXCLUDE_TITLES]
+def is_excluded(row):
+    return get_title(row) in EXCLUDE_TITLES
 
 
 def prop_val(prop):
@@ -360,10 +366,8 @@ def fetch_pipeline_tab():
         {'or': [{'property': 'Season & Show', 'select': {'equals': s}} for s in ['S2: Re-Invention', 'S1: Starting Over']]},
         EXCL_FILTER,
     ]}
-    pages = query_notion(NOTION_PIPELINE_DB_ID, flt)
-    pages = _excl(pages)
-    pages.sort(key=lambda pg: (_ep_rank(pg), _date(pg, 'Filming Start'), _date(pg, 'Publish Date')))
-    return pages
+    pipeline_raw = query_notion(NOTION_PIPELINE_DB_ID, flt)
+    return pipeline_raw
 
 
 def fetch_editor_tab():
@@ -373,10 +377,8 @@ def fetch_editor_tab():
         {'or': [{'property': 'Season & Show', 'select': {'equals': s}} for s in ['S2: Re-Invention', 'S1: Starting Over']]},
         EXCL_FILTER,
     ]}
-    pages = query_notion(NOTION_PIPELINE_DB_ID, flt)
-    pages = _excl(pages)
-    pages.sort(key=lambda pg: (_ep_rank(pg), _date(pg, 'Publish Date'), _num(pg, 'Credit Count')))
-    return pages
+    editor_raw = query_notion(NOTION_PIPELINE_DB_ID, flt)
+    return editor_raw
 
 
 def fetch_publishing_tab():
@@ -388,9 +390,9 @@ def fetch_publishing_tab():
             EXCL_FILTER,
         ]
     }
-    pages = query_notion(NOTION_PIPELINE_DB_ID, flt,
-                         sorts=[{'property': 'Publish Date', 'direction': 'descending'}])
-    return _excl(pages)
+    publishing_raw = query_notion(NOTION_PIPELINE_DB_ID, flt,
+                                  sorts=[{'property': 'Publish Date', 'direction': 'descending'}])
+    return publishing_raw
 
 
 def fetch_billing_tab():
@@ -402,10 +404,8 @@ def fetch_billing_tab():
         {'or': [{'property': 'Invoice Credit', 'select': {'equals': i}} for i in invoices]},
         EXCL_FILTER,
     ]}
-    pages = query_notion(NOTION_PIPELINE_DB_ID, flt)
-    pages = _excl(pages)
-    pages.sort(key=lambda pg: (_ic_rank(pg), _date(pg, 'Publish Date')))
-    return pages
+    billing_raw = query_notion(NOTION_PIPELINE_DB_ID, flt)
+    return billing_raw
 
 
 def rows_pipeline(pages):
@@ -783,7 +783,7 @@ def main():
     print('\n[4b/6] Fetching Notion pipeline data...')
     import traceback
     notion_tabs_ok = False
-    pipeline_pages = editor_pages = publishing_pages = billing_pages = []
+    pipeline_raw = editor_raw = publishing_raw = billing_raw = []
     try:
         print(f'  DB ID      : {NOTION_PIPELINE_DB_ID}')
         print(f'  Token set  : {bool(NOTION_TOKEN)}')
@@ -825,25 +825,25 @@ def main():
         # ─────────────────────────────────────────────────────────────
 
         print('  → Pipeline tab ...')
-        pipeline_pages = fetch_pipeline_tab()
-        print(f'    {len(pipeline_pages)} rows returned')
-        if pipeline_pages:
-            keys = list(pipeline_pages[0]['properties'].keys())
+        pipeline_raw = fetch_pipeline_tab()
+        print(f'    {len(pipeline_raw)} rows returned')
+        if pipeline_raw:
+            keys = list(pipeline_raw[0]['properties'].keys())
             print(f'    Property keys on first row: {keys}')
-            first_title = pipeline_pages[0]['properties'].get('VLOG Official Title', {})
+            first_title = pipeline_raw[0]['properties'].get('VLOG Official Title', {})
             print(f'    First title raw: {first_title}')
 
         print('  → Editor tab ...')
-        editor_pages = fetch_editor_tab()
-        print(f'    {len(editor_pages)} rows returned')
+        editor_raw = fetch_editor_tab()
+        print(f'    {len(editor_raw)} rows returned')
 
         print('  → Publishing tab ...')
-        publishing_pages = fetch_publishing_tab()
-        print(f'    {len(publishing_pages)} rows returned')
+        publishing_raw = fetch_publishing_tab()
+        print(f'    {len(publishing_raw)} rows returned')
 
         print('  → Billing tab ...')
-        billing_pages = fetch_billing_tab()
-        print(f'    {len(billing_pages)} rows returned')
+        billing_raw = fetch_billing_tab()
+        print(f'    {len(billing_raw)} rows returned')
 
         notion_tabs_ok = True
         print('  Notion fetch OK')
@@ -866,25 +866,36 @@ def main():
     html, patch_results = patch_html(html, stats)
 
     if notion_tabs_ok:
-        # Diagnostic: show HTML around each tbody before replacement
-        for tid in ['pipeline-tbody', 'editor-tbody', 'publishing-tbody', 'billing-tbody']:
-            m = re.search(rf'<tbody id="{tid}">(.*?)</tbody>', html, re.DOTALL)
-            if m:
-                snippet = m.group(0)[:120].replace('\n', ' ')
-                print(f'  PRE  [{tid}]: {snippet!r}')
-            else:
-                print(f'  PRE  [{tid}]: NOT FOUND IN HTML')
+        # ── Apply exact sort + exclude logic ─────────────────────────
+        pipeline_rows = [r for r in pipeline_raw if not is_excluded(r)]
+        pipeline_rows.sort(key=lambda r: (
+            get_priority(r),
+            get_date(r, 'Filming Start'),
+            get_date(r, 'Publish Date'),
+        ))
 
-        html = patch_notion_tabs(html, pipeline_pages, editor_pages, publishing_pages, billing_pages)
+        editor_rows = [r for r in editor_raw if not is_excluded(r)]
+        editor_rows.sort(key=lambda r: (
+            get_priority(r),
+            get_date(r, 'Publish Date'),
+            get_number(r, 'Credit Count'),
+        ))
 
-        # Diagnostic: show HTML around each tbody after replacement
-        for tid in ['pipeline-tbody', 'editor-tbody', 'publishing-tbody', 'billing-tbody']:
-            m = re.search(rf'<tbody id="{tid}">(.*?)</tbody>', html, re.DOTALL)
-            if m:
-                snippet = m.group(0)[:120].replace('\n', ' ')
-                print(f'  POST [{tid}]: {snippet!r}')
-            else:
-                print(f'  POST [{tid}]: NOT FOUND')
+        publishing_rows = [r for r in publishing_raw if not is_excluded(r)]
+        publishing_rows.sort(key=lambda r: get_date(r, 'Publish Date'), reverse=True)
+
+        billing_rows = [r for r in billing_raw if not is_excluded(r)]
+        billing_rows.sort(key=lambda r: (
+            get_invoice(r),
+            get_date(r, 'Publish Date'),
+        ))
+
+        print(f'  Pipeline rows after sort/exclude : {len(pipeline_rows)}')
+        print(f'  Editor rows after sort/exclude   : {len(editor_rows)}')
+        print(f'  Publishing rows after sort/exclude: {len(publishing_rows)}')
+        print(f'  Billing rows after sort/exclude  : {len(billing_rows)}')
+
+        html = patch_notion_tabs(html, pipeline_rows, editor_rows, publishing_rows, billing_rows)
         print('  ✓ Notion tabs patched')
 
     ok_count   = sum(1 for _, ok in patch_results if ok)
