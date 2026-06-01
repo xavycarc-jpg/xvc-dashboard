@@ -219,6 +219,54 @@ def get_s1_video_ids():
 NOTION_PIPELINE_DB_ID = 'dd646e89-94f2-43a3-8810-fd69f5fa8486'
 
 
+EXCLUDE_TITLES = {"Escaping The Matrix: S1 Finale [V1 Original v15]"}
+
+EDIT_PRIORITY_ORDER = ["Top Priority", "High", "Awaiting Prod", "Medium", "Low", "Completed"]
+INVOICE_CREDIT_PREFIXES = ["A", "B", "C", "D", "E"]
+
+EXCL_FILTER = {
+    "property": "VLOG Official Title",
+    "title": {"does_not_equal": "Escaping The Matrix: S1 Finale [V1 Original v15]"},
+}
+
+
+def _pv(props, name):
+    return prop_val(props.get(name, {}))
+
+
+def _ep_rank(page):
+    v = _pv(page["properties"], "Edit: Priority")
+    try:
+        return EDIT_PRIORITY_ORDER.index(v)
+    except ValueError:
+        return len(EDIT_PRIORITY_ORDER)
+
+
+def _ic_rank(page):
+    v = _pv(page["properties"], "Invoice Credit")
+    for i, prefix in enumerate(INVOICE_CREDIT_PREFIXES):
+        if v.startswith(prefix):
+            return i
+    return len(INVOICE_CREDIT_PREFIXES)
+
+
+def _date(page, prop):
+    return _pv(page["properties"], prop) or "zzzz"
+
+
+def _num(page, prop):
+    v = _pv(page["properties"], prop)
+    try:
+        return float(v)
+    except (ValueError, TypeError):
+        return float("inf")
+
+
+def _excl(pages):
+    return [pg for pg in pages
+            if _pv(pg["properties"], "VLOG Official Title") not in EXCLUDE_TITLES]
+
+
 def prop_val(prop):
     """Extract plain text from any Notion property type."""
     if not prop:
@@ -310,8 +358,12 @@ def fetch_pipeline_tab():
     flt = {'and': [
         {'or': [{'property': 'PL Status', 'select': {'equals': s}} for s in statuses]},
         {'or': [{'property': 'Season & Show', 'select': {'equals': s}} for s in ['S2: Re-Invention', 'S1: Starting Over']]},
+        EXCL_FILTER,
     ]}
-    return query_notion(NOTION_PIPELINE_DB_ID, flt)
+    pages = query_notion(NOTION_PIPELINE_DB_ID, flt)
+    pages = _excl(pages)
+    pages.sort(key=lambda pg: (_ep_rank(pg), _date(pg, 'Filming Start'), _date(pg, 'Publish Date')))
+    return pages
 
 
 def fetch_editor_tab():
@@ -319,9 +371,12 @@ def fetch_editor_tab():
     flt = {'and': [
         {'or': [{'property': 'Edit Phase', 'select': {'equals': p}} for p in phases]},
         {'or': [{'property': 'Season & Show', 'select': {'equals': s}} for s in ['S2: Re-Invention', 'S1: Starting Over']]},
+        EXCL_FILTER,
     ]}
-    sorts = [{'property': 'Next Cut Due', 'direction': 'ascending'}]
-    return query_notion(NOTION_PIPELINE_DB_ID, flt, sorts)
+    pages = query_notion(NOTION_PIPELINE_DB_ID, flt)
+    pages = _excl(pages)
+    pages.sort(key=lambda pg: (_ep_rank(pg), _date(pg, 'Publish Date'), _num(pg, 'Credit Count')))
+    return pages
 
 
 def fetch_publishing_tab():
@@ -330,10 +385,12 @@ def fetch_publishing_tab():
         'and': [
             {'or': [{'property': 'PL Status', 'select': {'equals': s}} for s in statuses]},
             {'property': 'Format', 'multi_select': {'contains': 'Long form'}},
+            EXCL_FILTER,
         ]
     }
-    sorts = [{'property': 'Publish Date', 'direction': 'descending'}]
-    return query_notion(NOTION_PIPELINE_DB_ID, flt, sorts)
+    pages = query_notion(NOTION_PIPELINE_DB_ID, flt,
+                         sorts=[{'property': 'Publish Date', 'direction': 'descending'}])
+    return _excl(pages)
 
 
 def fetch_billing_tab():
@@ -341,8 +398,14 @@ def fetch_billing_tab():
         'A. Full Prod Invoice', 'C. Invoice: 2025',
         'D. Invoice: 2026 (March)', 'E. Unassigned',
     ]
-    flt = {'or': [{'property': 'Invoice Credit', 'select': {'equals': i}} for i in invoices]}
-    return query_notion(NOTION_PIPELINE_DB_ID, flt)
+    flt = {'and': [
+        {'or': [{'property': 'Invoice Credit', 'select': {'equals': i}} for i in invoices]},
+        EXCL_FILTER,
+    ]}
+    pages = query_notion(NOTION_PIPELINE_DB_ID, flt)
+    pages = _excl(pages)
+    pages.sort(key=lambda pg: (_ic_rank(pg), _date(pg, 'Publish Date')))
+    return pages
 
 
 def rows_pipeline(pages):
