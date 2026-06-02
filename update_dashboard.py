@@ -230,20 +230,19 @@ PRIORITY_ORDER = {
 
 INVOICE_ORDER = {
     "A. Full Prod Invoice": 0,
-    "B. Backlog": 1,
-    "C. Invoice: 2025": 2,
-    "D. Invoice: 2026 (March)": 3,
-    "E. Unassigned": 4,
-}
-
-EXCLUDE_TITLES = {
-    "Escaping The Matrix: S1 Finale [V1 Original v15]"
+    "C. Invoice: 2025": 1,
+    "D. Invoice: 2026 (March)": 2,
+    "E. Unassigned": 3,
 }
 
 EXCL_FILTER = {
     "property": "VLOG Official Title",
-    "title": {"does_not_equal": "Escaping The Matrix: S1 Finale [V1 Original v15]"},
+    "title": {"does_not_contain": "V1 Original v15"},
 }
+
+
+def is_excluded(row):
+    return "V1 Original v15" in get_title(row)
 
 
 def get_priority(row):
@@ -268,10 +267,6 @@ def get_number(row, field):
 def get_title(row):
     title_arr = row.get("properties", {}).get("VLOG Official Title", {}).get("title", [])
     return title_arr[0].get("plain_text", "") if title_arr else ""
-
-def is_excluded(row):
-    return get_title(row) in EXCLUDE_TITLES
-
 
 def prop_val(prop):
     """Extract plain text from any Notion property type."""
@@ -390,8 +385,7 @@ def fetch_publishing_tab():
             EXCL_FILTER,
         ]
     }
-    publishing_raw = query_notion(NOTION_PIPELINE_DB_ID, flt,
-                                  sorts=[{'property': 'Publish Date', 'direction': 'descending'}])
+    publishing_raw = query_notion(NOTION_PIPELINE_DB_ID, flt)
     return publishing_raw
 
 
@@ -882,7 +876,7 @@ def main():
         ))
 
         publishing_rows = [r for r in publishing_raw if not is_excluded(r)]
-        publishing_rows.sort(key=lambda r: get_date(r, 'Publish Date'), reverse=True)
+        publishing_rows.sort(key=lambda r: get_date(r, 'Publish Date'))
 
         billing_rows = [r for r in billing_raw if not is_excluded(r)]
         billing_rows.sort(key=lambda r: (
