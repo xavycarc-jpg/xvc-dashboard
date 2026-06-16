@@ -3,6 +3,16 @@ update_dashboard.py
 Pull live YouTube + Notion data, patch index.html, push to GitHub.
 """
 
+# Auto-load .env from xvc-analytics (sibling dir) so the script works standalone
+import os as _os, pathlib as _pl
+_env = _pl.Path(__file__).parent.parent / 'xvc-analytics' / '.env'
+if _env.exists():
+    for _ln in _env.read_text().splitlines():
+        _ln = _ln.strip()
+        if _ln and not _ln.startswith('#') and '=' in _ln:
+            _k, _v = _ln.split('=', 1)
+            _os.environ.setdefault(_k.strip(), _v.strip())
+
 import os, re, subprocess
 import json
 from pathlib import Path
@@ -50,8 +60,9 @@ SCOPES = [
     'https://www.googleapis.com/auth/yt-analytics.readonly',
 ]
 SCRIPT_DIR       = os.path.dirname(os.path.abspath(__file__))
-CREDENTIALS_FILE = os.path.join(SCRIPT_DIR, 'credentials.json')
-TOKEN_FILE       = os.path.join(SCRIPT_DIR, 'token.json')
+_ANALYTICS_DIR   = os.path.join(os.path.dirname(SCRIPT_DIR), 'xvc-analytics')
+CREDENTIALS_FILE = os.path.join(_ANALYTICS_DIR, 'credentials.json')
+TOKEN_FILE       = os.path.join(_ANALYTICS_DIR, 'token.json')
 
 NOTION_TOKEN = os.environ.get('NOTION_TOKEN')
 NOTION_DB_ID   = 'dd646e89-94f2-43a3-8810-fd69f5fa8486'
@@ -61,9 +72,9 @@ NOTION_HEADERS = {
     'Notion-Version': '2022-06-28',
 }
 
-DASHBOARD_FILE = 'index.html'
-DASHBOARD_DIR  = '.'
-GH_TOKEN = os.environ.get('GITHUB_PAT')
+DASHBOARD_DIR  = os.path.dirname(os.path.abspath(__file__))
+DASHBOARD_FILE = os.path.join(DASHBOARD_DIR, 'index.html')
+GH_TOKEN = os.environ.get('GITHUB_TOKEN') or os.environ.get('GITHUB_PAT')
 
 fmt  = lambda n: f'{int(n):,}'
 pct  = lambda p: f'{p:.1f}%'
@@ -241,8 +252,11 @@ EXCL_FILTER = {
 }
 
 
+EXCL_TITLE_FRAGMENTS = ['v1 original v15', 'script template', 'wrong do not use']
+
 def is_excluded(row):
-    return "V1 Original v15" in get_title(row)
+    t = get_title(row).lower()
+    return any(frag in t for frag in EXCL_TITLE_FRAGMENTS)
 
 
 def get_priority(row):
@@ -314,6 +328,7 @@ def status_cls(status):
         'Filming: Production', 'VO: Production', 'VO: Revision',
         'Organizing Files > Edit', 'Hook Only', 'C1: Story', 'C2: Audio',
         'C3: Color', 'C4: Polish',
+        'Currently Editing: Full', 'Post Prod + Keyword SEO', 'Editing: Hook ONLY',
     }
     if status in published:
         return 'tg'
@@ -326,6 +341,47 @@ def stag(status):
     if not status:
         return '<span class="tag tn">—</span>'
     cls = status_cls(status)
+    return f'<span class="tag {cls}">{status}</span>'
+
+PL_STATUS_CLASS = {
+    # idea / top-level
+    'Top Project':              'pl-top',
+    'Top Projects Chosen':      'pl-top',
+    # research tier
+    'Research ID':              'pl-research',
+    'Research + Brainstorm':    'pl-research',
+    'TTH ID':                   'pl-research',
+    # outline / pre-prod tier
+    'Outline':                  'pl-outline',
+    'Pre-Prod Plan + Shot List': 'pl-outline',
+    'Transfer > Mindy':         'pl-outline',
+    # script tier
+    'Script Dev':               'pl-script-dev',
+    'Script Development':       'pl-script-dev',
+    'Script RW':                'pl-script-dev',
+    'Script Rewrite!!':         'pl-script-dev',
+    'Script: Visual Map':       'pl-script-vm',
+    # ready / filming tier
+    'Ready to Film':            'pl-ready',
+    'In Production':            'pl-filming',
+    'Filming: Production':      'pl-filming',
+    'Currently Editing: Full':  'pl-filming',
+    'Editing':                  'pl-filming',
+    'Editing: Hook ONLY':       'pl-filming',
+    # VO / post tier
+    'VO: Production':           'pl-vo-prod',
+    'Post Prod + Keyword SEO':  'pl-vo-prod',
+    'Packaging':                'pl-vo-prod',
+    'VO: Revision':             'pl-vo-rev',
+    # organize
+    'Organizing Files':         'pl-org',
+    'Organizing Files > Edit':  'pl-org',
+}
+
+def pl_badge(status):
+    if not status:
+        return '<span class="tag tn">—</span>'
+    cls = PL_STATUS_CLASS.get(status, status_cls(status))
     return f'<span class="tag {cls}">{status}</span>'
 
 
@@ -349,15 +405,21 @@ def query_notion(db_id, filter_payload, sorts=None):
     return pages
 
 
+PIPELINE_STATUSES = [
+    'IDEA: NOT A FIT', 'IDEA: Mid', 'IDEA: High', 'XVC: IDEA [UA]',
+    'RTW: Location-Led', 'Top Project', 'IDEA: Low Priority', 'YT > Substack',
+    'IDEA: Not Assigned', 'Ideation: BTS Channel', 'Research ID', 'Outline',
+    'TTH ID', 'Script Dev', 'Editing', 'Packaging', 'Published',
+    'VO: Production', 'In Production', 'Pre-Prod Plan + Shot List',
+    'Post Prod + Keyword SEO', 'Ready to Film', 'Ideation > Written',
+    'Transfer > Mindy', 'Organizing Files', 'Script: Visual Map',
+    'VO: Revision', 'Needs Marketing', 'Editing: Hook ONLY', 'BTS: Published',
+    'Archived or Re-Purposed', 'Script RW', 'Top IG Trending', 'Scheduled',
+]
+
 def fetch_pipeline_tab():
-    statuses = [
-        'Top Projects Chosen', 'Research + Brainstorm', 'Outline',
-        'Script Development', 'Script: Visual Map', 'Ready to Film',
-        'Filming: Production', 'VO: Production', 'VO: Revision',
-        'Organizing Files > Edit',
-    ]
     flt = {'and': [
-        {'or': [{'property': 'PL Status', 'select': {'equals': s}} for s in statuses]},
+        {'or': [{'property': 'PL State', 'select': {'equals': s}} for s in PIPELINE_STATUSES]},
         {'or': [{'property': 'Season & Show', 'select': {'equals': s}} for s in ['S2: Re-Invention', 'S1: Starting Over']]},
         EXCL_FILTER,
     ]}
@@ -377,10 +439,10 @@ def fetch_editor_tab():
 
 
 def fetch_publishing_tab():
-    statuses = ['Published', 'Ready to Publish', 'Scheduled Post']
+    statuses = ['Published', 'BTS: Published', 'Scheduled']
     flt = {
         'and': [
-            {'or': [{'property': 'PL Status', 'select': {'equals': s}} for s in statuses]},
+            {'or': [{'property': 'PL State', 'select': {'equals': s}} for s in statuses]},
             {'property': 'Format', 'multi_select': {'contains': 'Long form'}},
             EXCL_FILTER,
         ]
@@ -407,14 +469,14 @@ def rows_pipeline(pages):
     for p in pages:
         pr = p['properties']
         title       = prop_val(pr.get('VLOG Official Title', {}))
-        pl_status   = prop_val(pr.get('PL Status', {}))
-        script_st   = prop_val(pr.get('Script Status', {}))
-        filming     = prop_val(pr.get('Filming Start', {}))
-        pub_date    = prop_val(pr.get('Publish Date', {}))
+        pl_status   = prop_val(pr.get('PL State', {}))
+        script_st   = prop_val(pr.get('Script', {}))
+        filming     = prop_val(pr.get('Filming', {}))
+        pub_date    = prop_val(pr.get('Publish', {}))
         out.append(
-            f'<tr>'
+            f'<tr draggable="true">'
             f'<td style="font-weight:500;max-width:220px">{title or "—"}</td>'
-            f'<td>{stag(pl_status)}</td>'
+            f'<td>{pl_badge(pl_status)}</td>'
             f'<td><span class="mono" style="font-size:11px">{script_st or "—"}</span></td>'
             f'<td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">{filming or "—"}</td>'
             f'<td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">{pub_date or "—"}</td>'
@@ -453,7 +515,7 @@ def rows_publishing(pages):
         pub_date = prop_val(pr.get('Publish Date', {}))
         yt_link  = prop_val(pr.get('YT Link', {}))
         views    = prop_val(pr.get('Views', {}))
-        pl_st    = prop_val(pr.get('PL Status', {}))
+        pl_st    = prop_val(pr.get('PL State', {}))
         season   = prop_val(pr.get('Season & Show', {}))
         yt_cell  = (f'<a href="{yt_link}" target="_blank" style="color:var(--teal);font-size:11px">↗ YouTube</a>'
                     if yt_link else '<span style="color:rgba(240,239,232,0.25)">—</span>')
@@ -739,19 +801,23 @@ def main():
     print('\n[4/6] Fetching YouTube Analytics...')
     analytics = get_analytics(yta, all_ids)
     s1_data   = {vid: analytics[vid] for vid in s1_ids if vid in analytics}
+    missing   = [vid for vid in s1_ids if vid not in analytics]
     print(f'  Analytics rows total  : {len(analytics)}')
     print(f'  S1 rows with data     : {len(s1_data)}')
+    if missing:
+        print(f'  ⚠ S1 IDs missing from analytics ({len(missing)}): {missing}')
+        print('    (continuing — those videos will be excluded from S1 aggregates)')
 
-    if not s1_data:
-        print('  ERROR: no S1 analytics data — aborting.')
-        return
-
-    total_views   = sum(v['views']         for v in s1_data.values())
-    total_subs    = sum(v['subs']           for v in s1_data.values())
-    watch_minutes = sum(v['watch_minutes']  for v in s1_data.values())
-    watch_hours   = watch_minutes / 60
-    avg_retention = sum(v['avg_pct']        for v in s1_data.values()) / len(s1_data)
-    avg_avd_secs  = sum(v['avg_dur_secs']   for v in s1_data.values()) / len(s1_data)
+    if s1_data:
+        total_views   = sum(v['views']         for v in s1_data.values())
+        total_subs    = sum(v['subs']           for v in s1_data.values())
+        watch_minutes = sum(v['watch_minutes']  for v in s1_data.values())
+        watch_hours   = watch_minutes / 60
+        avg_retention = sum(v['avg_pct']        for v in s1_data.values()) / len(s1_data)
+        avg_avd_secs  = sum(v['avg_dur_secs']   for v in s1_data.values()) / len(s1_data)
+    else:
+        print('  ⚠ No S1 analytics data — using zeros for S1 aggregates.')
+        total_views = total_subs = watch_hours = avg_retention = avg_avd_secs = 0
 
     stats = {
         'lf_count':     len(lf_ids),
@@ -863,9 +929,10 @@ def main():
         # ── Apply exact sort + exclude logic ─────────────────────────
         pipeline_rows = [r for r in pipeline_raw if not is_excluded(r)]
         pipeline_rows.sort(key=lambda r: (
+            get_number(r, 'Published Count'),
+            get_date(r, 'Filming'),
             get_priority(r),
-            get_date(r, 'Filming Start'),
-            get_date(r, 'Publish Date'),
+            get_date(r, 'Publish'),
         ))
 
         editor_rows = [r for r in editor_raw if not is_excluded(r)]
