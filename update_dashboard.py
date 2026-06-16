@@ -91,7 +91,13 @@ def get_credentials():
             creds.refresh(Request())
         else:
             flow = InstalledAppFlow.from_client_secrets_file(CREDENTIALS_FILE, SCOPES)
-            creds = flow.run_local_server(port=0)
+            # prompt='select_account' forces the Google account picker every time
+            # so you can choose the correct YouTube channel account in the browser.
+            creds = flow.run_local_server(
+                port=0,
+                prompt='select_account',
+                authorization_prompt_message='Opening browser — pick the correct YouTube channel account.',
+            )
         with open(TOKEN_FILE, 'w') as f:
             f.write(creds.to_json())
     return creds
