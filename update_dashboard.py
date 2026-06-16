@@ -122,68 +122,74 @@ def get_all_video_ids(youtube, playlist_id):
 
 
 def classify_videos(youtube, video_ids):
-    """Split into (lf_ids, sf_ids) by duration — <180 s = short form."""
+    """Return (lf_ids, sf_ids) — public videos >60 s = long form."""
     lf, sf = [], []
     for i in range(0, len(video_ids), 50):
         batch = video_ids[i:i + 50]
-        resp = youtube.videos().list(part='contentDetails', id=','.join(batch)).execute()
+        resp = youtube.videos().list(part='contentDetails,status', id=','.join(batch)).execute()
         for item in resp['items']:
+            if item.get('status', {}).get('privacyStatus') != 'public':
+                continue
             m = re.search(r'PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?',
                           item['contentDetails']['duration'])
             total = (int(m.group(1) or 0) * 3600
                      + int(m.group(2) or 0) * 60
                      + int(m.group(3) or 0))
-            (sf if total < 180 else lf).append(item['id'])
+            (lf if total > 60 else sf).append(item['id'])
     return lf, sf
 
 
 def get_analytics(yta, video_ids):
-    today    = date.today().isoformat()
+    today = date.today().isoformat()
     analytics = {}
+    metric_tiers = [
+        (
+            'views,estimatedMinutesWatched,averageViewDuration,averageViewPercentage,'
+            'subscribersGained,likes,shares,comments,impressionClickThroughRate',
+            lambda row: {
+                'views': int(row[1]), 'watch_minutes': float(row[2]),
+                'avg_dur_secs': float(row[3]), 'avg_pct': float(row[4]),
+                'subs': int(row[5]), 'likes': int(row[6]), 'shares': int(row[7]),
+                'comments': int(row[8]), 'ctr': float(row[9]) * 100,
+            }
+        ),
+        (
+            'views,estimatedMinutesWatched,averageViewDuration,averageViewPercentage,'
+            'subscribersGained,likes,shares,comments',
+            lambda row: {
+                'views': int(row[1]), 'watch_minutes': float(row[2]),
+                'avg_dur_secs': float(row[3]), 'avg_pct': float(row[4]),
+                'subs': int(row[5]), 'likes': int(row[6]), 'shares': int(row[7]),
+                'comments': int(row[8]), 'ctr': 0.0,
+            }
+        ),
+        (
+            'views,averageViewDuration,averageViewPercentage,subscribersGained',
+            lambda row: {
+                'views': int(row[1]), 'watch_minutes': int(row[1]) * float(row[2]) / 60,
+                'avg_dur_secs': float(row[2]), 'avg_pct': float(row[3]),
+                'subs': int(row[4]), 'likes': 0, 'shares': 0, 'comments': 0, 'ctr': 0.0,
+            }
+        ),
+    ]
     for i in range(0, len(video_ids), 50):
-        batch   = video_ids[i:i + 50]
+        batch = video_ids[i:i + 50]
         filters = 'video==' + ','.join(batch)
-        try:
-            resp = yta.reports().query(
-                ids='channel==MINE',
-                startDate='2005-01-01',
-                endDate=today,
-                dimensions='video',
-                metrics='views,estimatedMinutesWatched,averageViewDuration,averageViewPercentage,subscribersGained',
-                filters=filters,
-            ).execute()
-            for row in resp.get('rows', []):
-                vid, views, emw, avd, avp, subs = row
-                analytics[vid] = {
-                    'views':         int(views),
-                    'watch_minutes': float(emw),
-                    'avg_dur_secs':  float(avd),
-                    'avg_pct':       float(avp),
-                    'subs':          int(subs),
-                }
-        except Exception as e:
-            print(f'  Analytics warning (batch {i//50+1}): {e}')
-            # Fallback: retry without estimatedMinutesWatched
+        for metrics, parsefn in metric_tiers:
             try:
                 resp = yta.reports().query(
                     ids='channel==MINE',
                     startDate='2005-01-01',
                     endDate=today,
                     dimensions='video',
-                    metrics='views,averageViewDuration,averageViewPercentage,subscribersGained',
+                    metrics=metrics,
                     filters=filters,
                 ).execute()
                 for row in resp.get('rows', []):
-                    vid, views, avd, avp, subs = row
-                    analytics[vid] = {
-                        'views':         int(views),
-                        'watch_minutes': int(views) * float(avd) / 60,  # estimate
-                        'avg_dur_secs':  float(avd),
-                        'avg_pct':       float(avp),
-                        'subs':          int(subs),
-                    }
-            except Exception as e2:
-                print(f'  Fallback also failed: {e2}')
+                    analytics[row[0]] = parsefn(row)
+                break
+            except Exception as e:
+                print(f'  Analytics tier failed ({metrics[:50]}...): {e}')
     return analytics
 
 
@@ -474,7 +480,7 @@ def rows_pipeline(pages):
         filming     = prop_val(pr.get('Filming', {}))
         pub_date    = prop_val(pr.get('Publish', {}))
         out.append(
-            f'<tr draggable="true">'
+            f'<tr>'
             f'<td style="font-weight:500;max-width:220px">{title or "—"}</td>'
             f'<td>{pl_badge(pl_status)}</td>'
             f'<td><span class="mono" style="font-size:11px">{script_st or "—"}</span></td>'
@@ -493,7 +499,7 @@ def rows_editor(pages):
         phase      = prop_val(pr.get('Edit Phase', {}))
         progress   = prop_val(pr.get('Edit: Progress', {}))
         cut_due    = prop_val(pr.get('Next Cut Due', {}))
-        pub_date   = prop_val(pr.get('Publish Date', {}))
+        pub_date   = prop_val(pr.get('Publish', {}))
         due_color  = 'var(--amber)' if cut_due else 'rgba(240,239,232,0.4)'
         out.append(
             f'<tr>'
@@ -512,7 +518,7 @@ def rows_publishing(pages):
     for p in pages:
         pr = p['properties']
         title    = prop_val(pr.get('VLOG Official Title', {}))
-        pub_date = prop_val(pr.get('Publish Date', {}))
+        pub_date = prop_val(pr.get('Publish', {}))
         yt_link  = prop_val(pr.get('YT Link', {}))
         views    = prop_val(pr.get('Views', {}))
         pl_st    = prop_val(pr.get('PL State', {}))
@@ -620,6 +626,10 @@ def patch_html(html, s):
     tv          = s['total_views']
     ts          = s['total_subs']
     ar          = s['avg_retention']
+    tl          = s.get('total_likes', 0)
+    tsh         = s.get('total_shares', 0)
+    tc          = s.get('total_comments', 0)
+    ac          = s.get('avg_ctr', 0.0)
     gate        = 1000 if subs < 1000 else 10000
     subs_to_gate = max(0, gate - subs)
     subs_pct    = min(100, round(subs / gate * 100))
@@ -736,6 +746,22 @@ def patch_html(html, s):
           r'(Avg Retention</div><div class="mono" style="font-size:18px;font-weight:600">)[\d.]+%(</div>)',
           rf'\g<1>{ar:.1f}%\g<2>')
 
+    apply('S1 avg ctr tile',
+          r'(Avg CTR</div><div class="mono"[^>]+>)[\d.]+%(</div>)',
+          rf'\g<1>{ac:.2f}%\g<2>')
+
+    apply('S1 total likes',
+          r'(Total Likes</div><div class="mono"[^>]+>)[\d,]+(</div>)',
+          rf'\g<1>{fmt(tl)}\g<2>')
+
+    apply('S1 total shares',
+          r'(Total Shares</div><div class="mono"[^>]+>)[\d,]+(</div>)',
+          rf'\g<1>{fmt(tsh)}\g<2>')
+
+    apply('S1 comments',
+          r'(Comments</div><div class="mono"[^>]+>)[\d,]+(</div>)',
+          rf'\g<1>{fmt(tc)}\g<2>')
+
     return html, results
 
 
@@ -809,25 +835,34 @@ def main():
         print('    (continuing — those videos will be excluded from S1 aggregates)')
 
     if s1_data:
-        total_views   = sum(v['views']         for v in s1_data.values())
-        total_subs    = sum(v['subs']           for v in s1_data.values())
-        watch_minutes = sum(v['watch_minutes']  for v in s1_data.values())
-        watch_hours   = watch_minutes / 60
-        avg_retention = sum(v['avg_pct']        for v in s1_data.values()) / len(s1_data)
-        avg_avd_secs  = sum(v['avg_dur_secs']   for v in s1_data.values()) / len(s1_data)
+        total_views    = sum(v['views']           for v in s1_data.values())
+        total_subs     = sum(v['subs']             for v in s1_data.values())
+        watch_minutes  = sum(v['watch_minutes']    for v in s1_data.values())
+        watch_hours    = watch_minutes / 60
+        avg_retention  = sum(v['avg_pct']          for v in s1_data.values()) / len(s1_data)
+        avg_avd_secs   = sum(v['avg_dur_secs']     for v in s1_data.values()) / len(s1_data)
+        total_likes    = sum(v.get('likes', 0)     for v in s1_data.values())
+        total_shares   = sum(v.get('shares', 0)    for v in s1_data.values())
+        total_comments = sum(v.get('comments', 0)  for v in s1_data.values())
+        avg_ctr        = sum(v.get('ctr', 0)       for v in s1_data.values()) / len(s1_data)
     else:
         print('  ⚠ No S1 analytics data — using zeros for S1 aggregates.')
         total_views = total_subs = watch_hours = avg_retention = avg_avd_secs = 0
+        total_likes = total_shares = total_comments = avg_ctr = 0
 
     stats = {
-        'lf_count':     len(lf_ids),
-        'sf_count':     len(sf_ids),
-        'channel_subs': ch['subs'],
-        'total_views':  total_views,
-        'total_subs':   total_subs,
-        'watch_hours':  watch_hours,
-        'avg_retention': avg_retention,
-        'avg_avd_secs': avg_avd_secs,
+        'lf_count':       len(lf_ids),
+        'sf_count':       len(sf_ids),
+        'channel_subs':   ch['subs'],
+        'total_views':    total_views,
+        'total_subs':     total_subs,
+        'watch_hours':    watch_hours,
+        'avg_retention':  avg_retention,
+        'avg_avd_secs':   avg_avd_secs,
+        'total_likes':    total_likes,
+        'total_shares':   total_shares,
+        'total_comments': total_comments,
+        'avg_ctr':        avg_ctr,
     }
 
     print('\n── Calculated stats ─────────────────────────────────')
@@ -927,7 +962,9 @@ def main():
 
     if notion_tabs_ok:
         # ── Apply exact sort + exclude logic ─────────────────────────
-        pipeline_rows = [r for r in pipeline_raw if not is_excluded(r)]
+        pipeline_rows = [r for r in pipeline_raw
+                         if not is_excluded(r)
+                         and prop_val(r['properties'].get('PL State', {})) != 'Published']
         pipeline_rows.sort(key=lambda r: (
             get_number(r, 'Published Count'),
             get_date(r, 'Filming'),
@@ -938,17 +975,17 @@ def main():
         editor_rows = [r for r in editor_raw if not is_excluded(r)]
         editor_rows.sort(key=lambda r: (
             get_priority(r),
-            get_date(r, 'Publish Date'),
+            get_date(r, 'Publish'),
             get_number(r, 'Credit Count'),
         ))
 
         publishing_rows = [r for r in publishing_raw if not is_excluded(r)]
-        publishing_rows.sort(key=lambda r: get_date(r, 'Publish Date'))
+        publishing_rows.sort(key=lambda r: get_date(r, 'Publish'))
 
         billing_rows = [r for r in billing_raw if not is_excluded(r)]
         billing_rows.sort(key=lambda r: (
             get_invoice(r),
-            get_date(r, 'Publish Date'),
+            get_date(r, 'Publish'),
         ))
 
         print(f'  Pipeline rows after sort/exclude : {len(pipeline_rows)}')
