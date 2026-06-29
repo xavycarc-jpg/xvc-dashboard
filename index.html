@@ -125,6 +125,7 @@ tbody tr:hover td{background:rgba(255,255,255,0.02)}
     <button class="nav-tab" onclick="show('growth',this)">Growth</button>
     <button class="nav-tab" onclick="show('revenue',this)">Revenue</button>
     <button class="nav-tab" onclick="show('trends',this)">Trends</button>
+    <button class="nav-tab" onclick="show('thumbnails',this)">Thumbnails</button>
   </div>
 </div>
 
@@ -502,6 +503,65 @@ tbody tr:hover td{background:rgba(255,255,255,0.02)}
 
 </div>
 
+
+<!-- ══ THUMBNAILS ═════════════════════════════════════════════ -->
+<div id="thumbnails" class="tab">
+
+  <div class="card teal">
+    <div class="card-hd"><span class="lbl">CTR Overview · Season 1</span><span class="tag tg">thumbnail signal</span></div>
+    <div class="g4">
+      <div class="inner"><div class="lbl" style="margin-bottom:3px">Avg CTR · Long Form</div><div class="mono" style="font-size:22px;color:var(--teal);font-weight:600" id="tn-avg-lf">—</div><div style="font-size:10px;color:var(--dim);margin-top:2px">S1 · 8 videos</div></div>
+      <div class="inner"><div class="lbl" style="margin-bottom:3px">Avg CTR · Short Form</div><div class="mono" style="font-size:22px;color:var(--teal);font-weight:600" id="tn-avg-sf">—</div><div style="font-size:10px;color:var(--dim);margin-top:2px">S1 · 4 videos</div></div>
+      <div class="inner"><div class="lbl" style="margin-bottom:3px">Best Thumbnail CTR</div><div class="mono" style="font-size:22px;color:var(--amber);font-weight:600" id="tn-best">—</div><div style="font-size:10px;color:var(--dim);margin-top:2px" id="tn-best-title">—</div></div>
+      <div class="inner"><div class="lbl" style="margin-bottom:3px">Benchmark</div><div class="mono" style="font-size:22px;color:var(--teal);font-weight:600">2–10%</div><div style="font-size:10px;color:var(--dim);margin-top:2px">YouTube average range</div></div>
+    </div>
+  </div>
+
+  <div class="alert ag" id="tn-alert" style="margin-bottom:8px"><div class="dot dg"></div><span id="tn-alert-txt">Loading…</span></div>
+
+  <div class="card teal">
+    <div class="card-hd"><span class="lbl">CTR % · Long Form · By Video</span><span class="tag tg">designer performance</span></div>
+    <div style="font-size:11px;color:var(--dim);margin-bottom:8px">Higher CTR = thumbnail made people click. Pair with Avg View Duration to check if it delivered on the promise.</div>
+    <div class="scr"><table>
+      <thead><tr><th>#</th><th>Title</th><th>Published</th><th>CTR</th><th>vs Avg</th><th>Impressions</th><th>Avg View Duration</th><th>Designer Rating</th></tr></thead>
+      <tbody id="tn-lf-tbody"></tbody>
+      <tfoot><tr class="tf"><td colspan="3">Average</td><td id="tn-lf-ac">—</td><td>—</td><td id="tn-lf-ti">—</td><td>—</td><td id="tn-lf-rating">—</td></tr></tfoot>
+    </table></div>
+  </div>
+
+  <div class="card">
+    <div class="card-hd"><span class="lbl">CTR % · Short Form · By Video</span></div>
+    <div class="scr"><table>
+      <thead><tr><th>#</th><th>Title</th><th>Published</th><th>CTR</th><th>vs Avg</th><th>Likes</th></tr></thead>
+      <tbody id="tn-sf-tbody"></tbody>
+      <tfoot><tr class="tf"><td colspan="3">Average</td><td id="tn-sf-ac">—</td><td>—</td><td>—</td></tr></tfoot>
+    </table></div>
+  </div>
+
+  <div class="card teal">
+    <div class="card-hd"><span class="lbl">CTR Trend · Long Form · Chronological</span><span class="tag tg">packaging signal</span></div>
+    <div style="font-size:11px;color:var(--dim);margin-bottom:8px">Are thumbnails improving over time? Look for an upward trend in S2.</div>
+    <canvas id="ch-ctr-tn" width="700" height="180" style="width:100%;height:180px"></canvas>
+  </div>
+
+  <div class="card none">
+    <div class="card-hd"><span class="lbl">CTR vs Avg View Duration · Long Form</span><span class="tag tn">thumbnail + delivery check</span></div>
+    <div style="font-size:11px;color:var(--dim);margin-bottom:10px">High CTR + high retention = great thumbnail <em>and</em> great content. High CTR + low retention = thumbnail overpromised.</div>
+    <div id="tn-quadrant"></div>
+  </div>
+
+  <div class="card none">
+    <div class="card-hd"><span class="lbl">How to Use This Tab</span></div>
+    <div style="display:flex;flex-direction:column;gap:6px;font-size:12px;color:var(--muted)">
+      <div><span style="color:var(--teal);font-weight:600">CTR &gt; 5%</span> — excellent thumbnail. Analyze what worked: face, color, text contrast, emotion.</div>
+      <div><span style="color:var(--amber);font-weight:600">CTR 2–5%</span> — solid. Look for patterns in what's underperforming: too busy, weak contrast, no clear hook.</div>
+      <div><span style="color:rgba(240,160,64,0.5);font-weight:600">CTR &lt; 2%</span> — thumbnail isn't converting impressions. A/B test a new version.</div>
+      <div style="margin-top:4px;color:var(--dim)">Always compare CTR against Avg View Duration — a misleading thumbnail can spike CTR but tank watch time. The goal is both high.</div>
+    </div>
+  </div>
+
+</div>
+
 </div><!-- /wrap -->
 
 <script>
@@ -526,7 +586,7 @@ const SF=[
 ];
 const TR=[LF[0],LF[1],LF[2],LF[3],LF[4],LF[5],LF[6]];
 
-const TABS=['home','scoreboard','videos','growth','revenue','trends'];
+const TABS=['home','scoreboard','videos','growth','revenue','trends','thumbnails'];
 
 function show(id,btn){
   TABS.forEach(t=>document.getElementById(t).style.display='none');
@@ -534,6 +594,7 @@ function show(id,btn){
   document.querySelectorAll('#tab-nav .nav-tab').forEach(p=>p.classList.remove('active'));
   btn.classList.add('active');
   if(id==='trends')drawCharts();
+  if(id==='thumbnails')drawThumbnailTab();
 }
 
 window.onload=function(){
@@ -541,7 +602,7 @@ window.onload=function(){
   document.getElementById('home').style.display='block';
   document.getElementById('live-date').textContent=new Date().toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric',year:'numeric'});
   document.getElementById('h-date').textContent=new Date().toLocaleDateString('en-US',{month:'short',year:'numeric'});
-  buildTables();buildBars();updBE();
+  buildTables();buildBars();updBE();buildThumbnailTables();
   tick();setInterval(tick,1000);
 };
 
@@ -706,6 +767,76 @@ function saveGF(){
   hideGF();
   ['gf-mo','gf-s','gf-v','gf-w','gf-r','gf-n'].forEach(id=>document.getElementById(id).value='');
 }
+
+// ── Thumbnail Tab ─────────────────────────────────────────────
+const LF_EXT=[
+  {imp:82357,avd:178},{imp:1063,avd:245},{imp:7059,avd:199},{imp:1297,avd:251},
+  {imp:554,avd:250},{imp:119739,avd:247},{imp:155696,avd:213},{imp:2232,avd:276},
+];
+function fmtAvd(s){const m=Math.floor(s/60);return m+'m '+String(s%60).padStart(2,'0')+'s';}
+function ctrColor(c,avg){return c>=5?'#3ecf8e':c>=avg?'#f0a040':'rgba(240,160,64,0.45)';}
+
+function buildThumbnailTables(){
+  const avg=LF.reduce((a,v)=>a+v.ctr,0)/LF.length;
+  const sfAvg=SF.reduce((a,v)=>a+v.ctr,0)/SF.length;
+  document.getElementById('tn-avg-lf').textContent=avg.toFixed(2)+'%';
+  document.getElementById('tn-avg-sf').textContent=sfAvg.toFixed(2)+'%';
+  const best=LF.reduce((a,v)=>v.ctr>a.ctr?v:a,LF[0]);
+  document.getElementById('tn-best').textContent=best.ctr.toFixed(2)+'%';
+  document.getElementById('tn-best-title').textContent=best.t.length>28?best.t.slice(0,26)+'…':best.t;
+  const aboveAvg=LF.filter(v=>v.ctr>=avg).length;
+  const txt=document.getElementById('tn-alert-txt'),al=document.getElementById('tn-alert');
+  if(avg>=5){txt.innerHTML=`Average CTR is <strong>${avg.toFixed(2)}%</strong> — above the 5% strong threshold. Thumbnail performance is excellent.`;al.className='alert ag';al.querySelector('.dot').className='dot dg';}
+  else if(avg>=2){txt.innerHTML=`Average CTR is <strong>${avg.toFixed(2)}%</strong> — within the normal 2–10% range. ${aboveAvg} of ${LF.length} videos beat the average.`;al.className='alert aa';al.querySelector('.dot').className='dot da';}
+  else{txt.innerHTML=`Average CTR is <strong>${avg.toFixed(2)}%</strong> — below the 2% floor. Thumbnails need significant testing.`;al.className='alert aa';al.querySelector('.dot').className='dot da';}
+  const lb=document.getElementById('tn-lf-tbody');
+  let tc=0,ti=0,ratingSum=0;
+  LF.forEach((v,i)=>{
+    tc+=v.ctr;const ext=LF_EXT[i]||{imp:0,avd:0};ti+=ext.imp;
+    const delta=v.ctr-avg,deltaStr=(delta>=0?'+':'')+delta.toFixed(2)+'%',deltaCol=delta>=0?'#3ecf8e':'rgba(240,160,64,0.6)';
+    const stars=v.ctr>=7?'★★★★★':v.ctr>=5?'★★★★☆':v.ctr>=3?'★★★☆☆':v.ctr>=2?'★★☆☆☆':'★☆☆☆☆';
+    ratingSum+=(v.ctr>=7?5:v.ctr>=5?4:v.ctr>=3?3:v.ctr>=2?2:1);
+    lb.innerHTML+=`<tr>
+      <td class="mono" style="color:rgba(240,239,232,0.25)">${i+1}</td>
+      <td style="font-weight:500;max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${v.t}</td>
+      <td class="mono" style="color:rgba(240,239,232,0.3);white-space:nowrap">${v.d}</td>
+      <td class="mono" style="color:${ctrColor(v.ctr,avg)};font-weight:600;font-size:13px">${v.ctr.toFixed(2)}%</td>
+      <td class="mono" style="color:${deltaCol};font-size:11px">${deltaStr}</td>
+      <td class="mono" style="color:rgba(240,239,232,0.5)">${ext.imp>0?fmt(ext.imp):'—'}</td>
+      <td class="mono" style="color:rgba(240,239,232,0.7)">${ext.avd>0?fmtAvd(ext.avd):'—'}</td>
+      <td style="color:var(--amber);letter-spacing:1px;font-size:11px">${stars}</td>
+    </tr>`;
+  });
+  document.getElementById('tn-lf-ac').textContent=(tc/LF.length).toFixed(2)+'%';
+  document.getElementById('tn-lf-ti').textContent=fmt(ti);
+  document.getElementById('tn-lf-rating').textContent=(ratingSum/LF.length).toFixed(1)+' / 5';
+  const sb=document.getElementById('tn-sf-tbody');let sc=0;
+  SF.forEach((v,i)=>{
+    sc+=v.ctr;const delta=v.ctr-sfAvg,deltaStr=(delta>=0?'+':'')+delta.toFixed(2)+'%',deltaCol=delta>=0?'#3ecf8e':'rgba(240,160,64,0.6)';
+    sb.innerHTML+=`<tr>
+      <td class="mono" style="color:rgba(240,239,232,0.25)">${i+1}</td>
+      <td style="font-weight:500">${v.t}</td>
+      <td class="mono" style="color:rgba(240,239,232,0.3);white-space:nowrap">${v.d}</td>
+      <td class="mono" style="color:${ctrColor(v.ctr,sfAvg)};font-weight:600">${v.ctr.toFixed(2)}%</td>
+      <td class="mono" style="color:${deltaCol};font-size:11px">${deltaStr}</td>
+      <td class="mono">${v.likes}</td>
+    </tr>`;
+  });
+  document.getElementById('tn-sf-ac').textContent=(sc/SF.length).toFixed(2)+'%';
+  const avgAvd=LF_EXT.reduce((a,e)=>a+e.avd,0)/LF_EXT.length,qc=document.getElementById('tn-quadrant');
+  LF.forEach((v,i)=>{
+    const ext=LF_EXT[i]||{avd:0},hiCtr=v.ctr>=avg,hiAvd=ext.avd>=avgAvd;
+    const label=hiCtr&&hiAvd?{t:'Great — click + deliver',c:'#3ecf8e'}:hiCtr&&!hiAvd?{t:'Misleading — click, no deliver',c:'#f0a040'}:!hiCtr&&hiAvd?{t:'Hidden gem — delivers, not clicked',c:'#f0a040'}:{t:'Needs work',c:'rgba(240,160,64,0.4)'};
+    qc.innerHTML+=`<div style="display:flex;align-items:center;gap:10px;margin-bottom:7px">
+      <div style="font-size:11px;color:rgba(240,239,232,0.5);width:190px;flex-shrink:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${v.t}</div>
+      <span class="mono" style="font-size:11px;color:${ctrColor(v.ctr,avg)};width:52px">CTR ${v.ctr.toFixed(1)}%</span>
+      <span class="mono" style="font-size:11px;color:rgba(240,239,232,0.4);width:48px">${ext.avd>0?fmtAvd(ext.avd):'—'}</span>
+      <span style="font-size:10px;font-weight:600;color:${label.c};text-transform:uppercase;letter-spacing:.05em">${label.t}</span>
+    </div>`;
+  });
+}
+let tnChartDrawn=false;
+function drawThumbnailTab(){if(tnChartDrawn)return;tnChartDrawn=true;drawLine('ch-ctr-tn',TR.map(v=>v.ctr),'#f0a040','rgba(240,160,64,0.07)',v=>v.toFixed(1)+'%');}
 
 // CHARTS
 let chartsDrawn=false;
