@@ -146,17 +146,17 @@ tbody tr:hover td{background:rgba(255,255,255,0.02)}
   <div class="nav-inner" id="tab-nav">
     <button class="nav-tab active" onclick="show('home',this)">Home</button>
     <button class="nav-tab" onclick="show('scoreboard',this)">Scoreboard</button>
-    <button class="nav-tab" onclick="show('videos',this)">Videos</button>
+    <button class="nav-tab" onclick="show('videos',this)">LF Vids</button>
+    <button class="nav-tab" onclick="show('shortform',this)">Shorts</button>
     <button class="nav-tab" onclick="show('growth',this)">Growth</button>
-    <button class="nav-tab" onclick="show('revenue',this)">Revenue</button>
     <button class="nav-tab" onclick="show('trends',this)">Trends</button>
-    <button class="nav-tab" onclick="show('pipeline',this)">Pipeline</button>
-    <button class="nav-tab" onclick="show('editor',this)">Editor</button>
+    <button class="nav-tab" onclick="show('pipeline',this)">Production</button>
+    <button class="nav-tab" onclick="show('editor',this)">Editing</button>
+    <button class="nav-tab" onclick="show('thumbnails',this)">Thumbnails</button>
     <button class="nav-tab" onclick="show('publishing',this)">Published</button>
     <button class="nav-tab" onclick="show('billing',this)">Billing</button>
-    <button class="nav-tab" onclick="show('thumbnails',this)">Thumbnails CTR</button>
-    <button class="nav-tab" onclick="show('shortform',this)">Short Form</button>
     <button class="nav-tab" onclick="show('paidads',this)">Paid Ads</button>
+    <button class="nav-tab" onclick="show('revenue',this)">Revenue</button>
   </div>
 </div>
 
@@ -1364,7 +1364,7 @@ function renderPaidAds(){
     <td class="mono">${((r.views||0)/totalViews*100).toFixed(1)}%</td>
     <td class="mono">${r.engagedViews!=null?fmt(r.engagedViews):'—'}</td>
     <td class="mono">${r.avgPctViewed!=null?r.avgPctViewed.toFixed(1)+'%':'—'}</td>
-    <td class="mono">${r.watchTime!=null?fmt(r.watchTime):'—'}</td>
+    <td class="mono">${r.watchTime!=null?r.watchTime.toFixed(1)+'h':'—'}</td>
     <td class="mono">${r.avgViewDuration||'—'}</td>
     <td class="mono">${r.impressions!=null?fmt(r.impressions):'—'}</td>
     <td class="mono">${r.impressionsCtr!=null?r.impressionsCtr.toFixed(2)+'%':'—'}</td>

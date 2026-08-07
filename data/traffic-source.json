@@ -1,4 +1,25 @@
 {
   "_readme": "PLACEHOLDER DATA FILE — channel-level Traffic Source snapshots only, no per-video breakdown available. Paste a new dated snapshot into the 'snapshots' array whenever Xavy exports an updated YouTube Studio Traffic Source report; the dashboard always renders the most recent entry and keeps older ones for reference. There is no ad spend / cost / CPM data source connected — do not fabricate spend or ROI figures anywhere downstream of this file.",
-  "snapshots": []
+  "snapshots": [
+    {
+      "date": "2026-08-07",
+      "sources": [
+        { "source": "Total", "engagedViews": 9731, "avgPctViewed": 32.32, "views": 28409, "watchTime": 366.3073, "avgViewDuration": "0:02:08", "impressions": 6150, "impressionsCtr": 4.91 },
+        { "source": "YouTube advertising", "engagedViews": 7309, "avgPctViewed": 32, "views": 22748, "watchTime": 324.7419, "avgViewDuration": "0:02:31", "impressions": null, "impressionsCtr": null },
+        { "source": "Shorts feed", "engagedViews": 1546, "avgPctViewed": 52.65, "views": 4627, "watchTime": 7.0215, "avgViewDuration": "0:00:13", "impressions": null, "impressionsCtr": null },
+        { "source": "Channel pages", "engagedViews": 415, "avgPctViewed": 35.37, "views": 451, "watchTime": 15.3995, "avgViewDuration": "0:02:13", "impressions": 3955, "impressionsCtr": 4.96 },
+        { "source": "Browse features", "engagedViews": 131, "avgPctViewed": 31.15, "views": 138, "watchTime": 5.2083, "avgViewDuration": "0:02:23", "impressions": 765, "impressionsCtr": 6.93 },
+        { "source": "Direct or unknown", "engagedViews": 85, "avgPctViewed": 25.12, "views": 85, "watchTime": 3.1702, "avgViewDuration": "0:02:14", "impressions": null, "impressionsCtr": null },
+        { "source": "External", "engagedViews": 81, "avgPctViewed": 35.88, "views": 91, "watchTime": 4.5358, "avgViewDuration": "0:03:21", "impressions": null, "impressionsCtr": null },
+        { "source": "YouTube search", "engagedViews": 60, "avgPctViewed": 33.21, "views": 111, "watchTime": 1.8266, "avgViewDuration": "0:01:48", "impressions": 592, "impressionsCtr": 5.91 },
+        { "source": "Other YouTube features", "engagedViews": 41, "avgPctViewed": 42.05, "views": 83, "watchTime": 1.4678, "avgViewDuration": "0:02:06", "impressions": null, "impressionsCtr": null },
+        { "source": "Suggested videos", "engagedViews": 35, "avgPctViewed": 29.11, "views": 35, "watchTime": 1.8332, "avgViewDuration": "0:03:08", "impressions": 788, "impressionsCtr": 1.52 },
+        { "source": "Notifications", "engagedViews": 11, "avgPctViewed": 35.64, "views": 20, "watchTime": 0.3502, "avgViewDuration": "0:01:54", "impressions": null, "impressionsCtr": null },
+        { "source": "Playlists", "engagedViews": 10, "avgPctViewed": 30.39, "views": 10, "watchTime": 0.5704, "avgViewDuration": "0:03:25", "impressions": 50, "impressionsCtr": 12 },
+        { "source": "Related Shorts", "engagedViews": 4, "avgPctViewed": 12.72, "views": 4, "watchTime": 0.074, "avgViewDuration": "0:01:06", "impressions": null, "impressionsCtr": null },
+        { "source": "End screens", "engagedViews": 2, "avgPctViewed": 51.85, "views": 2, "watchTime": 0.1063, "avgViewDuration": "0:03:11", "impressions": null, "impressionsCtr": null },
+        { "source": "Sound pages", "engagedViews": 1, "avgPctViewed": 0, "views": 4, "watchTime": 0.0016, "avgViewDuration": "0:00:00", "impressions": null, "impressionsCtr": null }
+      ]
+    }
+  ]
 }
