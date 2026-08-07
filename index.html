@@ -155,6 +155,8 @@ tbody tr:hover td{background:rgba(255,255,255,0.02)}
     <button class="nav-tab" onclick="show('publishing',this)">Published</button>
     <button class="nav-tab" onclick="show('billing',this)">Billing</button>
     <button class="nav-tab" onclick="show('thumbnails',this)">Thumbnails CTR</button>
+    <button class="nav-tab" onclick="show('shortform',this)">Short Form</button>
+    <button class="nav-tab" onclick="show('paidads',this)">Paid Ads</button>
   </div>
 </div>
 
@@ -720,6 +722,113 @@ tbody tr:hover td{background:rgba(255,255,255,0.02)}
 
 </div>
 
+
+<!-- ══ SHORT FORM ════════════════════════════════════════════ -->
+<div id="shortform" class="tab">
+
+  <div class="card">
+    <div class="card-hd">
+      <span class="lbl">Short Form Trial · Aug 7 – Sep 7, 2026</span>
+      <span class="tag tb" id="sfm-trial-tag">active</span>
+    </div>
+    <div style="display:flex;gap:6px;margin-bottom:10px">
+      <div class="clock-cell"><div class="clock-num" id="sfm-cd-d">--</div><div class="clock-lbl">Days</div></div>
+      <div class="clock-cell"><div class="clock-num" id="sfm-cd-h">--</div><div class="clock-lbl">Hrs</div></div>
+      <div class="clock-cell"><div class="clock-num" id="sfm-cd-m">--</div><div class="clock-lbl">Min</div></div>
+      <div class="clock-cell"><div class="clock-num" id="sfm-cd-s">--</div><div class="clock-lbl">Sec</div></div>
+    </div>
+    <div style="font-size:11px;color:var(--dim)">1-month trial, no fixed target — track everything Stephan publishes during this window.</div>
+  </div>
+
+  <div class="alert aa" style="margin-bottom:8px"><div class="dot da"></div><span>0 Shorts live, confirmed. Previous Shorts were removed for brand misalignment; this tracker restarts from zero for the trial.</span></div>
+
+  <div class="card teal">
+    <div class="card-hd"><span class="lbl">Trial Scorecard</span><span class="tag tg">shorts published in trial window only</span></div>
+    <div class="g4">
+      <div class="inner"><div class="lbl" style="margin-bottom:3px">Total Views</div><div class="mono" style="font-size:20px;color:var(--teal);font-weight:600" id="sfm-sc-views">0</div></div>
+      <div class="inner"><div class="lbl" style="margin-bottom:3px">Subs Gained</div><div class="mono" style="font-size:20px;color:var(--teal);font-weight:600" id="sfm-sc-subs">0</div></div>
+      <div class="inner"><div class="lbl" style="margin-bottom:3px">Avg CTR</div><div class="mono" style="font-size:20px;color:var(--amber);font-weight:600" id="sfm-sc-ctr">—</div></div>
+      <div class="inner"><div class="lbl" style="margin-bottom:3px">Avg % Viewed</div><div class="mono" style="font-size:20px;color:var(--amber);font-weight:600" id="sfm-sc-ret">—</div></div>
+    </div>
+    <div style="font-size:10px;color:var(--dim);margin-top:8px">Old removed Shorts never count toward this scorecard — only videos published between 2026-08-07 and 2026-09-07.</div>
+  </div>
+
+  <div class="card">
+    <div class="card-hd"><span class="lbl">Monthly Uploads</span><span class="tag tn">trial month highlighted</span></div>
+    <div id="sfm-bars"></div>
+  </div>
+
+  <div class="card">
+    <div class="card-hd"><span class="lbl">Short Form · Per Video</span><span class="tag tn" id="sfm-count">0 shorts</span></div>
+    <div style="font-size:11px;color:var(--dim);margin-bottom:8px">Click a column header to sort.</div>
+    <div class="scr"><table id="sfm-table">
+      <thead><tr>
+        <th onclick="sfmSort('t')" style="cursor:pointer">Title</th>
+        <th onclick="sfmSort('d')" style="cursor:pointer">Published</th>
+        <th onclick="sfmSort('views')" style="cursor:pointer">Views</th>
+        <th onclick="sfmSort('impressions')" style="cursor:pointer">Impressions</th>
+        <th onclick="sfmSort('ctr')" style="cursor:pointer">CTR</th>
+        <th onclick="sfmSort('ret')" style="cursor:pointer">Avg % Viewed</th>
+        <th onclick="sfmSort('likes')" style="cursor:pointer">Likes</th>
+        <th onclick="sfmSort('comments')" style="cursor:pointer">Comments</th>
+        <th onclick="sfmSort('shares')" style="cursor:pointer">Shares</th>
+        <th onclick="sfmSort('subs')" style="cursor:pointer">Subs Gained</th>
+        <th onclick="sfmSort('status')" style="cursor:pointer">Status</th>
+      </tr></thead>
+      <tbody id="sfm-tbody"><tr><td colspan="11" style="text-align:center;color:var(--dim);padding:20px">No Shorts published yet in the trial window.</td></tr></tbody>
+    </table></div>
+  </div>
+
+  <div class="card none">
+    <div class="card-hd"><span class="lbl">Data Source</span></div>
+    <div style="font-size:11px;color:var(--dim)">Public metrics (views, likes, comments, subs) and Analytics-tier metrics (CTR, Avg % Viewed) for this tab are read from <code>data/shorts.json</code>, a placeholder file updated manually for now — no live YouTube Analytics OAuth pull is wired up yet. See the TODO note inside that file for what's needed to automate it.</div>
+  </div>
+
+</div>
+
+
+<!-- ══ PAID ADS ════════════════════════════════════════════ -->
+<div id="paidads" class="tab">
+
+  <div class="alert aa" style="margin-bottom:8px"><div class="dot da"></div><span>Spend and ROI data not available — connect a Google Ads export to enable this. Everything below is channel-level Traffic Source only, not per-video.</span></div>
+
+  <div class="card" id="pa-empty" style="display:none">
+    <div class="card-hd"><span class="lbl">Traffic Source</span></div>
+    <div style="font-size:12px;color:var(--dim);padding:12px 0;text-align:center">No traffic-source snapshot yet. Paste a YouTube Studio Traffic Source export into <code>data/traffic-source.json</code> to populate this tab.</div>
+  </div>
+
+  <div id="pa-content" style="display:none">
+    <div class="card teal">
+      <div class="card-hd"><span class="lbl">Channel Diagnosis · Views by Traffic Source</span><span class="tag tg" id="pa-snapshot-date">—</span></div>
+      <div class="g2" style="margin-bottom:10px">
+        <div class="inner"><div class="lbl" style="margin-bottom:3px">Paid (Ads + Shorts Feed)</div><div class="mono" style="font-size:20px;color:var(--amber);font-weight:600" id="pa-paid-pct">—</div></div>
+        <div class="inner"><div class="lbl" style="margin-bottom:3px">Organic Discovery</div><div class="mono" style="font-size:20px;color:var(--teal);font-weight:600" id="pa-organic-pct">—</div></div>
+      </div>
+      <div style="font-size:10px;color:var(--dim);margin-bottom:8px">Organic Discovery = Browse features + YouTube search + Suggested videos.</div>
+      <div id="pa-bars"></div>
+    </div>
+
+    <div class="card">
+      <div class="card-hd"><span class="lbl">Traffic Source · Full Breakdown</span><span class="tag tn">latest snapshot</span></div>
+      <div class="scr"><table>
+        <thead><tr><th>Source</th><th>Views</th><th>% of Total</th><th>Engaged Views</th><th>Avg % Viewed</th><th>Watch Time</th><th>Avg View Duration</th><th>Impressions</th><th>CTR</th></tr></thead>
+        <tbody id="pa-tbody"></tbody>
+      </table></div>
+    </div>
+
+    <div class="card none">
+      <div class="card-hd"><span class="lbl">Snapshot History</span></div>
+      <div id="pa-history" style="font-size:11px;color:var(--muted);display:flex;flex-direction:column;gap:4px"></div>
+    </div>
+  </div>
+
+  <div class="card none">
+    <div class="card-hd"><span class="lbl">Data Source</span></div>
+    <div style="font-size:11px;color:var(--dim)">Fed by manually pasted YouTube Studio Traffic Source exports saved as dated snapshots in <code>data/traffic-source.json</code>. No live pull — channel-level Traffic Source data isn't exposed per-video and isn't available via a wired Analytics API endpoint yet.</div>
+  </div>
+
+</div>
+
 </div><!-- /wrap -->
 
 <script>
@@ -738,7 +847,7 @@ const LF=[
 ];
 const TR=[LF[0],LF[1],LF[2],LF[3],LF[4],LF[5],LF[6]];
 
-const TABS=['home','scoreboard','videos','growth','revenue','trends','pipeline','editor','publishing','billing','thumbnails'];
+const TABS=['home','scoreboard','videos','growth','revenue','trends','pipeline','editor','publishing','billing','thumbnails','shortform','paidads'];
 
 function show(id,btn){
   TABS.forEach(t=>document.getElementById(t).style.display='none');
@@ -747,6 +856,8 @@ function show(id,btn){
   btn.classList.add('active');
   if(id==='trends')drawCharts();
   if(id==='thumbnails')drawThumbnailTab();
+  if(id==='shortform')loadShortForm();
+  if(id==='paidads')loadPaidAds();
 }
 
 window.onload=function(){
@@ -764,6 +875,18 @@ function tick(){
   document.getElementById('cd-h').textContent=pad(Math.floor((diff%864e5)/36e5));
   document.getElementById('cd-m').textContent=pad(Math.floor((diff%36e5)/6e4));
   document.getElementById('cd-s').textContent=pad(Math.floor((diff%6e4)/1e3));
+  const sfDiff=new Date('2026-09-07T00:00:00')-new Date();
+  const sfEl=document.getElementById('sfm-cd-d');
+  if(sfEl){
+    const active=sfDiff>0;
+    document.getElementById('sfm-trial-tag').textContent=active?'active':'trial ended';
+    document.getElementById('sfm-trial-tag').className='tag '+(active?'tb':'tn');
+    const d=Math.max(0,sfDiff);
+    document.getElementById('sfm-cd-d').textContent=Math.floor(d/864e5);
+    document.getElementById('sfm-cd-h').textContent=pad(Math.floor((d%864e5)/36e5));
+    document.getElementById('sfm-cd-m').textContent=pad(Math.floor((d%36e5)/6e4));
+    document.getElementById('sfm-cd-s').textContent=pad(Math.floor((d%6e4)/1e3));
+  }
 }
 
 function buildTables(){
@@ -1102,6 +1225,155 @@ function drawLine(id,vals,col,fill,lFn){
     init();
   }
 })();
+
+// ── Short Form Tab ──────────────────────────────────────────────
+let SFM_DATA=null, sfmLoaded=false, sfmSortKey='d', sfmSortDir=-1;
+function loadShortForm(){
+  if(sfmLoaded){renderShortForm();return;}
+  fetch('data/shorts.json').then(r=>r.json()).then(d=>{
+    SFM_DATA=d;sfmLoaded=true;renderShortForm();
+  }).catch(()=>{
+    document.getElementById('sfm-tbody').innerHTML='<tr><td colspan="11" style="text-align:center;color:var(--dim);padding:20px">Could not load data/shorts.json</td></tr>';
+  });
+}
+function sfmSort(key){
+  sfmSortDir=(sfmSortKey===key)?-sfmSortDir:1;
+  sfmSortKey=key;
+  renderShortForm();
+}
+function renderShortForm(){
+  if(!SFM_DATA)return;
+  const trialStart=new Date(SFM_DATA.trial.start+'T00:00:00');
+  const trialEnd=new Date(SFM_DATA.trial.end+'T23:59:59');
+  const vids=(SFM_DATA.videos||[]).slice();
+
+  // Monthly bars
+  const bc=document.getElementById('sfm-bars');
+  bc.innerHTML='';
+  const maxU=Math.max(...SFM_DATA.monthly.map(m=>m.uploads),1);
+  SFM_DATA.monthly.forEach(m=>{
+    const isTrial=m.month==='2026-08';
+    const p=Math.round((m.uploads/maxU)*100);
+    const label=new Date(m.month+'-01T00:00:00').toLocaleDateString('en-US',{month:'short',year:'2-digit'});
+    bc.innerHTML+=`<div style="display:flex;align-items:center;gap:10px;margin-bottom:7px">
+      <div style="font-size:11px;color:${isTrial?'var(--amber)':'rgba(240,239,232,0.5)'};width:70px;flex-shrink:0;font-weight:${isTrial?600:400}">${label}${isTrial?' ★':''}</div>
+      <div style="flex:1;display:flex;align-items:center;gap:8px">
+        <div class="btrack" style="flex:1"><div class="bar" style="background:${isTrial?'var(--amber)':'var(--teal)'};width:${p}%"></div></div>
+        <span class="mono" style="font-size:11px;width:24px;text-align:right;color:${isTrial?'var(--amber)':'var(--teal)'};font-weight:600">${m.uploads}</span>
+      </div>
+    </div>`;
+  });
+
+  // Trial scorecard — only videos published inside trial window
+  const trialVids=vids.filter(v=>{
+    const d=new Date(v.d);
+    return d>=trialStart && d<=trialEnd;
+  });
+  const tv=trialVids.reduce((s,v)=>s+(v.views||0),0);
+  const ts=trialVids.reduce((s,v)=>s+(v.subs||0),0);
+  const avgCtr=trialVids.length?trialVids.reduce((s,v)=>s+(v.ctr||0),0)/trialVids.length:null;
+  const avgRet=trialVids.length?trialVids.reduce((s,v)=>s+(v.ret||0),0)/trialVids.length:null;
+  document.getElementById('sfm-sc-views').textContent=fmt(tv);
+  document.getElementById('sfm-sc-subs').textContent='+'+ts;
+  document.getElementById('sfm-sc-ctr').textContent=avgCtr!==null?avgCtr.toFixed(2)+'%':'—';
+  document.getElementById('sfm-sc-ret').textContent=avgRet!==null?avgRet.toFixed(1)+'%':'—';
+
+  // Per-video table (all videos, sortable)
+  document.getElementById('sfm-count').textContent=vids.length+' short'+(vids.length===1?'':'s');
+  const tb=document.getElementById('sfm-tbody');
+  if(!vids.length){
+    tb.innerHTML='<tr><td colspan="11" style="text-align:center;color:var(--dim);padding:20px">No Shorts published yet in the trial window.</td></tr>';
+    return;
+  }
+  vids.sort((a,b)=>{
+    const av=a[sfmSortKey],bv=b[sfmSortKey];
+    if(typeof av==='string')return sfmSortDir*String(av).localeCompare(String(bv));
+    return sfmSortDir*((av||0)-(bv||0));
+  });
+  tb.innerHTML=vids.map(v=>`<tr>
+    <td style="font-weight:500;max-width:200px">${v.t||'—'}</td>
+    <td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px;white-space:nowrap">${v.d||'—'}</td>
+    <td class="mono" style="color:var(--teal);font-weight:600">${fmt(v.views||0)}</td>
+    <td class="mono">${fmt(v.impressions||0)}</td>
+    <td class="mono" style="color:var(--amber)">${(v.ctr||0).toFixed(2)}%</td>
+    <td class="mono">${(v.ret||0).toFixed(1)}%</td>
+    <td class="mono">${fmt(v.likes||0)}</td>
+    <td class="mono">${fmt(v.comments||0)}</td>
+    <td class="mono">${fmt(v.shares||0)}</td>
+    <td class="mono" style="color:${(v.subs||0)>0?'var(--teal)':'rgba(240,239,232,0.3)'}">+${v.subs||0}</td>
+    <td><span class="tag ${v.status==='live'?'tg':v.status==='removed'?'tn':'ta'}">${v.status||'pending review'}</span></td>
+  </tr>`).join('');
+}
+
+// ── Paid Ads Tab ─────────────────────────────────────────────────
+const PA_ORGANIC=['Browse features','YouTube search','Suggested videos'];
+const PA_PAID=['YouTube advertising','Shorts feed'];
+let PA_DATA=null, paLoaded=false;
+function loadPaidAds(){
+  if(paLoaded){renderPaidAds();return;}
+  fetch('data/traffic-source.json').then(r=>r.json()).then(d=>{
+    PA_DATA=d;paLoaded=true;renderPaidAds();
+  }).catch(()=>{
+    document.getElementById('pa-empty').style.display='block';
+    document.getElementById('pa-empty').querySelector('div:last-child').textContent='Could not load data/traffic-source.json';
+  });
+}
+function renderPaidAds(){
+  if(!PA_DATA)return;
+  const snaps=PA_DATA.snapshots||[];
+  if(!snaps.length){
+    document.getElementById('pa-empty').style.display='block';
+    document.getElementById('pa-content').style.display='none';
+    return;
+  }
+  document.getElementById('pa-empty').style.display='none';
+  document.getElementById('pa-content').style.display='block';
+
+  const latest=snaps[snaps.length-1];
+  document.getElementById('pa-snapshot-date').textContent=latest.date;
+  const rows=(latest.sources||[]).filter(r=>r.source!=='Total');
+  const total=(latest.sources||[]).find(r=>r.source==='Total')
+    || rows.reduce((acc,r)=>({views:(acc.views||0)+(r.views||0)}),{views:0});
+  const totalViews=total.views||rows.reduce((s,r)=>s+(r.views||0),0)||1;
+
+  const paidViews=rows.filter(r=>PA_PAID.includes(r.source)).reduce((s,r)=>s+(r.views||0),0);
+  const organicViews=rows.filter(r=>PA_ORGANIC.includes(r.source)).reduce((s,r)=>s+(r.views||0),0);
+  document.getElementById('pa-paid-pct').textContent=(paidViews/totalViews*100).toFixed(1)+'%';
+  document.getElementById('pa-organic-pct').textContent=(organicViews/totalViews*100).toFixed(1)+'%';
+
+  const bc=document.getElementById('pa-bars');
+  const sorted=rows.slice().sort((a,b)=>(b.views||0)-(a.views||0));
+  const maxV=Math.max(...sorted.map(r=>r.views||0),1);
+  bc.innerHTML=sorted.map(r=>{
+    const p=Math.round((r.views||0)/maxV*100);
+    const isPaid=PA_PAID.includes(r.source);
+    const col=isPaid?'var(--amber)':(PA_ORGANIC.includes(r.source)?'var(--teal)':'rgba(240,239,232,0.35)');
+    return `<div style="display:flex;align-items:center;gap:10px;margin-bottom:7px">
+      <div style="font-size:11px;color:rgba(240,239,232,0.5);width:150px;flex-shrink:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${r.source}</div>
+      <div style="flex:1;display:flex;align-items:center;gap:8px">
+        <div class="btrack" style="flex:1"><div class="bar" style="background:${col};width:${p}%"></div></div>
+        <span class="mono" style="font-size:11px;width:60px;text-align:right;color:${col};font-weight:600">${((r.views||0)/totalViews*100).toFixed(1)}%</span>
+      </div>
+    </div>`;
+  }).join('');
+
+  const tb=document.getElementById('pa-tbody');
+  tb.innerHTML=sorted.map(r=>`<tr>
+    <td style="font-weight:500">${r.source}</td>
+    <td class="mono" style="color:var(--teal);font-weight:600">${fmt(r.views||0)}</td>
+    <td class="mono">${((r.views||0)/totalViews*100).toFixed(1)}%</td>
+    <td class="mono">${r.engagedViews!=null?fmt(r.engagedViews):'—'}</td>
+    <td class="mono">${r.avgPctViewed!=null?r.avgPctViewed.toFixed(1)+'%':'—'}</td>
+    <td class="mono">${r.watchTime!=null?fmt(r.watchTime):'—'}</td>
+    <td class="mono">${r.avgViewDuration||'—'}</td>
+    <td class="mono">${r.impressions!=null?fmt(r.impressions):'—'}</td>
+    <td class="mono">${r.impressionsCtr!=null?r.impressionsCtr.toFixed(2)+'%':'—'}</td>
+  </tr>`).join('');
+
+  document.getElementById('pa-history').innerHTML=snaps.slice().reverse().map((s,i)=>
+    `<div>${i===0?'<strong style="color:var(--text)">● latest</strong>':'○'} ${s.date} — ${(s.sources||[]).length} sources</div>`
+  ).join('');
+}
 </script>
 </body>
 </html>

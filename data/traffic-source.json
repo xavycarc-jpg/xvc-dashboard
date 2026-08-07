@@ -1,0 +1,4 @@
+{
+  "_readme": "PLACEHOLDER DATA FILE — channel-level Traffic Source snapshots only, no per-video breakdown available. Paste a new dated snapshot into the 'snapshots' array whenever Xavy exports an updated YouTube Studio Traffic Source report; the dashboard always renders the most recent entry and keeps older ones for reference. There is no ad spend / cost / CPM data source connected — do not fabricate spend or ROI figures anywhere downstream of this file.",
+  "snapshots": []
+}

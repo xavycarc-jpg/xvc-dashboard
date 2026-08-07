@@ -1,0 +1,17 @@
+{
+  "_readme": "PLACEHOLDER DATA FILE — manually updated for now. There is no live YouTube Analytics API integration wired into the Vercel backend (xvc-analytics.vercel.app only hosts the Slack/Notion footage-library + slack-events automations, not a YouTube Analytics endpoint). TODO: extend update_dashboard.py (which already pulls YouTube Data API v3 + Notion data server-side for the Long Form tabs) to also pull Shorts stats server-side and patch this file on each run, the same way it patches index.html today. Until then, Xavy or Stephan should hand-edit the 'videos' and 'monthly' arrays below as Shorts go live.",
+  "trial": {
+    "start": "2026-08-07",
+    "end": "2026-09-07"
+  },
+  "monthly": [
+    { "month": "2026-03", "uploads": 0 },
+    { "month": "2026-04", "uploads": 0 },
+    { "month": "2026-05", "uploads": 0 },
+    { "month": "2026-06", "uploads": 0 },
+    { "month": "2026-07", "uploads": 0 },
+    { "month": "2026-08", "uploads": 0 },
+    { "month": "2026-09", "uploads": 0 }
+  ],
+  "videos": []
+}
