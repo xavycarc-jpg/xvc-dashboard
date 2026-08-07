@@ -61,8 +61,20 @@ SCOPES = [
 ]
 SCRIPT_DIR       = os.path.dirname(os.path.abspath(__file__))
 _ANALYTICS_DIR   = os.path.join(os.path.dirname(SCRIPT_DIR), 'xvc-analytics')
-CREDENTIALS_FILE = os.path.join(_ANALYTICS_DIR, 'credentials.json')
-TOKEN_FILE       = os.path.join(_ANALYTICS_DIR, 'token.json')
+
+
+def _find_cred_file(name):
+    """CI (GitHub Actions) writes credentials.json/token.json into the repo
+    root; local runs keep them in the sibling xvc-analytics/ dir. Prefer
+    whichever actually exists so this works in both places."""
+    repo_root_path = os.path.join(SCRIPT_DIR, name)
+    if os.path.exists(repo_root_path):
+        return repo_root_path
+    return os.path.join(_ANALYTICS_DIR, name)
+
+
+CREDENTIALS_FILE = _find_cred_file('credentials.json')
+TOKEN_FILE       = _find_cred_file('token.json')
 
 NOTION_TOKEN = os.environ.get('NOTION_TOKEN')
 NOTION_DB_ID   = 'dd646e89-94f2-43a3-8810-fd69f5fa8486'
