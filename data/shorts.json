@@ -5,13 +5,13 @@
     "end": "2026-09-15"
   },
   "monthly": [
-    { "month": "2026-03", "uploads": 0 },
-    { "month": "2026-04", "uploads": 0 },
-    { "month": "2026-05", "uploads": 0 },
-    { "month": "2026-06", "uploads": 0 },
-    { "month": "2026-07", "uploads": 0 },
     { "month": "2026-08", "uploads": 0 },
-    { "month": "2026-09", "uploads": 0 }
+    { "month": "2026-09", "uploads": 0 },
+    { "month": "2026-10", "uploads": 0 },
+    { "month": "2026-11", "uploads": 0 },
+    { "month": "2026-12", "uploads": 0 },
+    { "month": "2027-01", "uploads": 0 },
+    { "month": "2027-02", "uploads": 0 }
   ],
   "videos": []
 }
