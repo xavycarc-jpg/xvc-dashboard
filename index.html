@@ -1236,7 +1236,7 @@ function drawLine(id,vals,col,fill,lFn){
 let SFM_DATA=null, sfmLoaded=false, sfmSortKey='d', sfmSortDir=-1;
 function loadShortForm(){
   if(sfmLoaded){renderShortForm();return;}
-  fetch('data/shorts.json').then(r=>r.json()).then(d=>{
+  fetch('data/shorts.json?v='+Date.now(),{cache:'no-store'}).then(r=>r.json()).then(d=>{
     SFM_DATA=d;sfmLoaded=true;renderShortForm();
   }).catch(()=>{
     document.getElementById('sfm-tbody').innerHTML='<tr><td colspan="11" style="text-align:center;color:var(--dim);padding:20px">Could not load data/shorts.json</td></tr>';
@@ -1317,7 +1317,7 @@ const PA_PAID=['YouTube advertising','Shorts feed'];
 let PA_DATA=null, paLoaded=false;
 function loadPaidAds(){
   if(paLoaded){renderPaidAds();return;}
-  fetch('data/traffic-source.json').then(r=>r.json()).then(d=>{
+  fetch('data/traffic-source.json?v='+Date.now(),{cache:'no-store'}).then(r=>r.json()).then(d=>{
     PA_DATA=d;paLoaded=true;renderPaidAds();
   }).catch(()=>{
     document.getElementById('pa-empty').style.display='block';
