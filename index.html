@@ -155,7 +155,7 @@ tbody tr:hover td{background:rgba(255,255,255,0.02)}
     <button class="nav-tab" onclick="show('thumbnails',this)">Thumbnails</button>
     <button class="nav-tab" onclick="show('publishing',this)">Published</button>
     <button class="nav-tab" onclick="show('billing',this)">Billing</button>
-    <button class="nav-tab" onclick="show('paidads',this)">Paid Ads</button>
+    <button class="nav-tab" onclick="show('paidads',this)">Traffic Sources</button>
     <button class="nav-tab" onclick="show('revenue',this)">Revenue</button>
   </div>
 </div>
@@ -799,6 +799,14 @@ tbody tr:hover td{background:rgba(255,255,255,0.02)}
   </div>
 
   <div id="pa-content" style="display:none">
+    <div class="card">
+      <div class="card-hd"><span class="lbl">Traffic Source · Full Breakdown</span><span class="tag tn">latest snapshot</span></div>
+      <div class="scr"><table>
+        <thead><tr><th>Source</th><th>Views</th><th>% of Total</th><th>Engaged Views</th><th>Avg % Viewed</th><th>Watch Time</th><th>Avg View Duration</th><th>Impressions</th><th>CTR</th></tr></thead>
+        <tbody id="pa-tbody"></tbody>
+      </table></div>
+    </div>
+
     <div class="card teal">
       <div class="card-hd"><span class="lbl">Channel Diagnosis · Views by Traffic Source</span><span class="tag tg" id="pa-snapshot-date">—</span></div>
       <div class="g2" style="margin-bottom:10px">
@@ -807,14 +815,6 @@ tbody tr:hover td{background:rgba(255,255,255,0.02)}
       </div>
       <div style="font-size:10px;color:var(--dim);margin-bottom:8px">Organic Discovery = Browse features + YouTube search + Suggested videos.</div>
       <div id="pa-bars"></div>
-    </div>
-
-    <div class="card">
-      <div class="card-hd"><span class="lbl">Traffic Source · Full Breakdown</span><span class="tag tn">latest snapshot</span></div>
-      <div class="scr"><table>
-        <thead><tr><th>Source</th><th>Views</th><th>% of Total</th><th>Engaged Views</th><th>Avg % Viewed</th><th>Watch Time</th><th>Avg View Duration</th><th>Impressions</th><th>CTR</th></tr></thead>
-        <tbody id="pa-tbody"></tbody>
-      </table></div>
     </div>
 
     <div class="card none">
