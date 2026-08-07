@@ -3,9 +3,13 @@ update_dashboard.py
 Pull live YouTube + Notion data, patch index.html, push to GitHub.
 """
 
-# Auto-load .env from xvc-analytics (sibling dir) so the script works standalone
+# Auto-load .env from xvc-analytics so the script works standalone
 import os as _os, pathlib as _pl
-_env = _pl.Path(__file__).parent.parent / 'xvc-analytics' / '.env'
+_env_candidates = [
+    _pl.Path(__file__).parent.parent / 'xvc-analytics' / '.env',
+    _pl.Path.home() / 'Desktop' / 'xvc-analytics' / '.env',
+]
+_env = next((p for p in _env_candidates if p.exists()), _env_candidates[0])
 if _env.exists():
     for _ln in _env.read_text().splitlines():
         _ln = _ln.strip()
@@ -59,18 +63,30 @@ SCOPES = [
     'https://www.googleapis.com/auth/youtube.readonly',
     'https://www.googleapis.com/auth/yt-analytics.readonly',
 ]
-SCRIPT_DIR       = os.path.dirname(os.path.abspath(__file__))
-_ANALYTICS_DIR   = os.path.join(os.path.dirname(SCRIPT_DIR), 'xvc-analytics')
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+_ANALYTICS_DIR_CANDIDATES = [
+    os.path.join(os.path.dirname(SCRIPT_DIR), 'xvc-analytics'),  # sibling of script dir
+    os.path.expanduser('~/Desktop/xvc-analytics'),                # actual known location
+]
 
 
 def _find_cred_file(name):
     """CI (GitHub Actions) writes credentials.json/token.json into the repo
-    root; local runs keep them in the sibling xvc-analytics/ dir. Prefer
-    whichever actually exists so this works in both places."""
+    root; local runs keep them in xvc-analytics/. Check the repo root first,
+    then each known xvc-analytics location for the file itself, then fall
+    back to whichever xvc-analytics directory actually exists (so a fresh
+    token.json that doesn't exist yet still gets written to the right place)."""
     repo_root_path = os.path.join(SCRIPT_DIR, name)
     if os.path.exists(repo_root_path):
         return repo_root_path
-    return os.path.join(_ANALYTICS_DIR, name)
+    for d in _ANALYTICS_DIR_CANDIDATES:
+        p = os.path.join(d, name)
+        if os.path.exists(p):
+            return p
+    for d in _ANALYTICS_DIR_CANDIDATES:
+        if os.path.isdir(d):
+            return os.path.join(d, name)
+    return os.path.join(_ANALYTICS_DIR_CANDIDATES[0], name)
 
 
 CREDENTIALS_FILE = _find_cred_file('credentials.json')
@@ -369,7 +385,7 @@ def stag(status):
 
 PL_STATUS_CLASS = {
     # idea / top-level
-    'Top Project':              'pl-top',
+    'Top Picks':                'pl-top',
     'Top Projects Chosen':      'pl-top',
     # research tier
     'Research ID':              'pl-research',
@@ -431,12 +447,12 @@ def query_notion(db_id, filter_payload, sorts=None):
 
 PIPELINE_STATUSES = [
     'IDEA: NOT A FIT', 'IDEA: Mid', 'IDEA: High', 'XVC: IDEA [UA]',
-    'RTW: Location-Led', 'Top Project', 'IDEA: Low Priority', 'YT > Substack',
+    'RTW: Location-Led', 'Top Picks', 'IDEA: Low Priority', 'YT > Substack',
     'IDEA: Not Assigned', 'Ideation: BTS Channel', 'Research ID', 'Outline',
     'TTH ID', 'Script Dev', 'Editing', 'Packaging', 'Published',
     'VO: Production', 'In Production', 'Pre-Prod Plan + Shot List',
     'Post Prod + Keyword SEO', 'Ready to Film', 'Ideation > Written',
-    'Transfer > Mindy', 'Organizing Files', 'Script: Visual Map',
+    'Transfer > Mindy', 'Organizing Files', 'Script: Visual Map', 'MasterGrid Dev',
     'VO: Revision', 'Needs Marketing', 'Editing: Hook ONLY', 'BTS: Published',
     'Archived or Re-Purposed', 'Script RW', 'Top IG Trending', 'Scheduled',
 ]
