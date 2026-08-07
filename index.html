@@ -728,7 +728,7 @@ tbody tr:hover td{background:rgba(255,255,255,0.02)}
 
   <div class="card">
     <div class="card-hd">
-      <span class="lbl">Short Form Trial · Aug 7 – Sep 7, 2026</span>
+      <span class="lbl">Short Form Trial · Aug 15 – Sep 15, 2026</span>
       <span class="tag tb" id="sfm-trial-tag">active</span>
     </div>
     <div style="display:flex;gap:6px;margin-bottom:10px">
@@ -750,7 +750,7 @@ tbody tr:hover td{background:rgba(255,255,255,0.02)}
       <div class="inner"><div class="lbl" style="margin-bottom:3px">Avg CTR</div><div class="mono" style="font-size:20px;color:var(--amber);font-weight:600" id="sfm-sc-ctr">—</div></div>
       <div class="inner"><div class="lbl" style="margin-bottom:3px">Avg % Viewed</div><div class="mono" style="font-size:20px;color:var(--amber);font-weight:600" id="sfm-sc-ret">—</div></div>
     </div>
-    <div style="font-size:10px;color:var(--dim);margin-top:8px">Old removed Shorts never count toward this scorecard — only videos published between 2026-08-07 and 2026-09-07.</div>
+    <div style="font-size:10px;color:var(--dim);margin-top:8px">Old removed Shorts never count toward this scorecard — only videos published between 2026-08-15 and 2026-09-15.</div>
   </div>
 
   <div class="card">
@@ -875,7 +875,7 @@ function tick(){
   document.getElementById('cd-h').textContent=pad(Math.floor((diff%864e5)/36e5));
   document.getElementById('cd-m').textContent=pad(Math.floor((diff%36e5)/6e4));
   document.getElementById('cd-s').textContent=pad(Math.floor((diff%6e4)/1e3));
-  const sfDiff=new Date('2026-09-07T00:00:00')-new Date();
+  const sfDiff=new Date('2026-09-15T00:00:00')-new Date();
   const sfEl=document.getElementById('sfm-cd-d');
   if(sfEl){
     const active=sfDiff>0;
