@@ -484,6 +484,7 @@ def fetch_publishing_tab():
         'and': [
             {'or': [{'property': 'PL State', 'select': {'equals': s}} for s in statuses]},
             {'property': 'Format', 'multi_select': {'contains': 'Long form'}},
+            {'property': 'Season & Show', 'select': {'does_not_equal': 'BTS'}},
             EXCL_FILTER,
         ]
     }
