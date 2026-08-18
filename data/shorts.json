@@ -1,17 +1,249 @@
 {
-  "_readme": "PLACEHOLDER DATA FILE — manually updated for now. There is no live YouTube Analytics API integration wired into the Vercel backend (xvc-analytics.vercel.app only hosts the Slack/Notion footage-library + slack-events automations, not a YouTube Analytics endpoint). TODO: extend update_dashboard.py (which already pulls YouTube Data API v3 + Notion data server-side for the Long Form tabs) to also pull Shorts stats server-side and patch this file on each run, the same way it patches index.html today. Until then, Xavy or Stephan should hand-edit the 'videos' and 'monthly' arrays below as Shorts go live.",
+  "_readme": "PLACEHOLDER DATA FILE — manually updated for now. There is no live YouTube Analytics API integration wired into the Vercel backend (xvc-analytics.vercel.app only hosts the Slack/Notion footage-library + slack-events automations, not a YouTube Analytics endpoint). TODO: extend update_dashboard.py (which already pulls YouTube Data API v3 + Notion data server-side for the Long Form tabs) to also pull Shorts stats server-side and patch this file on each run, the same way it patches index.html today. Until then, Xavy or Stephan should hand-edit the videos and monthly arrays below as Shorts go live.",
   "trial": {
-    "start": "2026-08-15",
-    "end": "2026-09-15"
+    "start": "2026-08-11",
+    "end": "2026-09-11"
   },
   "monthly": [
-    { "month": "2026-08", "uploads": 0 },
-    { "month": "2026-09", "uploads": 0 },
-    { "month": "2026-10", "uploads": 0 },
-    { "month": "2026-11", "uploads": 0 },
-    { "month": "2026-12", "uploads": 0 },
-    { "month": "2027-01", "uploads": 0 },
-    { "month": "2027-02", "uploads": 0 }
+    {
+      "month": "2026-08",
+      "uploads": 15
+    },
+    {
+      "month": "2026-09",
+      "uploads": 0
+    },
+    {
+      "month": "2026-10",
+      "uploads": 0
+    },
+    {
+      "month": "2026-11",
+      "uploads": 0
+    },
+    {
+      "month": "2026-12",
+      "uploads": 0
+    },
+    {
+      "month": "2027-01",
+      "uploads": 0
+    },
+    {
+      "month": "2027-02",
+      "uploads": 0
+    }
   ],
-  "videos": []
+  "videos": [
+    {
+      "vid": "6_F5ll7uE6s",
+      "t": "You Finally Got Freedom. So Why Go Back?",
+      "d": "2026-08-17",
+      "views": 540,
+      "impressions": 0,
+      "ctr": 0,
+      "ret": 0,
+      "likes": 6,
+      "comments": 0,
+      "shares": 0,
+      "subs": 0,
+      "status": "live"
+    },
+    {
+      "vid": "0nJhZj-FbWA",
+      "t": "What If You Don’t Actually Want More?",
+      "d": "2026-08-16",
+      "views": 169,
+      "impressions": 0,
+      "ctr": 0,
+      "ret": 0,
+      "likes": 2,
+      "comments": 0,
+      "shares": 0,
+      "subs": 0,
+      "status": "live"
+    },
+    {
+      "vid": "Dwj4ZyFJtXE",
+      "t": "What If Success Means Having Less?",
+      "d": "2026-08-16",
+      "views": 103,
+      "impressions": 0,
+      "ctr": 0,
+      "ret": 0,
+      "likes": 3,
+      "comments": 0,
+      "shares": 0,
+      "subs": 0,
+      "status": "live"
+    },
+    {
+      "vid": "-OgRx8I45GM",
+      "t": "The Success Trap Nobody Talks About",
+      "d": "2026-08-15",
+      "views": 428,
+      "impressions": 0,
+      "ctr": 0,
+      "ret": 53.959999999999994,
+      "likes": 10,
+      "comments": 0,
+      "shares": 0,
+      "subs": 0,
+      "status": "live"
+    },
+    {
+      "vid": "pUqSkPwZxko",
+      "t": "What If Your Dream Life Isn’t Freedom?",
+      "d": "2026-08-15",
+      "views": 328,
+      "impressions": 0,
+      "ctr": 0,
+      "ret": 50.41,
+      "likes": 7,
+      "comments": 0,
+      "shares": 0,
+      "subs": 0,
+      "status": "live"
+    },
+    {
+      "vid": "8t_fR3NIsYo",
+      "t": "short 15 august 1",
+      "d": "2026-08-15",
+      "views": 0,
+      "impressions": 0,
+      "ctr": 0,
+      "ret": 0,
+      "likes": 0,
+      "comments": 0,
+      "shares": 0,
+      "subs": 0,
+      "status": "live"
+    },
+    {
+      "vid": "HFdrvgJ7kyk",
+      "t": "What If Your Dream Life Isn't Freedom?",
+      "d": "2026-08-15",
+      "views": 0,
+      "impressions": 0,
+      "ctr": 0,
+      "ret": 0,
+      "likes": 0,
+      "comments": 0,
+      "shares": 0,
+      "subs": 0,
+      "status": "live"
+    },
+    {
+      "vid": "sbtjz7R9MjE",
+      "t": "Your Successful Life Might Be The Reason You Can’t Leave",
+      "d": "2026-08-14",
+      "views": 513,
+      "impressions": 0,
+      "ctr": 0,
+      "ret": 49.29,
+      "likes": 13,
+      "comments": 0,
+      "shares": 0,
+      "subs": 1,
+      "status": "live"
+    },
+    {
+      "vid": "kdflsauG97M",
+      "t": "Nothing Is Wrong With Your Life. So Why Leave?",
+      "d": "2026-08-14",
+      "views": 552,
+      "impressions": 0,
+      "ctr": 0,
+      "ret": 82.07,
+      "likes": 6,
+      "comments": 0,
+      "shares": 0,
+      "subs": 1,
+      "status": "live"
+    },
+    {
+      "vid": "KMBeC6c7P38",
+      "t": "When Your Old Life Doesn’t Feel Like Yours Anymore",
+      "d": "2026-08-13",
+      "views": 1135,
+      "impressions": 0,
+      "ctr": 0,
+      "ret": 49.28,
+      "likes": 21,
+      "comments": 0,
+      "shares": 3,
+      "subs": 3,
+      "status": "live"
+    },
+    {
+      "vid": "D7bYnS0IHuE",
+      "t": "You Made It. So Why Do You Still Feel Empty? #selfgrowth #personalgrowth #success",
+      "d": "2026-08-13",
+      "views": 450,
+      "impressions": 0,
+      "ctr": 0,
+      "ret": 264.76,
+      "likes": 7,
+      "comments": 0,
+      "shares": 0,
+      "subs": 0,
+      "status": "live"
+    },
+    {
+      "vid": "Af9EoSs0RQs",
+      "t": "What if you don’t actually want more? #personalgrowth #selfimprovement #startingover",
+      "d": "2026-08-12",
+      "views": 969,
+      "impressions": 0,
+      "ctr": 0,
+      "ret": 97.76,
+      "likes": 22,
+      "comments": 0,
+      "shares": 1,
+      "subs": 1,
+      "status": "live"
+    },
+    {
+      "vid": "OFmCtUTodZc",
+      "t": "Maybe your’e not failing, maybe just chasing the wrong things #personalgrowth #selfimprovement",
+      "d": "2026-08-12",
+      "views": 490,
+      "impressions": 0,
+      "ctr": 0,
+      "ret": 49.59,
+      "likes": 9,
+      "comments": 0,
+      "shares": 0,
+      "subs": 3,
+      "status": "live"
+    },
+    {
+      "vid": "PPDUbZ5h9mQ",
+      "t": "The Person You Became to Survive Might Be Keeping You Stuck #selfimprovement #personalgrowth",
+      "d": "2026-08-11",
+      "views": 85,
+      "impressions": 0,
+      "ctr": 0,
+      "ret": 60.01,
+      "likes": 2,
+      "comments": 0,
+      "shares": 0,
+      "subs": 0,
+      "status": "live"
+    },
+    {
+      "vid": "cdsxU0nDSXs",
+      "t": "You're Not Chasing Success, You're Running From Yourself.",
+      "d": "2026-08-11",
+      "views": 57,
+      "impressions": 0,
+      "ctr": 0,
+      "ret": 40.47,
+      "likes": 2,
+      "comments": 0,
+      "shares": 0,
+      "subs": 0,
+      "status": "live"
+    }
+  ]
 }
