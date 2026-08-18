@@ -181,9 +181,9 @@ tbody tr:hover td{background:rgba(255,255,255,0.02)}
   <div class="g2">
     <div class="card">
       <div class="m-lbl">Long Form Published</div>
-      <div class="m-val a" id="h-lf">7</div>
-      <div class="m-sub">/ 100 · <span id="h-lf-rem">93 remaining</span></div>
-      <div style="margin-top:7px"><div class="btrack"><div class="bar" style="background:var(--amber);width:7%" id="h-lf-bar"></div></div></div>
+      <div class="m-val a" id="h-lf">9</div>
+      <div class="m-sub">/ 100 · <span id="h-lf-rem">91 remaining</span></div>
+      <div style="margin-top:7px"><div class="btrack"><div class="bar" style="background:var(--amber);width:9%" id="h-lf-bar"></div></div></div>
       <div style="margin-top:7px"><span class="tag tb">on track</span></div>
     </div>
     <div class="card">
@@ -266,11 +266,11 @@ tbody tr:hover td{background:rgba(255,255,255,0.02)}
       <div class="card-hd"><span class="lbl">Long Form</span></div>
       <div style="display:flex;align-items:center;gap:10px">
         <div style="flex:1">
-          <div style="display:flex;justify-content:space-between;margin-bottom:4px"><span style="color:var(--muted)">Published</span><span class="mono" id="sb-lf-txt">7 / 100</span></div>
-          <div class="btrack"><div class="bar" style="background:var(--amber);width:7%" id="sb-lf-bar"></div></div>
-          <div style="margin-top:4px;font-size:11px;color:var(--dim)" id="sb-lf-rem">93 to go</div>
+          <div style="display:flex;justify-content:space-between;margin-bottom:4px"><span style="color:var(--muted)">Published</span><span class="mono" id="sb-lf-txt">9 / 100</span></div>
+          <div class="btrack"><div class="bar" style="background:var(--amber);width:9%" id="sb-lf-bar"></div></div>
+          <div style="margin-top:4px;font-size:11px;color:var(--dim)" id="sb-lf-rem">91 to go</div>
         </div>
-        <div style="width:76px"><div class="lbl" style="margin-bottom:4px">Count</div><input type="number" id="inp-lf" value="7" min="0" max="100" oninput="updLF(this.value)"></div>
+        <div style="width:76px"><div class="lbl" style="margin-bottom:4px">Count</div><input type="number" id="inp-lf" value="9" min="0" max="100" oninput="updLF(this.value)"></div>
       </div>
     </div>
     <div class="card">
@@ -724,7 +724,7 @@ tbody tr:hover td{background:rgba(255,255,255,0.02)}
 
   <div class="card">
     <div class="card-hd">
-      <span class="lbl">Short Form Trial · Aug 15 – Sep 15, 2026</span>
+      <span class="lbl">Short Form Trial · Aug 11 – Sep 11, 2026</span>
       <span class="tag tb" id="sfm-trial-tag">active</span>
     </div>
     <div style="display:flex;gap:6px;margin-bottom:10px">
@@ -746,7 +746,7 @@ tbody tr:hover td{background:rgba(255,255,255,0.02)}
       <div class="inner"><div class="lbl" style="margin-bottom:3px">Avg CTR</div><div class="mono" style="font-size:20px;color:var(--amber);font-weight:600" id="sfm-sc-ctr">—</div></div>
       <div class="inner"><div class="lbl" style="margin-bottom:3px">Avg % Viewed</div><div class="mono" style="font-size:20px;color:var(--amber);font-weight:600" id="sfm-sc-ret">—</div></div>
     </div>
-    <div style="font-size:10px;color:var(--dim);margin-top:8px">Old removed Shorts never count toward this scorecard — only videos published between 2026-08-15 and 2026-09-15.</div>
+    <div style="font-size:10px;color:var(--dim);margin-top:8px">Old removed Shorts never count toward this scorecard — only videos published between 2026-08-11 and 2026-09-11.</div>
   </div>
 
   <div class="card">
@@ -871,7 +871,7 @@ function tick(){
   document.getElementById('cd-h').textContent=pad(Math.floor((diff%864e5)/36e5));
   document.getElementById('cd-m').textContent=pad(Math.floor((diff%36e5)/6e4));
   document.getElementById('cd-s').textContent=pad(Math.floor((diff%6e4)/1e3));
-  const sfDiff=new Date('2026-09-15T00:00:00')-new Date();
+  const sfDiff=new Date('2026-09-11T00:00:00')-new Date();
   const sfEl=document.getElementById('sfm-cd-d');
   if(sfEl){
     const active=sfDiff>0;
