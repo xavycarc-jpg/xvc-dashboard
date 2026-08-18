@@ -1,0 +1,23 @@
+{
+  "_readme": "IG/FB tab data. Follower counts are hand-entered (Xavy reports them, no API wired). Daily IG metrics (views, profile visits, reach, interactions) are pasted from Instagram Insights CSV exports (Meta Business Suite). No Facebook daily metrics available yet — only the FB follower count. TODO: automate follower counts + FB metrics once a Meta Graph API integration exists.",
+  "goal_followers": 1000,
+  "instagram": {
+    "followers": 8,
+    "followers_updated": "2026-08-18",
+    "daily": [
+      { "date": "2026-08-11", "views": 392, "visits": 19, "reach": 334, "interactions": 16 },
+      { "date": "2026-08-12", "views": 413, "visits": 9,  "reach": 341, "interactions": 11 },
+      { "date": "2026-08-13", "views": 405, "visits": 15, "reach": 327, "interactions": 15 },
+      { "date": "2026-08-14", "views": 40,  "visits": 15, "reach": 14,  "interactions": 1 },
+      { "date": "2026-08-15", "views": 14,  "visits": 3,  "reach": 3,   "interactions": 0 },
+      { "date": "2026-08-16", "views": 1,   "visits": 4,  "reach": 1,   "interactions": 0 },
+      { "date": "2026-08-17", "views": 9,   "visits": 9,  "reach": 5,   "interactions": 0 },
+      { "date": "2026-08-18", "views": 0,   "visits": 0,  "reach": 0,   "interactions": 0 }
+    ]
+  },
+  "facebook": {
+    "followers": 43,
+    "followers_updated": "2026-08-18",
+    "daily": []
+  }
+}
