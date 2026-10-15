@@ -458,10 +458,140 @@
  ],
  "notion_ok": true,
  "priorities": {
-  "status": "no_access",
+  "status": "ok",
   "week_of": "2026-10-12",
-  "items": [],
-  "note": ""
+  "items": [
+   {
+    "title": "Ship Passport Bro on Oct 17",
+    "owner": "Both",
+    "status": "In Progress",
+    "type": "Top Project",
+    "next_step": "Stephan: finish title (≤40 chars), description, tags and post time (thumbnail done) and upload metadata. Xavy: pick title + A/B thumbnails and schedule. Settle the Oct 17 vs 19 date conflict first.",
+    "last_update": "Oct 15: thumbnail by Michael done; title/desc/tags/post time open. Schedule plan has upload on Oct 17.",
+    "videos": [
+     "“The Passport Bro Addiction” [COL]"
+    ],
+    "url": "https://app.notion.com/3fab7a96dd4781e3a131c68127b04105"
+   },
+   {
+    "title": "Shoot on Saturday Oct 17",
+    "owner": "Both",
+    "status": "In Progress",
+    "type": "Top Project",
+    "next_step": "Lock both shot lists (location + time) by Thu night; Fri 16: The Wanting footage gaps + first Shorts; Sat 17: Right On Time footage gaps + talking head + remaining Shorts. Back up footage same day and send Ady links + briefs.",
+    "last_update": "Oct 15: Batch 1 shoot scheduled Oct 16–17; Stephan's plan names The Wanting (Fri) and Right On Time (Sat) as top priority. Shot lists not yet approved.",
+    "videos": [
+     "Right On Time [Vietnam]",
+     "The Wanting [Bali]"
+    ],
+    "url": "https://app.notion.com/3fab7a96dd4781de9332fd74e764e28f"
+   },
+   {
+    "title": "Finish Right On Time VO rewrite + headshot before Saturday",
+    "owner": "Xavy",
+    "status": "In Progress",
+    "type": "Priority",
+    "next_step": "VO: wait for ElevenLabs processing, Ady starts adding it in Frame.io; final script polish left. Headshot for the TH still needed before Saturday's shoot.",
+    "last_update": "Oct 15: VO rewrite done enough; ElevenLabs VO generated and processing (VO in progress). Headshot still pending. (Oct 15)",
+    "videos": [
+     "Right On Time [Vietnam]"
+    ],
+    "url": "https://app.notion.com/3fab7a96dd478125bd9dd28c4525c358"
+   },
+   {
+    "title": "Finish all script versions — ready for Xavy review Fri Oct 16",
+    "owner": "Stephan",
+    "status": "In Progress",
+    "type": "Priority",
+    "next_step": "Finish all Short script versions (locked template) so Xavy can review them Fri Oct 16; then visual editing guide, upload times, record about 4 Fri + 4 Sat.",
+    "last_update": "Oct 15: template locked; owner set deadline — all script versions done for Xavy's review Fri Oct 16.",
+    "videos": [],
+    "url": "https://app.notion.com/3fab7a96dd4781809d73c97fe14696dc"
+   },
+   {
+    "title": "Finish the Right On Time script",
+    "owner": "Xavy",
+    "status": "In Progress",
+    "type": "Priority",
+    "next_step": "Script done enough for VO; ElevenLabs VO processing; final polish left (Oct 15)",
+    "last_update": "Oct 15: script good enough for VO; ElevenLabs VO generated and processing; final polish left.",
+    "videos": [
+     "Right On Time [Vietnam]"
+    ],
+    "url": "https://app.notion.com/3fab7a96dd47810fae81caba7328b5f7"
+   },
+   {
+    "title": "Lock The Wanting [Bali] shot list for Friday",
+    "owner": "Stephan",
+    "status": "In Progress",
+    "type": "Priority",
+    "next_step": "Finish the shot list past Chapter 1, add location + time per shot, send to Xavy for approval; confirm latest cut status with Ady.",
+    "last_update": "Oct 15: Hook + Chapter 1 broken down; video guideline revised. Upload planned Oct 24.",
+    "videos": [
+     "The Wanting [Bali]"
+    ],
+    "url": "https://app.notion.com/3fab7a96dd478169b878ebceb237aa04"
+   },
+   {
+    "title": "Approve shoot schedule + The Wanting visual plan",
+    "owner": "Xavy",
+    "status": "Not Started",
+    "type": "Priority",
+    "next_step": "Review Stephan's Bali shot list + Fri/Sat locations and times; approve or mark changes so Friday's shoot can run.",
+    "last_update": "Oct 15: listed under Needs Review / Blocked, unchecked.",
+    "videos": [
+     "The Wanting [Bali]"
+    ],
+    "url": "https://app.notion.com/3fab7a96dd4781a2bb6dcbe29de3bf18"
+   },
+   {
+    "title": "Lombok: aggregate footage + upload to Drive for editor",
+    "owner": "Xavy",
+    "status": "Not Started",
+    "type": "Priority",
+    "next_step": "Script finished Oct 15; style: Lindsiann; gather all footage into the Drive folder",
+    "last_update": "Oct 15: added at Xavy's request; Lombok script finished.",
+    "videos": [
+     "The Price of Living for Others [Lombok]"
+    ],
+    "url": "https://app.notion.com/3fab7a96dd478121a07bf0db567f102c"
+   },
+   {
+    "title": "Prep Right On Time [Vietnam] Saturday shot list",
+    "owner": "Stephan",
+    "status": "Not Started",
+    "type": "Priority",
+    "next_step": "List the missing footage, build the shot list with schedule + location, send to Xavy for approval before Saturday.",
+    "last_update": "Oct 15: Sat 17 shoot = Right On Time, marked top priority; prep items unchecked. Upload planned Oct 31.",
+    "videos": [
+     "Right On Time [Vietnam]"
+    ],
+    "url": "https://app.notion.com/3fab7a96dd4781978aa3c1a330989cb7"
+   },
+   {
+    "title": "Review Stephan's script versions — Fri Oct 16",
+    "owner": "Xavy",
+    "status": "Not Started",
+    "type": "Priority",
+    "next_step": "Review all of Stephan's Short script versions on Fri Oct 16 and approve or mark changes.",
+    "last_update": "Oct 15: review set for Fri Oct 16, once Stephan finishes all script versions.",
+    "videos": [],
+    "url": "https://app.notion.com/3fab7a96dd47811baf2dc1c4d85334f8"
+   },
+   {
+    "title": "Send origin-story reference link to unblock short-form",
+    "owner": "Xavy",
+    "status": "Not Started",
+    "type": "Priority",
+    "next_step": "Send Stephan the reference video link for the origin story.",
+    "last_update": "Blocked: needs from Xavy the origin-story reference video link.",
+    "videos": [],
+    "url": "https://app.notion.com/3fab7a96dd478171b35bc3c15ebc1e2e"
+   }
+  ],
+  "note": "",
+  "source": "notion-mcp",
+  "synced_at": "2026-10-15T11:02:28+00:00"
  },
  "pipeline": {
   "stuck_days": 14,
