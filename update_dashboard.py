@@ -99,6 +99,11 @@ NOTION_HEADERS = {
     'Content-Type': 'application/json',
     'Notion-Version': '2022-06-28',
 }
+# Notion API 2025-09-03: databases contain data sources; rows are queried via
+# /v1/data_sources/{id}/query. Legacy /databases/{id}/query is kept as fallback.
+NOTION_HEADERS_DS = {**NOTION_HEADERS, 'Notion-Version': '2025-09-03'}
+NOTION_KNOWN_DS_ID = '546900d5-7dbf-4c20-83d1-4953d151dde1'  # master video DB data source
+NOTION_API = 'https://api.notion.com/v1'
 
 DASHBOARD_DIR  = os.path.dirname(os.path.abspath(__file__))
 DASHBOARD_FILE = os.path.join(DASHBOARD_DIR, 'index.html')
@@ -179,22 +184,12 @@ def get_analytics(yta, video_ids):
     metric_tiers = [
         (
             'views,estimatedMinutesWatched,averageViewDuration,averageViewPercentage,'
-            'subscribersGained,likes,shares,comments,impressionClickThroughRate',
-            lambda row: {
-                'views': int(row[1]), 'watch_minutes': float(row[2]),
-                'avg_dur_secs': float(row[3]), 'avg_pct': float(row[4]),
-                'subs': int(row[5]), 'likes': int(row[6]), 'shares': int(row[7]),
-                'comments': int(row[8]), 'ctr': float(row[9]) * 100,
-            }
-        ),
-        (
-            'views,estimatedMinutesWatched,averageViewDuration,averageViewPercentage,'
             'subscribersGained,likes,shares,comments',
             lambda row: {
                 'views': int(row[1]), 'watch_minutes': float(row[2]),
                 'avg_dur_secs': float(row[3]), 'avg_pct': float(row[4]),
                 'subs': int(row[5]), 'likes': int(row[6]), 'shares': int(row[7]),
-                'comments': int(row[8]), 'ctr': 0.0,
+                'comments': int(row[8]), 'ctr': None,  # CTR/impressions not exposed by the Analytics API
             }
         ),
         (
@@ -202,7 +197,7 @@ def get_analytics(yta, video_ids):
             lambda row: {
                 'views': int(row[1]), 'watch_minutes': int(row[1]) * float(row[2]) / 60,
                 'avg_dur_secs': float(row[2]), 'avg_pct': float(row[3]),
-                'subs': int(row[4]), 'likes': 0, 'shares': 0, 'comments': 0, 'ctr': 0.0,
+                'subs': int(row[4]), 'likes': 0, 'shares': 0, 'comments': 0, 'ctr': None,
             }
         ),
     ]
@@ -223,8 +218,68 @@ def get_analytics(yta, video_ids):
                     analytics[row[0]] = parsefn(row)
                 break
             except Exception as e:
-                print(f'  Analytics tier failed ({metrics[:50]}...): {e}')
+                body = getattr(e, 'content', b'')
+                body = body.decode('utf-8', 'replace')[:400] if isinstance(body, bytes) else str(e)[:400]
+                print(f'  Analytics tier failed ({metrics[:50]}...): {body}')
     return analytics
+
+
+
+def youtube_summary(youtube, yta, video_ids):
+    """Read-only summary for the log: channel totals, last-28-day totals,
+    per-video lifetime views for recent uploads. Never raises."""
+    from datetime import timedelta
+    out = {}
+    try:
+        ch = youtube.channels().list(part='statistics', mine=True).execute()['items'][0]['statistics']
+        out['channel'] = {k: int(ch.get(k, 0)) for k in ('subscriberCount', 'viewCount', 'videoCount')}
+    except Exception as e:
+        out['channel_error'] = str(e)[:200]
+    end = date.today() - timedelta(days=1)
+    start = end - timedelta(days=27)
+    try:
+        r = yta.reports().query(
+            ids='channel==MINE', startDate=start.isoformat(), endDate=end.isoformat(),
+            metrics='views,estimatedMinutesWatched,averageViewDuration,subscribersGained,subscribersLost',
+        ).execute()
+        row = (r.get('rows') or [[0, 0, 0, 0, 0]])[0]
+        out['last28'] = {'start': start.isoformat(), 'end': end.isoformat(),
+                         'views': int(row[0]), 'watch_hours': round(float(row[1]) / 60, 1),
+                         'avg_view_duration_s': int(row[2]),
+                         'subs_gained': int(row[3]), 'subs_lost': int(row[4])}
+        r2 = yta.reports().query(
+            ids='channel==MINE', startDate=start.isoformat(), endDate=end.isoformat(),
+            dimensions='video', metrics='views,estimatedMinutesWatched',
+            sort='-views', maxResults=10,
+        ).execute()
+        out['last28_top_videos'] = [{'id': x[0], 'views': int(x[1]),
+                                     'watch_hours': round(float(x[2]) / 60, 1)}
+                                    for x in r2.get('rows', [])]
+    except Exception as e:
+        body = getattr(e, 'content', b'')
+        out['last28_error'] = (body.decode('utf-8', 'replace') if isinstance(body, bytes) else str(e))[:300]
+    vids = []
+    try:
+        for i in range(0, len(video_ids), 50):
+            resp = youtube.videos().list(part='snippet,statistics,contentDetails',
+                                         id=','.join(video_ids[i:i + 50])).execute()
+            for it in resp['items']:
+                st = it.get('statistics', {})
+                vids.append({'id': it['id'], 'title': it['snippet']['title'],
+                             'published': it['snippet']['publishedAt'][:10],
+                             'duration': it['contentDetails']['duration'],
+                             'views': int(st.get('viewCount', 0)),
+                             'likes': int(st.get('likeCount', 0)),
+                             'comments': int(st.get('commentCount', 0))})
+        vids.sort(key=lambda v: v['published'], reverse=True)
+        out['recent_uploads'] = vids[:15]
+        out['top_all_time'] = sorted(vids, key=lambda v: -v['views'])[:5]
+        titles = {v['id']: v['title'] for v in vids}
+        for v in out.get('last28_top_videos', []):
+            v['title'] = titles.get(v['id'], '')
+    except Exception as e:
+        out['videos_error'] = str(e)[:200]
+    return out
 
 
 # ── Notion ────────────────────────────────────────────────────────────────────
@@ -240,29 +295,17 @@ def get_video_titles(youtube, video_ids):
 
 def get_s1_video_ids():
     """Return YouTube video IDs for all S1 records that have a YT Link."""
-    ids, has_more, cursor = [], True, None
-    while has_more:
-        payload = {'page_size': 100}
-        if cursor:
-            payload['start_cursor'] = cursor
-        resp = requests.post(
-            f'https://api.notion.com/v1/databases/{NOTION_DB_ID}/query',
-            headers=NOTION_HEADERS, json=payload,
-        )
-        resp.raise_for_status()
-        data = resp.json()
-        for page in data.get('results', []):
-            props  = page['properties']
-            season = ((props.get('Season & Show') or {}).get('select') or {}).get('name', '')
-            if not season.upper().startswith('S1'):
-                continue
-            yt_url = ((props.get('YT Link') or {}).get('url')) or ''
-            m = re.search(r'[?&]v=([A-Za-z0-9_-]{11})', yt_url) or \
-                re.search(r'youtu\.be/([A-Za-z0-9_-]{11})', yt_url)
-            if m:
-                ids.append(m.group(1))
-        has_more = data.get('has_more', False)
-        cursor   = data.get('next_cursor')
+    ids = []
+    for page in query_notion(NOTION_DB_ID, None):
+        props  = page['properties']
+        season = ((props.get('Season & Show') or {}).get('select') or {}).get('name', '')
+        if not season.upper().startswith('S1'):
+            continue
+        yt_url = ((props.get('YT Link') or {}).get('url')) or ''
+        m = re.search(r'[?&]v=([A-Za-z0-9_-]{11})', yt_url) or \
+            re.search(r'youtu\.be/([A-Za-z0-9_-]{11})', yt_url)
+        if m:
+            ids.append(m.group(1))
     return ids
 
 
@@ -425,24 +468,119 @@ def pl_badge(status):
     return f'<span class="tag {cls}">{status}</span>'
 
 
-def query_notion(db_id, filter_payload, sorts=None):
-    pages, has_more, cursor = [], True, None
-    payload = {'page_size': 100, 'filter': filter_payload}
-    if sorts:
-        payload['sorts'] = sorts
-    while has_more:
+_DS_CACHE = {}
+
+def resolve_data_source(db_id):
+    """Return (data_source_id, properties_schema) for a database (API 2025-09-03).
+    Falls back to the known master-DB data source id."""
+    if db_id in _DS_CACHE:
+        return _DS_CACHE[db_id]
+    ds_id = None
+    r = requests.get(f'{NOTION_API}/databases/{db_id}', headers=NOTION_HEADERS_DS, timeout=30)
+    if r.status_code == 200:
+        sources = r.json().get('data_sources') or []
+        if sources:
+            ds_id = sources[0]['id']
+            if len(sources) > 1:
+                print(f'    note: database has {len(sources)} data sources; using the first')
+    else:
+        print(f'    GET /databases/{db_id} (2025-09-03) -> {r.status_code}: {r.text[:300]}')
+    if not ds_id and db_id == NOTION_DB_ID:
+        ds_id = NOTION_KNOWN_DS_ID
+        print(f'    using known data source id {ds_id}')
+    schema = {}
+    if ds_id:
+        r2 = requests.get(f'{NOTION_API}/data_sources/{ds_id}', headers=NOTION_HEADERS_DS, timeout=30)
+        if r2.status_code == 200:
+            schema = r2.json().get('properties', {})
+        else:
+            print(f'    GET /data_sources/{ds_id} -> {r2.status_code}: {r2.text[:300]}')
+    _DS_CACHE[db_id] = (ds_id, schema)
+    return ds_id, schema
+
+
+def sanitize_filter(flt, schema):
+    """Drop select/multi_select/status option clauses whose option no longer
+    exists in the live schema (renamed/deleted options make Notion return 400)."""
+    if not flt or not schema:
+        return flt
+    for key in ('and', 'or'):
+        if key in flt:
+            kids = [sanitize_filter(c, schema) for c in flt[key]]
+            kids = [c for c in kids if c is not None]
+            if not kids:
+                return None
+            return {key: kids}
+    prop = flt.get('property')
+    pdef = schema.get(prop)
+    if pdef is None:
+        print(f'    ⚠ filter property {prop!r} not in schema — clause dropped')
+        return None
+    ptype = pdef.get('type')
+    for ftype in ('select', 'multi_select', 'status'):
+        cond = flt.get(ftype)
+        if not cond:
+            continue
+        if ptype != ftype:
+            # property type changed (e.g. select -> status): re-key the clause
+            if ptype in ('select', 'multi_select', 'status'):
+                print(f'    ⚠ {prop!r} is now {ptype} (filter used {ftype}) — adapted')
+                cond_key = next(iter(cond))
+                val = cond[cond_key]
+                if ptype == 'multi_select':
+                    cond_key = {'equals': 'contains', 'does_not_equal': 'does_not_contain'}.get(cond_key, cond_key)
+                elif ftype == 'multi_select':
+                    cond_key = {'contains': 'equals', 'does_not_contain': 'does_not_equal'}.get(cond_key, cond_key)
+                flt = {'property': prop, ptype: {cond_key: val}}
+                ftype, cond = ptype, flt[ptype]
+            else:
+                print(f'    ⚠ {prop!r} is {ptype}, not {ftype} — clause dropped')
+                return None
+        names = {o.get('name') for o in (pdef.get(ptype, {}) or {}).get('options', [])}
+        if ptype == 'status':
+            names |= {g.get('name') for g in (pdef.get('status', {}) or {}).get('groups', [])}
+        val = next(iter(cond.values()))
+        if isinstance(val, str) and names and val not in names:
+            print(f'    ⚠ option {val!r} no longer exists on {prop!r} — clause dropped')
+            return None
+    return flt
+
+
+def _paged_query(url, headers, base_payload):
+    pages, cursor = [], None
+    while True:
+        payload = dict(base_payload)
         if cursor:
             payload['start_cursor'] = cursor
-        resp = requests.post(
-            f'https://api.notion.com/v1/databases/{db_id}/query',
-            headers=NOTION_HEADERS, json=payload,
-        )
-        resp.raise_for_status()
+        resp = requests.post(url, headers=headers, json=payload, timeout=60)
+        if resp.status_code >= 400:
+            raise requests.HTTPError(
+                f'{resp.status_code} on POST {url}: {resp.text[:600]}', response=resp)
         data = resp.json()
         pages.extend(data.get('results', []))
-        has_more = data.get('has_more', False)
-        cursor   = data.get('next_cursor')
-    return pages
+        if not data.get('has_more'):
+            return pages
+        cursor = data.get('next_cursor')
+
+
+def query_notion(db_id, filter_payload, sorts=None):
+    """Query a Notion database via its data source (API 2025-09-03); on error
+    fall back to the legacy /databases/{id}/query endpoint (2022-06-28)."""
+    ds_id, schema = resolve_data_source(db_id)
+    flt = sanitize_filter(filter_payload, schema) if filter_payload else None
+    payload = {'page_size': 100}
+    if flt:
+        payload['filter'] = flt
+    if sorts:
+        payload['sorts'] = sorts
+    if ds_id:
+        try:
+            return _paged_query(f'{NOTION_API}/data_sources/{ds_id}/query',
+                                NOTION_HEADERS_DS, payload)
+        except requests.HTTPError as e:
+            print(f'    data source query failed: {e}')
+            print('    falling back to legacy /databases/{id}/query')
+    return _paged_query(f'{NOTION_API}/databases/{db_id}/query', NOTION_HEADERS, payload)
 
 
 PIPELINE_STATUSES = [
@@ -664,7 +802,7 @@ def patch_html(html, s):
     tl          = s.get('total_likes', 0)
     tsh         = s.get('total_shares', 0)
     tc          = s.get('total_comments', 0)
-    ac          = s.get('avg_ctr', 0.0)
+    ac          = s.get('avg_ctr')
     gate        = 1000 if subs < 1000 else 10000
     subs_to_gate = max(0, gate - subs)
     subs_pct    = min(100, round(subs / gate * 100))
@@ -715,8 +853,8 @@ def patch_html(html, s):
 
     # ── Scoreboard: long form ─────────────────────────────────────────────
     apply('sb-lf-txt',
-          r'(id="sb-lf-txt">)\d+ / 100(</span>)',
-          rf'\g<1>{lf} / 100\g<2>')
+          r'(id="sb-lf-txt">)\d+ (?:/|of) 100(</span>)',
+          rf'\g<1>{lf} of 100\g<2>')
 
     apply('sb-lf-bar width',
           r'(background:var\(--amber\);width:)\d+%(" id="sb-lf-bar")',
@@ -782,8 +920,8 @@ def patch_html(html, s):
           rf'\g<1>{ar:.1f}%\g<2>')
 
     apply('S1 avg ctr tile',
-          r'(Avg CTR</div><div class="mono"[^>]+>)[\d.]+%(</div>)',
-          rf'\g<1>{ac:.2f}%\g<2>')
+          r'(Avg CTR</div><div class="mono"[^>]+>)(?:[\d.]+%|—)(</div>)',
+          rf'\g<1>{ac:.2f}%\g<2>' if ac is not None else r'\g<1>—\g<2>')
 
     apply('S1 total likes',
           r'(Total Likes</div><div class="mono"[^>]+>)[\d,]+(</div>)',
@@ -879,11 +1017,13 @@ def main():
         total_likes    = sum(v.get('likes', 0)     for v in s1_data.values())
         total_shares   = sum(v.get('shares', 0)    for v in s1_data.values())
         total_comments = sum(v.get('comments', 0)  for v in s1_data.values())
-        avg_ctr        = sum(v.get('ctr', 0)       for v in s1_data.values()) / len(s1_data)
+        ctrs           = [v['ctr'] for v in s1_data.values() if v.get('ctr') is not None]
+        avg_ctr        = sum(ctrs) / len(ctrs) if ctrs else None
     else:
         print('  ⚠ No S1 analytics data — using zeros for S1 aggregates.')
         total_views = total_subs = watch_hours = avg_retention = avg_avd_secs = 0
-        total_likes = total_shares = total_comments = avg_ctr = 0
+        total_likes = total_shares = total_comments = 0
+        avg_ctr = None
 
     stats = {
         'lf_count':       len(lf_ids),
@@ -910,6 +1050,10 @@ def main():
     print(f'  S1 avg AVD           : {mmss(stats["avg_avd_secs"])}')
     print('─' * 56)
 
+    print('\n[4a/6] YouTube summary (read-only)...')
+    yt_summary = youtube_summary(youtube, yta, all_ids)
+    print('YT_SUMMARY_JSON ' + json.dumps(yt_summary, ensure_ascii=False))
+
     print('\n[4b/6] Fetching Notion pipeline data...')
     import traceback
     notion_tabs_ok = False
@@ -918,41 +1062,8 @@ def main():
         print(f'  DB ID      : {NOTION_PIPELINE_DB_ID}')
         print(f'  Token set  : {bool(NOTION_TOKEN)}')
 
-        # ── Deep diagnostics: confirm the ID type ────────────────────
-        candidate = NOTION_PIPELINE_DB_ID
-        base = 'https://api.notion.com/v1'
-
-        r_db = requests.get(f'{base}/databases/{candidate}', headers=NOTION_HEADERS)
-        print(f'  GET /databases/{candidate}')
-        print(f'    status : {r_db.status_code}')
-        print(f'    body   : {r_db.text[:500]}')
-
-        r_pg = requests.get(f'{base}/pages/{candidate}', headers=NOTION_HEADERS)
-        print(f'  GET /pages/{candidate}')
-        print(f'    status : {r_pg.status_code}')
-        print(f'    body   : {r_pg.text[:500]}')
-
-        if r_pg.status_code == 200:
-            print('  → ID is a PAGE — listing child blocks to find the embedded database ...')
-            r_ch = requests.get(f'{base}/blocks/{candidate}/children', headers=NOTION_HEADERS)
-            print(f'    children status : {r_ch.status_code}')
-            if r_ch.status_code == 200:
-                for blk in r_ch.json().get('results', []):
-                    print(f'    block {blk["id"]}  type={blk["type"]}')
-            else:
-                print(f'    children body : {r_ch.text[:400]}')
-
-        print('  Searching all databases accessible to this integration ...')
-        r_s = requests.post(f'{base}/search', headers=NOTION_HEADERS,
-            json={'filter': {'value': 'database', 'property': 'object'}, 'page_size': 20})
-        print(f'    search status : {r_s.status_code}')
-        if r_s.status_code == 200:
-            for obj in r_s.json().get('results', []):
-                title = ''.join(t.get('plain_text','') for t in obj.get('title',[]))
-                print(f'    db {obj["id"]}  title={title!r}')
-        else:
-            print(f'    search body : {r_s.text[:400]}')
-        # ─────────────────────────────────────────────────────────────
+        ds_id, schema = resolve_data_source(NOTION_PIPELINE_DB_ID)
+        print(f'  Data source: {ds_id}  ({len(schema)} properties)')
 
         print('  → Pipeline tab ...')
         pipeline_raw = fetch_pipeline_tab()
