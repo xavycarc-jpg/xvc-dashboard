@@ -106,9 +106,9 @@ NOTION_KNOWN_DS_ID = '546900d5-7dbf-4c20-83d1-4953d151dde1'  # master video DB d
 NOTION_API = 'https://api.notion.com/v1'
 
 DASHBOARD_DIR  = os.path.dirname(os.path.abspath(__file__))
-# index.html is now a static renderer for data/dashboard.json (written below).
-# The previous full dashboard lives on as classic.html and is still patched in place.
-DASHBOARD_FILE = os.path.join(DASHBOARD_DIR, 'classic.html')
+# index.html is the Classic dashboard (landing page), patched in place below.
+# overview.html is a static renderer for data/dashboard.json (written below).
+DASHBOARD_FILE = os.path.join(DASHBOARD_DIR, 'index.html')
 DATA_FILE      = os.path.join(DASHBOARD_DIR, 'data', 'dashboard.json')
 WEEKLY_PRIORITIES_DB_ID = '3b0ce0db46974a10940f0a301d002eae'
 GH_TOKEN = os.environ.get('GITHUB_TOKEN') or os.environ.get('GITHUB_PAT')
@@ -669,8 +669,8 @@ def rows_pipeline(pages):
             f'<td style="font-weight:500;max-width:220px">{title or "—"}</td>'
             f'<td>{pl_badge(pl_status)}</td>'
             f'<td><span class="mono" style="font-size:11px">{script_st or "—"}</span></td>'
-            f'<td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">{filming or "—"}</td>'
-            f'<td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">{pub_date or "—"}</td>'
+            f'<td class="mono" style="color:var(--ink3);font-size:11px">{filming or "—"}</td>'
+            f'<td class="mono" style="color:var(--ink3);font-size:11px">{pub_date or "—"}</td>'
             f'</tr>'
         )
     return '\n'.join(out)
@@ -685,14 +685,14 @@ def rows_editor(pages):
         progress   = prop_val(pr.get('Edit: Progress', {}))
         cut_due    = prop_val(pr.get('Next Cut Due', {}))
         pub_date   = prop_val(pr.get('Publish', {}))
-        due_color  = 'var(--amber)' if cut_due else 'rgba(240,239,232,0.4)'
+        due_color  = 'var(--amber)' if cut_due else 'var(--ink3)'
         out.append(
             f'<tr>'
             f'<td style="font-weight:500;max-width:220px">{title or "—"}</td>'
             f'<td>{stag(phase)}</td>'
             f'<td><span class="mono" style="font-size:11px">{progress or "—"}</span></td>'
             f'<td class="mono" style="color:{due_color};font-size:11px">{cut_due or "—"}</td>'
-            f'<td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">{pub_date or "—"}</td>'
+            f'<td class="mono" style="color:var(--ink3);font-size:11px">{pub_date or "—"}</td>'
             f'</tr>'
         )
     return '\n'.join(out)
@@ -709,7 +709,7 @@ def rows_publishing(pages):
         pl_st    = prop_val(pr.get('PL State', {}))
         season   = prop_val(pr.get('Season & Show', {}))
         yt_cell  = (f'<a href="{yt_link}" target="_blank" style="color:var(--teal);font-size:11px">↗ YouTube</a>'
-                    if yt_link else '<span style="color:rgba(240,239,232,0.25)">—</span>')
+                    if yt_link else '<span style="color:var(--dim)">—</span>')
         try:
             views_fmt = f'{int(float(views)):,}' if views else '—'
         except (ValueError, TypeError):
@@ -717,11 +717,11 @@ def rows_publishing(pages):
         out.append(
             f'<tr>'
             f'<td style="font-weight:500;max-width:200px">{title or "—"}</td>'
-            f'<td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">{pub_date or "—"}</td>'
+            f'<td class="mono" style="color:var(--ink3);font-size:11px">{pub_date or "—"}</td>'
             f'<td>{yt_cell}</td>'
             f'<td class="mono" style="color:var(--teal);font-weight:600">{views_fmt}</td>'
             f'<td>{stag(pl_st)}</td>'
-            f'<td style="font-size:11px;color:rgba(240,239,232,0.4)">{season or "—"}</td>'
+            f'<td style="font-size:11px;color:var(--ink3)">{season or "—"}</td>'
             f'</tr>'
         )
     return '\n'.join(out)
@@ -747,8 +747,8 @@ def rows_billing(pages):
             f'<td style="font-size:11px">{invoice or "—"}</td>'
             f'<td class="mono" style="color:var(--teal);font-weight:600">{pay_fmt}</td>'
             f'<td><span class="mono" style="font-size:11px">{progress or "—"}</span></td>'
-            f'<td class="mono" style="color:rgba(240,239,232,0.4)">{credits or "—"}</td>'
-            f'<td style="font-size:11px;color:rgba(240,239,232,0.4)">{season or "—"}</td>'
+            f'<td class="mono" style="color:var(--ink3)">{credits or "—"}</td>'
+            f'<td style="font-size:11px;color:var(--ink3)">{season or "—"}</td>'
             f'</tr>'
         )
     return '\n'.join(out)
@@ -758,8 +758,8 @@ def patch_notion_tabs(html, pipeline_p, editor_p, publishing_p, billing_p):
     import re
 
     def replace_tbody(html, tbody_id, rows):
-        empty = f'<td colspan="6" style="color:rgba(240,239,232,0.25);text-align:center;padding:20px">Fetching from Notion…</td>'
-        empty5 = f'<td colspan="5" style="color:rgba(240,239,232,0.25);text-align:center;padding:20px">Fetching from Notion…</td>'
+        empty = f'<td colspan="6" style="color:var(--dim);text-align:center;padding:20px">Fetching from Notion…</td>'
+        empty5 = f'<td colspan="5" style="color:var(--dim);text-align:center;padding:20px">Fetching from Notion…</td>'
         return re.sub(
             rf'(<tbody id="{tbody_id}">).*?(</tbody>)',
             lambda m: m.group(1) + rows + m.group(2),
@@ -931,9 +931,6 @@ def patch_html(html, s):
           r'(Avg Retention</div><div class="mono" style="font-size:18px;font-weight:600">)[\d.]+%(</div>)',
           rf'\g<1>{ar:.1f}%\g<2>')
 
-    apply('S1 avg ctr tile',
-          r'(Avg CTR</div><div class="mono"[^>]+>)(?:[\d.]+%|—)(</div>)',
-          rf'\g<1>{ac:.2f}%\g<2>' if ac is not None else r'\g<1>—\g<2>')
 
     apply('S1 total likes',
           r'(Total Likes</div><div class="mono"[^>]+>)[\d,]+(</div>)',
@@ -965,7 +962,7 @@ def patch_lf_titles(html, titles):
         return m.group(0)
     return re.sub(r'(vid:"([A-Za-z0-9_-]{11})"[^}]*?t:")([^"]*)"', replacer, html)
 
-# ── dashboard.json (renders the mobile index.html) ───────────────────────────
+# ── dashboard.json (renders overview.html) ─────────────────────────────────
 from datetime import datetime, timedelta, timezone
 
 BALI_TZ = timezone(timedelta(hours=8))  # Asia/Makassar, no DST
@@ -1223,7 +1220,7 @@ def git_push(message):
     remote = f'https://{GH_TOKEN}@github.com/xavycarc-jpg/xvc-dashboard.git'
     subprocess.run(['git', 'remote', 'set-url', 'origin', remote],
                    cwd=DASHBOARD_DIR, check=True, capture_output=True)
-    subprocess.run(['git', 'add', 'index.html', 'classic.html', 'data'],
+    subprocess.run(['git', 'add', 'index.html', 'overview.html', 'classic.html', 'data'],
                    cwd=DASHBOARD_DIR, check=True, capture_output=True)
     r = subprocess.run(['git', 'commit', '-m', message],
                        cwd=DASHBOARD_DIR, capture_output=True, text=True)

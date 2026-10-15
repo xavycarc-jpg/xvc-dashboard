@@ -150,8 +150,8 @@ def rows_pipeline(pages):
             f'<td style="font-weight:500;max-width:220px">{title or "—"}</td>'
             f'<td>{stag(pl_status)}</td>'
             f'<td><span class="mono" style="font-size:11px">{script_st or "—"}</span></td>'
-            f'<td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">{filming or "—"}</td>'
-            f'<td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">{pub_date or "—"}</td>'
+            f'<td class="mono" style="color:var(--ink3);font-size:11px">{filming or "—"}</td>'
+            f'<td class="mono" style="color:var(--ink3);font-size:11px">{pub_date or "—"}</td>'
             f'</tr>'
         )
     return "\n".join(out)
@@ -166,14 +166,14 @@ def rows_editor(pages):
         progress = prop_val(pr.get("Edit: Progress", {}))
         cut_due  = prop_val(pr.get("Next Cut Due", {}))
         pub_date = prop_val(pr.get("Publish Date", {}))
-        due_col  = "var(--amber)" if cut_due else "rgba(240,239,232,0.4)"
+        due_col  = "var(--amber)" if cut_due else "var(--ink3)"
         out.append(
             f'<tr>'
             f'<td style="font-weight:500;max-width:220px">{title or "—"}</td>'
             f'<td>{stag(phase)}</td>'
             f'<td><span class="mono" style="font-size:11px">{progress or "—"}</span></td>'
             f'<td class="mono" style="color:{due_col};font-size:11px">{cut_due or "—"}</td>'
-            f'<td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">{pub_date or "—"}</td>'
+            f'<td class="mono" style="color:var(--ink3);font-size:11px">{pub_date or "—"}</td>'
             f'</tr>'
         )
     return "\n".join(out)
@@ -191,7 +191,7 @@ def rows_publishing(pages):
         season   = prop_val(pr.get("Season & Show", {}))
         yt_cell  = (
             f'<a href="{yt_link}" target="_blank" style="color:var(--teal);font-size:11px">↗ YouTube</a>'
-            if yt_link else '<span style="color:rgba(240,239,232,0.25)">—</span>'
+            if yt_link else '<span style="color:var(--dim)">—</span>'
         )
         try:
             views_fmt = f'{int(float(views)):,}' if views else "—"
@@ -200,11 +200,11 @@ def rows_publishing(pages):
         out.append(
             f'<tr>'
             f'<td style="font-weight:500;max-width:200px">{title or "—"}</td>'
-            f'<td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">{pub_date or "—"}</td>'
+            f'<td class="mono" style="color:var(--ink3);font-size:11px">{pub_date or "—"}</td>'
             f'<td>{yt_cell}</td>'
             f'<td class="mono" style="color:var(--teal);font-weight:600">{views_fmt}</td>'
             f'<td>{stag(pl_st)}</td>'
-            f'<td style="font-size:11px;color:rgba(240,239,232,0.4)">{season or "—"}</td>'
+            f'<td style="font-size:11px;color:var(--ink3)">{season or "—"}</td>'
             f'</tr>'
         )
     return "\n".join(out)
@@ -230,8 +230,8 @@ def rows_billing(pages):
             f'<td style="font-size:11px">{invoice or "—"}</td>'
             f'<td class="mono" style="color:var(--teal);font-weight:600">{pay_fmt}</td>'
             f'<td><span class="mono" style="font-size:11px">{progress or "—"}</span></td>'
-            f'<td class="mono" style="color:rgba(240,239,232,0.4)">{credits or "—"}</td>'
-            f'<td style="font-size:11px;color:rgba(240,239,232,0.4)">{season or "—"}</td>'
+            f'<td class="mono" style="color:var(--ink3)">{credits or "—"}</td>'
+            f'<td style="font-size:11px;color:var(--ink3)">{season or "—"}</td>'
             f'</tr>'
         )
     return "\n".join(out)

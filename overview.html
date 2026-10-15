@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#f6f6f3" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#121314" media="(prefers-color-scheme: dark)">
+<title>XVC · Overview</title>
+<style>
+:root{
+  --bg:#f6f6f3; --card:#ffffff; --ink:#16181a; --ink2:#4a4f55; --ink3:#767c84; --line:#e3e3de;
+  --accent:#1f6f5c; --accent-soft:#e3f1ec; --warn:#a24a12; --warn-soft:#fbeadd;
+  --x:#2557a7; --x-soft:#e5edf9; --s:#2f7d32; --s-soft:#e5f2e5; --b:#7346a8; --b-soft:#efe8f7;
+  --bar-bg:#e8e8e3; --shadow:0 1px 2px rgba(0,0,0,.05);
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#121314; --card:#1b1d1f; --ink:#f1f1ee; --ink2:#c3c6c9; --ink3:#8f949a; --line:#2b2e31;
+    --accent:#5cc8a8; --accent-soft:#183129; --warn:#f0a066; --warn-soft:#3a2416;
+    --x:#8db4f5; --x-soft:#1c2a40; --s:#86d08a; --s-soft:#1b3020; --b:#c6a6f0; --b-soft:#2c2240;
+    --bar-bg:#2a2d30; --shadow:none;
+  }
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font:16px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom)}
+.wrap{max-width:720px;margin:0 auto;padding:16px 16px 48px}
+header{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin:4px 0 14px}
+h1{font-size:20px;margin:0;letter-spacing:-.01em}
+.updated{font-size:12px;color:var(--ink3);text-align:right}
+nav{display:flex;gap:6px;margin-bottom:14px;position:sticky;top:0;background:var(--bg);padding:6px 0;z-index:5}
+nav button{flex:1;font:inherit;font-size:14px;font-weight:600;padding:9px 0;border-radius:10px;border:1px solid var(--line);
+  background:var(--card);color:var(--ink2);cursor:pointer}
+nav button[aria-selected="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;margin-bottom:14px;box-shadow:var(--shadow)}
+h2{font-size:13px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink3);margin:0 0 10px;font-weight:700;
+  display:flex;justify-content:space-between;align-items:center;gap:8px}
+h2 .meta{text-transform:none;letter-spacing:0;font-weight:500}
+h3{font-size:14px;margin:14px 0 8px;display:flex;align-items:center;gap:8px}
+h3:first-child{margin-top:0}
+.rto-num{font-size:44px;font-weight:800;letter-spacing:-.02em;line-height:1.05}
+.rto-num small{font-size:20px;font-weight:600;color:var(--ink3)}
+.rto-sub{color:var(--ink2);font-size:14px;margin-top:2px}
+.bar{height:12px;background:var(--bar-bg);border-radius:99px;overflow:hidden;margin-top:12px}
+.bar > i{display:block;height:100%;background:var(--accent);border-radius:99px;min-width:4px}
+.rto-foot{display:flex;justify-content:space-between;font-size:12px;color:var(--ink3);margin-top:6px}
+.who{font-size:12px;font-weight:700;padding:2px 9px;border-radius:99px;white-space:nowrap}
+.who.Xavy{background:var(--x-soft);color:var(--x)} .who.Stephan{background:var(--s-soft);color:var(--s)} .who.Both{background:var(--b-soft);color:var(--b)}
+.item{padding:10px 0;border-top:1px solid var(--line)}
+.item:first-of-type{border-top:0}
+.item .t{font-weight:600;font-size:15px}
+.item .t a{color:inherit;text-decoration:none}
+.item .row{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-top:4px}
+.item .ns{font-size:14px;color:var(--ink2);margin-top:4px;white-space:pre-line;overflow-wrap:anywhere}
+.item .ns.clamp{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.pill{font-size:12px;padding:1px 8px;border-radius:99px;border:1px solid var(--line);color:var(--ink2);white-space:nowrap}
+.pill.done{color:var(--accent);border-color:var(--accent)}
+.pill.blocked,.pill.stuck{color:var(--warn);border-color:var(--warn);background:var(--warn-soft);font-weight:600}
+.pill.progress{color:var(--x);border-color:var(--x)}
+.pill.hot{background:var(--accent-soft);color:var(--accent);border-color:transparent;font-weight:600}
+.item.is-done .t{color:var(--ink3);text-decoration:line-through}
+.empty{color:var(--ink3);font-size:14px;padding:4px 0}
+.notice{background:var(--warn-soft);color:var(--warn);border-radius:10px;padding:10px 12px;font-size:14px}
+.stuckbar{background:var(--warn-soft);color:var(--warn);border-radius:10px;padding:8px 12px;font-size:14px;font-weight:600;margin-bottom:6px}
+.filter{display:flex;gap:6px;margin:0 0 14px}
+.filter button{font:inherit;font-size:13px;padding:5px 12px;border-radius:99px;border:1px solid var(--line);background:var(--card);color:var(--ink2);cursor:pointer}
+.filter button[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.stat .v{font-size:20px;font-weight:700}
+.stat .l{font-size:12px;color:var(--ink3)}
+.top{margin-top:12px;font-size:14px;color:var(--ink2)}
+.quiet{opacity:.92}
+details{border-top:1px solid var(--line);padding-top:4px}
+details.card{border-top:1px solid var(--line);padding-top:16px}
+summary{cursor:pointer;font-weight:600;font-size:15px;list-style:none;display:flex;justify-content:space-between}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"＋";color:var(--ink3)}
+details[open] summary::after{content:"－"}
+table{width:100%;border-collapse:collapse;font-size:13px;margin-top:10px}
+th,td{text-align:left;padding:7px 4px;border-top:1px solid var(--line);vertical-align:top}
+th{color:var(--ink3);font-weight:600;font-size:12px}
+td.n,th.n{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
+a{color:var(--accent)}
+footer{text-align:center;font-size:12px;color:var(--ink3);margin-top:18px}
+[hidden]{display:none!important}
+.sitenav{display:flex;gap:6px;margin:0 0 10px}
+.sitenav a{flex:1;text-align:center;font-size:14px;font-weight:600;padding:9px 0;border-radius:10px;border:1px solid var(--line);
+  background:var(--card);color:var(--ink2);text-decoration:none}
+.sitenav a[aria-current="page"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+nav button{font-size:13px;padding:6px 0;border-radius:99px}
+@media (min-width:640px){ .cols{display:grid;grid-template-columns:repeat(3,1fr);gap:16px} .cols h3{margin-top:0} }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>XVC</h1>
+    <div class="updated" id="updated">Loading…</div>
+  </header>
+  <div class="sitenav" role="navigation" aria-label="Dashboard views"><a href="./">Classic</a><a href="overview.html" aria-current="page">Overview</a></div>
+
+  <nav role="tablist">
+    <button role="tab" data-tab="overview" aria-selected="true">This week</button>
+    <button role="tab" data-tab="videos" aria-selected="false">Videos</button>
+  </nav>
+
+  <main id="tab-overview">
+    <section class="card" id="rto"></section>
+
+    <div class="filter" id="filter" aria-label="Show work for">
+      <button data-who="all" aria-pressed="true">Everyone</button>
+      <button data-who="Xavy" aria-pressed="false">Xavy</button>
+      <button data-who="Stephan" aria-pressed="false">Stephan</button>
+    </div>
+
+    <section class="card" id="week"></section>
+    <section class="card" id="pipeline"></section>
+    <section class="card quiet" id="channel"></section>
+
+    <details class="card" id="billing">
+      <summary>Billing &amp; invoices</summary>
+      <div id="billing-body"></div>
+    </details>
+  </main>
+
+  <main id="tab-videos" hidden>
+    <section class="card" id="lf"></section>
+    <section class="card" id="sf"></section>
+  </main>
+
+  <footer>
+    Updated daily from YouTube and Notion. <a href="./">Classic dashboard</a>
+  </footer>
+</div>
+
+<script>
+(function(){
+  'use strict';
+  var D = null, WHO = 'all';
+  var $ = function(id){ return document.getElementById(id); };
+  function esc(s){ return String(s == null ? '' : s).replace(/[&<>"']/g, function(c){
+    return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
+  function num(n){ return (n == null || isNaN(n)) ? '—' : Number(n).toLocaleString('en-US'); }
+  function fmtDate(iso){
+    if(!iso) return '';
+    var d = new Date(iso.length <= 10 ? iso + 'T00:00:00Z' : iso);
+    return d.toLocaleDateString('en-US', {month:'short', day:'numeric', timeZone:'UTC'});
+  }
+  function whoTag(w){ w = (w==='Xavy'||w==='Stephan') ? w : 'Both'; return '<span class="who '+w+'">'+w+'</span>'; }
+  function visible(owner){ return WHO === 'all' || owner === WHO || owner === 'Both'; }
+
+  function renderUpdated(){
+    var txt = D.generated_at_bali || '';
+    try {
+      txt = new Date(D.generated_at).toLocaleString('en-GB', {timeZone:'Asia/Makassar', weekday:'short',
+        day:'numeric', month:'short', hour:'2-digit', minute:'2-digit'}) + ' Bali time';
+    } catch(e){}
+    $('updated').textContent = 'Updated ' + txt;
+  }
+
+  function renderRTO(){
+    var r = D.rto || {published:0, goal:100};
+    var pct = Math.max(0, Math.min(100, r.published / r.goal * 100));
+    $('rto').innerHTML =
+      '<h2>RTO · Road to One Hundred</h2>' +
+      '<div class="rto-num">' + num(r.published) + ' <small>of ' + r.goal + '</small></div>' +
+      '<div class="rto-sub">long-form videos published</div>' +
+      '<div class="bar" role="progressbar" aria-valuemin="0" aria-valuemax="' + r.goal + '" aria-valuenow="' + r.published + '"><i style="width:' + pct.toFixed(1) + '%"></i></div>' +
+      '<div class="rto-foot"><span>' + Math.round(pct) + '%</span><span>' + Math.max(0, r.goal - r.published) + ' to go</span></div>';
+  }
+
+  function statusPill(s){
+    var cls = s === 'Done' ? 'done' : s === 'Blocked' ? 'blocked' : s === 'In Progress' ? 'progress' : '';
+    return '<span class="pill ' + cls + '">' + esc(s) + '</span>';
+  }
+
+  function renderWeek(){
+    var P = D.priorities || {status:'error', items:[]};
+    var h = '<h2>This week <span class="meta">' + (P.week_of ? 'week of ' + esc(fmtDate(P.week_of)) : '') + '</span></h2>';
+    if (P.status === 'no_access') {
+      $('week').innerHTML = h + '<div class="notice">Connect Weekly Priorities: share the “🎯 Weekly Priorities” Notion database with the dashboard integration.</div>';
+      return;
+    }
+    if (P.status !== 'ok') {
+      $('week').innerHTML = h + '<div class="notice">Weekly Priorities could not be loaded on the last update.</div>';
+      return;
+    }
+    if (P.note) h += '<div class="empty">' + esc(P.note) + '</div>';
+    var groups = ['Xavy','Stephan','Both'].filter(visible);
+    h += '<div class="cols">';
+    groups.forEach(function(g){
+      var items = (P.items || []).filter(function(i){ return (i.owner || 'Both') === g; });
+      var open = items.filter(function(i){ return i.status !== 'Done'; }).length;
+      h += '<div><h3>' + whoTag(g) + '<span class="meta" style="font-weight:500;color:var(--ink3);font-size:13px">' + open + ' open</span></h3>';
+      if (!items.length) h += '<div class="empty">Nothing listed.</div>';
+      items.forEach(function(i){
+        var tt = /^https:\/\/(app\.|www\.)?notion\.(so|com)\//.test(i.url || '') ? '<a href="' + esc(i.url) + '" target="_blank" rel="noopener">' + esc(i.title) + '</a>' : esc(i.title);
+        h += '<div class="item' + (i.status === 'Done' ? ' is-done' : '') + '">' +
+          '<div class="t">' + tt + '</div>' +
+          '<div class="row">' + statusPill(i.status) + (i.type === 'Top Project' ? '<span class="pill hot">Top project</span>' : '') +
+          (i.videos || []).map(function(v){ return '<span class="pill">' + esc(v) + '</span>'; }).join('') + '</div>' +
+          (i.next_step && i.status !== 'Done' ? '<div class="ns clamp">→ ' + esc(i.next_step) + '</div>' : '') +
+          '</div>';
+      });
+      h += '</div>';
+    });
+    h += '</div>';
+    $('week').innerHTML = h;
+  }
+
+  function renderPipeline(){
+    var P = D.pipeline;
+    var h = '<h2>Pipeline</h2>';
+    if (!P) { $('pipeline').innerHTML = h + '<div class="notice">Notion pipeline unavailable on the last update.</div>'; return; }
+    var all = [];
+    P.stages.forEach(function(s){ s.items.forEach(function(i){ all.push(i); }); });
+    var stuck = all.filter(function(i){ return i.stuck && visible(i.next_owner); }).length;
+    var shown = all.filter(function(i){ return visible(i.next_owner); }).length;
+    h = '<h2>Pipeline <span class="meta">' + shown + ' in progress · ' + num(P.idea_bank_count) + ' in idea bank</span></h2>';
+    if (stuck) h += '<div class="stuckbar">' + stuck + ' stuck (on hold, or no update in ' + P.stuck_days + '+ days)</div>';
+    P.stages.forEach(function(s){
+      var items = s.items.filter(function(i){ return visible(i.next_owner); });
+      if (!items.length) return;
+      h += '<h3>' + esc(s.label) + ' <span class="pill">' + items.length + '</span></h3>';
+      items.forEach(function(i){
+        var tags = '';
+        if (i.active_this_week) tags += '<span class="pill hot">This week</span>';
+        if (i.stuck) tags += '<span class="pill stuck">' + esc(i.stuck_reason) + '</span>';
+        if (i.edit_phase) tags += '<span class="pill">' + esc(i.edit_phase) + '</span>';
+        if (i.pl_state && !(s.key === 'edit' && i.edit_phase)) tags += '<span class="pill">' + esc(i.pl_state) + '</span>';
+        h += '<div class="item">' +
+          '<div class="t">' + esc(i.title) + '</div>' +
+          '<div class="row"><span style="font-size:12px;color:var(--ink3)">Next:</span>' + whoTag(i.next_owner) + tags + '</div>' +
+          (i.next_step ? '<div class="ns clamp">' + esc(i.next_step) + '</div>' : '') +
+          (i.last_update ? '<div class="ns" style="font-size:12px;color:var(--ink3)">Last update ' + esc(fmtDate(i.last_update)) + '</div>' : '') +
+          '</div>';
+      });
+    });
+    if (!shown) h += '<div class="empty">Nothing in progress for this person.</div>';
+    $('pipeline').innerHTML = h;
+  }
+
+  function renderChannel(){
+    var c = D.channel || {}, l = c.last28 || {}, t = c.top_recent;
+    $('channel').innerHTML = '<h2>Channel <span class="meta">last 28 days</span></h2>' +
+      '<div class="stats">' +
+        '<div class="stat"><div class="v">' + num(c.subscribers) + '</div><div class="l">subscribers</div></div>' +
+        '<div class="stat"><div class="v">' + num(l.views) + '</div><div class="l">views</div></div>' +
+        '<div class="stat"><div class="v">' + (l.watch_hours == null ? '—' : num(l.watch_hours)) + '</div><div class="l">watch hours</div></div>' +
+      '</div>' +
+      (t ? '<div class="top">Top recent: <strong>' + esc(t.title || t.id) + '</strong> · ' + num(t.views) + ' views</div>' : '');
+  }
+
+  function renderBilling(){
+    var B = D.billing;
+    if (!B) { $('billing-body').innerHTML = '<div class="empty">Unavailable on the last update.</div>'; return; }
+    var h = '<table><thead><tr><th>Video</th><th>Invoice</th><th>Payment</th><th class="n">Credits</th></tr></thead><tbody>';
+    B.forEach(function(b){
+      h += '<tr><td>' + esc(b.title || '—') + '</td><td>' + esc(b.invoice || '—') + '</td><td>' + esc(b.payment || '—') +
+        '</td><td class="n">' + esc(b.credits || '—') + '</td></tr>';
+    });
+    $('billing-body').innerHTML = h + '</tbody></table>';
+  }
+
+  function videoTable(list, el, title){
+    var h = '<h2>' + title + ' <span class="meta">' + list.length + '</span></h2>';
+    if (!list.length) { el.innerHTML = h + '<div class="empty">None yet.</div>'; return; }
+    h += '<table><thead><tr><th>Title</th><th>Date</th><th class="n">Views</th></tr></thead><tbody>';
+    list.forEach(function(v){
+      h += '<tr><td><a href="https://youtu.be/' + encodeURIComponent(v.id) + '" target="_blank" rel="noopener">' + esc(v.title) +
+        '</a></td><td style="white-space:nowrap">' + esc(fmtDate(v.published)) + '</td><td class="n">' + num(v.views) + '</td></tr>';
+    });
+    el.innerHTML = h + '</tbody></table>';
+  }
+
+  function renderAll(){
+    renderUpdated(); renderRTO(); renderWeek(); renderPipeline(); renderChannel(); renderBilling();
+    videoTable(D.long_form || [], $('lf'), 'Long-form');
+    videoTable(D.shorts || [], $('sf'), 'Shorts');
+  }
+
+  // tabs
+  Array.prototype.forEach.call(document.querySelectorAll('nav button'), function(b){
+    b.addEventListener('click', function(){
+      Array.prototype.forEach.call(document.querySelectorAll('nav button'), function(o){ o.setAttribute('aria-selected', o === b ? 'true' : 'false'); });
+      $('tab-overview').hidden = b.dataset.tab !== 'overview';
+      $('tab-videos').hidden = b.dataset.tab !== 'videos';
+    });
+  });
+  // person filter
+  Array.prototype.forEach.call(document.querySelectorAll('#filter button'), function(b){
+    b.addEventListener('click', function(){
+      WHO = b.dataset.who;
+      Array.prototype.forEach.call(document.querySelectorAll('#filter button'), function(o){ o.setAttribute('aria-pressed', o === b ? 'true' : 'false'); });
+      if (D) { renderWeek(); renderPipeline(); }
+    });
+  });
+
+  fetch('data/dashboard.json?v=' + Date.now(), {cache:'no-store'})
+    .then(function(r){ if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+    .then(function(d){ D = d; renderAll(); })
+    .catch(function(e){
+      $('updated').textContent = 'Could not load data';
+      $('rto').innerHTML = '<div class="notice">Dashboard data is not available yet (' + esc(e.message) + '). <a href="./">Open the classic dashboard</a>.</div>';
+    });
+})();
+</script>
+</body>
+</html>
