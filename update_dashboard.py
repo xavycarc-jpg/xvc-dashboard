@@ -1136,6 +1136,7 @@ def fetch_weekly_priorities(video_titles):
                 'next_step': prop_val(pr.get('Next Step', {})),
                 'last_update': prop_val(pr.get('Last Update', {})),
                 'videos': [v for v in vids if v],
+                'url': p.get('url', ''),
             })
         out['items'].sort(key=lambda i: (status_rank.get(i['status'], 9), i['type'] != 'Top Project', i['title']))
         print(f'  Weekly Priorities: {len(out["items"])} rows for week of {out["week_of"]}')
@@ -1143,6 +1144,27 @@ def fetch_weekly_priorities(video_titles):
         print(f'  ⚠ Weekly Priorities fetch failed: {e}')
         out['status'] = 'error'
     return out
+
+
+PRIORITIES_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'data', 'priorities.json')
+
+
+def priorities_fallback(fetched):
+    """Use data/priorities.json (pushed by the assistant via Notion MCP) when our own
+    query can't read the Weekly Priorities DB. Never raises; never writes the file."""
+    try:
+        with open(PRIORITIES_FILE, encoding='utf-8') as f:
+            saved = json.load(f)
+    except Exception:
+        return fetched
+    if saved.get('status') != 'ok' or not saved.get('items'):
+        return fetched
+    today = bali_now().date()
+    monday = (today - timedelta(days=today.weekday())).isoformat()
+    if (saved.get('week_of') or '') < monday:
+        saved['note'] = f"Last synced for the week of {saved.get('week_of')}; this week not synced yet."
+    print(f"  Weekly Priorities: using data/priorities.json ({len(saved['items'])} rows, week of {saved.get('week_of')})")
+    return saved
 
 
 def build_dashboard_data(stats, yt_summary, all_videos, lf_ids, sf_ids,
@@ -1169,6 +1191,8 @@ def build_dashboard_data(stats, yt_summary, all_videos, lf_ids, sf_ids,
         titles[p['id']] = prop_val(p['properties'].get('VLOG Official Title', {}))
     data['priorities'] = fetch_weekly_priorities(titles) if NOTION_TOKEN else \
         {'status': 'error', 'week_of': None, 'items': [], 'note': 'NOTION_TOKEN missing'}
+    if data['priorities'].get('status') != 'ok' or not data['priorities'].get('items'):
+        data['priorities'] = priorities_fallback(data['priorities'])
     data['pipeline'] = build_pipeline(pipeline_rows, editor_rows) if notion_ok else None
     billing = []
     for p in billing_rows:

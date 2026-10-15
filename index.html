@@ -52,6 +52,7 @@ h3:first-child{margin-top:0}
 .item{padding:10px 0;border-top:1px solid var(--line)}
 .item:first-of-type{border-top:0}
 .item .t{font-weight:600;font-size:15px}
+.item .t a{color:inherit;text-decoration:none}
 .item .row{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-top:4px}
 .item .ns{font-size:14px;color:var(--ink2);margin-top:4px;white-space:pre-line;overflow-wrap:anywhere}
 .item .ns.clamp{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
@@ -190,8 +191,9 @@ footer{text-align:center;font-size:12px;color:var(--ink3);margin-top:18px}
       h += '<div><h3>' + whoTag(g) + '<span class="meta" style="font-weight:500;color:var(--ink3);font-size:13px">' + open + ' open</span></h3>';
       if (!items.length) h += '<div class="empty">Nothing listed.</div>';
       items.forEach(function(i){
+        var tt = /^https:\/\/(app\.|www\.)?notion\.(so|com)\//.test(i.url || '') ? '<a href="' + esc(i.url) + '" target="_blank" rel="noopener">' + esc(i.title) + '</a>' : esc(i.title);
         h += '<div class="item' + (i.status === 'Done' ? ' is-done' : '') + '">' +
-          '<div class="t">' + esc(i.title) + '</div>' +
+          '<div class="t">' + tt + '</div>' +
           '<div class="row">' + statusPill(i.status) + (i.type === 'Top Project' ? '<span class="pill hot">Top project</span>' : '') +
           (i.videos || []).map(function(v){ return '<span class="pill">' + esc(v) + '</span>'; }).join('') + '</div>' +
           (i.next_step && i.status !== 'Done' ? '<div class="ns clamp">→ ' + esc(i.next_step) + '</div>' : '') +
