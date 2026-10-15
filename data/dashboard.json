@@ -1,6 +1,6 @@
 {
- "generated_at": "2026-10-15T10:06:20+00:00",
- "generated_at_bali": "Thu 15 Oct 2026, 18:06 (Bali)",
+ "generated_at": "2026-10-15T10:58:02+00:00",
+ "generated_at_bali": "Thu 15 Oct 2026, 18:58 (Bali)",
  "rto": {
   "published": 9,
   "goal": 100
@@ -23,15 +23,886 @@
    "title": "The Next 6 Months Will Change You"
   }
  },
- "long_form": [],
- "shorts": [],
- "notion_ok": false,
+ "long_form": [
+  {
+   "id": "Z2J94yH89SY",
+   "title": "Why Feeling Safe Is Ruining Your Life",
+   "published": "2026-10-12",
+   "views": 22,
+   "likes": 1,
+   "comments": 0
+  },
+  {
+   "id": "Z2J94yH89SY",
+   "title": "Why Feeling Safe Is Ruining Your Life",
+   "published": "2026-10-12",
+   "views": 22,
+   "likes": 1,
+   "comments": 0
+  },
+  {
+   "id": "IOFPXGzZ53M",
+   "title": "Why getting what you want is a mistake",
+   "published": "2026-07-07",
+   "views": 59,
+   "likes": 3,
+   "comments": 1
+  },
+  {
+   "id": "SC8SfzHsabo",
+   "title": "How bullying can change you [for the better]",
+   "published": "2025-12-16",
+   "views": 6514,
+   "likes": 12,
+   "comments": 2
+  },
+  {
+   "id": "5CQHOpyXWKk",
+   "title": "How burnout will change you [for the better]",
+   "published": "2025-12-10",
+   "views": 5127,
+   "likes": 4,
+   "comments": 1
+  },
+  {
+   "id": "QjGV6CK1tJo",
+   "title": "Why getting fired forced me out of my home",
+   "published": "2025-12-03",
+   "views": 44,
+   "likes": 1,
+   "comments": 1
+  },
+  {
+   "id": "mC5SzxQmVi4",
+   "title": "How getting laid off left me searching for a new home",
+   "published": "2025-11-26",
+   "views": 86,
+   "likes": 3,
+   "comments": 1
+  },
+  {
+   "id": "UO7p4cAuu_U",
+   "title": "35. Unemployed. Single Loser.",
+   "published": "2025-11-19",
+   "views": 78,
+   "likes": 7,
+   "comments": 6
+  },
+  {
+   "id": "OLFbWxSN9o8",
+   "title": "why going to jail was good for me",
+   "published": "2025-11-12",
+   "views": 7571,
+   "likes": 15,
+   "comments": 5
+  }
+ ],
+ "shorts": [
+  {
+   "id": "1FSaRKb9yCQ",
+   "title": "The Next 6 Months Will Change You",
+   "published": "2026-09-17",
+   "views": 530,
+   "likes": 5
+  },
+  {
+   "id": "nYF5Rxv63jk",
+   "title": "Nobody's Coming to Save You",
+   "published": "2026-09-16",
+   "views": 432,
+   "likes": 11
+  },
+  {
+   "id": "YQZzvDWuWIw",
+   "title": "You Lost Someone, Not Your Dream.",
+   "published": "2026-09-13",
+   "views": 1020,
+   "likes": 7
+  },
+  {
+   "id": "zOcYB1FIk4E",
+   "title": "Become the Man Your Family Can Depend On",
+   "published": "2026-09-13",
+   "views": 1098,
+   "likes": 17
+  },
+  {
+   "id": "tQJPlkZngTw",
+   "title": "I’m Still Figuring Life Out",
+   "published": "2026-09-12",
+   "views": 530,
+   "likes": 9
+  },
+  {
+   "id": "5s-0c_pjW9I",
+   "title": "Nobody Is Coming to Save You",
+   "published": "2026-09-12",
+   "views": 940,
+   "likes": 12
+  },
+  {
+   "id": "EYdR0nfPnGs",
+   "title": "I Didn't Always Know Where My Life Was Going",
+   "published": "2026-09-12",
+   "views": 896,
+   "likes": 6
+  },
+  {
+   "id": "d4fq1cEwXE8",
+   "title": "Stop Chasing Happiness. Start Building Your Life",
+   "published": "2026-09-11",
+   "views": 283,
+   "likes": 5
+  },
+  {
+   "id": "pkJhfeX6h18",
+   "title": "The Hardest Part of Changing Your Life",
+   "published": "2026-09-10",
+   "views": 1035,
+   "likes": 9
+  },
+  {
+   "id": "ffIJRW7r1Ao",
+   "title": "Your Company Can Replace You. Your Skills Shouldn't Be Easy to Replace.",
+   "published": "2026-09-10",
+   "views": 189,
+   "likes": 3
+  },
+  {
+   "id": "Hs6BQGePzro",
+   "title": "Just Work Harder” Is Bullsh*t",
+   "published": "2026-09-09",
+   "views": 237,
+   "likes": 4
+  },
+  {
+   "id": "9SmL5KpBHCA",
+   "title": "Money Isn't the Only Kind of Leverage",
+   "published": "2026-09-09",
+   "views": 80,
+   "likes": 1
+  },
+  {
+   "id": "kzpOI0Psszc",
+   "title": "You’re Working So Hard You Forgot What It’s For",
+   "published": "2026-09-08",
+   "views": 441,
+   "likes": 1
+  },
+  {
+   "id": "suBCyxjwA6Q",
+   "title": "You Can Be Smart and Still Have No Leverage",
+   "published": "2026-09-08",
+   "views": 1039,
+   "likes": 3
+  },
+  {
+   "id": "KoHTNlSUmbU",
+   "title": "How Long Are You Going to Live on Repeat?",
+   "published": "2026-09-07",
+   "views": 236,
+   "likes": 7
+  },
+  {
+   "id": "NplXvhqdr54",
+   "title": "Money Problems Can Destroy a Man's Peace",
+   "published": "2026-09-07",
+   "views": 1469,
+   "likes": 24
+  },
+  {
+   "id": "CWY8RCq72ZM",
+   "title": "You Got Everything You Wanted. So Why Are You Still Empty?",
+   "published": "2026-09-05",
+   "views": 134,
+   "likes": 1
+  },
+  {
+   "id": "rP9S3eU7LCE",
+   "title": "Sorry, I Have Plans.",
+   "published": "2026-09-05",
+   "views": 980,
+   "likes": 2
+  },
+  {
+   "id": "7baL_DF2l50",
+   "title": "You Don’t Need More Motivation. You Need This.",
+   "published": "2026-09-04",
+   "views": 408,
+   "likes": 3
+  },
+  {
+   "id": "pB8TFSIJhlY",
+   "title": "#growthmindset #personaldevelopment",
+   "published": "2026-09-03",
+   "views": 51,
+   "likes": 1
+  },
+  {
+   "id": "_vn9rD5RUoU",
+   "title": "Successful on Paper, Empty in Private",
+   "published": "2026-09-02",
+   "views": 607,
+   "likes": 10
+  },
+  {
+   "id": "bQ8xLs9cLjs",
+   "title": "Success Can Be a More Expensive Mask",
+   "published": "2026-09-02",
+   "views": 149,
+   "likes": 2
+  },
+  {
+   "id": "zvhu98JugRQ",
+   "title": "If You Feel Tired and Alone Right Now, Hear This",
+   "published": "2026-09-01",
+   "views": 410,
+   "likes": 3
+  },
+  {
+   "id": "cYXwBfn-NAI",
+   "title": "Why Life Feels Heavy Even When You Say “I’m Fine”",
+   "published": "2026-09-01",
+   "views": 604,
+   "likes": 5
+  },
+  {
+   "id": "iPDoqJ3NekQ",
+   "title": "Your Mind Is Quietly Becoming Your Life",
+   "published": "2026-08-31",
+   "views": 978,
+   "likes": 28
+  },
+  {
+   "id": "WtIRmUf6Zos",
+   "title": "You have to let go of who you are",
+   "published": "2026-08-30",
+   "views": 1164,
+   "likes": 16
+  },
+  {
+   "id": "7e03kCoQsWw",
+   "title": "You Think You Have Time?",
+   "published": "2026-08-29",
+   "views": 1177,
+   "likes": 25
+  },
+  {
+   "id": "LixvZRLwDUA",
+   "title": "Your Next Opponent Is You.",
+   "published": "2026-08-28",
+   "views": 1343,
+   "likes": 12
+  },
+  {
+   "id": "TSJ_B-4SPho",
+   "title": "One Paycheck Can Make You Feel Trapped",
+   "published": "2026-08-27",
+   "views": 118,
+   "likes": 0
+  },
+  {
+   "id": "s1-Jh_Db1cE",
+   "title": "The Lifestyle Trap No One Warns You About",
+   "published": "2026-08-27",
+   "views": 193,
+   "likes": 2
+  },
+  {
+   "id": "s-IVuS6xVjs",
+   "title": "Starting Over Doesn’t Mean You Failed",
+   "published": "2026-08-24",
+   "views": 379,
+   "likes": 10
+  },
+  {
+   "id": "n5uzpvXbnak",
+   "title": "You’re Successful. So Why Do You Feel Empty?",
+   "published": "2026-08-24",
+   "views": 443,
+   "likes": 7
+  },
+  {
+   "id": "OXhSGuMb6yw",
+   "title": "Depression Can Look Like Pretending You’re Fine",
+   "published": "2026-08-22",
+   "views": 668,
+   "likes": 9
+  },
+  {
+   "id": "vDWpDdW5GBE",
+   "title": "You Look Fine. So Why Do You Feel So Empty?",
+   "published": "2026-08-21",
+   "views": 640,
+   "likes": 5
+  },
+  {
+   "id": "xTbd-idqZZ0",
+   "title": "Maybe You’re Not Unmotivated #selfimprovement #selfawareness",
+   "published": "2026-08-20",
+   "views": 208,
+   "likes": 4
+  },
+  {
+   "id": "RrWWZP8qpJI",
+   "title": "The Danger Starts When You Feel Safe",
+   "published": "2026-08-19",
+   "views": 95,
+   "likes": 1
+  },
+  {
+   "id": "ILgnfd6S3Is",
+   "title": "The Danger Starts When You Get Comfortable",
+   "published": "2026-08-18",
+   "views": 82,
+   "likes": 1
+  },
+  {
+   "id": "XAauRG3JWIA",
+   "title": "Fear Is Loud. Awareness Keeps You Safe.",
+   "published": "2026-08-18",
+   "views": 393,
+   "likes": 1
+  },
+  {
+   "id": "6_F5ll7uE6s",
+   "title": "You Finally Got Freedom. So Why Go Back?",
+   "published": "2026-08-17",
+   "views": 1114,
+   "likes": 8
+  },
+  {
+   "id": "0nJhZj-FbWA",
+   "title": "What If You Don’t Actually Want More?",
+   "published": "2026-08-16",
+   "views": 176,
+   "likes": 2
+  },
+  {
+   "id": "Dwj4ZyFJtXE",
+   "title": "What If Success Means Having Less?",
+   "published": "2026-08-16",
+   "views": 109,
+   "likes": 3
+  },
+  {
+   "id": "-OgRx8I45GM",
+   "title": "The Success Trap Nobody Talks About",
+   "published": "2026-08-15",
+   "views": 468,
+   "likes": 11
+  },
+  {
+   "id": "pUqSkPwZxko",
+   "title": "What If Your Dream Life Isn’t Freedom?",
+   "published": "2026-08-15",
+   "views": 355,
+   "likes": 7
+  },
+  {
+   "id": "sbtjz7R9MjE",
+   "title": "Your Successful Life Might Be The Reason You Can’t Leave",
+   "published": "2026-08-14",
+   "views": 525,
+   "likes": 12
+  },
+  {
+   "id": "kdflsauG97M",
+   "title": "Nothing Is Wrong With Your Life. So Why Leave?",
+   "published": "2026-08-14",
+   "views": 556,
+   "likes": 6
+  },
+  {
+   "id": "KMBeC6c7P38",
+   "title": "When Your Old Life Doesn’t Feel Like Yours Anymore",
+   "published": "2026-08-13",
+   "views": 1152,
+   "likes": 21
+  },
+  {
+   "id": "D7bYnS0IHuE",
+   "title": "You Made It. So Why Do You Still Feel Empty? #selfgrowth #personalgrowth #success",
+   "published": "2026-08-13",
+   "views": 457,
+   "likes": 7
+  },
+  {
+   "id": "Af9EoSs0RQs",
+   "title": "What if you don’t actually want more? #personalgrowth #selfimprovement #startingover",
+   "published": "2026-08-12",
+   "views": 972,
+   "likes": 22
+  },
+  {
+   "id": "PPDUbZ5h9mQ",
+   "title": "The Person You Became to Survive Might Be Keeping You Stuck #selfimprovement #personalgrowth",
+   "published": "2026-08-11",
+   "views": 85,
+   "likes": 2
+  },
+  {
+   "id": "cdsxU0nDSXs",
+   "title": "You're Not Chasing Success, You're Running From Yourself.",
+   "published": "2026-08-11",
+   "views": 58,
+   "likes": 2
+  },
+  {
+   "id": "VYq0d05J_M8",
+   "title": "don't waste another year",
+   "published": "2025-11-11",
+   "views": 257,
+   "likes": 4
+  }
+ ],
+ "notion_ok": true,
  "priorities": {
-  "status": "error",
-  "week_of": null,
+  "status": "no_access",
+  "week_of": "2026-10-12",
   "items": [],
-  "note": "first update pending"
+  "note": ""
  },
- "pipeline": null,
- "billing": null
+ "pipeline": {
+  "stuck_days": 14,
+  "stages": [
+   {
+    "key": "script",
+    "label": "Script",
+    "items": [
+     {
+      "title": "The Wanting  [Bali]",
+      "pl_state": "Script RW",
+      "edit_phase": "C1: Story",
+      "progress": "25%",
+      "priority": "Top Priority",
+      "next_owner": "Xavy",
+      "next_step": "XC. Rewrite finished. VO Production. To create VO for Editor placeholder + Need Headshot for TH\n\nNS: Shoot TH next week\n\nAwaiting short form production",
+      "last_update": "2026-10-08",
+      "idle_days": 7,
+      "stuck": false,
+      "stuck_reason": "",
+      "active_this_week": true,
+      "next_cut_due": "2026-06-19",
+      "publish": "2026-10-24"
+     },
+     {
+      "title": "The Price of Living for Others [Lombok]",
+      "pl_state": "Script Dev",
+      "edit_phase": "",
+      "progress": "Not Ready",
+      "priority": "Awaiting Prod",
+      "next_owner": "Xavy",
+      "next_step": "Script finished (Oct 15). Next: Xavy aggregates footage and uploads it to Drive for the editor. Edit style: Lindsiann.",
+      "last_update": "2026-10-15",
+      "idle_days": 0,
+      "stuck": false,
+      "stuck_reason": "",
+      "active_this_week": false,
+      "next_cut_due": null,
+      "publish": "2025-11-08"
+     },
+     {
+      "title": "How being open minded ruins your life ",
+      "pl_state": "Script Dev",
+      "edit_phase": "",
+      "progress": "Not started",
+      "priority": "High",
+      "next_owner": "Xavy",
+      "next_step": "XC pre-production on hold. Began brainstorming ideation",
+      "last_update": "2026-08-21",
+      "idle_days": 55,
+      "stuck": true,
+      "stuck_reason": "on hold / blocked",
+      "active_this_week": false,
+      "next_cut_due": null,
+      "publish": "2026-12-03"
+     },
+     {
+      "title": "The Fitness Spiral ",
+      "pl_state": "Script RW",
+      "edit_phase": "Hook Only",
+      "progress": "100%",
+      "priority": "High",
+      "next_owner": "Xavy",
+      "next_step": "XC to begin RW script + aggregate previous footage + new talking head",
+      "last_update": "2026-08-21",
+      "idle_days": 55,
+      "stuck": true,
+      "stuck_reason": "no update in 55 days",
+      "active_this_week": false,
+      "next_cut_due": null,
+      "publish": "2026-11-12"
+     },
+     {
+      "title": "Why being yourself is the worst advice for men (physical looks POV)",
+      "pl_state": "Script RW",
+      "edit_phase": "Hook Only",
+      "progress": "100%",
+      "priority": "High",
+      "next_owner": "Xavy",
+      "next_step": "XC to begin RW script + aggregate previous footage + new talking head",
+      "last_update": "2026-08-21",
+      "idle_days": 55,
+      "stuck": true,
+      "stuck_reason": "no update in 55 days",
+      "active_this_week": false,
+      "next_cut_due": null,
+      "publish": null
+     }
+    ]
+   },
+   {
+    "key": "preprod",
+    "label": "Pre-prod / Filming",
+    "items": [
+     {
+      "title": "The Art of Suffering: How stress destroyed my health ",
+      "pl_state": "In Production",
+      "edit_phase": "",
+      "progress": "Not Ready",
+      "priority": "Top Priority",
+      "next_owner": "Xavy",
+      "next_step": "XC pre-production on hold. Began brainstorming ideation",
+      "last_update": "2026-08-21",
+      "idle_days": 55,
+      "stuck": true,
+      "stuck_reason": "on hold / blocked",
+      "active_this_week": false,
+      "next_cut_due": null,
+      "publish": "2026-03-05"
+     }
+    ]
+   },
+   {
+    "key": "vo",
+    "label": "Voiceover",
+    "items": [
+     {
+      "title": "Right On Time [Vietnam]",
+      "pl_state": "VO: Production",
+      "edit_phase": "C1: Story",
+      "progress": "25%",
+      "priority": "Top Priority",
+      "next_owner": "Xavy",
+      "next_step": "VO generated in ElevenLabs (processing). Script good enough for Ady to start adding VO in Frame.io; final script polish left. Xavy almost done with the Vietnam video polish. (Oct 15)",
+      "last_update": "2026-10-15",
+      "idle_days": 0,
+      "stuck": false,
+      "stuck_reason": "",
+      "active_this_week": true,
+      "next_cut_due": null,
+      "publish": "2026-10-31"
+     },
+     {
+      "title": "The price of falling behind",
+      "pl_state": "VO: Production",
+      "edit_phase": "",
+      "progress": "Not Ready",
+      "priority": "Awaiting Prod",
+      "next_owner": "Xavy",
+      "next_step": "XC to begin script + pre-production",
+      "last_update": "2026-08-21",
+      "idle_days": 55,
+      "stuck": true,
+      "stuck_reason": "no update in 55 days",
+      "active_this_week": false,
+      "next_cut_due": null,
+      "publish": null
+     }
+    ]
+   },
+   {
+    "key": "edit",
+    "label": "Edit",
+    "items": []
+   },
+   {
+    "key": "package",
+    "label": "Packaging / Publish",
+    "items": [
+     {
+      "title": "“The Passport Bro Addiction” [COL]",
+      "pl_state": "Packaging",
+      "edit_phase": "Versioning",
+      "progress": "25%",
+      "priority": "Top Priority",
+      "next_owner": "Both",
+      "next_step": "Titles, TN & Metadata complete. \nNS: \nSE to upload metadata. \nXC titles + AB TN’s + schedule publish\n\nAwaiting short form production",
+      "last_update": "2026-10-08",
+      "idle_days": 7,
+      "stuck": false,
+      "stuck_reason": "",
+      "active_this_week": true,
+      "next_cut_due": null,
+      "publish": "2026-10-17"
+     },
+     {
+      "title": "Comfort Gets People Robbed [COL]",
+      "pl_state": "Packaging",
+      "edit_phase": "Versioning",
+      "progress": "25%",
+      "priority": "Top Priority",
+      "next_owner": "Both",
+      "next_step": "Titles, TN & Metadata complete. \nNS: \nSE to upload metadata. \nXC titles + AB TN’s + schedule publish\n\nAwaiting short form production",
+      "last_update": "2026-10-08",
+      "idle_days": 7,
+      "stuck": false,
+      "stuck_reason": "",
+      "active_this_week": false,
+      "next_cut_due": "2026-06-18",
+      "publish": "2026-10-12"
+     }
+    ]
+   }
+  ],
+  "idea_bank_count": 49
+ },
+ "billing": [
+  {
+   "title": "The Wanting  [Bali]",
+   "invoice": "A. Full Prod Invoice",
+   "payment": "Paid",
+   "progress": "25%",
+   "credits": "1"
+  },
+  {
+   "title": "“May This Note Find You”",
+   "invoice": "C. Invoice: 2025",
+   "payment": "Paid",
+   "progress": "100%",
+   "credits": "1"
+  },
+  {
+   "title": "“The Unmasking”",
+   "invoice": "C. Invoice: 2025",
+   "payment": "Paid",
+   "progress": "100%",
+   "credits": "2"
+  },
+  {
+   "title": "The Escape: S1 Finale official",
+   "invoice": "C. Invoice: 2025",
+   "payment": "Paid",
+   "progress": "100%",
+   "credits": "5"
+  },
+  {
+   "title": "The Fitness Spiral ",
+   "invoice": "C. Invoice: 2025",
+   "payment": "Paid",
+   "progress": "100%",
+   "credits": "3"
+  },
+  {
+   "title": "Why being yourself is the worst advice for men (physical looks POV)",
+   "invoice": "C. Invoice: 2025",
+   "payment": "Paid",
+   "progress": "100%",
+   "credits": "4"
+  },
+  {
+   "title": "The Art of Suffering: How stress destroyed my health ",
+   "invoice": "D. Invoice: 2026 (March)",
+   "payment": "Paid",
+   "progress": "Not Ready",
+   "credits": "5"
+  },
+  {
+   "title": "How I got sober again and I regret all the time wasted (Scent of Time)",
+   "invoice": "D. Invoice: 2026 (March)",
+   "payment": "Paid",
+   "progress": "Not Ready",
+   "credits": "10"
+  },
+  {
+   "title": "Comfort Gets People Robbed [COL]",
+   "invoice": "D. Invoice: 2026 (March)",
+   "payment": "Paid",
+   "progress": "25%",
+   "credits": "1"
+  },
+  {
+   "title": "“The Passport Bro Addiction” [COL]",
+   "invoice": "D. Invoice: 2026 (March)",
+   "payment": "Paid",
+   "progress": "25%",
+   "credits": "2"
+  },
+  {
+   "title": "Right On Time [Vietnam]",
+   "invoice": "D. Invoice: 2026 (March)",
+   "payment": "Paid",
+   "progress": "25%",
+   "credits": "3"
+  },
+  {
+   "title": "My Needy Desire to be loved ",
+   "invoice": "D. Invoice: 2026 (March)",
+   "payment": "Paid",
+   "progress": "Not Ready",
+   "credits": "9"
+  },
+  {
+   "title": "The Loneliness Epidemic Nobody Is Talking About (Making friends)",
+   "invoice": "D. Invoice: 2026 (March)",
+   "payment": "Paid",
+   "progress": "Not Ready",
+   "credits": "4"
+  },
+  {
+   "title": "How to get over heartbreak [for men]",
+   "invoice": "D. Invoice: 2026 (March)",
+   "payment": "Paid",
+   "progress": "Not Ready",
+   "credits": "8"
+  },
+  {
+   "title": "Why men are weak today. And what it means to be a man",
+   "invoice": "D. Invoice: 2026 (March)",
+   "payment": "Paid",
+   "progress": "Not Ready",
+   "credits": "7"
+  },
+  {
+   "title": "Why I stopped having Sex. And why all men should. ",
+   "invoice": "D. Invoice: 2026 (March)",
+   "payment": "Paid",
+   "progress": "Not Ready",
+   "credits": "6"
+  },
+  {
+   "title": "The Price of Living for Others [Lombok]",
+   "invoice": "E. Unassigned",
+   "payment": "TBD",
+   "progress": "Not Ready",
+   "credits": ""
+  },
+  {
+   "title": "Dear Xavy: My advice to young men",
+   "invoice": "E. Unassigned",
+   "payment": "TBD",
+   "progress": "Not Ready",
+   "credits": ""
+  },
+  {
+   "title": "The Two Mountains: And why I chose to be poor and regret it ",
+   "invoice": "E. Unassigned",
+   "payment": "TBD",
+   "progress": "Not Ready",
+   "credits": ""
+  },
+  {
+   "title": "The Art of Spending: My addiction to validation",
+   "invoice": "E. Unassigned",
+   "payment": "TBD",
+   "progress": "Not Ready",
+   "credits": ""
+  },
+  {
+   "title": "How being open minded ruins your life ",
+   "invoice": "E. Unassigned",
+   "payment": "TBD",
+   "progress": "Not started",
+   "credits": ""
+  },
+  {
+   "title": "This Country was at war for 43 years and liberal activists did not care. ",
+   "invoice": "E. Unassigned",
+   "payment": "TBD",
+   "progress": "Not started",
+   "credits": ""
+  },
+  {
+   "title": "Why immigrants do not belong anywhere",
+   "invoice": "E. Unassigned",
+   "payment": "TBD",
+   "progress": "Not started",
+   "credits": ""
+  },
+  {
+   "title": "The Voluntary Exile; work hard in silence ",
+   "invoice": "E. Unassigned",
+   "payment": "TBD",
+   "progress": "Not Ready",
+   "credits": ""
+  },
+  {
+   "title": "Anti New Years Resolutions",
+   "invoice": "E. Unassigned",
+   "payment": "TBD",
+   "progress": "",
+   "credits": ""
+  },
+  {
+   "title": "Why I cheated and my fuckboy phase",
+   "invoice": "E. Unassigned",
+   "payment": "TBD",
+   "progress": "Not started",
+   "credits": ""
+  },
+  {
+   "title": "Stop blaming Bali on Influencers. You are part of the problem. ",
+   "invoice": "E. Unassigned",
+   "payment": "TBD",
+   "progress": "",
+   "credits": ""
+  },
+  {
+   "title": "Friend-Zone Her First: Can men and women be friends?",
+   "invoice": "E. Unassigned",
+   "payment": "TBD",
+   "progress": "",
+   "credits": ""
+  },
+  {
+   "title": "The Dark Truth of Fitness in Bali",
+   "invoice": "E. Unassigned",
+   "payment": "TBD",
+   "progress": "",
+   "credits": ""
+  },
+  {
+   "title": "Something about the holidays and family to help men get through them",
+   "invoice": "E. Unassigned",
+   "payment": "TBD",
+   "progress": "",
+   "credits": ""
+  },
+  {
+   "title": "Discovering Ikigai in real life",
+   "invoice": "E. Unassigned",
+   "payment": "TBD",
+   "progress": "Not started",
+   "credits": ""
+  },
+  {
+   "title": "How I lost my faith but found my way back. ",
+   "invoice": "E. Unassigned",
+   "payment": "TBD",
+   "progress": "Not Ready",
+   "credits": ""
+  },
+  {
+   "title": "I Bet Everything on Myself. Here's What Happened.",
+   "invoice": "E. Unassigned",
+   "payment": "TBD",
+   "progress": "Not Ready",
+   "credits": ""
+  },
+  {
+   "title": "The price of falling behind",
+   "invoice": "E. Unassigned",
+   "payment": "TBD",
+   "progress": "Not Ready",
+   "credits": ""
+  },
+  {
+   "title": "How to make friends as an adult ",
+   "invoice": "E. Unassigned",
+   "payment": "TBD",
+   "progress": "Not Ready",
+   "credits": ""
+  }
+ ]
 }
