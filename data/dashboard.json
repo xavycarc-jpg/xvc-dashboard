@@ -1,0 +1,37 @@
+{
+ "generated_at": "2026-10-15T10:06:20+00:00",
+ "generated_at_bali": "Thu 15 Oct 2026, 18:06 (Bali)",
+ "rto": {
+  "published": 9,
+  "goal": 100
+ },
+ "channel": {
+  "subscribers": 156,
+  "last28": {
+   "start": "2026-09-17",
+   "end": "2026-10-14",
+   "views": 599,
+   "watch_hours": 1.2,
+   "avg_view_duration_s": 27,
+   "subs_gained": 2,
+   "subs_lost": 0
+  },
+  "top_recent": {
+   "id": "1FSaRKb9yCQ",
+   "views": 530,
+   "watch_hours": 0.6,
+   "title": "The Next 6 Months Will Change You"
+  }
+ },
+ "long_form": [],
+ "shorts": [],
+ "notion_ok": false,
+ "priorities": {
+  "status": "error",
+  "week_of": null,
+  "items": [],
+  "note": "first update pending"
+ },
+ "pipeline": null,
+ "billing": null
+}

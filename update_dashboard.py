@@ -106,7 +106,11 @@ NOTION_KNOWN_DS_ID = '546900d5-7dbf-4c20-83d1-4953d151dde1'  # master video DB d
 NOTION_API = 'https://api.notion.com/v1'
 
 DASHBOARD_DIR  = os.path.dirname(os.path.abspath(__file__))
-DASHBOARD_FILE = os.path.join(DASHBOARD_DIR, 'index.html')
+# index.html is now a static renderer for data/dashboard.json (written below).
+# The previous full dashboard lives on as classic.html and is still patched in place.
+DASHBOARD_FILE = os.path.join(DASHBOARD_DIR, 'classic.html')
+DATA_FILE      = os.path.join(DASHBOARD_DIR, 'data', 'dashboard.json')
+WEEKLY_PRIORITIES_DB_ID = '3b0ce0db46974a10940f0a301d002eae'
 GH_TOKEN = os.environ.get('GITHUB_TOKEN') or os.environ.get('GITHUB_PAT')
 
 fmt  = lambda n: f'{int(n):,}'
@@ -272,6 +276,7 @@ def youtube_summary(youtube, yta, video_ids):
                              'likes': int(st.get('likeCount', 0)),
                              'comments': int(st.get('commentCount', 0))})
         vids.sort(key=lambda v: v['published'], reverse=True)
+        out['_all_videos'] = vids
         out['recent_uploads'] = vids[:15]
         out['top_all_time'] = sorted(vids, key=lambda v: -v['views'])[:5]
         titles = {v['id']: v['title'] for v in vids}
@@ -374,6 +379,13 @@ def prop_val(prop):
         return ''.join(r['plain_text'] for r in prop.get('title', []))
     if t == 'rich_text':
         return ''.join(r['plain_text'] for r in prop.get('rich_text', []))
+    if t == 'status':
+        s = prop.get('status')
+        return s['name'] if s else ''
+    if t == 'checkbox':
+        return 'Yes' if prop.get('checkbox') else ''
+    if t == 'last_edited_time':
+        return prop.get('last_edited_time') or ''
     if t == 'select':
         s = prop.get('select')
         return s['name'] if s else ''
@@ -953,6 +965,233 @@ def patch_lf_titles(html, titles):
         return m.group(0)
     return re.sub(r'(vid:"([A-Za-z0-9_-]{11})"[^}]*?t:")([^"]*)"', replacer, html)
 
+# ── dashboard.json (renders the mobile index.html) ───────────────────────────
+from datetime import datetime, timedelta, timezone
+
+BALI_TZ = timezone(timedelta(hours=8))  # Asia/Makassar, no DST
+STUCK_DAYS = 14
+BLOCK_WORDS = ('on hold', 'blocked', 'stuck', 'paused')
+
+STAGES = [  # (key, label, PL State values)
+    ('script',  'Script',       ['Outline', 'Script Dev', 'Script Development', 'Script RW', 'Script Rewrite!!',
+                                 'Script: Visual Map', 'MasterGrid Dev', 'Ideation > Written']),
+    ('preprod', 'Pre-prod / Filming', ['Pre-Prod Plan + Shot List', 'Ready to Film', 'In Production',
+                                 'Filming: Production', 'Transfer > Mindy']),
+    ('vo',      'Voiceover',    ['VO: Production', 'VO: Revision']),
+    ('edit',    'Edit',         ['Organizing Files', 'Organizing Files > Edit', 'Editing', 'Editing: Hook ONLY',
+                                 'Currently Editing: Full']),
+    ('package', 'Packaging / Publish', ['Packaging', 'Post Prod + Keyword SEO', 'Needs Marketing', 'Scheduled',
+                                 'Ready to Publish', 'Scheduled Post']),
+]
+STAGE_OF = {pl: key for key, _, pls in STAGES for pl in pls}
+DEFAULT_OWNER = {'script': 'Xavy', 'preprod': 'Xavy', 'vo': 'Xavy', 'edit': 'Stephan', 'package': 'Both'}
+INACTIVE_EDIT_PHASES = {'', 'NA', 'Not Started'}
+
+
+def bali_now():
+    return datetime.now(timezone.utc).astimezone(BALI_TZ)
+
+
+def latest_note(text):
+    """XVC Next Steps holds dated entries, newest first ("10.15. ..."). Return the
+    newest entry and its date (or None)."""
+    text = (text or '').strip()
+    if not text:
+        return '', None
+    first = re.split(r'\n(?=\s*\d{1,2}\.\d{1,2}\.?\s)', text)[0].strip()
+    m = re.match(r'(\d{1,2})\.(\d{1,2})\.?\s', first)
+    d = None
+    if m:
+        today = bali_now().date()
+        try:
+            d = date(today.year, int(m.group(1)), int(m.group(2)))
+            if d > today + timedelta(days=2):
+                d = date(today.year - 1, d.month, d.day)
+        except ValueError:
+            d = None
+    return first, d
+
+
+def next_step_owner(note, stage):
+    x = bool(re.search(r'\bXC\b|\bXavy\b', note))
+    s = bool(re.search(r'\bSE\b|\bStephan\b', note))
+    if x and s:
+        return 'Both'
+    if x:
+        return 'Xavy'
+    if s:
+        return 'Stephan'
+    return DEFAULT_OWNER.get(stage, 'Xavy')
+
+
+def page_last_edit(page):
+    lt = prop_val(page['properties'].get('Last Touched', {}))
+    if lt:
+        return lt[:10]
+    return (page.get('last_edited_time') or '')[:10]
+
+
+def build_pipeline(pipeline_rows, editor_rows):
+    """Active videos grouped by stage, plus an idea-bank count."""
+    pages = {}
+    for p in list(pipeline_rows) + list(editor_rows):
+        pages[p['id']] = p
+    today = bali_now().date()
+    stages = {k: [] for k, _, _ in STAGES}
+    ideas = 0
+    for p in pages.values():
+        pr = p['properties']
+        pl = prop_val(pr.get('PL State', {}))
+        ep = prop_val(pr.get('Edit Phase', {}))
+        stage = STAGE_OF.get(pl)
+        if not stage and ep not in INACTIVE_EDIT_PHASES and pl != 'Published':
+            stage = 'edit'
+        if not stage:
+            if pl != 'Published':
+                ideas += 1
+            continue
+        raw_note = prop_val(pr.get('XVC Next Steps', {}))
+        note, note_date = latest_note(raw_note)
+        last = note_date.isoformat() if note_date else page_last_edit(p)
+        try:
+            idle = (today - date.fromisoformat(last)).days if last else None
+        except ValueError:
+            idle = None
+        low = note.lower()
+        blocked = any(w in low for w in BLOCK_WORDS)
+        stuck_reason = ''
+        if blocked:
+            stuck_reason = 'on hold / blocked'
+        elif idle is not None and idle >= STUCK_DAYS:
+            stuck_reason = f'no update in {idle} days'
+        atw = (pr.get('Active This Week') or {}).get('checkbox') is True
+        stages[stage].append({
+            'title': prop_val(pr.get('VLOG Official Title', {})) or '(untitled)',
+            'pl_state': pl,
+            'edit_phase': ep if ep not in INACTIVE_EDIT_PHASES else '',
+            'progress': prop_val(pr.get('Edit: Progress', {})),
+            'priority': prop_val(pr.get('Edit: Priority', {})),
+            'next_owner': next_step_owner(note, stage),
+            'next_step': re.sub(r'^\d{1,2}\.\d{1,2}\.?\s*', '', note)[:400],
+            'last_update': last or None,
+            'idle_days': idle,
+            'stuck': bool(stuck_reason),
+            'stuck_reason': stuck_reason,
+            'active_this_week': atw,
+            'next_cut_due': prop_val(pr.get('Next Cut Due', {})) or None,
+            'publish': prop_val(pr.get('Publish', {})) or None,
+        })
+    for items in stages.values():
+        items.sort(key=lambda v: (not v['active_this_week'], v['stuck'],
+                                  PRIORITY_ORDER.get(v['priority'], 99), v['title']))
+    return {
+        'stuck_days': STUCK_DAYS,
+        'stages': [{'key': k, 'label': lbl, 'items': stages[k]} for k, lbl, _ in STAGES],
+        'idea_bank_count': ideas,
+    }
+
+
+def fetch_weekly_priorities(video_titles):
+    """Rows of the Weekly Priorities DB for the current (Bali) week. Never raises."""
+    today = bali_now().date()
+    monday = today - timedelta(days=today.weekday())
+    out = {'status': 'ok', 'week_of': monday.isoformat(), 'items': [], 'note': ''}
+    try:
+        r = requests.get(f'{NOTION_API}/databases/{WEEKLY_PRIORITIES_DB_ID}',
+                         headers=NOTION_HEADERS_DS, timeout=30)
+        if r.status_code != 200:
+            print(f'  ⚠ Weekly Priorities DB not reachable ({r.status_code}): {r.text[:200]}')
+            print('    → share the "🎯 Weekly Priorities" database with the Notion integration')
+            out['status'] = 'no_access'
+            return out
+        sources = r.json().get('data_sources') or []
+        if not sources:
+            out['status'] = 'no_access'
+            return out
+        ds_id = sources[0]['id']
+        payload = {'page_size': 100,
+                   'filter': {'and': [
+                       {'property': 'Week Of', 'date': {'on_or_after': (monday - timedelta(days=7)).isoformat()}},
+                       {'property': 'Week Of', 'date': {'on_or_before': (monday + timedelta(days=6)).isoformat()}},
+                   ]}}
+        rows = _paged_query(f'{NOTION_API}/data_sources/{ds_id}/query', NOTION_HEADERS_DS, payload)
+        this_week = [p for p in rows
+                     if prop_val(p['properties'].get('Week Of', {}))[:10] >= monday.isoformat()]
+        if not this_week and rows:
+            prev = max(prop_val(p['properties'].get('Week Of', {}))[:10] for p in rows)
+            this_week = [p for p in rows if prop_val(p['properties'].get('Week Of', {}))[:10] == prev]
+            out['week_of'] = prev
+            out['note'] = 'No rows for this week yet; showing last week.'
+        status_rank = {'Blocked': 0, 'In Progress': 1, 'Not Started': 2, 'Done': 3}
+        for p in this_week:
+            pr = p['properties']
+            st = pr.get('Status', {}) or {}
+            status = ((st.get('status') or st.get('select') or {}) or {}).get('name', '')
+            vids = [video_titles.get(rel.get('id'), '') for rel in (pr.get('Video', {}) or {}).get('relation', [])]
+            out['items'].append({
+                'title': prop_val(pr.get('Priority', {})) or '(untitled)',
+                'owner': prop_val(pr.get('Owner', {})) or 'Both',
+                'status': status or 'Not Started',
+                'type': prop_val(pr.get('Type', {})),
+                'next_step': prop_val(pr.get('Next Step', {})),
+                'last_update': prop_val(pr.get('Last Update', {})),
+                'videos': [v for v in vids if v],
+            })
+        out['items'].sort(key=lambda i: (status_rank.get(i['status'], 9), i['type'] != 'Top Project', i['title']))
+        print(f'  Weekly Priorities: {len(out["items"])} rows for week of {out["week_of"]}')
+    except Exception as e:
+        print(f'  ⚠ Weekly Priorities fetch failed: {e}')
+        out['status'] = 'error'
+    return out
+
+
+def build_dashboard_data(stats, yt_summary, all_videos, lf_ids, sf_ids,
+                         notion_ok, pipeline_rows, editor_rows, publishing_rows, billing_rows):
+    now_utc = datetime.now(timezone.utc)
+    lf_set, sf_set = set(lf_ids), set(sf_ids)
+    data = {
+        'generated_at': now_utc.isoformat(timespec='seconds'),
+        'generated_at_bali': now_utc.astimezone(BALI_TZ).strftime('%a %d %b %Y, %H:%M') + ' (Bali)',
+        'rto': {'published': stats['lf_count'], 'goal': 100},
+        'channel': {
+            'subscribers': stats['channel_subs'],
+            'last28': yt_summary.get('last28'),
+            'top_recent': (yt_summary.get('last28_top_videos') or [None])[0],
+        },
+        'long_form': [{'id': v['id'], 'title': v['title'], 'published': v['published'], 'views': v['views'],
+                       'likes': v['likes'], 'comments': v['comments']} for v in all_videos if v['id'] in lf_set],
+        'shorts': [{'id': v['id'], 'title': v['title'], 'published': v['published'], 'views': v['views'],
+                    'likes': v['likes']} for v in all_videos if v['id'] in sf_set],
+        'notion_ok': notion_ok,
+    }
+    titles = {}
+    for p in list(pipeline_rows) + list(editor_rows) + list(publishing_rows) + list(billing_rows):
+        titles[p['id']] = prop_val(p['properties'].get('VLOG Official Title', {}))
+    data['priorities'] = fetch_weekly_priorities(titles) if NOTION_TOKEN else \
+        {'status': 'error', 'week_of': None, 'items': [], 'note': 'NOTION_TOKEN missing'}
+    data['pipeline'] = build_pipeline(pipeline_rows, editor_rows) if notion_ok else None
+    billing = []
+    for p in billing_rows:
+        pr = p['properties']
+        billing.append({
+            'title': prop_val(pr.get('VLOG Official Title', {})),
+            'invoice': prop_val(pr.get('Invoice Credit', {})),
+            'payment': prop_val(pr.get('Edits Payment ', {})) or prop_val(pr.get('Edits Payment', {})),
+            'progress': prop_val(pr.get('Edit: Progress', {})),
+            'credits': prop_val(pr.get('Credit Count', {})),
+        })
+    data['billing'] = billing if notion_ok else None
+    return data
+
+
+def write_dashboard_json(data):
+    os.makedirs(os.path.dirname(DATA_FILE), exist_ok=True)
+    tmp = DATA_FILE + '.tmp'
+    with open(tmp, 'w', encoding='utf-8') as f:
+        json.dump(data, f, ensure_ascii=False, indent=1)
+    os.replace(tmp, DATA_FILE)
+
+
 # ── Git push ──────────────────────────────────────────────────────────────────
 
 
@@ -960,7 +1199,7 @@ def git_push(message):
     remote = f'https://{GH_TOKEN}@github.com/xavycarc-jpg/xvc-dashboard.git'
     subprocess.run(['git', 'remote', 'set-url', 'origin', remote],
                    cwd=DASHBOARD_DIR, check=True, capture_output=True)
-    subprocess.run(['git', 'add', 'index.html'],
+    subprocess.run(['git', 'add', 'index.html', 'classic.html', 'data'],
                    cwd=DASHBOARD_DIR, check=True, capture_output=True)
     r = subprocess.run(['git', 'commit', '-m', message],
                        cwd=DASHBOARD_DIR, capture_output=True, text=True)
@@ -1052,6 +1291,7 @@ def main():
 
     print('\n[4a/6] YouTube summary (read-only)...')
     yt_summary = youtube_summary(youtube, yta, all_ids)
+    all_videos = yt_summary.pop('_all_videos', [])
     print('YT_SUMMARY_JSON ' + json.dumps(yt_summary, ensure_ascii=False))
 
     print('\n[4b/6] Fetching Notion pipeline data...')
@@ -1152,6 +1392,22 @@ def main():
 
     with open(DASHBOARD_FILE, 'w', encoding='utf-8') as f:
         f.write(html)
+
+    print('\n[5b/6] Writing data/dashboard.json...')
+    try:
+        if not notion_tabs_ok:
+            pipeline_rows = editor_rows = publishing_rows = billing_rows = []
+        dash = build_dashboard_data(stats, yt_summary, all_videos, lf_ids, sf_ids, notion_tabs_ok,
+                                    pipeline_rows, editor_rows, publishing_rows, billing_rows)
+        write_dashboard_json(dash)
+        n_active = sum(len(st['items']) for st in (dash['pipeline'] or {}).get('stages', []))
+        print(f'  ✓ dashboard.json: RTO {dash["rto"]["published"]} of 100, '
+              f'{len(dash["priorities"]["items"])} priorities ({dash["priorities"]["status"]}), '
+              f'{n_active} active videos')
+    except Exception as e:
+        import traceback
+        print(f'  ✗ dashboard.json NOT written: {e}')
+        traceback.print_exc()
 
     print('\n[6/6] Pushing to GitHub...')
     commit_msg = (

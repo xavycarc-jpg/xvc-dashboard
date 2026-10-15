@@ -1,1523 +1,304 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Xavy — YouTube Mission Control</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#f6f6f3" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#121314" media="(prefers-color-scheme: dark)">
+<title>XVC · Dashboard</title>
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#16181c;
-  --card:#1e2026;
-  --text:#f0efe8;
-  --muted:rgba(240,239,232,0.4);
-  --dim:rgba(240,239,232,0.18);
-  --amber:#f0a040;
-  --teal:#3ecf8e;
-  --border:rgba(255,255,255,0.06);
-  --border2:rgba(255,255,255,0.11);
+  --bg:#f6f6f3; --card:#ffffff; --ink:#16181a; --ink2:#4a4f55; --ink3:#767c84; --line:#e3e3de;
+  --accent:#1f6f5c; --accent-soft:#e3f1ec; --warn:#a24a12; --warn-soft:#fbeadd;
+  --x:#2557a7; --x-soft:#e5edf9; --s:#2f7d32; --s-soft:#e5f2e5; --b:#7346a8; --b-soft:#efe8f7;
+  --bar-bg:#e8e8e3; --shadow:0 1px 2px rgba(0,0,0,.05);
 }
-body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-serif;min-height:100vh;font-size:13px;line-height:1.5}
-
-/* ── Type ── */
-.lbl{font-size:10px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--muted)}
-.mono{font-family:'JetBrains Mono','Courier New',monospace;font-variant-numeric:tabular-nums}
-
-/* ── Header ── */
-.header{background:var(--bg);border-bottom:1px solid var(--border);padding:0 16px}
-.header-inner{max-width:880px;margin:0 auto;height:40px;display:flex;justify-content:space-between;align-items:center}
-.hbrand{font-size:11px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--muted)}
-.hdate{font-size:11px;font-family:'JetBrains Mono',monospace;color:var(--dim)}
-
-/* ── Nav ── */
-.nav{background:#0f1013;border-bottom:1px solid var(--border);padding:0 16px;position:sticky;top:0;z-index:100}
-.nav-inner{max-width:880px;margin:0 auto;display:flex}
-.nav-tab{padding:.5rem .9rem;font-size:12px;font-weight:500;color:var(--muted);border:none;background:transparent;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:color .1s,border-color .1s;letter-spacing:.02em}
-.nav-tab:hover{color:var(--text)}
-.nav-tab.active{color:var(--amber);border-bottom-color:var(--amber);font-weight:600}
-
-/* ── Wrap ── */
-.wrap{max-width:880px;margin:0 auto;padding:12px 16px 4rem}
-
-/* ── Cards ── */
-.card{background:var(--card);border:1px solid var(--border);border-left:2px solid var(--amber);border-radius:5px;padding:12px;margin-bottom:8px}
-.card.teal{border-left-color:var(--teal)}
-.card.none{border-left-color:var(--border)}
-.card-hd{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
-
-/* ── Inner cells ── */
-.inner{background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:4px;padding:7px 10px}
-
-/* ── Metric values ── */
-.m-lbl{font-size:10px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);margin-bottom:3px}
-.m-val{font-family:'JetBrains Mono','Courier New',monospace;font-size:28px;font-weight:600;line-height:1.05;font-variant-numeric:tabular-nums}
-.m-val.a{color:var(--amber)}
-.m-val.t{color:var(--teal)}
-.m-val.w{color:var(--text)}
-.m-sub{font-size:11px;color:var(--muted);margin-top:3px}
-
-/* ── Progress ── */
-.btrack{background:rgba(255,255,255,0.07);border-radius:2px;height:3px;width:100%;overflow:hidden}
-.bar{border-radius:2px;height:3px;transition:width .3s}
-
-/* ── Tags ── */
-.tag{font-size:10px;font-weight:600;letter-spacing:.05em;border-radius:3px;padding:2px 7px;white-space:nowrap;text-transform:uppercase;font-family:'Inter',sans-serif}
-.tg{background:rgba(62,207,142,0.1);color:var(--teal);border:1px solid rgba(62,207,142,0.2)}
-.tb{background:rgba(240,160,64,0.1);color:var(--amber);border:1px solid rgba(240,160,64,0.2)}
-.ta{background:rgba(240,160,64,0.1);color:var(--amber);border:1px solid rgba(240,160,64,0.2)}
-.tn{background:rgba(255,255,255,0.04);color:var(--muted);border:1px solid var(--border2)}
-
-/* ── Alerts ── */
-.alert{border-radius:4px;padding:8px 12px;display:flex;align-items:center;gap:8px;font-size:12px}
-.ag{background:rgba(62,207,142,0.06);border:1px solid rgba(62,207,142,0.15);color:var(--teal)}
-.aa{background:rgba(240,160,64,0.06);border:1px solid rgba(240,160,64,0.15);color:var(--amber)}
-.dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
-.dg{background:var(--teal)}.da{background:var(--amber)}
-
-/* ── Countdown ── */
-.clock-cell{background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:4px;padding:10px 4px;text-align:center;flex:1}
-.clock-num{font-family:'JetBrains Mono','Courier New',monospace;font-size:30px;font-weight:600;color:var(--amber);line-height:1;font-variant-numeric:tabular-nums}
-.clock-lbl{font-size:9px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-top:4px}
-
-/* ── Grids ── */
-.g2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
-
-/* ── Inputs ── */
-input[type=number],input[type=text]{background:rgba(255,255,255,0.04);border:1px solid var(--border2);border-radius:4px;color:var(--text);font-family:'JetBrains Mono','Courier New',monospace;font-size:12px;padding:.32rem .55rem;width:100%;outline:none;transition:border-color .1s}
-input:focus{border-color:var(--amber)}
-
-/* ── Buttons ── */
-.btn{background:rgba(255,255,255,0.04);border:1px solid var(--border2);border-radius:4px;color:var(--muted);font-family:'Inter',sans-serif;font-size:11px;font-weight:600;padding:.32rem .8rem;cursor:pointer;transition:color .1s;text-transform:uppercase;letter-spacing:.04em}
-.btn:hover{color:var(--text)}
-.btng{background:rgba(62,207,142,0.08);border-color:rgba(62,207,142,0.2);color:var(--teal)}
-.btng:hover{background:rgba(62,207,142,0.14)}
-
-/* ── Tables ── */
-table{width:100%;border-collapse:collapse;font-size:12px}
-th{font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);padding:.42rem .65rem;text-align:left;border-bottom:1px solid var(--border2)}
-td{padding:.42rem .65rem;border-bottom:1px solid var(--border);vertical-align:middle}
-tr:last-child td{border-bottom:none}
-tbody tr:hover td{background:rgba(255,255,255,0.02)}
-.tf td{border-top:1px solid var(--border2);color:var(--muted);font-family:'JetBrains Mono','Courier New',monospace;font-size:11px;font-weight:600;border-bottom:none}
-
-/* ── Misc ── */
-.scr{overflow-x:auto}
-.tab{display:none}
-.divider{border:none;border-top:1px solid var(--border);margin:.75rem 0}
-
-/* ── Pipeline PL Status badges ── */
-.pl-top{background:#1a2744;color:#6b9fff;border:1px solid #2a3d66}
-.pl-research{background:#1a2a1a;color:#6bcf7f;border:1px solid #2a4a2a}
-.pl-outline{background:#2a2a1a;color:#c9b84c;border:1px solid #4a4a2a}
-.pl-script-dev{background:#2a1a2a;color:#c47fd4;border:1px solid #4a2a4a}
-.pl-script-vm{background:#1a2a2a;color:#4fc9c9;border:1px solid #2a4a4a}
-.pl-ready{background:#2a1a1a;color:#e07070;border:1px solid #4a2a2a}
-.pl-filming{background:#3a1a1a;color:#ff6b6b;border:1px solid #5a2a2a}
-.pl-vo-prod{background:#1a2a3a;color:#70b0e0;border:1px solid #2a3a4a}
-.pl-vo-rev{background:#2a2030;color:#a080d0;border:1px solid #3a3050}
-.pl-org{background:#282820;color:#b0a060;border:1px solid #484840}
-
-/* ── Editor Edit Phase badges ── */
-.ep-hook{background:#1e1e2e;color:#a0a0ff;border:1px solid #3030aa}
-.ep-c1{background:#1e2e1e;color:#60d060;border:1px solid #208020}
-.ep-c2{background:#2e2418;color:#e09040;border:1px solid #804010}
-.ep-c3{background:#2e1e28;color:#e060a0;border:1px solid #801040}
-.ep-c4{background:#1e2828;color:#40d0c0;border:1px solid #108070}
-
-/* ── Billing Invoice Credit badges ── */
-.inv-a{background:#1a2a1a;color:#50c070;border:1px solid #207040;border-radius:3px;padding:2px 7px;font-size:10px;font-weight:600;letter-spacing:.05em;white-space:nowrap;text-transform:uppercase;font-family:'Inter',sans-serif;display:inline-block}
-.inv-c{background:#2a2218;color:#c09040;border:1px solid #806020;border-radius:3px;padding:2px 7px;font-size:10px;font-weight:600;letter-spacing:.05em;white-space:nowrap;text-transform:uppercase;font-family:'Inter',sans-serif;display:inline-block}
-.inv-d{background:#1a1e2e;color:#6090e0;border:1px solid #204080;border-radius:3px;padding:2px 7px;font-size:10px;font-weight:600;letter-spacing:.05em;white-space:nowrap;text-transform:uppercase;font-family:'Inter',sans-serif;display:inline-block}
-.inv-e{background:#222222;color:#888888;border:1px solid #444444;border-radius:3px;padding:2px 7px;font-size:10px;font-weight:600;letter-spacing:.05em;white-space:nowrap;text-transform:uppercase;font-family:'Inter',sans-serif;display:inline-block}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#121314; --card:#1b1d1f; --ink:#f1f1ee; --ink2:#c3c6c9; --ink3:#8f949a; --line:#2b2e31;
+    --accent:#5cc8a8; --accent-soft:#183129; --warn:#f0a066; --warn-soft:#3a2416;
+    --x:#8db4f5; --x-soft:#1c2a40; --s:#86d08a; --s-soft:#1b3020; --b:#c6a6f0; --b-soft:#2c2240;
+    --bar-bg:#2a2d30; --shadow:none;
+  }
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font:16px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom)}
+.wrap{max-width:720px;margin:0 auto;padding:16px 16px 48px}
+header{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin:4px 0 14px}
+h1{font-size:20px;margin:0;letter-spacing:-.01em}
+.updated{font-size:12px;color:var(--ink3);text-align:right}
+nav{display:flex;gap:6px;margin-bottom:14px;position:sticky;top:0;background:var(--bg);padding:6px 0;z-index:5}
+nav button{flex:1;font:inherit;font-size:14px;font-weight:600;padding:9px 0;border-radius:10px;border:1px solid var(--line);
+  background:var(--card);color:var(--ink2);cursor:pointer}
+nav button[aria-selected="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;margin-bottom:14px;box-shadow:var(--shadow)}
+h2{font-size:13px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink3);margin:0 0 10px;font-weight:700;
+  display:flex;justify-content:space-between;align-items:center;gap:8px}
+h2 .meta{text-transform:none;letter-spacing:0;font-weight:500}
+h3{font-size:14px;margin:14px 0 8px;display:flex;align-items:center;gap:8px}
+h3:first-child{margin-top:0}
+.rto-num{font-size:44px;font-weight:800;letter-spacing:-.02em;line-height:1.05}
+.rto-num small{font-size:20px;font-weight:600;color:var(--ink3)}
+.rto-sub{color:var(--ink2);font-size:14px;margin-top:2px}
+.bar{height:12px;background:var(--bar-bg);border-radius:99px;overflow:hidden;margin-top:12px}
+.bar > i{display:block;height:100%;background:var(--accent);border-radius:99px;min-width:4px}
+.rto-foot{display:flex;justify-content:space-between;font-size:12px;color:var(--ink3);margin-top:6px}
+.who{font-size:12px;font-weight:700;padding:2px 9px;border-radius:99px;white-space:nowrap}
+.who.Xavy{background:var(--x-soft);color:var(--x)} .who.Stephan{background:var(--s-soft);color:var(--s)} .who.Both{background:var(--b-soft);color:var(--b)}
+.item{padding:10px 0;border-top:1px solid var(--line)}
+.item:first-of-type{border-top:0}
+.item .t{font-weight:600;font-size:15px}
+.item .row{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-top:4px}
+.item .ns{font-size:14px;color:var(--ink2);margin-top:4px;white-space:pre-line;overflow-wrap:anywhere}
+.item .ns.clamp{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.pill{font-size:12px;padding:1px 8px;border-radius:99px;border:1px solid var(--line);color:var(--ink2);white-space:nowrap}
+.pill.done{color:var(--accent);border-color:var(--accent)}
+.pill.blocked,.pill.stuck{color:var(--warn);border-color:var(--warn);background:var(--warn-soft);font-weight:600}
+.pill.progress{color:var(--x);border-color:var(--x)}
+.pill.hot{background:var(--accent-soft);color:var(--accent);border-color:transparent;font-weight:600}
+.item.is-done .t{color:var(--ink3);text-decoration:line-through}
+.empty{color:var(--ink3);font-size:14px;padding:4px 0}
+.notice{background:var(--warn-soft);color:var(--warn);border-radius:10px;padding:10px 12px;font-size:14px}
+.stuckbar{background:var(--warn-soft);color:var(--warn);border-radius:10px;padding:8px 12px;font-size:14px;font-weight:600;margin-bottom:6px}
+.filter{display:flex;gap:6px;margin:0 0 14px}
+.filter button{font:inherit;font-size:13px;padding:5px 12px;border-radius:99px;border:1px solid var(--line);background:var(--card);color:var(--ink2);cursor:pointer}
+.filter button[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.stat .v{font-size:20px;font-weight:700}
+.stat .l{font-size:12px;color:var(--ink3)}
+.top{margin-top:12px;font-size:14px;color:var(--ink2)}
+.quiet{opacity:.92}
+details{border-top:1px solid var(--line);padding-top:4px}
+details.card{border-top:1px solid var(--line);padding-top:16px}
+summary{cursor:pointer;font-weight:600;font-size:15px;list-style:none;display:flex;justify-content:space-between}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"＋";color:var(--ink3)}
+details[open] summary::after{content:"－"}
+table{width:100%;border-collapse:collapse;font-size:13px;margin-top:10px}
+th,td{text-align:left;padding:7px 4px;border-top:1px solid var(--line);vertical-align:top}
+th{color:var(--ink3);font-weight:600;font-size:12px}
+td.n,th.n{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
+a{color:var(--accent)}
+footer{text-align:center;font-size:12px;color:var(--ink3);margin-top:18px}
+[hidden]{display:none!important}
+@media (min-width:640px){ .cols{display:grid;grid-template-columns:repeat(3,1fr);gap:16px} .cols h3{margin-top:0} }
 </style>
 </head>
 <body>
-
-<div class="header">
-  <div class="header-inner">
-    <span class="hbrand">Xavy — YouTube Mission Control</span>
-    <span class="hdate" id="live-date"></span>
-  </div>
-</div>
-
-<div class="nav">
-  <div class="nav-inner" id="tab-nav">
-    <button class="nav-tab active" onclick="show('home',this)">Home</button>
-    <button class="nav-tab" onclick="show('scoreboard',this)">Scoreboard</button>
-    <button class="nav-tab" onclick="show('videos',this)">LF Vids</button>
-    <button class="nav-tab" onclick="show('shortform',this)">Shorts</button>
-    <button class="nav-tab" onclick="show('igfb',this)">SF Growth</button>
-    <button class="nav-tab" onclick="show('growth',this)">LF Growth</button>
-    <button class="nav-tab" onclick="show('trends',this)">Trends</button>
-    <button class="nav-tab" onclick="show('pipeline',this)">Production</button>
-    <button class="nav-tab" onclick="show('editor',this)">Editing</button>
-    <button class="nav-tab" onclick="show('thumbnails',this)">Thumbnails</button>
-    <button class="nav-tab" onclick="show('publishing',this)">Published</button>
-    <button class="nav-tab" onclick="show('billing',this)">Billing</button>
-    <button class="nav-tab" onclick="show('paidads',this)">Traffic Sources</button>
-    <button class="nav-tab" onclick="show('revenue',this)">Revenue</button>
-  </div>
-</div>
-
 <div class="wrap">
+  <header>
+    <h1>XVC</h1>
+    <div class="updated" id="updated">Loading…</div>
+  </header>
 
-<!-- ══ HOME ════════════════════════════════════════════════ -->
-<div id="home" class="tab">
+  <nav role="tablist">
+    <button role="tab" data-tab="overview" aria-selected="true">Overview</button>
+    <button role="tab" data-tab="videos" aria-selected="false">Videos</button>
+  </nav>
 
-  <div class="card">
-    <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px">
-      <span class="lbl">RTO (Road to One Hundred) · 100 Long Form Videos · Jul 17, 2027</span>
-      <span class="tag tb">active</span>
-    </div>
-    <div style="display:flex;gap:6px">
-      <div class="clock-cell"><div class="clock-num" id="cd-d">--</div><div class="clock-lbl">Days</div></div>
-      <div class="clock-cell"><div class="clock-num" id="cd-h">--</div><div class="clock-lbl">Hrs</div></div>
-      <div class="clock-cell"><div class="clock-num" id="cd-m">--</div><div class="clock-lbl">Min</div></div>
-      <div class="clock-cell"><div class="clock-num" id="cd-s">--</div><div class="clock-lbl">Sec</div></div>
-    </div>
-  </div>
+  <main id="tab-overview">
+    <section class="card" id="rto"></section>
 
-  <div class="g2">
-    <div class="card">
-      <div class="m-lbl">RTO · Long Form Published</div>
-      <div class="m-val a" id="h-lf">9</div>
-      <div class="m-sub">of 100 · <span id="h-lf-rem">91 remaining</span></div>
-      <div style="margin-top:7px"><div class="btrack"><div class="bar" style="background:var(--amber);width:9%" id="h-lf-bar"></div></div></div>
-      <div style="margin-top:7px"><span class="tag tb">on track</span></div>
+    <div class="filter" id="filter" aria-label="Show work for">
+      <button data-who="all" aria-pressed="true">Everyone</button>
+      <button data-who="Xavy" aria-pressed="false">Xavy</button>
+      <button data-who="Stephan" aria-pressed="false">Stephan</button>
     </div>
-    <div class="card">
-      <div class="m-lbl">Short Form Published</div>
-      <div class="m-val a" id="h-sf">16</div>
-      <div class="m-sub">published · set target in scoreboard</div>
-      <div style="margin-top:7px"><div class="btrack"><div class="bar" style="background:var(--amber);width:16%"></div></div></div>
-      <div style="margin-top:7px"><span class="tag tn">target tbd</span></div>
-    </div>
-    <div class="card">
-      <div class="m-lbl">Subscribers</div>
-      <div class="m-val a" id="h-subs">156</div>
-      <div class="m-sub">/ 1,000 · <span id="h-subs-rem">844 to gate 1</span></div>
-      <div style="margin-top:7px"><div class="btrack"><div class="bar" style="background:var(--amber);width:16%" id="h-subs-bar"></div></div></div>
-      <div style="margin-top:7px"><span class="tag ta">pre-monetization</span></div>
-    </div>
-    <div class="card">
-      <div class="m-lbl">Watch Time</div>
-      <div class="m-val a" id="h-wt">355</div>
-      <div class="m-sub">/ 4,000 hrs · 3,645 remaining</div>
-      <div style="margin-top:7px"><div class="btrack"><div class="bar" style="background:var(--amber);width:9%"></div></div></div>
-      <div style="margin-top:7px"><span class="tag ta">pre-monetization</span></div>
-    </div>
-  </div>
 
-  <div class="g2">
-    <div class="card none">
-      <div class="card-hd"><span class="lbl">This Month · Cadence</span><span class="tag tg">on pace</span></div>
-      <div style="margin-bottom:8px">
-        <div style="display:flex;justify-content:space-between;margin-bottom:4px"><span style="color:var(--muted)">Long form</span><span class="mono">0 / 4</span></div>
-        <div class="btrack"><div class="bar" style="background:var(--amber);width:0%"></div></div>
-      </div>
-      <div>
-        <div style="display:flex;justify-content:space-between;margin-bottom:4px"><span style="color:var(--muted)">Short form</span><span class="mono">16 / —</span></div>
-        <div class="btrack"><div class="bar" style="background:var(--teal);width:100%"></div></div>
-      </div>
-    </div>
-    <div class="card teal">
-      <div class="card-hd"><span class="lbl">S1 Performance</span></div>
-      <div style="margin-bottom:8px">
-        <div style="display:flex;justify-content:space-between;margin-bottom:4px"><span style="color:var(--muted)">Avg Retention</span><span class="mono" style="color:var(--teal);font-weight:600">33.5%</span></div>
-        <div class="btrack"><div class="bar" style="background:var(--teal);width:33.5%"></div></div>
-        <div style="font-size:11px;color:var(--dim);margin-top:3px">avg across 8 S1 videos</div>
-      </div>
-      <div>
-        <div style="display:flex;justify-content:space-between;margin-bottom:4px"><span style="color:var(--muted)">Avg CTR</span><span class="mono" style="color:var(--teal);font-weight:600">5.56%</span></div>
-        <div class="btrack"><div class="bar" style="background:var(--teal);width:33.5%"></div></div>
-        <div style="font-size:11px;color:var(--dim);margin-top:3px">avg across 8 S1 videos</div>
-      </div>
-    </div>
-  </div>
+    <section class="card" id="week"></section>
+    <section class="card" id="pipeline"></section>
+    <section class="card quiet" id="channel"></section>
 
-  <div class="card teal">
-    <div class="card-hd">
-      <div>
-        <div class="lbl" style="margin-bottom:3px">Top Performing · Long Form · All Time</div>
-        <div style="font-size:14px;font-weight:600">Growing Up Feeling Like You Didn't Belong</div>
-        <div style="font-size:11px;color:var(--muted);margin-top:1px">Dec 16, 2025</div>
-      </div>
-      <span class="tag tg">S1 best</span>
-    </div>
-    <div class="g4">
-      <div class="inner"><div class="lbl" style="margin-bottom:3px">Views</div><div class="mono" style="font-size:16px;color:var(--teal);font-weight:600">6,462</div></div>
-      <div class="inner"><div class="lbl" style="margin-bottom:3px">Engaged</div><div class="mono" style="font-size:16px;font-weight:600">3,200</div></div>
-      <div class="inner"><div class="lbl" style="margin-bottom:3px">Retention</div><div class="mono" style="font-size:16px;color:var(--teal);font-weight:600">35.2%</div></div>
-      <div class="inner"><div class="lbl" style="margin-bottom:3px">CTR</div><div class="mono" style="font-size:16px;color:var(--teal);font-weight:600">4.15%</div></div>
-    </div>
-  </div>
+    <details class="card" id="billing">
+      <summary>Billing &amp; invoices</summary>
+      <div id="billing-body"></div>
+    </details>
+  </main>
 
-  <div class="alert ag"><div class="dot dg"></div><span>Channel health <strong>good</strong> — 8 long form published. Keep pace: ~5–6/month to hit 100 by deadline.</span><span class="mono" style="font-size:10px;color:var(--dim);margin-left:auto;white-space:nowrap" id="h-date"></span></div>
+  <main id="tab-videos" hidden>
+    <section class="card" id="lf"></section>
+    <section class="card" id="sf"></section>
+  </main>
 
+  <footer>
+    Updated daily from YouTube and Notion. <a href="classic.html">Classic dashboard</a>
+  </footer>
 </div>
-
-
-<!-- ══ SCOREBOARD ═══════════════════════════════════════════ -->
-<div id="scoreboard" class="tab">
-
-  <div class="g2">
-    <div class="card">
-      <div class="card-hd"><span class="lbl">RTO (Road to One Hundred) · Long Form</span></div>
-      <div style="display:flex;align-items:center;gap:10px">
-        <div style="flex:1">
-          <div style="display:flex;justify-content:space-between;margin-bottom:4px"><span style="color:var(--muted)">Published</span><span class="mono" id="sb-lf-txt">9 of 100</span></div>
-          <div class="btrack"><div class="bar" style="background:var(--amber);width:9%" id="sb-lf-bar"></div></div>
-          <div style="margin-top:4px;font-size:11px;color:var(--dim)" id="sb-lf-rem">91 to go</div>
-        </div>
-        <div style="width:76px"><div class="lbl" style="margin-bottom:4px">Count</div><input type="number" id="inp-lf" value="9" min="0" max="100" oninput="updLF(this.value)"></div>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-hd"><span class="lbl">Short Form</span></div>
-      <div style="display:flex;align-items:center;gap:10px">
-        <div style="flex:1">
-          <div style="display:flex;justify-content:space-between;margin-bottom:4px"><span style="color:var(--muted)">Published</span><span class="mono" id="sb-sf-txt">16 published</span></div>
-          <div class="btrack"><div class="bar" style="background:var(--teal);width:16%" id="sb-sf-bar"></div></div>
-          <div style="margin-top:4px;font-size:11px;color:var(--dim)" id="sb-sf-rem">target TBD</div>
-        </div>
-        <div style="display:flex;gap:6px;width:158px">
-          <div style="flex:1"><div class="lbl" style="margin-bottom:4px">Count</div><input type="number" id="inp-sf" value="4" min="0" oninput="updSF()"></div>
-          <div style="flex:1"><div class="lbl" style="margin-bottom:4px">Target</div><input type="number" id="inp-sft" placeholder="—" min="0" oninput="updSF()"></div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="g2">
-    <div class="card">
-      <div class="card-hd"><span class="lbl">Subscribers</span><span class="tag ta">Gate 1: 1K</span></div>
-      <div style="display:flex;align-items:center;gap:10px">
-        <div style="flex:1">
-          <div style="display:flex;justify-content:space-between;margin-bottom:4px"><span style="color:var(--muted)">To 1,000</span><span class="mono" id="sb-sub-txt">156 / 1,000</span></div>
-          <div class="btrack"><div class="bar" style="background:var(--amber);width:16%" id="sb-sub-bar"></div></div>
-          <div style="margin-top:4px;font-size:11px;color:var(--dim)" id="sb-sub-rem">844 to gate</div>
-        </div>
-        <div style="width:76px"><div class="lbl" style="margin-bottom:4px">Subs</div><input type="number" id="inp-subs" value="156" min="0" oninput="updSubs(this.value)"></div>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-hd"><span class="lbl">Watch Time</span><span class="tag ta">Gate 1: 4K hrs</span></div>
-      <div style="display:flex;align-items:center;gap:10px">
-        <div style="flex:1">
-          <div style="display:flex;justify-content:space-between;margin-bottom:4px"><span style="color:var(--muted)">Hours logged</span><span class="mono" id="sb-wt-txt">355 / 4,000</span></div>
-          <div class="btrack"><div class="bar" style="background:var(--amber);width:9%" id="sb-wt-bar"></div></div>
-          <div style="margin-top:4px;font-size:11px;color:var(--dim)" id="sb-wt-rem">3,645 remaining · 9%</div>
-        </div>
-        <div style="width:76px"><div class="lbl" style="margin-bottom:4px">Hours</div><input type="number" id="inp-wt" value="355" min="0" oninput="updWT(this.value)"></div>
-      </div>
-    </div>
-  </div>
-
-  <div class="card none">
-    <div class="card-hd"><span class="lbl">Upload Cadence · This Month</span></div>
-    <div class="g2">
-      <div>
-        <div style="font-size:11px;font-weight:600;color:var(--muted);margin-bottom:6px;text-transform:uppercase;letter-spacing:.06em">Long Form</div>
-        <div style="display:flex;gap:6px;margin-bottom:6px">
-          <div style="flex:1"><div class="lbl" style="margin-bottom:3px">Published</div><input type="number" id="cad-lf-p" value="0" min="0" oninput="updCad()"></div>
-          <div style="flex:1"><div class="lbl" style="margin-bottom:3px">Target/mo</div><input type="number" id="cad-lf-t" value="4" min="1" oninput="updCad()"></div>
-        </div>
-        <div class="btrack"><div class="bar" style="background:var(--amber);width:0%" id="cad-lf-bar"></div></div>
-      </div>
-      <div>
-        <div style="font-size:11px;font-weight:600;color:var(--muted);margin-bottom:6px;text-transform:uppercase;letter-spacing:.06em">Short Form</div>
-        <div style="display:flex;gap:6px;margin-bottom:6px">
-          <div style="flex:1"><div class="lbl" style="margin-bottom:3px">Published</div><input type="number" id="cad-sf-p" value="0" min="0" oninput="updCad()"></div>
-          <div style="flex:1"><div class="lbl" style="margin-bottom:3px">Target/mo</div><input type="number" id="cad-sf-t" placeholder="—" min="0" oninput="updCad()"></div>
-        </div>
-        <div class="btrack"><div class="bar" style="background:var(--teal);width:0%" id="cad-sf-bar"></div></div>
-      </div>
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="card-hd"><span class="lbl">Income Milestones</span></div>
-    <div class="scr"><table>
-      <thead><tr><th>Milestone</th><th>Est. Income</th><th>Status</th></tr></thead>
-      <tbody>
-        <tr><td>1K subs + 4K watch hrs → AdSense</td><td class="mono" style="color:var(--muted)">Gate 1</td><td><span class="tag ta">pending</span></td></tr>
-        <tr><td>~10K views/mo</td><td class="mono" style="color:var(--muted)">$20–$50/mo</td><td><span class="tag ta">pending</span></td></tr>
-        <tr><td>~50K views/mo</td><td class="mono" style="color:var(--muted)">$100–$250/mo</td><td><span class="tag tn">later</span></td></tr>
-        <tr><td>First brand deal (5K–10K subs)</td><td class="mono" style="color:var(--muted)">$200–$800</td><td><span class="tag tn">later</span></td></tr>
-        <tr><td>Consistent deals (20K+ subs)</td><td class="mono" style="color:var(--muted)">$1K–$3K/mo</td><td><span class="tag tn">later</span></td></tr>
-        <tr><td>Break-even at $2K/mo</td><td class="mono" style="color:var(--teal);font-weight:600">The goal</td><td><span class="tag tg">target</span></td></tr>
-      </tbody>
-    </table></div>
-  </div>
-
-</div>
-
-
-<!-- ══ VIDEOS ════════════════════════════════════════════════ -->
-<div id="videos" class="tab">
-
-  <div class="card teal">
-    <div class="card-hd"><span class="lbl">Season 1 · Long Form</span><span class="tag tg">S1 complete</span></div>
-    <div class="g4" style="margin-bottom:8px">
-      <div class="inner"><div class="lbl" style="margin-bottom:3px">Total Views</div><div class="mono" style="font-size:18px;color:var(--teal);font-weight:600">19,734</div></div>
-      <div class="inner"><div class="lbl" style="margin-bottom:3px">Watch Hrs</div><div class="mono" style="font-size:18px;font-weight:600">355</div></div>
-      <div class="inner"><div class="lbl" style="margin-bottom:3px">Subs Gained</div><div class="mono" style="font-size:18px;color:var(--teal);font-weight:600">+16</div></div>
-      <div class="inner"><div class="lbl" style="margin-bottom:3px">Avg CTR</div><div class="mono" style="font-size:18px;color:var(--teal);font-weight:600">—</div></div>
-    </div>
-    <div class="g4">
-      <div class="inner"><div class="lbl" style="margin-bottom:3px">Avg Retention</div><div class="mono" style="font-size:18px;font-weight:600">33.5%</div></div>
-      <div class="inner"><div class="lbl" style="margin-bottom:3px">Total Likes</div><div class="mono" style="font-size:18px;font-weight:600">49</div></div>
-      <div class="inner"><div class="lbl" style="margin-bottom:3px">Total Shares</div><div class="mono" style="font-size:18px;font-weight:600">42</div></div>
-      <div class="inner"><div class="lbl" style="margin-bottom:3px">Comments</div><div class="mono" style="font-size:18px;font-weight:600">17</div></div>
-    </div>
-  </div>
-
-  <div class="card teal">
-    <div class="card-hd"><span class="lbl">Long Form · S1</span><span class="tag tg">8 videos</span></div>
-    <div class="scr"><table>
-      <thead><tr><th>#</th><th>Title</th><th>Published</th><th>Views</th><th>Retention</th><th>CTR</th><th>Subs</th><th>Likes</th></tr></thead>
-      <tbody id="lf-tbody"></tbody>
-      <tfoot><tr class="tf"><td colspan="3">Totals / Averages</td><td id="lf-tv"></td><td id="lf-ar"></td><td id="lf-ac"></td><td id="lf-ts"></td><td id="lf-tl"></td></tr></tfoot>
-    </table></div>
-  </div>
-
-  <div class="card teal">
-    <div class="card-hd"><span class="lbl">Retention % · Long Form · By Video</span></div>
-    <div id="ret-bars"></div>
-  </div>
-
-</div>
-
-
-<!-- ══ GROWTH ════════════════════════════════════════════════ -->
-<div id="growth" class="tab">
-
-  <div class="card teal">
-    <div class="card-hd"><span class="lbl">Key Growth Metrics · S1 Baseline</span></div>
-    <div class="g4">
-      <div class="inner"><div class="lbl" style="margin-bottom:3px">Sub Conv. Rate</div><div class="mono" style="font-size:18px;color:var(--teal);font-weight:600">0.59%</div><div style="font-size:10px;color:var(--dim);margin-top:2px">subs / views</div></div>
-      <div class="inner"><div class="lbl" style="margin-bottom:3px">Avg Subs/Video</div><div class="mono" style="font-size:18px;font-weight:600">13.8</div><div style="font-size:10px;color:var(--dim);margin-top:2px">long form</div></div>
-      <div class="inner"><div class="lbl" style="margin-bottom:3px">Avg Views/Video</div><div class="mono" style="font-size:18px;color:var(--teal);font-weight:600">2,535</div><div style="font-size:10px;color:var(--dim);margin-top:2px">long form</div></div>
-      <div class="inner"><div class="lbl" style="margin-bottom:3px">Impressions</div><div class="mono" style="font-size:18px;font-weight:600">4,097</div><div style="font-size:10px;color:var(--dim);margin-top:2px">S1 total</div></div>
-    </div>
-  </div>
-
-  <div class="card teal">
-    <div class="card-hd"><span class="lbl">Monthly Growth Log</span><button class="btn btng" onclick="showGF()">+ Add Month</button></div>
-    <div class="scr"><table>
-      <thead><tr><th>Month</th><th>Subs Gained</th><th>Views</th><th>Watch Hrs</th><th>Revenue</th><th>Notes</th></tr></thead>
-      <tbody id="growth-body">
-        <tr><td class="mono" style="color:var(--muted)">Nov 2025</td><td class="mono" style="color:var(--teal);font-weight:600">+89</td><td class="mono">18,395</td><td class="mono">196</td><td class="mono" style="color:var(--dim)">$0</td><td style="font-size:11px;color:var(--muted)">S1 launch · 8 videos</td></tr>
-        <tr><td class="mono" style="color:var(--muted)">Dec 2025</td><td class="mono" style="color:var(--teal);font-weight:600">+4</td><td class="mono">11,658</td><td class="mono">165</td><td class="mono" style="color:var(--dim)">$0</td><td style="font-size:11px;color:var(--muted)">3 long form released</td></tr>
-      </tbody>
-    </table></div>
-  </div>
-
-  <div class="card none" id="growth-form" style="display:none">
-    <div class="card-hd"><span class="lbl">Add Month</span></div>
-    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:8px">
-      <div><div class="lbl" style="margin-bottom:4px">Month</div><input type="text" id="gf-mo" placeholder="Jan 2026"></div>
-      <div><div class="lbl" style="margin-bottom:4px">Subs Gained</div><input type="number" id="gf-s" placeholder="0"></div>
-      <div><div class="lbl" style="margin-bottom:4px">Views</div><input type="number" id="gf-v" placeholder="0"></div>
-    </div>
-    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:10px">
-      <div><div class="lbl" style="margin-bottom:4px">Watch Hrs</div><input type="number" id="gf-w" placeholder="0"></div>
-      <div><div class="lbl" style="margin-bottom:4px">Revenue ($)</div><input type="number" id="gf-r" placeholder="0"></div>
-      <div><div class="lbl" style="margin-bottom:4px">Notes</div><input type="text" id="gf-n" placeholder="optional"></div>
-    </div>
-    <div style="display:flex;gap:6px"><button class="btn btng" onclick="saveGF()">Save</button><button class="btn" onclick="hideGF()">Cancel</button></div>
-  </div>
-
-  <div class="card teal">
-    <div class="card-hd"><span class="lbl">Subscriber Conversion · Long Form · By Video</span></div>
-    <div id="conv-bars"></div>
-  </div>
-
-</div>
-
-
-<!-- ══ REVENUE ═══════════════════════════════════════════════ -->
-<div id="revenue" class="tab">
-
-  <div class="card">
-    <div class="card-hd"><span class="lbl">Monthly Income Projection</span></div>
-    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:12px">
-      <div><div class="lbl" style="margin-bottom:4px">AdSense / RPM</div><input type="number" id="rev-a" value="0" oninput="updRev()"><div style="font-size:10px;color:var(--dim);margin-top:3px">not yet eligible</div></div>
-      <div><div class="lbl" style="margin-bottom:4px">Brand Deals / Mo</div><input type="number" id="rev-b" value="0" oninput="updRev()"><div style="font-size:10px;color:var(--dim);margin-top:3px">avg monthly</div></div>
-      <div><div class="lbl" style="margin-bottom:4px">Other Income</div><input type="number" id="rev-o" value="0" oninput="updRev()"><div style="font-size:10px;color:var(--dim);margin-top:3px">merch, consulting</div></div>
-    </div>
-    <div class="divider"></div>
-    <div style="display:flex;justify-content:space-between;align-items:center">
-      <span style="color:var(--muted)">Monthly Total</span>
-      <span class="mono" style="font-size:26px;font-weight:600;color:var(--teal)" id="rev-total">$0</span>
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="card-hd"><span class="lbl">Break-Even Calculator</span></div>
-    <div class="g2" style="margin-bottom:12px">
-      <div><div class="lbl" style="margin-bottom:4px">Monthly Expenses ($)</div><input type="number" id="be-exp" value="2000" oninput="updBE()"></div>
-      <div><div class="lbl" style="margin-bottom:4px">RPM Estimate ($)</div><input type="number" id="be-rpm" value="3" step="0.5" oninput="updBE()"><div style="font-size:10px;color:var(--dim);margin-top:3px">typical early: $2–$5</div></div>
-    </div>
-    <div class="divider"></div>
-    <div class="g2" style="margin-bottom:10px">
-      <div class="inner"><div class="lbl" style="margin-bottom:3px">Views Needed / Mo</div><div class="mono" style="font-size:20px;color:var(--amber);font-weight:600" id="be-views">666,667</div><div style="font-size:10px;color:var(--dim);margin-top:2px">at current RPM</div></div>
-      <div class="inner"><div class="lbl" style="margin-bottom:3px">Brand Deals Needed</div><div class="mono" style="font-size:20px;color:var(--amber);font-weight:600" id="be-deals">3–10</div><div style="font-size:10px;color:var(--dim);margin-top:2px">at $200–$800 each</div></div>
-    </div>
-    <div class="alert aa" id="be-alert"><div class="dot da"></div><span id="be-txt">At $0/mo · $2,000 gap to break-even.</span></div>
-  </div>
-
-  <div class="card">
-    <div class="card-hd"><span class="lbl">Income Milestones</span></div>
-    <div class="scr"><table>
-      <thead><tr><th>Milestone</th><th>Est. Income</th></tr></thead>
-      <tbody>
-        <tr><td>1K subs + 4K watch hrs → AdSense</td><td class="mono" style="color:var(--muted)">Gate 1</td></tr>
-        <tr><td>~10K views/mo</td><td class="mono" style="color:var(--muted)">$20–$50/mo</td></tr>
-        <tr><td>~50K views/mo</td><td class="mono" style="color:var(--muted)">$100–$250/mo</td></tr>
-        <tr><td>First brand deal (5K–10K subs)</td><td class="mono" style="color:var(--muted)">$200–$800</td></tr>
-        <tr><td>Consistent deals (20K+ subs)</td><td class="mono" style="color:var(--muted)">$1K–$3K/mo</td></tr>
-        <tr><td>Break-even at $2K/mo</td><td class="mono" style="color:var(--teal);font-weight:600">The goal</td></tr>
-      </tbody>
-    </table></div>
-  </div>
-
-</div>
-
-
-<!-- ══ TRENDS ════════════════════════════════════════════════ -->
-<div id="trends" class="tab">
-
-  <div class="card teal">
-    <div class="card-hd"><span class="lbl">Views Per Video · Chronological</span><span class="tag tg">long form only</span></div>
-    <div style="font-size:11px;color:var(--dim);margin-bottom:8px">trailer excluded · V1 = first content video</div>
-    <canvas id="ch-views" width="700" height="180" style="width:100%;height:180px"></canvas>
-  </div>
-
-  <div class="card teal">
-    <div class="card-hd"><span class="lbl">Retention % · Chronological</span><span class="tag tg">quality signal</span></div>
-    <div style="font-size:11px;color:var(--dim);margin-bottom:8px">is your storytelling getting stronger?</div>
-    <canvas id="ch-ret" width="700" height="180" style="width:100%;height:180px"></canvas>
-  </div>
-
-  <div class="card">
-    <div class="card-hd"><span class="lbl">CTR % · Chronological</span><span class="tag ta">packaging signal</span></div>
-    <div style="font-size:11px;color:var(--dim);margin-bottom:8px">are your titles + thumbnails getting stronger?</div>
-    <canvas id="ch-ctr" width="700" height="180" style="width:100%;height:180px"></canvas>
-  </div>
-
-  <div class="card teal">
-    <div class="card-hd"><span class="lbl">Subscribers Gained · Per Video</span><span class="tag tg">audience signal</span></div>
-    <div style="font-size:11px;color:var(--dim);margin-bottom:8px">which videos are building your audience?</div>
-    <canvas id="ch-subs" width="700" height="160" style="width:100%;height:160px"></canvas>
-  </div>
-
-  <div class="card teal">
-    <div class="card-hd"><span class="lbl">S1 Trend Summary · Long Form</span></div>
-    <div class="g2">
-      <div class="inner"><div class="lbl" style="margin-bottom:4px">Retention Trend</div><div class="mono" style="font-size:14px;color:var(--teal);font-weight:600">↑ Improving</div><div style="font-size:11px;color:var(--dim);margin-top:2px">24.8% → 35–41% range</div></div>
-      <div class="inner"><div class="lbl" style="margin-bottom:4px">CTR Trend</div><div class="mono" style="font-size:14px;color:var(--amber);font-weight:600">↓ Mixed</div><div style="font-size:11px;color:var(--dim);margin-top:2px">9.16% spike → ~4% range</div></div>
-      <div class="inner"><div class="lbl" style="margin-bottom:4px">Views Trend</div><div class="mono" style="font-size:14px;color:var(--teal);font-weight:600">↑ Strong Finish</div><div style="font-size:11px;color:var(--dim);margin-top:2px">Last 2: 5K + 6.4K views</div></div>
-      <div class="inner"><div class="lbl" style="margin-bottom:4px">Best Sub Converter</div><div class="mono" style="font-size:14px;color:var(--teal);font-weight:600">V1 + V7</div><div style="font-size:11px;color:var(--dim);margin-top:2px">+4 subs · identity themes</div></div>
-    </div>
-  </div>
-
-</div>
-
-
-
-<!-- ══ PIPELINE ═════════════════════════════════════════════ -->
-<div id="pipeline" class="tab">
-  <div class="card">
-    <div class="card-hd">
-      <span class="lbl">Production Pipeline</span>
-      <span class="tag tb" id="pipeline-count">59 projects</span>
-    </div>
-    <div style="display:flex;gap:8px;margin-bottom:8px;align-items:center;flex-wrap:wrap">
-      <div style="display:flex;align-items:center;gap:6px"><span class="lbl">PL State</span><select id="pl-state-filter" onchange="filterPipeline()" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.11);border-radius:4px;color:var(--text);font-size:11px;padding:3px 6px;outline:none;cursor:pointer"></select></div>
-      <div style="display:flex;align-items:center;gap:6px"><span class="lbl">Script</span><select id="script-filter" onchange="filterPipeline()" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.11);border-radius:4px;color:var(--text);font-size:11px;padding:3px 6px;outline:none;cursor:pointer"></select></div>
-    </div>
-    <div class="scr"><table>
-      <thead><tr><th onclick="sortPipeline(0)" style="cursor:pointer;user-select:none">Title <span id="pl-sort-0" style="color:var(--amber);font-size:10px"></span></th><th onclick="sortPipeline(1)" style="cursor:pointer;user-select:none">PL State <span id="pl-sort-1" style="color:var(--amber);font-size:10px"></span></th><th onclick="sortPipeline(2)" style="cursor:pointer;user-select:none">Script <span id="pl-sort-2" style="color:var(--amber);font-size:10px"></span></th><th onclick="sortPipeline(3)" style="cursor:pointer;user-select:none">Filming <span id="pl-sort-3" style="color:var(--amber);font-size:10px"></span></th><th onclick="sortPipeline(4)" style="cursor:pointer;user-select:none">Publish <span id="pl-sort-4" style="color:var(--amber);font-size:10px"></span></th></tr></thead>
-      <tbody id="pipeline-tbody"><tr><td style="font-weight:500;max-width:220px">The Wanting  [Bali]</td><td><span class="tag pl-script-dev">Script RW</span></td><td><span class="mono" style="font-size:11px">Rewrite IP</span></td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">2025-09-01</td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">2026-10-24</td></tr>
-<tr><td style="font-weight:500;max-width:220px">Comfort Gets People Robbed [COL]</td><td><span class="tag pl-vo-prod">Packaging</span></td><td><span class="mono" style="font-size:11px">Final Version</span></td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">2026-01-13</td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">2026-10-12</td></tr>
-<tr><td style="font-weight:500;max-width:220px">“The Passport Bro Addiction” [COL]</td><td><span class="tag pl-vo-prod">Packaging</span></td><td><span class="mono" style="font-size:11px">Final Version</span></td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">2026-01-13</td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">2026-10-17</td></tr>
-<tr><td style="font-weight:500;max-width:220px">Right On Time [Vietnam]</td><td><span class="tag pl-vo-prod">VO: Production</span></td><td><span class="mono" style="font-size:11px">Rewrite IP</span></td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">2026-06-08</td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">2026-10-31</td></tr>
-<tr><td style="font-weight:500;max-width:220px">The Art of Suffering: How stress destroyed my health </td><td><span class="tag pl-filming">In Production</span></td><td><span class="mono" style="font-size:11px">Braintorm</span></td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">2026-07-06</td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">2026-03-05</td></tr>
-<tr><td style="font-weight:500;max-width:220px">The Price of Living for Others [Lombok]</td><td><span class="tag pl-script-dev">Script Dev</span></td><td><span class="mono" style="font-size:11px">Final Version</span></td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">2026-09-15</td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">2025-11-08</td></tr>
-<tr><td style="font-weight:500;max-width:220px">This Country was at war for 43 years and liberal activists did not care. </td><td><span class="tag pl-top">Top Picks</span></td><td><span class="mono" style="font-size:11px">Braintorm</span></td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">2026-11-02</td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">2026-12-10</td></tr>
-<tr><td style="font-weight:500;max-width:220px">Why immigrants do not belong anywhere</td><td><span class="tag pl-top">Top Picks</span></td><td><span class="mono" style="font-size:11px">Braintorm</span></td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">2026-11-02</td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">2026-12-17</td></tr>
-<tr><td style="font-weight:500;max-width:220px">The price of falling behind</td><td><span class="tag pl-vo-prod">VO: Production</span></td><td><span class="mono" style="font-size:11px">Not Started</span></td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">2026-12-01</td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">—</td></tr>
-<tr><td style="font-weight:500;max-width:220px">The Two Mountains: And why I chose to be poor and regret it </td><td><span class="tag pl-top">Top Picks</span></td><td><span class="mono" style="font-size:11px">Not Started</span></td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">2026-12-15</td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">2026-02-19</td></tr>
-<tr><td style="font-weight:500;max-width:220px">Dear Xavy: My advice to young men</td><td><span class="tag pl-top">Top Picks</span></td><td><span class="mono" style="font-size:11px">Not Started</span></td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">2026-12-28</td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">2026-02-12</td></tr>
-<tr><td style="font-weight:500;max-width:220px">The Art of Spending: My addiction to validation</td><td><span class="tag pl-top">Top Picks</span></td><td><span class="mono" style="font-size:11px">Not Started</span></td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">2027-01-05</td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">2026-03-12</td></tr>
-<tr><td style="font-weight:500;max-width:220px">The Dead Zone and why no one cares about you</td><td><span class="tag pl-top">Top Picks</span></td><td><span class="mono" style="font-size:11px">—</span></td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">—</td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">2026-02-26</td></tr>
-<tr><td style="font-weight:500;max-width:220px">Anti New Years Resolutions</td><td><span class="tag tn">IDEA: High</span></td><td><span class="mono" style="font-size:11px">Not Started</span></td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">—</td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">2027-01-01</td></tr>
-<tr><td style="font-weight:500;max-width:220px">Stop blaming Bali on Influencers. You are part of the problem. </td><td><span class="tag pl-research">Research ID</span></td><td><span class="mono" style="font-size:11px">Not Started</span></td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">—</td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">—</td></tr>
-<tr><td style="font-weight:500;max-width:220px">The Fitness Spiral </td><td><span class="tag pl-script-dev">Script RW</span></td><td><span class="mono" style="font-size:11px">Rewrite IP</span></td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">—</td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">2026-11-12</td></tr>
-<tr><td style="font-weight:500;max-width:220px">How being open minded ruins your life </td><td><span class="tag pl-script-dev">Script Dev</span></td><td><span class="mono" style="font-size:11px">Braintorm</span></td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">—</td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">2026-12-03</td></tr>
-<tr><td style="font-weight:500;max-width:220px">Why I cheated and my fuckboy phase</td><td><span class="tag pl-research">Research ID</span></td><td><span class="mono" style="font-size:11px">Rewrite IP</span></td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">—</td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">2027-01-14</td></tr>
-<tr><td style="font-weight:500;max-width:220px">Steroids Are Awesome (Working Title)</td><td><span class="tag tn">IDEA: High</span></td><td><span class="mono" style="font-size:11px">—</span></td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">—</td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">—</td></tr>
-<tr><td style="font-weight:500;max-width:220px">Why being yourself is the worst advice for men (physical looks POV)</td><td><span class="tag pl-script-dev">Script RW</span></td><td><span class="mono" style="font-size:11px">Rewrite IP</span></td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">—</td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">—</td></tr>
-<tr><td style="font-weight:500;max-width:220px">How I got sober again and I regret all the time wasted (Scent of Time)</td><td><span class="tag pl-top">Top Picks</span></td><td><span class="mono" style="font-size:11px">Not Started</span></td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">—</td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">2026-03-19</td></tr>
-<tr><td style="font-weight:500;max-width:220px">The Voluntary Exile; work hard in silence </td><td><span class="tag pl-top">Top Picks</span></td><td><span class="mono" style="font-size:11px">Not Started</span></td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">—</td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">2026-12-24</td></tr>
-<tr><td style="font-weight:500;max-width:220px">My Needy Desire to be loved </td><td><span class="tag pl-top">Top Picks</span></td><td><span class="mono" style="font-size:11px">Not Started</span></td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">—</td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">2027-01-07</td></tr>
-<tr><td style="font-weight:500;max-width:220px">The Loneliness Epidemic Nobody Is Talking About (Making friends)</td><td><span class="tag pl-top">Top Picks</span></td><td><span class="mono" style="font-size:11px">Not Started</span></td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">—</td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">2027-01-21</td></tr>
-<tr><td style="font-weight:500;max-width:220px">The Little Blue Pill: The ED epidemic across young men and my addiction to Viagra</td><td><span class="tag pl-top">Top Picks</span></td><td><span class="mono" style="font-size:11px">—</span></td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">—</td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">2027-01-28</td></tr>
-<tr><td style="font-weight:500;max-width:220px">Friend-Zone Her First: Can men and women be friends?</td><td><span class="tag tn">IDEA: High</span></td><td><span class="mono" style="font-size:11px">Not Started</span></td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">—</td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">—</td></tr>
-<tr><td style="font-weight:500;max-width:220px">The Dark Truth of Fitness in Bali</td><td><span class="tag tn">IDEA: High</span></td><td><span class="mono" style="font-size:11px">Not Started</span></td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">—</td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">—</td></tr>
-<tr><td style="font-weight:500;max-width:220px">Something about the holidays and family to help men get through them</td><td><span class="tag pl-research">Research ID</span></td><td><span class="mono" style="font-size:11px">Not Started</span></td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">—</td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">—</td></tr>
-<tr><td style="font-weight:500;max-width:220px">How to get over heartbreak [for men]</td><td><span class="tag pl-top">Top Picks</span></td><td><span class="mono" style="font-size:11px">Not Started</span></td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">—</td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">—</td></tr>
-<tr><td style="font-weight:500;max-width:220px">How I lost my faith but found my way back. </td><td><span class="tag pl-top">Top Picks</span></td><td><span class="mono" style="font-size:11px">Braintorm</span></td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">—</td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">—</td></tr>
-<tr><td style="font-weight:500;max-width:220px">Why men are weak today. And what it means to be a man</td><td><span class="tag pl-top">Top Picks</span></td><td><span class="mono" style="font-size:11px">Not Started</span></td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">—</td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">—</td></tr>
-<tr><td style="font-weight:500;max-width:220px">How to make friends as an adult </td><td><span class="tag pl-top">Top Picks</span></td><td><span class="mono" style="font-size:11px">Not Started</span></td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">—</td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">—</td></tr>
-<tr><td style="font-weight:500;max-width:220px">Why I stopped having Sex. And why all men should. </td><td><span class="tag pl-research">Research ID</span></td><td><span class="mono" style="font-size:11px">Braintorm</span></td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">—</td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">—</td></tr>
-<tr><td style="font-weight:500;max-width:220px">I Tried Every Religion for 7 Days</td><td><span class="tag tn">XVC: IDEA [UA]</span></td><td><span class="mono" style="font-size:11px">—</span></td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">—</td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">—</td></tr>
-<tr><td style="font-weight:500;max-width:220px">I'm Not Your Dad. Say Thank You.</td><td><span class="tag tn">XVC: IDEA [UA]</span></td><td><span class="mono" style="font-size:11px">—</span></td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">—</td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">—</td></tr>
-<tr><td style="font-weight:500;max-width:220px">I Saw My Ex With My Ex-Fraternity Brother and It Got Me Thinking About Love</td><td><span class="tag tn">XVC: IDEA [UA]</span></td><td><span class="mono" style="font-size:11px">—</span></td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">—</td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">—</td></tr>
-<tr><td style="font-weight:500;max-width:220px">Letter to My Inner Child: You Don't Need to Do All This to Be Accepted</td><td><span class="tag tn">XVC: IDEA [UA]</span></td><td><span class="mono" style="font-size:11px">—</span></td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">—</td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">—</td></tr>
-<tr><td style="font-weight:500;max-width:220px">I Wish I Could Tell This Bullied Boy He Doesn't Need to Be Jacked to Be Loved</td><td><span class="tag tn">XVC: IDEA [UA]</span></td><td><span class="mono" style="font-size:11px">—</span></td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">—</td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">—</td></tr>
-<tr><td style="font-weight:500;max-width:220px">Wanting to Look Good and Looking Good Does Not Make You Gay</td><td><span class="tag tn">XVC: IDEA [UA]</span></td><td><span class="mono" style="font-size:11px">—</span></td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">—</td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">—</td></tr>
-<tr><td style="font-weight:500;max-width:220px">Wanting to Look Good and Looking Good Is an Act of Self-Love</td><td><span class="tag tn">XVC: IDEA [UA]</span></td><td><span class="mono" style="font-size:11px">—</span></td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">—</td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">—</td></tr>
-<tr><td style="font-weight:500;max-width:220px">The Glacier — What We See vs What We Don't</td><td><span class="tag tn">XVC: IDEA [UA]</span></td><td><span class="mono" style="font-size:11px">—</span></td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">—</td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">—</td></tr>
-<tr><td style="font-weight:500;max-width:220px">Build, Don't Find</td><td><span class="tag tn">XVC: IDEA [UA]</span></td><td><span class="mono" style="font-size:11px">—</span></td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">—</td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">—</td></tr>
-<tr><td style="font-weight:500;max-width:220px">Practicing Poor</td><td><span class="tag tn">XVC: IDEA [UA]</span></td><td><span class="mono" style="font-size:11px">—</span></td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">—</td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">—</td></tr>
-<tr><td style="font-weight:500;max-width:220px">Unformed, Not Broken</td><td><span class="tag tn">XVC: IDEA [UA]</span></td><td><span class="mono" style="font-size:11px">—</span></td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">—</td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">—</td></tr>
-<tr><td style="font-weight:500;max-width:220px">Borrowed Status</td><td><span class="tag tn">XVC: IDEA [UA]</span></td><td><span class="mono" style="font-size:11px">—</span></td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">—</td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">—</td></tr>
-<tr><td style="font-weight:500;max-width:220px">Effortless Isn't Passive</td><td><span class="tag tn">XVC: IDEA [UA]</span></td><td><span class="mono" style="font-size:11px">—</span></td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">—</td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">—</td></tr>
-<tr><td style="font-weight:500;max-width:220px">The Next Morning</td><td><span class="tag tn">XVC: IDEA [UA]</span></td><td><span class="mono" style="font-size:11px">—</span></td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">—</td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">—</td></tr>
-<tr><td style="font-weight:500;max-width:220px">The Dead Zone</td><td><span class="tag tn">XVC: IDEA [UA]</span></td><td><span class="mono" style="font-size:11px">—</span></td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">—</td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">—</td></tr>
-<tr><td style="font-weight:500;max-width:220px">I went to a detox retreat to cure my caffeine addiction or sleep issues, etc (different from art of suffering as it’s more panchakarma process focused)</td><td><span class="tag tn">IDEA: High</span></td><td><span class="mono" style="font-size:11px">—</span></td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">—</td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">—</td></tr>
-<tr><td style="font-weight:500;max-width:220px">I’m Never Coming Back to America</td><td><span class="tag tn">IDEA: High</span></td><td><span class="mono" style="font-size:11px">—</span></td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">—</td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">—</td></tr>
-<tr><td style="font-weight:500;max-width:220px">Traveling Makes You More Racist</td><td><span class="tag tn">XVC: IDEA [UA]</span></td><td><span class="mono" style="font-size:11px">—</span></td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">—</td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">—</td></tr>
-<tr><td style="font-weight:500;max-width:220px">The Wishing Tree</td><td><span class="tag tn">XVC: IDEA [UA]</span></td><td><span class="mono" style="font-size:11px">—</span></td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">—</td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">—</td></tr>
-<tr><td style="font-weight:500;max-width:220px">The Translation Moment</td><td><span class="tag tn">XVC: IDEA [UA]</span></td><td><span class="mono" style="font-size:11px">—</span></td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">—</td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">—</td></tr>
-<tr><td style="font-weight:500;max-width:220px">Wars are stupid. Vietnam war pov and kindness</td><td><span class="tag tn">XVC: IDEA [UA]</span></td><td><span class="mono" style="font-size:11px">—</span></td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">—</td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">—</td></tr>
-<tr><td style="font-weight:500;max-width:220px">The art of letting go</td><td><span class="tag tn">IDEA: Mid</span></td><td><span class="mono" style="font-size:11px">—</span></td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">—</td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">—</td></tr>
-<tr><td style="font-weight:500;max-width:220px">Dear Netio… [Letter Writing Format]</td><td><span class="tag tn">IDEA: Mid</span></td><td><span class="mono" style="font-size:11px">—</span></td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">—</td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">—</td></tr>
-<tr><td style="font-weight:500;max-width:220px">I went on a solo trip to spend more time alone → Lessons from the road</td><td><span class="tag tn">IDEA: Mid</span></td><td><span class="mono" style="font-size:11px">Not Started</span></td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">—</td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">—</td></tr>
-<tr><td style="font-weight:500;max-width:220px">Start Before you’re reaady </td><td><span class="tag pl-top">Top Picks</span></td><td><span class="mono" style="font-size:11px">Not Started</span></td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">—</td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">—</td></tr>
-<tr><td style="font-weight:500;max-width:220px">The Shortness of life: Be Here & Take Action</td><td><span class="tag tn">IDEA: Mid</span></td><td><span class="mono" style="font-size:11px">Not Started</span></td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">—</td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">—</td></tr></tbody>
-    </table></div>
-  </div>
-</div>
-
-
-<!-- ══ EDITOR ════════════════════════════════════════════════ -->
-<div id="editor" class="tab">
-  <div class="card teal">
-    <div class="card-hd">
-      <span class="lbl">Editor Progress</span>
-      <span class="tag tg" id="editor-count">4 in edit</span>
-    </div>
-    <div class="scr"><table>
-      <thead><tr><th>Title</th><th>Edit Phase</th><th>Progress</th><th>Next Cut Due</th><th>Publish Date</th></tr></thead>
-      <tbody id="editor-tbody"><tr><td style="font-weight:500;max-width:220px">The Wanting  [Bali]</td><td><span class="tag tb">C1: Story</span></td><td><span class="mono" style="font-size:11px">25%</span></td><td class="mono" style="color:var(--amber);font-size:11px">2026-06-19</td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">2026-10-24</td></tr>
-<tr><td style="font-weight:500;max-width:220px">Right On Time [Vietnam]</td><td><span class="tag tb">C1: Story</span></td><td><span class="mono" style="font-size:11px">25%</span></td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">—</td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">2026-10-31</td></tr>
-<tr><td style="font-weight:500;max-width:220px">The Fitness Spiral </td><td><span class="tag tb">Hook Only</span></td><td><span class="mono" style="font-size:11px">100%</span></td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">—</td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">2026-11-12</td></tr>
-<tr><td style="font-weight:500;max-width:220px">Why being yourself is the worst advice for men (physical looks POV)</td><td><span class="tag tb">Hook Only</span></td><td><span class="mono" style="font-size:11px">100%</span></td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">—</td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">—</td></tr></tbody>
-    </table></div>
-  </div>
-</div>
-
-
-<!-- ══ PUBLISHING ════════════════════════════════════════════ -->
-<div id="publishing" class="tab">
-  <div class="card teal">
-    <div class="card-hd">
-      <span class="lbl">Published Tracker · Long Form</span>
-      <span class="tag tg" id="publishing-count">8 published</span>
-    </div>
-    <div class="scr"><table>
-      <thead><tr><th>Title</th><th>Publish Date</th><th>YT Link</th><th>Views</th><th>PL Status</th><th>Season &amp; Show</th></tr></thead>
-      <tbody id="publishing-tbody"><tr><td style="font-weight:500;max-width:200px">Trailer Season 1: Starting Over</td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">2025-11-10</td><td><a href="https://www.youtube.com/watch?v=VYq0d05J_M8" target="_blank" style="color:var(--teal);font-size:11px">↗ YouTube</a></td><td class="mono" style="color:var(--teal);font-weight:600">238</td><td><span class="tag tg">Published</span></td><td style="font-size:11px;color:rgba(240,239,232,0.4)">S1: Starting Over</td></tr>
-<tr><td style="font-weight:500;max-width:200px">“Getting Arrested Changed My Life” </td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">2025-11-11T17:00:00.000-08:00</td><td><a href="https://www.youtube.com/watch?v=OLFbWxSN9o8" target="_blank" style="color:var(--teal);font-size:11px">↗ YouTube</a></td><td class="mono" style="color:var(--teal);font-weight:600">7,553</td><td><span class="tag tg">Published</span></td><td style="font-size:11px;color:rgba(240,239,232,0.4)">S1: Starting Over</td></tr>
-<tr><td style="font-weight:500;max-width:200px">“35 Years of Lessons”  </td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">2025-11-18T17:00:00.000-08:00</td><td><a href="https://www.youtube.com/watch?v=UO7p4cAuu_U" target="_blank" style="color:var(--teal);font-size:11px">↗ YouTube</a></td><td class="mono" style="color:var(--teal);font-weight:600">67</td><td><span class="tag tg">Published</span></td><td style="font-size:11px;color:rgba(240,239,232,0.4)">S1: Starting Over</td></tr>
-<tr><td style="font-weight:500;max-width:200px">“Seeking Zenith”</td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">2025-11-25T17:00:00.000-08:00</td><td><a href="https://www.youtube.com/watch?v=mC5SzxQmVi4" target="_blank" style="color:var(--teal);font-size:11px">↗ YouTube</a></td><td class="mono" style="color:var(--teal);font-weight:600">64</td><td><span class="tag tg">Published</span></td><td style="font-size:11px;color:rgba(240,239,232,0.4)">S1: Starting Over</td></tr>
-<tr><td style="font-weight:500;max-width:200px">“End of an Era” </td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">2025-12-02T17:00:00.000-08:00</td><td><a href="https://www.youtube.com/watch?v=QjGV6CK1tJo" target="_blank" style="color:var(--teal);font-size:11px">↗ YouTube</a></td><td class="mono" style="color:var(--teal);font-weight:600">30</td><td><span class="tag tg">Published</span></td><td style="font-size:11px;color:rgba(240,239,232,0.4)">S1: Starting Over</td></tr>
-<tr><td style="font-weight:500;max-width:200px">“May This Note Find You”</td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">2025-12-09</td><td><a href="https://www.youtube.com/watch?v=5CQHOpyXWKk" target="_blank" style="color:var(--teal);font-size:11px">↗ YouTube</a></td><td class="mono" style="color:var(--teal);font-weight:600">5,108</td><td><span class="tag tg">Published</span></td><td style="font-size:11px;color:rgba(240,239,232,0.4)">S1: Starting Over</td></tr>
-<tr><td style="font-weight:500;max-width:200px">“The Unmasking”</td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">2025-12-16</td><td><a href="https://www.youtube.com/watch?v=SC8SfzHsabo" target="_blank" style="color:var(--teal);font-size:11px">↗ YouTube</a></td><td class="mono" style="color:var(--teal);font-weight:600">6,481</td><td><span class="tag tg">Published</span></td><td style="font-size:11px;color:rgba(240,239,232,0.4)">S1: Starting Over</td></tr>
-<tr><td style="font-weight:500;max-width:200px">The Escape: S1 Finale official</td><td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">2026-07-08</td><td><a href="https://youtu.be/IOFPXGzZ53M" target="_blank" style="color:var(--teal);font-size:11px">↗ YouTube</a></td><td class="mono" style="color:var(--teal);font-weight:600">—</td><td><span class="tag tg">Published</span></td><td style="font-size:11px;color:rgba(240,239,232,0.4)">S1: Starting Over</td></tr></tbody>
-    </table></div>
-  </div>
-</div>
-
-
-<!-- ══ BILLING ════════════════════════════════════════════════ -->
-<div id="billing" class="tab">
-  <div class="card">
-    <div class="card-hd">
-      <span class="lbl">Billing Tracker</span>
-      <span class="tag ta" id="billing-count">35 invoices</span>
-    </div>
-    <div class="scr"><table>
-      <thead><tr><th>Title</th><th>Invoice Credit</th><th>Edits Payment</th><th>Progress</th><th>Credits</th><th>Season &amp; Show</th></tr></thead>
-      <tbody id="billing-tbody"><tr><td style="font-weight:500;max-width:200px">The Wanting  [Bali]</td><td style="font-size:11px">A. Full Prod Invoice</td><td class="mono" style="color:var(--teal);font-weight:600">—</td><td><span class="mono" style="font-size:11px">25%</span></td><td class="mono" style="color:rgba(240,239,232,0.4)">1</td><td style="font-size:11px;color:rgba(240,239,232,0.4)">S2: Re-Invention</td></tr>
-<tr><td style="font-weight:500;max-width:200px">“May This Note Find You”</td><td style="font-size:11px">C. Invoice: 2025</td><td class="mono" style="color:var(--teal);font-weight:600">—</td><td><span class="mono" style="font-size:11px">100%</span></td><td class="mono" style="color:rgba(240,239,232,0.4)">1</td><td style="font-size:11px;color:rgba(240,239,232,0.4)">S1: Starting Over</td></tr>
-<tr><td style="font-weight:500;max-width:200px">“The Unmasking”</td><td style="font-size:11px">C. Invoice: 2025</td><td class="mono" style="color:var(--teal);font-weight:600">—</td><td><span class="mono" style="font-size:11px">100%</span></td><td class="mono" style="color:rgba(240,239,232,0.4)">2</td><td style="font-size:11px;color:rgba(240,239,232,0.4)">S1: Starting Over</td></tr>
-<tr><td style="font-weight:500;max-width:200px">The Escape: S1 Finale official</td><td style="font-size:11px">C. Invoice: 2025</td><td class="mono" style="color:var(--teal);font-weight:600">—</td><td><span class="mono" style="font-size:11px">100%</span></td><td class="mono" style="color:rgba(240,239,232,0.4)">5</td><td style="font-size:11px;color:rgba(240,239,232,0.4)">S1: Starting Over</td></tr>
-<tr><td style="font-weight:500;max-width:200px">The Fitness Spiral </td><td style="font-size:11px">C. Invoice: 2025</td><td class="mono" style="color:var(--teal);font-weight:600">—</td><td><span class="mono" style="font-size:11px">100%</span></td><td class="mono" style="color:rgba(240,239,232,0.4)">3</td><td style="font-size:11px;color:rgba(240,239,232,0.4)">S2: Re-Invention</td></tr>
-<tr><td style="font-weight:500;max-width:200px">Why being yourself is the worst advice for men (physical looks POV)</td><td style="font-size:11px">C. Invoice: 2025</td><td class="mono" style="color:var(--teal);font-weight:600">—</td><td><span class="mono" style="font-size:11px">100%</span></td><td class="mono" style="color:rgba(240,239,232,0.4)">4</td><td style="font-size:11px;color:rgba(240,239,232,0.4)">S2: Re-Invention</td></tr>
-<tr><td style="font-weight:500;max-width:200px">The Art of Suffering: How stress destroyed my health </td><td style="font-size:11px">D. Invoice: 2026 (March)</td><td class="mono" style="color:var(--teal);font-weight:600">—</td><td><span class="mono" style="font-size:11px">Not Ready</span></td><td class="mono" style="color:rgba(240,239,232,0.4)">5</td><td style="font-size:11px;color:rgba(240,239,232,0.4)">S2: Re-Invention</td></tr>
-<tr><td style="font-weight:500;max-width:200px">How I got sober again and I regret all the time wasted (Scent of Time)</td><td style="font-size:11px">D. Invoice: 2026 (March)</td><td class="mono" style="color:var(--teal);font-weight:600">—</td><td><span class="mono" style="font-size:11px">Not Ready</span></td><td class="mono" style="color:rgba(240,239,232,0.4)">10</td><td style="font-size:11px;color:rgba(240,239,232,0.4)">S2: Re-Invention</td></tr>
-<tr><td style="font-weight:500;max-width:200px">Comfort Gets People Robbed [COL]</td><td style="font-size:11px">D. Invoice: 2026 (March)</td><td class="mono" style="color:var(--teal);font-weight:600">—</td><td><span class="mono" style="font-size:11px">25%</span></td><td class="mono" style="color:rgba(240,239,232,0.4)">1</td><td style="font-size:11px;color:rgba(240,239,232,0.4)">S2: Re-Invention</td></tr>
-<tr><td style="font-weight:500;max-width:200px">“The Passport Bro Addiction” [COL]</td><td style="font-size:11px">D. Invoice: 2026 (March)</td><td class="mono" style="color:var(--teal);font-weight:600">—</td><td><span class="mono" style="font-size:11px">25%</span></td><td class="mono" style="color:rgba(240,239,232,0.4)">2</td><td style="font-size:11px;color:rgba(240,239,232,0.4)">S2: Re-Invention</td></tr>
-<tr><td style="font-weight:500;max-width:200px">Right On Time [Vietnam]</td><td style="font-size:11px">D. Invoice: 2026 (March)</td><td class="mono" style="color:var(--teal);font-weight:600">—</td><td><span class="mono" style="font-size:11px">25%</span></td><td class="mono" style="color:rgba(240,239,232,0.4)">3</td><td style="font-size:11px;color:rgba(240,239,232,0.4)">S2: Re-Invention</td></tr>
-<tr><td style="font-weight:500;max-width:200px">My Needy Desire to be loved </td><td style="font-size:11px">D. Invoice: 2026 (March)</td><td class="mono" style="color:var(--teal);font-weight:600">—</td><td><span class="mono" style="font-size:11px">Not Ready</span></td><td class="mono" style="color:rgba(240,239,232,0.4)">9</td><td style="font-size:11px;color:rgba(240,239,232,0.4)">S2: Re-Invention</td></tr>
-<tr><td style="font-weight:500;max-width:200px">The Loneliness Epidemic Nobody Is Talking About (Making friends)</td><td style="font-size:11px">D. Invoice: 2026 (March)</td><td class="mono" style="color:var(--teal);font-weight:600">—</td><td><span class="mono" style="font-size:11px">Not Ready</span></td><td class="mono" style="color:rgba(240,239,232,0.4)">4</td><td style="font-size:11px;color:rgba(240,239,232,0.4)">S2: Re-Invention</td></tr>
-<tr><td style="font-weight:500;max-width:200px">How to get over heartbreak [for men]</td><td style="font-size:11px">D. Invoice: 2026 (March)</td><td class="mono" style="color:var(--teal);font-weight:600">—</td><td><span class="mono" style="font-size:11px">Not Ready</span></td><td class="mono" style="color:rgba(240,239,232,0.4)">8</td><td style="font-size:11px;color:rgba(240,239,232,0.4)">S2: Re-Invention</td></tr>
-<tr><td style="font-weight:500;max-width:200px">Why men are weak today. And what it means to be a man</td><td style="font-size:11px">D. Invoice: 2026 (March)</td><td class="mono" style="color:var(--teal);font-weight:600">—</td><td><span class="mono" style="font-size:11px">Not Ready</span></td><td class="mono" style="color:rgba(240,239,232,0.4)">7</td><td style="font-size:11px;color:rgba(240,239,232,0.4)">S2: Re-Invention</td></tr>
-<tr><td style="font-weight:500;max-width:200px">Why I stopped having Sex. And why all men should. </td><td style="font-size:11px">D. Invoice: 2026 (March)</td><td class="mono" style="color:var(--teal);font-weight:600">—</td><td><span class="mono" style="font-size:11px">Not Ready</span></td><td class="mono" style="color:rgba(240,239,232,0.4)">6</td><td style="font-size:11px;color:rgba(240,239,232,0.4)">S2: Re-Invention</td></tr>
-<tr><td style="font-weight:500;max-width:200px">The Price of Living for Others [Lombok]</td><td style="font-size:11px">E. Unassigned</td><td class="mono" style="color:var(--teal);font-weight:600">—</td><td><span class="mono" style="font-size:11px">Not Ready</span></td><td class="mono" style="color:rgba(240,239,232,0.4)">—</td><td style="font-size:11px;color:rgba(240,239,232,0.4)">S2: Re-Invention</td></tr>
-<tr><td style="font-weight:500;max-width:200px">Dear Xavy: My advice to young men</td><td style="font-size:11px">E. Unassigned</td><td class="mono" style="color:var(--teal);font-weight:600">—</td><td><span class="mono" style="font-size:11px">Not Ready</span></td><td class="mono" style="color:rgba(240,239,232,0.4)">—</td><td style="font-size:11px;color:rgba(240,239,232,0.4)">S2: Re-Invention</td></tr>
-<tr><td style="font-weight:500;max-width:200px">The Two Mountains: And why I chose to be poor and regret it </td><td style="font-size:11px">E. Unassigned</td><td class="mono" style="color:var(--teal);font-weight:600">—</td><td><span class="mono" style="font-size:11px">Not Ready</span></td><td class="mono" style="color:rgba(240,239,232,0.4)">—</td><td style="font-size:11px;color:rgba(240,239,232,0.4)">S2: Re-Invention</td></tr>
-<tr><td style="font-weight:500;max-width:200px">The Art of Spending: My addiction to validation</td><td style="font-size:11px">E. Unassigned</td><td class="mono" style="color:var(--teal);font-weight:600">—</td><td><span class="mono" style="font-size:11px">Not Ready</span></td><td class="mono" style="color:rgba(240,239,232,0.4)">—</td><td style="font-size:11px;color:rgba(240,239,232,0.4)">S2: Re-Invention</td></tr>
-<tr><td style="font-weight:500;max-width:200px">How being open minded ruins your life </td><td style="font-size:11px">E. Unassigned</td><td class="mono" style="color:var(--teal);font-weight:600">—</td><td><span class="mono" style="font-size:11px">Not started</span></td><td class="mono" style="color:rgba(240,239,232,0.4)">—</td><td style="font-size:11px;color:rgba(240,239,232,0.4)">S2: Re-Invention</td></tr>
-<tr><td style="font-weight:500;max-width:200px">This Country was at war for 43 years and liberal activists did not care. </td><td style="font-size:11px">E. Unassigned</td><td class="mono" style="color:var(--teal);font-weight:600">—</td><td><span class="mono" style="font-size:11px">Not started</span></td><td class="mono" style="color:rgba(240,239,232,0.4)">—</td><td style="font-size:11px;color:rgba(240,239,232,0.4)">S2: Re-Invention</td></tr>
-<tr><td style="font-weight:500;max-width:200px">Why immigrants do not belong anywhere</td><td style="font-size:11px">E. Unassigned</td><td class="mono" style="color:var(--teal);font-weight:600">—</td><td><span class="mono" style="font-size:11px">Not started</span></td><td class="mono" style="color:rgba(240,239,232,0.4)">—</td><td style="font-size:11px;color:rgba(240,239,232,0.4)">S2: Re-Invention</td></tr>
-<tr><td style="font-weight:500;max-width:200px">The Voluntary Exile; work hard in silence </td><td style="font-size:11px">E. Unassigned</td><td class="mono" style="color:var(--teal);font-weight:600">—</td><td><span class="mono" style="font-size:11px">Not Ready</span></td><td class="mono" style="color:rgba(240,239,232,0.4)">—</td><td style="font-size:11px;color:rgba(240,239,232,0.4)">S2: Re-Invention</td></tr>
-<tr><td style="font-weight:500;max-width:200px">Anti New Years Resolutions</td><td style="font-size:11px">E. Unassigned</td><td class="mono" style="color:var(--teal);font-weight:600">—</td><td><span class="mono" style="font-size:11px">—</span></td><td class="mono" style="color:rgba(240,239,232,0.4)">—</td><td style="font-size:11px;color:rgba(240,239,232,0.4)">S2: Re-Invention</td></tr>
-<tr><td style="font-weight:500;max-width:200px">Why I cheated and my fuckboy phase</td><td style="font-size:11px">E. Unassigned</td><td class="mono" style="color:var(--teal);font-weight:600">—</td><td><span class="mono" style="font-size:11px">Not started</span></td><td class="mono" style="color:rgba(240,239,232,0.4)">—</td><td style="font-size:11px;color:rgba(240,239,232,0.4)">S2: Re-Invention</td></tr>
-<tr><td style="font-weight:500;max-width:200px">Stop blaming Bali on Influencers. You are part of the problem. </td><td style="font-size:11px">E. Unassigned</td><td class="mono" style="color:var(--teal);font-weight:600">—</td><td><span class="mono" style="font-size:11px">—</span></td><td class="mono" style="color:rgba(240,239,232,0.4)">—</td><td style="font-size:11px;color:rgba(240,239,232,0.4)">S2: Re-Invention</td></tr>
-<tr><td style="font-weight:500;max-width:200px">Friend-Zone Her First: Can men and women be friends?</td><td style="font-size:11px">E. Unassigned</td><td class="mono" style="color:var(--teal);font-weight:600">—</td><td><span class="mono" style="font-size:11px">—</span></td><td class="mono" style="color:rgba(240,239,232,0.4)">—</td><td style="font-size:11px;color:rgba(240,239,232,0.4)">S2: Re-Invention</td></tr>
-<tr><td style="font-weight:500;max-width:200px">The Dark Truth of Fitness in Bali</td><td style="font-size:11px">E. Unassigned</td><td class="mono" style="color:var(--teal);font-weight:600">—</td><td><span class="mono" style="font-size:11px">—</span></td><td class="mono" style="color:rgba(240,239,232,0.4)">—</td><td style="font-size:11px;color:rgba(240,239,232,0.4)">S2: Re-Invention</td></tr>
-<tr><td style="font-weight:500;max-width:200px">Something about the holidays and family to help men get through them</td><td style="font-size:11px">E. Unassigned</td><td class="mono" style="color:var(--teal);font-weight:600">—</td><td><span class="mono" style="font-size:11px">—</span></td><td class="mono" style="color:rgba(240,239,232,0.4)">—</td><td style="font-size:11px;color:rgba(240,239,232,0.4)">S2: Re-Invention</td></tr>
-<tr><td style="font-weight:500;max-width:200px">Discovering Ikigai in real life</td><td style="font-size:11px">E. Unassigned</td><td class="mono" style="color:var(--teal);font-weight:600">—</td><td><span class="mono" style="font-size:11px">Not started</span></td><td class="mono" style="color:rgba(240,239,232,0.4)">—</td><td style="font-size:11px;color:rgba(240,239,232,0.4)">S3: The Dead Zone</td></tr>
-<tr><td style="font-weight:500;max-width:200px">How I lost my faith but found my way back. </td><td style="font-size:11px">E. Unassigned</td><td class="mono" style="color:var(--teal);font-weight:600">—</td><td><span class="mono" style="font-size:11px">Not Ready</span></td><td class="mono" style="color:rgba(240,239,232,0.4)">—</td><td style="font-size:11px;color:rgba(240,239,232,0.4)">S2: Re-Invention</td></tr>
-<tr><td style="font-weight:500;max-width:200px">I Bet Everything on Myself. Here's What Happened.</td><td style="font-size:11px">E. Unassigned</td><td class="mono" style="color:var(--teal);font-weight:600">—</td><td><span class="mono" style="font-size:11px">Not Ready</span></td><td class="mono" style="color:rgba(240,239,232,0.4)">—</td><td style="font-size:11px;color:rgba(240,239,232,0.4)">S3: The Dead Zone</td></tr>
-<tr><td style="font-weight:500;max-width:200px">The price of falling behind</td><td style="font-size:11px">E. Unassigned</td><td class="mono" style="color:var(--teal);font-weight:600">—</td><td><span class="mono" style="font-size:11px">Not Ready</span></td><td class="mono" style="color:rgba(240,239,232,0.4)">—</td><td style="font-size:11px;color:rgba(240,239,232,0.4)">S2: Re-Invention</td></tr>
-<tr><td style="font-weight:500;max-width:200px">How to make friends as an adult </td><td style="font-size:11px">E. Unassigned</td><td class="mono" style="color:var(--teal);font-weight:600">—</td><td><span class="mono" style="font-size:11px">Not Ready</span></td><td class="mono" style="color:rgba(240,239,232,0.4)">—</td><td style="font-size:11px;color:rgba(240,239,232,0.4)">S2: Re-Invention</td></tr></tbody>
-    </table></div>
-  </div>
-</div>
-
-
-<!-- ══ THUMBNAILS CTR ════════════════════════════════════════ -->
-<div id="thumbnails" class="tab">
-
-  <div class="card teal">
-    <div class="card-hd"><span class="lbl">CTR Overview · Season 1</span><span class="tag tg">thumbnail signal</span></div>
-    <div class="g4">
-      <div class="inner"><div class="lbl" style="margin-bottom:3px">Avg CTR · Long Form</div><div class="mono" style="font-size:22px;color:var(--teal);font-weight:600" id="tn-avg-lf">—</div><div style="font-size:10px;color:var(--dim);margin-top:2px">S1 · 8 videos</div></div>
-      <div class="inner"><div class="lbl" style="margin-bottom:3px">Best Thumbnail CTR</div><div class="mono" style="font-size:22px;color:var(--amber);font-weight:600" id="tn-best">—</div><div style="font-size:10px;color:var(--dim);margin-top:2px" id="tn-best-title">—</div></div>
-      <div class="inner"><div class="lbl" style="margin-bottom:3px">Videos Above Avg</div><div class="mono" style="font-size:22px;color:var(--teal);font-weight:600" id="tn-above">—</div><div style="font-size:10px;color:var(--dim);margin-top:2px">of 8 long form</div></div>
-      <div class="inner"><div class="lbl" style="margin-bottom:3px">Benchmark</div><div class="mono" style="font-size:22px;color:var(--teal);font-weight:600">2–10%</div><div style="font-size:10px;color:var(--dim);margin-top:2px">YouTube average range</div></div>
-    </div>
-  </div>
-
-  <div class="alert ag" id="tn-alert" style="margin-bottom:8px"><div class="dot dg"></div><span id="tn-alert-txt">Loading…</span></div>
-
-  <div class="card teal">
-    <div class="card-hd"><span class="lbl">CTR % · Long Form · By Video</span><span class="tag tg">designer performance</span></div>
-    <div style="font-size:11px;color:var(--dim);margin-bottom:8px">Higher CTR = thumbnail made people click. Pair with Avg View Duration to check if it delivered on the promise.</div>
-    <div class="scr"><table>
-      <thead><tr><th>#</th><th>Title</th><th>Published</th><th>CTR</th><th>vs Avg</th><th>Impressions</th><th>Avg View Duration</th><th>Designer Rating</th></tr></thead>
-      <tbody id="tn-lf-tbody"></tbody>
-      <tfoot><tr class="tf"><td colspan="3">Average</td><td id="tn-lf-ac">—</td><td>—</td><td id="tn-lf-ti">—</td><td>—</td><td id="tn-lf-rating">—</td></tr></tfoot>
-    </table></div>
-  </div>
-
-  <div class="card teal">
-    <div class="card-hd"><span class="lbl">CTR Trend · Long Form · Chronological</span><span class="tag tg">packaging signal</span></div>
-    <div style="font-size:11px;color:var(--dim);margin-bottom:8px">Are thumbnails improving over time? Look for an upward trend in S2.</div>
-    <canvas id="ch-ctr-tn" width="700" height="180" style="width:100%;height:180px"></canvas>
-  </div>
-
-  <div class="card none">
-    <div class="card-hd"><span class="lbl">CTR vs Avg View Duration · Long Form</span><span class="tag tn">thumbnail + delivery check</span></div>
-    <div style="font-size:11px;color:var(--dim);margin-bottom:10px">High CTR + high watch time = great thumbnail <em>and</em> great content. High CTR + low watch time = thumbnail overpromised.</div>
-    <div id="tn-quadrant"></div>
-  </div>
-
-  <div class="card none">
-    <div class="card-hd"><span class="lbl">How to Read This Tab</span></div>
-    <div style="display:flex;flex-direction:column;gap:6px;font-size:12px;color:var(--muted)">
-      <div><span style="color:var(--teal);font-weight:600">CTR &gt; 5%</span> — excellent. Analyze what worked: face, color contrast, text, emotion.</div>
-      <div><span style="color:var(--amber);font-weight:600">CTR 2–5%</span> — solid. Look for patterns in what's underperforming.</div>
-      <div><span style="color:rgba(240,160,64,0.5);font-weight:600">CTR &lt; 2%</span> — thumbnail isn't converting. A/B test a new version.</div>
-      <div style="margin-top:4px;color:var(--dim)">Always pair CTR with Avg View Duration — a misleading thumbnail can spike CTR but tank watch time.</div>
-    </div>
-  </div>
-
-</div>
-
-
-<!-- ══ SHORT FORM ════════════════════════════════════════════ -->
-<div id="shortform" class="tab">
-
-  <div class="card">
-    <div class="card-hd">
-      <span class="lbl">Short Form Trial · Aug 11 – Sep 11, 2026</span>
-      <span class="tag tb" id="sfm-trial-tag">active</span>
-    </div>
-    <div style="display:flex;gap:6px;margin-bottom:10px">
-      <div class="clock-cell"><div class="clock-num" id="sfm-cd-d">--</div><div class="clock-lbl">Days</div></div>
-      <div class="clock-cell"><div class="clock-num" id="sfm-cd-h">--</div><div class="clock-lbl">Hrs</div></div>
-      <div class="clock-cell"><div class="clock-num" id="sfm-cd-m">--</div><div class="clock-lbl">Min</div></div>
-      <div class="clock-cell"><div class="clock-num" id="sfm-cd-s">--</div><div class="clock-lbl">Sec</div></div>
-    </div>
-    <div style="font-size:11px;color:var(--dim)">1-month trial, no fixed target — track everything Stephan publishes during this window.</div>
-  </div>
-
-  <div class="alert aa" style="margin-bottom:8px"><div class="dot da"></div><span>15 Shorts live since trial start (Aug 11–18, 2026). Previous Shorts were removed for brand misalignment; this tracker restarts from zero for the trial.</span></div>
-
-  <div class="card teal" style="margin-bottom:8px">
-    <div class="card-hd"><span class="lbl">Trial Impact vs Prior Window</span><span class="tag tg">channel-level · Aug 11–18 vs Aug 3–10, 2026 (8 days each)</span></div>
-    <div class="g4">
-      <div class="inner"><div class="lbl" style="margin-bottom:3px">Views</div><div class="mono" style="font-size:20px;color:var(--teal);font-weight:600">5,020</div><div style="font-size:10px;color:var(--dim)">vs 13 prior · +38,538%</div></div>
-      <div class="inner"><div class="lbl" style="margin-bottom:3px">Watch Time</div><div class="mono" style="font-size:20px;color:var(--teal);font-weight:600">14.3 hrs</div><div style="font-size:10px;color:var(--dim)">vs 0.2 hrs prior</div></div>
-      <div class="inner"><div class="lbl" style="margin-bottom:3px">Subs Gained</div><div class="mono" style="font-size:20px;color:var(--teal);font-weight:600">+16</div><div style="font-size:10px;color:var(--dim)">vs 0 prior (−1 lost)</div></div>
-      <div class="inner"><div class="lbl" style="margin-bottom:3px">Subs Lost</div><div class="mono" style="font-size:20px;color:var(--amber);font-weight:600">−1</div><div style="font-size:10px;color:var(--dim)">vs −1 prior</div></div>
-    </div>
-    <div style="font-size:10px;color:var(--dim);margin-top:8px">Channel-level totals (not Shorts-only) for the 8 days since trial start vs the 8 days immediately prior — a rough before/after read on the Shorts trial's effect on the channel. Manual snapshot pulled 2026-08-18; not auto-refreshed.</div>
-  </div>
-
-  <div class="card teal">
-    <div class="card-hd"><span class="lbl">Trial Scorecard</span><span class="tag tg">shorts published in trial window only</span></div>
-    <div class="g4">
-      <div class="inner"><div class="lbl" style="margin-bottom:3px">Total Views</div><div class="mono" style="font-size:20px;color:var(--teal);font-weight:600" id="sfm-sc-views">19,734</div></div>
-      <div class="inner"><div class="lbl" style="margin-bottom:3px">Subs Gained</div><div class="mono" style="font-size:20px;color:var(--teal);font-weight:600" id="sfm-sc-subs">0</div></div>
-      <div class="inner"><div class="lbl" style="margin-bottom:3px">Avg CTR</div><div class="mono" style="font-size:20px;color:var(--amber);font-weight:600" id="sfm-sc-ctr">—</div></div>
-      <div class="inner"><div class="lbl" style="margin-bottom:3px">Avg % Viewed</div><div class="mono" style="font-size:20px;color:var(--amber);font-weight:600" id="sfm-sc-ret">—</div></div>
-    </div>
-    <div style="font-size:10px;color:var(--dim);margin-top:8px">Old removed Shorts never count toward this scorecard — only videos published between 2026-08-11 and 2026-09-11.</div>
-  </div>
-
-  <div class="card">
-    <div class="card-hd"><span class="lbl">Monthly Uploads</span><span class="tag tn">trial month highlighted</span></div>
-    <div id="sfm-bars"></div>
-  </div>
-
-  <div class="card">
-    <div class="card-hd"><span class="lbl">Short Form · Per Video</span><span class="tag tn" id="sfm-count">0 shorts</span></div>
-    <div style="font-size:11px;color:var(--dim);margin-bottom:8px">Click a column header to sort.</div>
-    <div class="scr"><table id="sfm-table">
-      <thead><tr>
-        <th onclick="sfmSort('t')" style="cursor:pointer">Title</th>
-        <th onclick="sfmSort('d')" style="cursor:pointer">Published</th>
-        <th onclick="sfmSort('views')" style="cursor:pointer">Views</th>
-        <th onclick="sfmSort('impressions')" style="cursor:pointer">Impressions</th>
-        <th onclick="sfmSort('ctr')" style="cursor:pointer">CTR</th>
-        <th onclick="sfmSort('ret')" style="cursor:pointer">Avg % Viewed</th>
-        <th onclick="sfmSort('likes')" style="cursor:pointer">Likes</th>
-        <th onclick="sfmSort('comments')" style="cursor:pointer">Comments</th>
-        <th onclick="sfmSort('shares')" style="cursor:pointer">Shares</th>
-        <th onclick="sfmSort('subs')" style="cursor:pointer">Subs Gained</th>
-        <th onclick="sfmSort('status')" style="cursor:pointer">Status</th>
-      </tr></thead>
-      <tbody id="sfm-tbody"><tr><td colspan="11" style="text-align:center;color:var(--dim);padding:20px">No Shorts published yet in the trial window.</td></tr></tbody>
-    </table></div>
-  </div>
-
-  <div class="card none">
-    <div class="card-hd"><span class="lbl">Data Source</span></div>
-    <div style="font-size:11px;color:var(--dim)">Public metrics (views, likes, comments, subs) and Analytics-tier metrics (CTR, Avg % Viewed) for this tab are read from <code>data/shorts.json</code>, a placeholder file updated manually for now — no live YouTube Analytics OAuth pull is wired up yet. See the TODO note inside that file for what's needed to automate it.</div>
-  </div>
-
-</div>
-
-
-<!-- ══ PAID ADS ════════════════════════════════════════════ -->
-<div id="paidads" class="tab">
-
-  <div class="alert aa" style="margin-bottom:8px"><div class="dot da"></div><span>Spend and ROI data not available — connect a Google Ads export to enable this. Everything below is channel-level Traffic Source only, not per-video.</span></div>
-
-  <div class="card" id="pa-empty" style="display:none">
-    <div class="card-hd"><span class="lbl">Traffic Source</span></div>
-    <div style="font-size:12px;color:var(--dim);padding:12px 0;text-align:center">No traffic-source snapshot yet. Paste a YouTube Studio Traffic Source export into <code>data/traffic-source.json</code> to populate this tab.</div>
-  </div>
-
-  <div id="pa-content" style="display:none">
-    <div class="card">
-      <div class="card-hd"><span class="lbl">Traffic Source · Full Breakdown</span><span class="tag tn">latest snapshot</span></div>
-      <div class="scr"><table>
-        <thead><tr><th>Source</th><th>Views</th><th>% of Total</th><th>Engaged Views</th><th>Avg % Viewed</th><th>Watch Time</th><th>Avg View Duration</th><th>Impressions</th><th>CTR</th></tr></thead>
-        <tbody id="pa-tbody"></tbody>
-      </table></div>
-    </div>
-
-    <div class="card teal">
-      <div class="card-hd"><span class="lbl">Channel Diagnosis · Views by Traffic Source</span><span class="tag tg" id="pa-snapshot-date">—</span></div>
-      <div class="g2" style="margin-bottom:10px">
-        <div class="inner"><div class="lbl" style="margin-bottom:3px">Paid (Ads + Shorts Feed)</div><div class="mono" style="font-size:20px;color:var(--amber);font-weight:600" id="pa-paid-pct">—</div></div>
-        <div class="inner"><div class="lbl" style="margin-bottom:3px">Organic Discovery</div><div class="mono" style="font-size:20px;color:var(--teal);font-weight:600" id="pa-organic-pct">—</div></div>
-      </div>
-      <div style="font-size:10px;color:var(--dim);margin-bottom:8px">Organic Discovery = Browse features + YouTube search + Suggested videos.</div>
-      <div id="pa-bars"></div>
-    </div>
-
-    <div class="card none">
-      <div class="card-hd"><span class="lbl">Snapshot History</span></div>
-      <div id="pa-history" style="font-size:11px;color:var(--muted);display:flex;flex-direction:column;gap:4px"></div>
-    </div>
-  </div>
-
-  <div class="card none">
-    <div class="card-hd"><span class="lbl">Data Source</span></div>
-    <div style="font-size:11px;color:var(--dim)">Fed by manually pasted YouTube Studio Traffic Source exports saved as dated snapshots in <code>data/traffic-source.json</code>. No live pull — channel-level Traffic Source data isn't exposed per-video and isn't available via a wired Analytics API endpoint yet.</div>
-  </div>
-
-</div>
-
-
-<!-- ══ IG/FB ════════════════════════════════════════════ -->
-<div id="igfb" class="tab">
-
-  <div class="g2">
-    <div class="card teal">
-      <div class="card-hd"><span class="lbl">Instagram</span><span class="tag tg">goal: 1,000 followers</span></div>
-      <div class="mono" style="font-size:28px;color:var(--teal);font-weight:600" id="ig-followers">—</div>
-      <div style="font-size:11px;color:var(--dim);margin-bottom:8px" id="ig-followers-rem">— to go</div>
-      <div class="btrack"><div class="bar" id="ig-followers-bar" style="background:var(--teal);width:0%"></div></div>
-    </div>
-    <div class="card teal">
-      <div class="card-hd"><span class="lbl">Facebook</span><span class="tag tg">goal: 1,000 followers</span></div>
-      <div class="mono" style="font-size:28px;color:var(--teal);font-weight:600" id="fb-followers">—</div>
-      <div style="font-size:11px;color:var(--dim);margin-bottom:8px" id="fb-followers-rem">— to go</div>
-      <div class="btrack"><div class="bar" id="fb-followers-bar" style="background:var(--teal);width:0%"></div></div>
-    </div>
-  </div>
-
-  <div class="card" style="margin-top:8px">
-    <div class="card-hd"><span class="lbl">Instagram · Last 8 Days</span><span class="tag tn" id="ig-range">—</span></div>
-    <div class="g4">
-      <div class="inner"><div class="lbl" style="margin-bottom:3px">Views</div><div class="mono" style="font-size:18px;color:var(--teal);font-weight:600" id="ig-sum-views">—</div></div>
-      <div class="inner"><div class="lbl" style="margin-bottom:3px">Profile Visits</div><div class="mono" style="font-size:18px;color:var(--teal);font-weight:600" id="ig-sum-visits">—</div></div>
-      <div class="inner"><div class="lbl" style="margin-bottom:3px">Reach</div><div class="mono" style="font-size:18px;color:var(--teal);font-weight:600" id="ig-sum-reach">—</div></div>
-      <div class="inner"><div class="lbl" style="margin-bottom:3px">Interactions</div><div class="mono" style="font-size:18px;color:var(--teal);font-weight:600" id="ig-sum-interactions">—</div></div>
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="card-hd"><span class="lbl">Instagram · Daily</span></div>
-    <div class="scr"><table>
-      <thead><tr><th>Date</th><th>Views</th><th>Profile Visits</th><th>Reach</th><th>Interactions</th></tr></thead>
-      <tbody id="ig-tbody"></tbody>
-    </table></div>
-  </div>
-
-  <div class="card none">
-    <div class="card-hd"><span class="lbl">Facebook · Daily</span></div>
-    <div style="font-size:11px;color:var(--dim)" id="fb-empty-note">No daily Facebook metrics yet — only the follower count is tracked. Export Facebook Page Insights (Meta Business Suite &rarr; Facebook page &rarr; Insights &rarr; Export) the same way as the Instagram CSVs and they'll show up here.</div>
-  </div>
-
-  <div class="card none">
-    <div class="card-hd"><span class="lbl">What Else to Track</span></div>
-    <div style="display:flex;flex-direction:column;gap:6px;font-size:12px;color:var(--muted)">
-      <div><span style="color:var(--teal);font-weight:600">Follows from content</span> — Instagram Insights breaks out how many new follows came directly from a specific post/reel. Best signal for what content actually converts to followers, not just views.</div>
-      <div><span style="color:var(--teal);font-weight:600">Saves &amp; Shares (per post)</span> — Meta weights these heavily in reach/distribution. Views can be inflated by loops; saves/shares are a cleaner "this was worth it" signal.</div>
-      <div><span style="color:var(--teal);font-weight:600">Reels plays vs. Reach ratio</span> — tells you whether content is getting rewatched/looped (retention) vs. just reaching more unique people once.</div>
-      <div><span style="color:var(--teal);font-weight:600">Engagement rate (interactions / reach)</span> — normalizes for the account being tiny right now; more useful than raw interaction counts while follower count is low.</div>
-      <div><span style="color:var(--teal);font-weight:600">External link taps / website clicks</span> — if the goal is ever to funnel IG/FB traffic to YouTube, this is the number that matters, not follower count alone.</div>
-      <div><span style="color:var(--teal);font-weight:600">Facebook Page followers vs. Page likes</span> — Meta tracks these separately; worth confirming which one is the "43" so the 1K goal is measured consistently.</div>
-      <div style="margin-top:4px;color:var(--dim)">All of the above are available as CSV exports from Meta Business Suite &rarr; Insights, same flow as the files already being pasted in here.</div>
-    </div>
-  </div>
-
-  <div class="card none">
-    <div class="card-hd"><span class="lbl">Data Source</span></div>
-    <div style="font-size:11px;color:var(--dim)">Follower counts are hand-reported (no Meta Graph API wired up). Daily Instagram metrics are pasted from Instagram Insights CSV exports into <code>data/social.json</code>. No Facebook daily metrics available yet.</div>
-  </div>
-
-</div>
-
-</div><!-- /wrap -->
 
 <script>
-const fmt=n=>Number(n).toLocaleString();
-const pad=n=>String(n).padStart(2,'0');
-
-const LF=[
-  {vid:"OLFbWxSN9o8",t:"why going to jail was good for me",d:"Nov 12, 2025",views:7543,ret:24.82,ctr:9.16,subs:3,likes:15},
-  {t:"When Growing Up Felt Differently",d:"Nov 19, 2025",views:62,ret:40.58,ctr:5.84,subs:4,likes:7},
-  {vid:"UO7p4cAuu_U",t:"35. Unemployed. Single Loser.",d:"Nov 19, 2025",views:168,ret:32.93,ctr:2.38,subs:0,likes:1},
-  {vid:"mC5SzxQmVi4",t:"How getting laid off left me searching for a new home",d:"Nov 26, 2025",views:58,ret:41.57,ctr:4.47,subs:2,likes:3},
-  {vid:"QjGV6CK1tJo",t:"Why getting fired forced me out of my home",d:"Dec 3, 2025",views:22,ret:41.4,ctr:3.97,subs:0,likes:1},
-  {vid:"5CQHOpyXWKk",t:"How burnout will change you [for the better]",d:"Dec 10, 2025",views:5098,ret:40.81,ctr:4.26,subs:0,likes:4},
-  {vid:"SC8SfzHsabo",t:"How bullying can change you [for the better]",d:"Dec 16, 2025",views:6462,ret:35.23,ctr:4.15,subs:4,likes:12},
-  {vid:"VYq0d05J_M8",t:"don't waste another year",d:"Nov 11, 2025",views:225,ret:45.68,ctr:10.08,subs:2,likes:4},
-];
-const TR=[LF[0],LF[1],LF[2],LF[3],LF[4],LF[5],LF[6]];
-
-const TABS=['home','scoreboard','videos','growth','revenue','trends','pipeline','editor','publishing','billing','thumbnails','shortform','paidads','igfb'];
-
-function show(id,btn){
-  TABS.forEach(t=>document.getElementById(t).style.display='none');
-  document.getElementById(id).style.display='block';
-  document.querySelectorAll('#tab-nav .nav-tab').forEach(p=>p.classList.remove('active'));
-  btn.classList.add('active');
-  if(id==='trends')drawCharts();
-  if(id==='thumbnails')drawThumbnailTab();
-  if(id==='shortform')loadShortForm();
-  if(id==='paidads')loadPaidAds();
-  if(id==='igfb')loadIgFb();
-}
-
-window.onload=function(){
-  TABS.forEach(t=>document.getElementById(t).style.display='none');
-  document.getElementById('home').style.display='block';
-  document.getElementById('live-date').textContent=new Date().toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric',year:'numeric'});
-  document.getElementById('h-date').textContent=new Date().toLocaleDateString('en-US',{month:'short',year:'numeric'});
-  buildTables();buildBars();updBE();buildThumbnailTables();
-  tick();setInterval(tick,1000);
-};
-
-function tick(){
-  const diff=Math.max(0,new Date('2027-07-17T00:00:00')-new Date());
-  document.getElementById('cd-d').textContent=Math.floor(diff/864e5);
-  document.getElementById('cd-h').textContent=pad(Math.floor((diff%864e5)/36e5));
-  document.getElementById('cd-m').textContent=pad(Math.floor((diff%36e5)/6e4));
-  document.getElementById('cd-s').textContent=pad(Math.floor((diff%6e4)/1e3));
-  const sfDiff=new Date('2026-09-11T00:00:00')-new Date();
-  const sfEl=document.getElementById('sfm-cd-d');
-  if(sfEl){
-    const active=sfDiff>0;
-    document.getElementById('sfm-trial-tag').textContent=active?'active':'trial ended';
-    document.getElementById('sfm-trial-tag').className='tag '+(active?'tb':'tn');
-    const d=Math.max(0,sfDiff);
-    document.getElementById('sfm-cd-d').textContent=Math.floor(d/864e5);
-    document.getElementById('sfm-cd-h').textContent=pad(Math.floor((d%864e5)/36e5));
-    document.getElementById('sfm-cd-m').textContent=pad(Math.floor((d%36e5)/6e4));
-    document.getElementById('sfm-cd-s').textContent=pad(Math.floor((d%6e4)/1e3));
+(function(){
+  'use strict';
+  var D = null, WHO = 'all';
+  var $ = function(id){ return document.getElementById(id); };
+  function esc(s){ return String(s == null ? '' : s).replace(/[&<>"']/g, function(c){
+    return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
+  function num(n){ return (n == null || isNaN(n)) ? '—' : Number(n).toLocaleString('en-US'); }
+  function fmtDate(iso){
+    if(!iso) return '';
+    var d = new Date(iso.length <= 10 ? iso + 'T00:00:00Z' : iso);
+    return d.toLocaleDateString('en-US', {month:'short', day:'numeric', timeZone:'UTC'});
   }
-}
+  function whoTag(w){ w = (w==='Xavy'||w==='Stephan') ? w : 'Both'; return '<span class="who '+w+'">'+w+'</span>'; }
+  function visible(owner){ return WHO === 'all' || owner === WHO || owner === 'Both'; }
 
-function buildTables(){
-  const lb=document.getElementById('lf-tbody');
-  let tv=0,tr=0,tc=0,ts=0,tl=0;
-  LF.forEach((v,i)=>{
-    tv+=v.views;tr+=v.ret;tc+=v.ctr;ts+=v.subs;tl+=v.likes;
-    lb.innerHTML+=`<tr>
-      <td class="mono" style="color:rgba(240,239,232,0.25)">${i+1}</td>
-      <td style="font-weight:500">${v.t}</td>
-      <td class="mono" style="color:rgba(240,239,232,0.3);white-space:nowrap">${v.d}</td>
-      <td class="mono" style="color:#3ecf8e;font-weight:600">${fmt(v.views)}</td>
-      <td class="mono">${v.ret.toFixed(1)}%</td>
-      <td class="mono" style="color:#f0a040">${v.ctr.toFixed(2)}%</td>
-      <td class="mono" style="color:${v.subs>0?'#3ecf8e':'rgba(240,239,232,0.3)'}">+${v.subs}</td>
-      <td class="mono">${v.likes}</td>
-    </tr>`;
-  });
-  document.getElementById('lf-tv').textContent=fmt(tv);
-  document.getElementById('lf-ar').textContent=(tr/LF.length).toFixed(1)+'%';
-  document.getElementById('lf-ac').textContent=(tc/LF.length).toFixed(2)+'%';
-  document.getElementById('lf-ts').textContent='+'+ts;
-  document.getElementById('lf-tl').textContent=tl;
-}
-
-function buildBars(){
-  const rc=document.getElementById('ret-bars');
-  const mx=Math.max(...LF.map(v=>v.ret));
-  LF.forEach(v=>{
-    const p=Math.round((v.ret/mx)*100);
-    rc.innerHTML+=`<div style="display:flex;align-items:center;gap:10px;margin-bottom:7px">
-      <div style="font-size:11px;color:rgba(240,239,232,0.5);width:190px;flex-shrink:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${v.t}</div>
-      <div style="flex:1;display:flex;align-items:center;gap:8px">
-        <div class="btrack" style="flex:1"><div class="bar" style="background:#3ecf8e;width:${p}%"></div></div>
-        <span class="mono" style="font-size:11px;width:36px;text-align:right;color:#3ecf8e;font-weight:600">${v.ret.toFixed(1)}%</span>
-      </div>
-    </div>`;
-  });
-  const cc=document.getElementById('conv-bars');
-  const ms=Math.max(...LF.map(v=>v.subs),1);
-  LF.forEach(v=>{
-    const p=Math.round((v.subs/ms)*100);
-    cc.innerHTML+=`<div style="display:flex;align-items:center;gap:10px;margin-bottom:7px">
-      <div style="font-size:11px;color:rgba(240,239,232,0.5);width:190px;flex-shrink:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${v.t}</div>
-      <div style="flex:1;display:flex;align-items:center;gap:8px">
-        <div class="btrack" style="flex:1"><div class="bar" style="background:#3ecf8e;width:${p}%"></div></div>
-        <span class="mono" style="font-size:11px;width:36px;text-align:right;color:#3ecf8e;font-weight:600">+${v.subs}</span>
-      </div>
-    </div>`;
-  });
-}
-
-function updLF(v){
-  v=Math.min(100,Math.max(0,+v));
-  document.getElementById('sb-lf-bar').style.width=v+'%';
-  document.getElementById('sb-lf-txt').textContent=v+' of 100';
-  document.getElementById('sb-lf-rem').textContent=(100-v)+' to go';
-  document.getElementById('h-lf').textContent=v;
-  document.getElementById('h-lf-bar').style.width=v+'%';
-  document.getElementById('h-lf-rem').textContent=(100-v)+' remaining';
-}
-function updSF(){
-  const v=Math.max(0,+document.getElementById('inp-sf').value||0);
-  const t=+document.getElementById('inp-sft').value||0;
-  const p=t>0?Math.min(100,Math.round(v/t*100)):4;
-  document.getElementById('sb-sf-bar').style.width=p+'%';
-  document.getElementById('sb-sf-txt').textContent=t>0?(v+' / '+t):v+' published';
-  document.getElementById('sb-sf-rem').textContent=t>0?(t-v)+' to go':'target TBD';
-  document.getElementById('h-sf').textContent=v;
-}
-function updSubs(v){
-  v=Math.max(0,+v);
-  const gate=v<1000?1000:v<10000?10000:100000;
-  const gl=v<1000?'1,000':v<10000?'10,000':'100,000';
-  const p=Math.min(100,Math.round(v/gate*100));
-  document.getElementById('sb-sub-bar').style.width=p+'%';
-  document.getElementById('sb-sub-txt').textContent=fmt(v)+' / '+gl;
-  document.getElementById('sb-sub-rem').textContent=fmt(gate-v)+' to gate';
-  document.getElementById('h-subs').textContent=fmt(v);
-  document.getElementById('h-subs-bar').style.width=p+'%';
-  document.getElementById('h-subs-rem').textContent=fmt(gate-v)+' to gate 1';
-}
-function updWT(v){
-  v=Math.max(0,+v);
-  const p=Math.min(100,Math.round(v/4000*100));
-  document.getElementById('sb-wt-bar').style.width=p+'%';
-  document.getElementById('sb-wt-txt').textContent=fmt(v)+' / 4,000';
-  document.getElementById('sb-wt-rem').textContent=fmt(4000-v)+' remaining · '+p+'%';
-  document.getElementById('h-wt').textContent=fmt(v);
-}
-function updCad(){
-  const lp=+document.getElementById('cad-lf-p').value||0;
-  const lt=+document.getElementById('cad-lf-t').value||4;
-  const sp=+document.getElementById('cad-sf-p').value||0;
-  const st=+document.getElementById('cad-sf-t').value||0;
-  document.getElementById('cad-lf-bar').style.width=Math.min(100,Math.round(lp/lt*100))+'%';
-  document.getElementById('cad-sf-bar').style.width=(st>0?Math.min(100,Math.round(sp/st*100)):10)+'%';
-}
-function updRev(){
-  const t=(+document.getElementById('rev-a').value||0)+(+document.getElementById('rev-b').value||0)+(+document.getElementById('rev-o').value||0);
-  document.getElementById('rev-total').textContent='$'+fmt(t);
-  updBE();
-}
-function updBE(){
-  const exp=+document.getElementById('be-exp').value||2000;
-  const rpm=+document.getElementById('be-rpm').value||3;
-  const cur=(+document.getElementById('rev-a').value||0)+(+document.getElementById('rev-b').value||0)+(+document.getElementById('rev-o').value||0);
-  const gap=Math.max(0,exp-cur);
-  document.getElementById('be-views').textContent=rpm>0?fmt(Math.ceil(gap/rpm*1000)):'—';
-  document.getElementById('be-deals').textContent=Math.ceil(gap/800)+'-'+Math.ceil(gap/200);
-  document.getElementById('be-txt').textContent=gap<=0?'Break-even reached!':'At $'+fmt(cur)+'/mo · $'+fmt(gap)+' gap to break-even.';
-  const al=document.getElementById('be-alert');
-  al.className='alert '+(gap<=0?'ag':'aa');
-  al.querySelector('.dot').className='dot '+(gap<=0?'dg':'da');
-}
-
-function showGF(){document.getElementById('growth-form').style.display='block'}
-function hideGF(){document.getElementById('growth-form').style.display='none'}
-function saveGF(){
-  const m=document.getElementById('gf-mo').value||'—';
-  const s=document.getElementById('gf-s').value||'0';
-  const v=document.getElementById('gf-v').value||'0';
-  const w=document.getElementById('gf-w').value||'0';
-  const r=document.getElementById('gf-r').value||'0';
-  const n=document.getElementById('gf-n').value||'';
-  document.getElementById('growth-body').innerHTML+=`<tr>
-    <td class="mono" style="color:rgba(240,239,232,0.3)">${m}</td>
-    <td class="mono" style="color:#3ecf8e;font-weight:600">+${fmt(s)}</td>
-    <td class="mono">${fmt(v)}</td>
-    <td class="mono">${fmt(w)}</td>
-    <td class="mono" style="color:${+r>0?'#3ecf8e':'rgba(240,239,232,0.3)'}">$${fmt(r)}</td>
-    <td style="font-size:11px;color:rgba(240,239,232,0.4)">${n}</td>
-  </tr>`;
-  hideGF();
-  ['gf-mo','gf-s','gf-v','gf-w','gf-r','gf-n'].forEach(id=>document.getElementById(id).value='');
-}
-
-// ── Thumbnails CTR Tab ────────────────────────────────────────
-const LF_EXT=[
-  {imp:82357,avd:178},{imp:1063,avd:245},{imp:7059,avd:199},{imp:1297,avd:251},
-  {imp:554,avd:250},{imp:119739,avd:247},{imp:155696,avd:213},{imp:2232,avd:276},
-];
-function fmtAvd(s){const m=Math.floor(s/60);return m+'m '+String(s%60).padStart(2,'0')+'s';}
-function ctrColor(c,avg){return c>=5?'#3ecf8e':c>=avg?'#f0a040':'rgba(240,160,64,0.45)';}
-function buildThumbnailTables(){
-  const avg=LF.reduce((a,v)=>a+v.ctr,0)/LF.length;
-  document.getElementById('tn-avg-lf').textContent=avg.toFixed(2)+'%';
-  const best=LF.reduce((a,v)=>v.ctr>a.ctr?v:a,LF[0]);
-  document.getElementById('tn-best').textContent=best.ctr.toFixed(2)+'%';
-  document.getElementById('tn-best-title').textContent=best.t.length>26?best.t.slice(0,24)+'…':best.t;
-  const aboveAvg=LF.filter(v=>v.ctr>=avg).length;
-  document.getElementById('tn-above').textContent=aboveAvg;
-  const txt=document.getElementById('tn-alert-txt'),al=document.getElementById('tn-alert');
-  if(avg>=5){txt.innerHTML=`Avg CTR <strong>${avg.toFixed(2)}%</strong> — above the 5% strong threshold. Thumbnail performance is excellent.`;al.className='alert ag';al.querySelector('.dot').className='dot dg';}
-  else if(avg>=2){txt.innerHTML=`Avg CTR <strong>${avg.toFixed(2)}%</strong> — within the normal 2–10% range. ${aboveAvg} of ${LF.length} videos beat the average.`;al.className='alert aa';al.querySelector('.dot').className='dot da';}
-  else{txt.innerHTML=`Avg CTR <strong>${avg.toFixed(2)}%</strong> — below the 2% floor. Thumbnails need significant testing.`;al.className='alert aa';al.querySelector('.dot').className='dot da';}
-  const lb=document.getElementById('tn-lf-tbody');
-  let tc=0,ti=0,ratingSum=0;
-  LF.forEach((v,i)=>{
-    tc+=v.ctr;const ext=LF_EXT[i]||{imp:0,avd:0};ti+=ext.imp;
-    const delta=v.ctr-avg,dStr=(delta>=0?'+':'')+delta.toFixed(2)+'%',dCol=delta>=0?'#3ecf8e':'rgba(240,160,64,0.6)';
-    const stars=v.ctr>=7?'★★★★★':v.ctr>=5?'★★★★☆':v.ctr>=3?'★★★☆☆':v.ctr>=2?'★★☆☆☆':'★☆☆☆☆';
-    ratingSum+=(v.ctr>=7?5:v.ctr>=5?4:v.ctr>=3?3:v.ctr>=2?2:1);
-    lb.innerHTML+=`<tr>
-      <td class="mono" style="color:rgba(240,239,232,0.25)">${i+1}</td>
-      <td style="font-weight:500;max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${v.t}</td>
-      <td class="mono" style="color:rgba(240,239,232,0.3);white-space:nowrap">${v.d}</td>
-      <td class="mono" style="color:${ctrColor(v.ctr,avg)};font-weight:600;font-size:13px">${v.ctr.toFixed(2)}%</td>
-      <td class="mono" style="color:${dCol};font-size:11px">${dStr}</td>
-      <td class="mono" style="color:rgba(240,239,232,0.5)">${ext.imp>0?fmt(ext.imp):'—'}</td>
-      <td class="mono" style="color:rgba(240,239,232,0.7)">${ext.avd>0?fmtAvd(ext.avd):'—'}</td>
-      <td style="color:var(--amber);letter-spacing:1px;font-size:11px">${stars}</td>
-    </tr>`;
-  });
-  document.getElementById('tn-lf-ac').textContent=(tc/LF.length).toFixed(2)+'%';
-  document.getElementById('tn-lf-ti').textContent=fmt(ti);
-  document.getElementById('tn-lf-rating').textContent=(ratingSum/LF.length).toFixed(1)+' / 5';
-  const avgAvd=LF_EXT.reduce((a,e)=>a+e.avd,0)/LF_EXT.length,qc=document.getElementById('tn-quadrant');
-  LF.forEach((v,i)=>{
-    const ext=LF_EXT[i]||{avd:0},hiCtr=v.ctr>=avg,hiAvd=ext.avd>=avgAvd;
-    const label=hiCtr&&hiAvd?{t:'Great — click + deliver',c:'#3ecf8e'}:hiCtr&&!hiAvd?{t:'Misleading — click, no deliver',c:'#f0a040'}:!hiCtr&&hiAvd?{t:'Hidden gem — delivers, not clicked',c:'#f0a040'}:{t:'Needs work',c:'rgba(240,160,64,0.4)'};
-    qc.innerHTML+=`<div style="display:flex;align-items:center;gap:10px;margin-bottom:7px">
-      <div style="font-size:11px;color:rgba(240,239,232,0.5);width:190px;flex-shrink:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${v.t}</div>
-      <span class="mono" style="font-size:11px;color:${ctrColor(v.ctr,avg)};width:52px">CTR ${v.ctr.toFixed(1)}%</span>
-      <span class="mono" style="font-size:11px;color:rgba(240,239,232,0.4);width:48px">${ext.avd>0?fmtAvd(ext.avd):'—'}</span>
-      <span style="font-size:10px;font-weight:600;color:${label.c};text-transform:uppercase;letter-spacing:.05em">${label.t}</span>
-    </div>`;
-  });
-}
-let tnChartDrawn=false;
-function drawThumbnailTab(){if(tnChartDrawn)return;tnChartDrawn=true;drawLine('ch-ctr-tn',TR.map(v=>v.ctr),'#f0a040','rgba(240,160,64,0.07)',v=>v.toFixed(1)+'%');}
-
-// CHARTS
-let chartsDrawn=false;
-function drawCharts(){
-  if(chartsDrawn)return;
-  chartsDrawn=true;
-  drawBar('ch-views',TR.map(v=>v.views),'#3ecf8e','rgba(255,255,255,0.06)',v=>v>=1000?(v/1000).toFixed(1)+'K':v,v=>v>500);
-  drawLine('ch-ret',TR.map(v=>v.ret),'#3ecf8e','rgba(62,207,142,0.07)',v=>v.toFixed(1)+'%');
-  drawLine('ch-ctr',TR.map(v=>v.ctr),'#f0a040','rgba(240,160,64,0.07)',v=>v.toFixed(1)+'%');
-  drawBar('ch-subs',TR.map(v=>v.subs),'#3ecf8e','rgba(255,255,255,0.05)',v=>'+'+v,v=>v>0);
-}
-function drawBar(id,vals,hiCol,loCol,lFn,hiFn){
-  const c=document.getElementById(id);
-  const W=700,H=c.height;c.width=W;
-  const ctx=c.getContext('2d');
-  const n=vals.length,pL=42,pR=10,pT=14,pB=28;
-  const cW=W-pL-pR,cH=H-pT-pB;
-  const mx=Math.max(...vals)*1.2||1;
-  const bW=Math.floor(cW/n*0.5);
-  ctx.clearRect(0,0,W,H);
-  for(let i=0;i<=4;i++){
-    const y=pT+cH-cH/4*i;
-    ctx.strokeStyle='rgba(255,255,255,0.05)';ctx.lineWidth=1;
-    ctx.beginPath();ctx.moveTo(pL,y);ctx.lineTo(W-pR,y);ctx.stroke();
-    ctx.fillStyle='rgba(240,239,232,0.3)';ctx.font='9px JetBrains Mono,monospace';ctx.textAlign='right';
-    ctx.fillText(lFn(mx/4*i),pL-4,y+3);
-  }
-  vals.forEach((v,i)=>{
-    const x=pL+(cW/n)*i+(cW/n-bW)/2;
-    const bh=Math.max(2,(v/mx)*cH);
-    const y=pT+cH-bh;
-    ctx.fillStyle=hiFn&&hiFn(v)?hiCol:loCol;
-    ctx.beginPath();ctx.roundRect(x,y,bW,bh,2);ctx.fill();
-    ctx.fillStyle='rgba(240,239,232,0.3)';ctx.font='9px JetBrains Mono,monospace';ctx.textAlign='center';
-    ctx.fillText('V'+(i+1),x+bW/2,H-3);
-    if(bh>14){ctx.fillStyle='#16181c';ctx.font='bold 9px JetBrains Mono,monospace';ctx.fillText(lFn(v),x+bW/2,y+10);}
-  });
-}
-function drawLine(id,vals,col,fill,lFn){
-  const c=document.getElementById(id);
-  const W=700,H=c.height;c.width=W;
-  const ctx=c.getContext('2d');
-  const n=vals.length,pL=42,pR=10,pT=14,pB=28;
-  const cW=W-pL-pR,cH=H-pT-pB;
-  const mn=Math.max(0,Math.min(...vals)*0.8),mx=Math.max(...vals)*1.2||1;
-  const rng=mx-mn||1;
-  const xOf=i=>pL+i*(cW/(n-1));
-  const yOf=v=>pT+cH-((v-mn)/rng)*cH;
-  ctx.clearRect(0,0,W,H);
-  for(let i=0;i<=4;i++){
-    const val=mn+(rng/4*i),y=yOf(val);
-    ctx.strokeStyle='rgba(255,255,255,0.05)';ctx.lineWidth=1;
-    ctx.beginPath();ctx.moveTo(pL,y);ctx.lineTo(W-pR,y);ctx.stroke();
-    ctx.fillStyle='rgba(240,239,232,0.3)';ctx.font='9px JetBrains Mono,monospace';ctx.textAlign='right';
-    ctx.fillText(lFn(val),pL-4,y+3);
-  }
-  ctx.beginPath();ctx.moveTo(xOf(0),yOf(vals[0]));
-  vals.forEach((v,i)=>{if(i>0)ctx.lineTo(xOf(i),yOf(v));});
-  ctx.lineTo(xOf(n-1),pT+cH);ctx.lineTo(xOf(0),pT+cH);ctx.closePath();
-  ctx.fillStyle=fill;ctx.fill();
-  ctx.beginPath();ctx.strokeStyle=col;ctx.lineWidth=2;ctx.lineJoin='round';
-  vals.forEach((v,i)=>i===0?ctx.moveTo(xOf(i),yOf(v)):ctx.lineTo(xOf(i),yOf(v)));
-  ctx.stroke();
-  vals.forEach((v,i)=>{
-    ctx.beginPath();ctx.arc(xOf(i),yOf(v),3,0,Math.PI*2);
-    ctx.fillStyle=col;ctx.fill();
-    ctx.fillStyle='rgba(240,239,232,0.85)';ctx.font='bold 9px JetBrains Mono,monospace';ctx.textAlign='center';
-    ctx.fillText(lFn(v),xOf(i),yOf(v)-8);
-    ctx.fillStyle='rgba(240,239,232,0.3)';ctx.font='9px JetBrains Mono,monospace';
-    ctx.fillText('V'+(i+1),xOf(i),H-3);
-  });
-}
-
-// ── Pipeline sort + filter ────────────────────────────────────────────────────
-(function() {
-  let sortCol = -1, sortDir = 1;
-
-  function getCellText(tr, col) {
-    const tds = tr.querySelectorAll('td');
-    if (!tds[col]) return '';
-    const span = tds[col].querySelector('span.tag');
-    return (span ? span.textContent : tds[col].textContent).trim();
+  function renderUpdated(){
+    var txt = D.generated_at_bali || '';
+    try {
+      txt = new Date(D.generated_at).toLocaleString('en-GB', {timeZone:'Asia/Makassar', weekday:'short',
+        day:'numeric', month:'short', hour:'2-digit', minute:'2-digit'}) + ' Bali time';
+    } catch(e){}
+    $('updated').textContent = 'Updated ' + txt;
   }
 
-  function populateFilters() {
-    const tbody = document.getElementById('pipeline-tbody');
-    if (!tbody) return;
-    const rows = Array.from(tbody.querySelectorAll('tr'));
-    const plStates = new Set(), scripts = new Set();
-    rows.forEach(tr => {
-      const pl = getCellText(tr, 1); if (pl && pl !== '—') plStates.add(pl);
-      const sc = getCellText(tr, 2); if (sc && sc !== '—') scripts.add(sc);
+  function renderRTO(){
+    var r = D.rto || {published:0, goal:100};
+    var pct = Math.max(0, Math.min(100, r.published / r.goal * 100));
+    $('rto').innerHTML =
+      '<h2>RTO · Road to One Hundred</h2>' +
+      '<div class="rto-num">' + num(r.published) + ' <small>of ' + r.goal + '</small></div>' +
+      '<div class="rto-sub">long-form videos published</div>' +
+      '<div class="bar" role="progressbar" aria-valuemin="0" aria-valuemax="' + r.goal + '" aria-valuenow="' + r.published + '"><i style="width:' + pct.toFixed(1) + '%"></i></div>' +
+      '<div class="rto-foot"><span>' + Math.round(pct) + '%</span><span>' + Math.max(0, r.goal - r.published) + ' to go</span></div>';
+  }
+
+  function statusPill(s){
+    var cls = s === 'Done' ? 'done' : s === 'Blocked' ? 'blocked' : s === 'In Progress' ? 'progress' : '';
+    return '<span class="pill ' + cls + '">' + esc(s) + '</span>';
+  }
+
+  function renderWeek(){
+    var P = D.priorities || {status:'error', items:[]};
+    var h = '<h2>This week <span class="meta">' + (P.week_of ? 'week of ' + esc(fmtDate(P.week_of)) : '') + '</span></h2>';
+    if (P.status === 'no_access') {
+      $('week').innerHTML = h + '<div class="notice">Connect Weekly Priorities: share the “🎯 Weekly Priorities” Notion database with the dashboard integration.</div>';
+      return;
+    }
+    if (P.status !== 'ok') {
+      $('week').innerHTML = h + '<div class="notice">Weekly Priorities could not be loaded on the last update.</div>';
+      return;
+    }
+    if (P.note) h += '<div class="empty">' + esc(P.note) + '</div>';
+    var groups = ['Xavy','Stephan','Both'].filter(visible);
+    h += '<div class="cols">';
+    groups.forEach(function(g){
+      var items = (P.items || []).filter(function(i){ return (i.owner || 'Both') === g; });
+      var open = items.filter(function(i){ return i.status !== 'Done'; }).length;
+      h += '<div><h3>' + whoTag(g) + '<span class="meta" style="font-weight:500;color:var(--ink3);font-size:13px">' + open + ' open</span></h3>';
+      if (!items.length) h += '<div class="empty">Nothing listed.</div>';
+      items.forEach(function(i){
+        h += '<div class="item' + (i.status === 'Done' ? ' is-done' : '') + '">' +
+          '<div class="t">' + esc(i.title) + '</div>' +
+          '<div class="row">' + statusPill(i.status) + (i.type === 'Top Project' ? '<span class="pill hot">Top project</span>' : '') +
+          (i.videos || []).map(function(v){ return '<span class="pill">' + esc(v) + '</span>'; }).join('') + '</div>' +
+          (i.next_step && i.status !== 'Done' ? '<div class="ns clamp">→ ' + esc(i.next_step) + '</div>' : '') +
+          '</div>';
+      });
+      h += '</div>';
     });
-    const plSel = document.getElementById('pl-state-filter');
-    const scrSel = document.getElementById('script-filter');
-    plSel.innerHTML = '<option value="">All</option>';
-    scrSel.innerHTML = '<option value="">All</option>';
-    [...plStates].sort().forEach(v => { const o=document.createElement('option'); o.value=v; o.textContent=v; plSel.appendChild(o); });
-    [...scripts].sort().forEach(v => { const o=document.createElement('option'); o.value=v; o.textContent=v; scrSel.appendChild(o); });
+    h += '</div>';
+    $('week').innerHTML = h;
   }
 
-  window.filterPipeline = function() {
-    const tbody = document.getElementById('pipeline-tbody');
-    if (!tbody) return;
-    const plVal = document.getElementById('pl-state-filter').value;
-    const scrVal = document.getElementById('script-filter').value;
-    Array.from(tbody.querySelectorAll('tr')).forEach(tr => {
-      const plMatch = !plVal || getCellText(tr, 1) === plVal;
-      const scrMatch = !scrVal || getCellText(tr, 2) === scrVal;
-      tr.style.display = (plMatch && scrMatch) ? '' : 'none';
+  function renderPipeline(){
+    var P = D.pipeline;
+    var h = '<h2>Pipeline</h2>';
+    if (!P) { $('pipeline').innerHTML = h + '<div class="notice">Notion pipeline unavailable on the last update.</div>'; return; }
+    var all = [];
+    P.stages.forEach(function(s){ s.items.forEach(function(i){ all.push(i); }); });
+    var stuck = all.filter(function(i){ return i.stuck && visible(i.next_owner); }).length;
+    var shown = all.filter(function(i){ return visible(i.next_owner); }).length;
+    h = '<h2>Pipeline <span class="meta">' + shown + ' in progress · ' + num(P.idea_bank_count) + ' in idea bank</span></h2>';
+    if (stuck) h += '<div class="stuckbar">' + stuck + ' stuck (on hold, or no update in ' + P.stuck_days + '+ days)</div>';
+    P.stages.forEach(function(s){
+      var items = s.items.filter(function(i){ return visible(i.next_owner); });
+      if (!items.length) return;
+      h += '<h3>' + esc(s.label) + ' <span class="pill">' + items.length + '</span></h3>';
+      items.forEach(function(i){
+        var tags = '';
+        if (i.active_this_week) tags += '<span class="pill hot">This week</span>';
+        if (i.stuck) tags += '<span class="pill stuck">' + esc(i.stuck_reason) + '</span>';
+        if (i.edit_phase) tags += '<span class="pill">' + esc(i.edit_phase) + '</span>';
+        if (i.pl_state && !(s.key === 'edit' && i.edit_phase)) tags += '<span class="pill">' + esc(i.pl_state) + '</span>';
+        h += '<div class="item">' +
+          '<div class="t">' + esc(i.title) + '</div>' +
+          '<div class="row"><span style="font-size:12px;color:var(--ink3)">Next:</span>' + whoTag(i.next_owner) + tags + '</div>' +
+          (i.next_step ? '<div class="ns clamp">' + esc(i.next_step) + '</div>' : '') +
+          (i.last_update ? '<div class="ns" style="font-size:12px;color:var(--ink3)">Last update ' + esc(fmtDate(i.last_update)) + '</div>' : '') +
+          '</div>';
+      });
     });
-  };
+    if (!shown) h += '<div class="empty">Nothing in progress for this person.</div>';
+    $('pipeline').innerHTML = h;
+  }
 
-  window.sortPipeline = function(col) {
-    const tbody = document.getElementById('pipeline-tbody');
-    if (!tbody) return;
-    sortDir = (sortCol === col) ? -sortDir : 1;
-    sortCol = col;
-    for (let i = 0; i < 5; i++) { const el = document.getElementById('pl-sort-'+i); if (el) el.textContent = ''; }
-    const el = document.getElementById('pl-sort-'+col);
-    if (el) el.textContent = sortDir === 1 ? ' ↑' : ' ↓';
-    const rows = Array.from(tbody.querySelectorAll('tr'));
-    rows.sort((a, b) => {
-      let va = getCellText(a, col), vb = getCellText(b, col);
-      if (col === 3 || col === 4) {
-        if (va === '—' || va === '') va = '9999-99-99';
-        if (vb === '—' || vb === '') vb = '9999-99-99';
-        return va.localeCompare(vb) * sortDir;
-      }
-      return va.localeCompare(vb, undefined, {sensitivity:'base'}) * sortDir;
+  function renderChannel(){
+    var c = D.channel || {}, l = c.last28 || {}, t = c.top_recent;
+    $('channel').innerHTML = '<h2>Channel <span class="meta">last 28 days</span></h2>' +
+      '<div class="stats">' +
+        '<div class="stat"><div class="v">' + num(c.subscribers) + '</div><div class="l">subscribers</div></div>' +
+        '<div class="stat"><div class="v">' + num(l.views) + '</div><div class="l">views</div></div>' +
+        '<div class="stat"><div class="v">' + (l.watch_hours == null ? '—' : num(l.watch_hours)) + '</div><div class="l">watch hours</div></div>' +
+      '</div>' +
+      (t ? '<div class="top">Top recent: <strong>' + esc(t.title || t.id) + '</strong> · ' + num(t.views) + ' views</div>' : '');
+  }
+
+  function renderBilling(){
+    var B = D.billing;
+    if (!B) { $('billing-body').innerHTML = '<div class="empty">Unavailable on the last update.</div>'; return; }
+    var h = '<table><thead><tr><th>Video</th><th>Invoice</th><th>Payment</th><th class="n">Credits</th></tr></thead><tbody>';
+    B.forEach(function(b){
+      h += '<tr><td>' + esc(b.title || '—') + '</td><td>' + esc(b.invoice || '—') + '</td><td>' + esc(b.payment || '—') +
+        '</td><td class="n">' + esc(b.credits || '—') + '</td></tr>';
     });
-    rows.forEach(tr => tbody.appendChild(tr));
-    filterPipeline();
-  };
-
-  function init() {
-    const tbody = document.getElementById('pipeline-tbody');
-    if (!tbody) return;
-    populateFilters();
+    $('billing-body').innerHTML = h + '</tbody></table>';
   }
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init);
-  } else {
-    init();
+  function videoTable(list, el, title){
+    var h = '<h2>' + title + ' <span class="meta">' + list.length + '</span></h2>';
+    if (!list.length) { el.innerHTML = h + '<div class="empty">None yet.</div>'; return; }
+    h += '<table><thead><tr><th>Title</th><th>Date</th><th class="n">Views</th></tr></thead><tbody>';
+    list.forEach(function(v){
+      h += '<tr><td><a href="https://youtu.be/' + encodeURIComponent(v.id) + '" target="_blank" rel="noopener">' + esc(v.title) +
+        '</a></td><td style="white-space:nowrap">' + esc(fmtDate(v.published)) + '</td><td class="n">' + num(v.views) + '</td></tr>';
+    });
+    el.innerHTML = h + '</tbody></table>';
   }
+
+  function renderAll(){
+    renderUpdated(); renderRTO(); renderWeek(); renderPipeline(); renderChannel(); renderBilling();
+    videoTable(D.long_form || [], $('lf'), 'Long-form');
+    videoTable(D.shorts || [], $('sf'), 'Shorts');
+  }
+
+  // tabs
+  Array.prototype.forEach.call(document.querySelectorAll('nav button'), function(b){
+    b.addEventListener('click', function(){
+      Array.prototype.forEach.call(document.querySelectorAll('nav button'), function(o){ o.setAttribute('aria-selected', o === b ? 'true' : 'false'); });
+      $('tab-overview').hidden = b.dataset.tab !== 'overview';
+      $('tab-videos').hidden = b.dataset.tab !== 'videos';
+    });
+  });
+  // person filter
+  Array.prototype.forEach.call(document.querySelectorAll('#filter button'), function(b){
+    b.addEventListener('click', function(){
+      WHO = b.dataset.who;
+      Array.prototype.forEach.call(document.querySelectorAll('#filter button'), function(o){ o.setAttribute('aria-pressed', o === b ? 'true' : 'false'); });
+      if (D) { renderWeek(); renderPipeline(); }
+    });
+  });
+
+  fetch('data/dashboard.json?v=' + Date.now(), {cache:'no-store'})
+    .then(function(r){ if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+    .then(function(d){ D = d; renderAll(); })
+    .catch(function(e){
+      $('updated').textContent = 'Could not load data';
+      $('rto').innerHTML = '<div class="notice">Dashboard data is not available yet (' + esc(e.message) + '). <a href="classic.html">Open the classic dashboard</a>.</div>';
+    });
 })();
-
-// ── Short Form Tab ──────────────────────────────────────────────
-let SFM_DATA=null, sfmLoaded=false, sfmSortKey='d', sfmSortDir=-1;
-function loadShortForm(){
-  if(sfmLoaded){renderShortForm();return;}
-  fetch('data/shorts.json?v='+Date.now(),{cache:'no-store'}).then(r=>r.json()).then(d=>{
-    SFM_DATA=d;sfmLoaded=true;renderShortForm();
-  }).catch(()=>{
-    document.getElementById('sfm-tbody').innerHTML='<tr><td colspan="11" style="text-align:center;color:var(--dim);padding:20px">Could not load data/shorts.json</td></tr>';
-  });
-}
-function sfmSort(key){
-  sfmSortDir=(sfmSortKey===key)?-sfmSortDir:1;
-  sfmSortKey=key;
-  renderShortForm();
-}
-function renderShortForm(){
-  if(!SFM_DATA)return;
-  const trialStart=new Date(SFM_DATA.trial.start+'T00:00:00');
-  const trialEnd=new Date(SFM_DATA.trial.end+'T23:59:59');
-  const vids=(SFM_DATA.videos||[]).slice();
-
-  // Monthly bars
-  const bc=document.getElementById('sfm-bars');
-  bc.innerHTML='';
-  const maxU=Math.max(...SFM_DATA.monthly.map(m=>m.uploads),1);
-  SFM_DATA.monthly.forEach(m=>{
-    const isTrial=m.month==='2026-08';
-    const p=Math.round((m.uploads/maxU)*100);
-    const label=new Date(m.month+'-01T00:00:00').toLocaleDateString('en-US',{month:'short',year:'2-digit'});
-    bc.innerHTML+=`<div style="display:flex;align-items:center;gap:10px;margin-bottom:7px">
-      <div style="font-size:11px;color:${isTrial?'var(--amber)':'rgba(240,239,232,0.5)'};width:70px;flex-shrink:0;font-weight:${isTrial?600:400}">${label}${isTrial?' ★':''}</div>
-      <div style="flex:1;display:flex;align-items:center;gap:8px">
-        <div class="btrack" style="flex:1"><div class="bar" style="background:${isTrial?'var(--amber)':'var(--teal)'};width:${p}%"></div></div>
-        <span class="mono" style="font-size:11px;width:24px;text-align:right;color:${isTrial?'var(--amber)':'var(--teal)'};font-weight:600">${m.uploads}</span>
-      </div>
-    </div>`;
-  });
-
-  // Trial scorecard — only videos published inside trial window
-  const trialVids=vids.filter(v=>{
-    const d=new Date(v.d);
-    return d>=trialStart && d<=trialEnd;
-  });
-  const tv=trialVids.reduce((s,v)=>s+(v.views||0),0);
-  const ts=trialVids.reduce((s,v)=>s+(v.subs||0),0);
-  const avgCtr=trialVids.length?trialVids.reduce((s,v)=>s+(v.ctr||0),0)/trialVids.length:null;
-  const avgRet=trialVids.length?trialVids.reduce((s,v)=>s+(v.ret||0),0)/trialVids.length:null;
-  document.getElementById('sfm-sc-views').textContent=fmt(tv);
-  document.getElementById('sfm-sc-subs').textContent='+'+ts;
-  document.getElementById('sfm-sc-ctr').textContent=avgCtr!==null?avgCtr.toFixed(2)+'%':'—';
-  document.getElementById('sfm-sc-ret').textContent=avgRet!==null?avgRet.toFixed(1)+'%':'—';
-
-  // Per-video table (all videos, sortable)
-  document.getElementById('sfm-count').textContent=vids.length+' short'+(vids.length===1?'':'s');
-  const tb=document.getElementById('sfm-tbody');
-  if(!vids.length){
-    tb.innerHTML='<tr><td colspan="11" style="text-align:center;color:var(--dim);padding:20px">No Shorts published yet in the trial window.</td></tr>';
-    return;
-  }
-  vids.sort((a,b)=>{
-    const av=a[sfmSortKey],bv=b[sfmSortKey];
-    if(typeof av==='string')return sfmSortDir*String(av).localeCompare(String(bv));
-    return sfmSortDir*((av||0)-(bv||0));
-  });
-  tb.innerHTML=vids.map(v=>`<tr>
-    <td style="font-weight:500;max-width:200px">${v.t||'—'}</td>
-    <td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px;white-space:nowrap">${v.d||'—'}</td>
-    <td class="mono" style="color:var(--teal);font-weight:600">${fmt(v.views||0)}</td>
-    <td class="mono">${fmt(v.impressions||0)}</td>
-    <td class="mono" style="color:var(--amber)">${(v.ctr||0).toFixed(2)}%</td>
-    <td class="mono">${(v.ret||0).toFixed(1)}%</td>
-    <td class="mono">${fmt(v.likes||0)}</td>
-    <td class="mono">${fmt(v.comments||0)}</td>
-    <td class="mono">${fmt(v.shares||0)}</td>
-    <td class="mono" style="color:${(v.subs||0)>0?'var(--teal)':'rgba(240,239,232,0.3)'}">+${v.subs||0}</td>
-    <td><span class="tag ${v.status==='live'?'tg':v.status==='removed'?'tn':'ta'}">${v.status||'pending review'}</span></td>
-  </tr>`).join('');
-}
-
-// ── Paid Ads Tab ─────────────────────────────────────────────────
-const PA_ORGANIC=['Browse features','YouTube search','Suggested videos'];
-const PA_PAID=['YouTube advertising','Shorts feed'];
-let PA_DATA=null, paLoaded=false;
-function loadPaidAds(){
-  if(paLoaded){renderPaidAds();return;}
-  fetch('data/traffic-source.json?v='+Date.now(),{cache:'no-store'}).then(r=>r.json()).then(d=>{
-    PA_DATA=d;paLoaded=true;renderPaidAds();
-  }).catch(()=>{
-    document.getElementById('pa-empty').style.display='block';
-    document.getElementById('pa-empty').querySelector('div:last-child').textContent='Could not load data/traffic-source.json';
-  });
-}
-function renderPaidAds(){
-  if(!PA_DATA)return;
-  const snaps=PA_DATA.snapshots||[];
-  if(!snaps.length){
-    document.getElementById('pa-empty').style.display='block';
-    document.getElementById('pa-content').style.display='none';
-    return;
-  }
-  document.getElementById('pa-empty').style.display='none';
-  document.getElementById('pa-content').style.display='block';
-
-  const latest=snaps[snaps.length-1];
-  document.getElementById('pa-snapshot-date').textContent=latest.date;
-  const rows=(latest.sources||[]).filter(r=>r.source!=='Total');
-  const total=(latest.sources||[]).find(r=>r.source==='Total')
-    || rows.reduce((acc,r)=>({views:(acc.views||0)+(r.views||0)}),{views:0});
-  const totalViews=total.views||rows.reduce((s,r)=>s+(r.views||0),0)||1;
-
-  const paidViews=rows.filter(r=>PA_PAID.includes(r.source)).reduce((s,r)=>s+(r.views||0),0);
-  const organicViews=rows.filter(r=>PA_ORGANIC.includes(r.source)).reduce((s,r)=>s+(r.views||0),0);
-  document.getElementById('pa-paid-pct').textContent=(paidViews/totalViews*100).toFixed(1)+'%';
-  document.getElementById('pa-organic-pct').textContent=(organicViews/totalViews*100).toFixed(1)+'%';
-
-  const bc=document.getElementById('pa-bars');
-  const sorted=rows.slice().sort((a,b)=>(b.views||0)-(a.views||0));
-  const maxV=Math.max(...sorted.map(r=>r.views||0),1);
-  bc.innerHTML=sorted.map(r=>{
-    const p=Math.round((r.views||0)/maxV*100);
-    const isPaid=PA_PAID.includes(r.source);
-    const col=isPaid?'var(--amber)':(PA_ORGANIC.includes(r.source)?'var(--teal)':'rgba(240,239,232,0.35)');
-    return `<div style="display:flex;align-items:center;gap:10px;margin-bottom:7px">
-      <div style="font-size:11px;color:rgba(240,239,232,0.5);width:150px;flex-shrink:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${r.source}</div>
-      <div style="flex:1;display:flex;align-items:center;gap:8px">
-        <div class="btrack" style="flex:1"><div class="bar" style="background:${col};width:${p}%"></div></div>
-        <span class="mono" style="font-size:11px;width:60px;text-align:right;color:${col};font-weight:600">${((r.views||0)/totalViews*100).toFixed(1)}%</span>
-      </div>
-    </div>`;
-  }).join('');
-
-  const tb=document.getElementById('pa-tbody');
-  tb.innerHTML=sorted.map(r=>`<tr>
-    <td style="font-weight:500">${r.source}</td>
-    <td class="mono" style="color:var(--teal);font-weight:600">${fmt(r.views||0)}</td>
-    <td class="mono">${((r.views||0)/totalViews*100).toFixed(1)}%</td>
-    <td class="mono">${r.engagedViews!=null?fmt(r.engagedViews):'—'}</td>
-    <td class="mono">${r.avgPctViewed!=null?r.avgPctViewed.toFixed(1)+'%':'—'}</td>
-    <td class="mono">${r.watchTime!=null?r.watchTime.toFixed(1)+'h':'—'}</td>
-    <td class="mono">${r.avgViewDuration||'—'}</td>
-    <td class="mono">${r.impressions!=null?fmt(r.impressions):'—'}</td>
-    <td class="mono">${r.impressionsCtr!=null?r.impressionsCtr.toFixed(2)+'%':'—'}</td>
-  </tr>`).join('');
-
-  document.getElementById('pa-history').innerHTML=snaps.slice().reverse().map((s,i)=>
-    `<div>${i===0?'<strong style="color:var(--text)">● latest</strong>':'○'} ${s.date} — ${(s.sources||[]).length} sources</div>`
-  ).join('');
-}
-
-// ── IG/FB Tab ─────────────────────────────────────────────────────
-let SOCIAL_DATA=null, socialLoaded=false;
-function loadIgFb(){
-  if(socialLoaded){renderIgFb();return;}
-  fetch('data/social.json?v='+Date.now(),{cache:'no-store'}).then(r=>r.json()).then(d=>{
-    SOCIAL_DATA=d;socialLoaded=true;renderIgFb();
-  }).catch(()=>{
-    document.getElementById('ig-tbody').innerHTML='<tr><td colspan="5" style="text-align:center;color:var(--dim);padding:20px">Could not load data/social.json</td></tr>';
-  });
-}
-function renderIgFb(){
-  if(!SOCIAL_DATA)return;
-  const goal=SOCIAL_DATA.goal_followers||1000;
-
-  const ig=SOCIAL_DATA.instagram||{followers:0,daily:[]};
-  document.getElementById('ig-followers').textContent=fmt(ig.followers||0);
-  document.getElementById('ig-followers-rem').textContent=Math.max(0,goal-(ig.followers||0)).toLocaleString()+' to go · updated '+(ig.followers_updated||'—');
-  document.getElementById('ig-followers-bar').style.width=Math.min(100,((ig.followers||0)/goal)*100)+'%';
-
-  const fb=SOCIAL_DATA.facebook||{followers:0,daily:[]};
-  document.getElementById('fb-followers').textContent=fmt(fb.followers||0);
-  document.getElementById('fb-followers-rem').textContent=Math.max(0,goal-(fb.followers||0)).toLocaleString()+' to go · updated '+(fb.followers_updated||'—');
-  document.getElementById('fb-followers-bar').style.width=Math.min(100,((fb.followers||0)/goal)*100)+'%';
-
-  const igDaily=(ig.daily||[]).slice().sort((a,b)=>a.date<b.date?-1:1);
-  if(igDaily.length){
-    document.getElementById('ig-range').textContent=igDaily[0].date+' → '+igDaily[igDaily.length-1].date;
-    const sum=k=>igDaily.reduce((s,d)=>s+(d[k]||0),0);
-    document.getElementById('ig-sum-views').textContent=fmt(sum('views'));
-    document.getElementById('ig-sum-visits').textContent=fmt(sum('visits'));
-    document.getElementById('ig-sum-reach').textContent=fmt(sum('reach'));
-    document.getElementById('ig-sum-interactions').textContent=fmt(sum('interactions'));
-    document.getElementById('ig-tbody').innerHTML=igDaily.slice().reverse().map(d=>`<tr>
-      <td class="mono" style="color:rgba(240,239,232,0.4);font-size:11px">${d.date}</td>
-      <td class="mono">${fmt(d.views||0)}</td>
-      <td class="mono">${fmt(d.visits||0)}</td>
-      <td class="mono">${fmt(d.reach||0)}</td>
-      <td class="mono">${fmt(d.interactions||0)}</td>
-    </tr>`).join('');
-  } else {
-    document.getElementById('ig-tbody').innerHTML='<tr><td colspan="5" style="text-align:center;color:var(--dim);padding:20px">No Instagram daily data yet.</td></tr>';
-  }
-
-  const fbNote=document.getElementById('fb-empty-note');
-  if(fbNote && (fb.daily||[]).length===0){
-    fbNote.textContent='No daily Facebook metrics yet — only the follower count ('+fmt(fb.followers||0)+') is tracked. Export Facebook Page Insights (Meta Business Suite → Facebook page → Insights → Export) the same way as the Instagram CSVs and they\'ll show up here.';
-  }
-}
 </script>
 </body>
 </html>
