@@ -168,7 +168,7 @@ tbody tr:hover td{background:rgba(255,255,255,0.02)}
 
   <div class="card">
     <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px">
-      <span class="lbl">Deadline · 100 Long Form Videos · Jul 17, 2027</span>
+      <span class="lbl">RTO (Road to One Hundred) · 100 Long Form Videos · Jul 17, 2027</span>
       <span class="tag tb">active</span>
     </div>
     <div style="display:flex;gap:6px">
@@ -181,9 +181,9 @@ tbody tr:hover td{background:rgba(255,255,255,0.02)}
 
   <div class="g2">
     <div class="card">
-      <div class="m-lbl">Long Form Published</div>
+      <div class="m-lbl">RTO · Long Form Published</div>
       <div class="m-val a" id="h-lf">9</div>
-      <div class="m-sub">/ 100 · <span id="h-lf-rem">91 remaining</span></div>
+      <div class="m-sub">of 100 · <span id="h-lf-rem">91 remaining</span></div>
       <div style="margin-top:7px"><div class="btrack"><div class="bar" style="background:var(--amber);width:9%" id="h-lf-bar"></div></div></div>
       <div style="margin-top:7px"><span class="tag tb">on track</span></div>
     </div>
@@ -264,10 +264,10 @@ tbody tr:hover td{background:rgba(255,255,255,0.02)}
 
   <div class="g2">
     <div class="card">
-      <div class="card-hd"><span class="lbl">Long Form</span></div>
+      <div class="card-hd"><span class="lbl">RTO (Road to One Hundred) · Long Form</span></div>
       <div style="display:flex;align-items:center;gap:10px">
         <div style="flex:1">
-          <div style="display:flex;justify-content:space-between;margin-bottom:4px"><span style="color:var(--muted)">Published</span><span class="mono" id="sb-lf-txt">9 / 100</span></div>
+          <div style="display:flex;justify-content:space-between;margin-bottom:4px"><span style="color:var(--muted)">Published</span><span class="mono" id="sb-lf-txt">9 of 100</span></div>
           <div class="btrack"><div class="bar" style="background:var(--amber);width:9%" id="sb-lf-bar"></div></div>
           <div style="margin-top:4px;font-size:11px;color:var(--dim)" id="sb-lf-rem">91 to go</div>
         </div>
@@ -1018,7 +1018,7 @@ function buildBars(){
 function updLF(v){
   v=Math.min(100,Math.max(0,+v));
   document.getElementById('sb-lf-bar').style.width=v+'%';
-  document.getElementById('sb-lf-txt').textContent=v+' / 100';
+  document.getElementById('sb-lf-txt').textContent=v+' of 100';
   document.getElementById('sb-lf-rem').textContent=(100-v)+' to go';
   document.getElementById('h-lf').textContent=v;
   document.getElementById('h-lf-bar').style.width=v+'%';
