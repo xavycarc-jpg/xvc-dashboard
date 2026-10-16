@@ -8,7 +8,7 @@
    "status": "In Progress",
    "type": "Top Project",
    "next_step": "Stephan: finish title (≤40 chars), description, tags and post time (thumbnail done) and upload metadata. Xavy: pick title + A/B thumbnails and schedule. Settle the Oct 17 vs 19 date conflict first.",
-   "last_update": "Oct 15: thumbnail by Michael done; title/desc/tags/post time open. Schedule plan has upload on Oct 17.",
+   "last_update": "2026-10-15 (evening): packaging review not finished; Stephan is comparing Medellín analytics with reference videos before Saturday's publish.",
    "videos": [
     "“The Passport Bro Addiction” [COL]"
    ],
@@ -23,7 +23,7 @@
    "last_update": "Oct 15: Batch 1 shoot scheduled Oct 16–17; Stephan's plan names The Wanting (Fri) and Right On Time (Sat) as top priority. Shot lists not yet approved.",
    "videos": [
     "Right On Time [Vietnam]",
-    "The Wanting [Bali]"
+    "The Wanting  [Bali]"
    ],
    "url": "https://app.notion.com/3fab7a96dd4781de9332fd74e764e28f"
   },
@@ -33,21 +33,11 @@
    "status": "In Progress",
    "type": "Priority",
    "next_step": "VO: wait for ElevenLabs processing, Ady starts adding it in Frame.io; final script polish left. Headshot for the TH still needed before Saturday's shoot.",
-   "last_update": "Oct 15: VO rewrite done enough; ElevenLabs VO generated and processing (VO in progress). Headshot still pending. (Oct 15)",
+   "last_update": "2026-10-15: VO processing in ElevenLabs, editor brief V2 added; headshot planned for Saturday",
    "videos": [
     "Right On Time [Vietnam]"
    ],
    "url": "https://app.notion.com/3fab7a96dd478125bd9dd28c4525c358"
-  },
-  {
-   "title": "Finish all script versions — ready for Xavy review Fri Oct 16",
-   "owner": "Stephan",
-   "status": "In Progress",
-   "type": "Priority",
-   "next_step": "Finish all Short script versions (locked template) so Xavy can review them Fri Oct 16; then visual editing guide, upload times, record about 4 Fri + 4 Sat.",
-   "last_update": "Oct 15: template locked; owner set deadline — all script versions done for Xavy's review Fri Oct 16.",
-   "videos": [],
-   "url": "https://app.notion.com/3fab7a96dd4781809d73c97fe14696dc"
   },
   {
    "title": "Finish the Right On Time script",
@@ -67,9 +57,9 @@
    "status": "In Progress",
    "type": "Priority",
    "next_step": "Finish the shot list past Chapter 1, add location + time per shot, send to Xavy for approval; confirm latest cut status with Ady.",
-   "last_update": "Oct 15: Hook + Chapter 1 broken down; video guideline revised. Upload planned Oct 24.",
+   "last_update": "2026-10-15 (evening): visual guidelines revised; visual mapping for the shoot planned Oct 16.",
    "videos": [
-    "The Wanting [Bali]"
+    "The Wanting  [Bali]"
    ],
    "url": "https://app.notion.com/3fab7a96dd478169b878ebceb237aa04"
   },
@@ -81,7 +71,7 @@
    "next_step": "Review Stephan's Bali shot list + Fri/Sat locations and times; approve or mark changes so Friday's shoot can run.",
    "last_update": "Oct 15: listed under Needs Review / Blocked, unchecked.",
    "videos": [
-    "The Wanting [Bali]"
+    "The Wanting  [Bali]"
    ],
    "url": "https://app.notion.com/3fab7a96dd4781a2bb6dcbe29de3bf18"
   },
@@ -128,9 +118,19 @@
    "last_update": "Blocked: needs from Xavy the origin-story reference video link.",
    "videos": [],
    "url": "https://app.notion.com/3fab7a96dd478171b35bc3c15ebc1e2e"
+  },
+  {
+   "title": "Finish all script versions — ready for Xavy review Fri Oct 16",
+   "owner": "Stephan",
+   "status": "Done",
+   "type": "Priority",
+   "next_step": "Finish all Short script versions (locked template) so Xavy can review them Fri Oct 16; then visual editing guide, upload times, record about 4 Fri + 4 Sat.",
+   "last_update": "2026-10-15 (evening): Short scripts finalized and ready for review: Medellín 11, Passport Bro 6, The Wanting 6 variations.",
+   "videos": [],
+   "url": "https://app.notion.com/3fab7a96dd4781809d73c97fe14696dc"
   }
  ],
  "note": "",
  "source": "notion-mcp",
- "synced_at": "2026-10-15T11:02:28+00:00"
+ "synced_at": "2026-10-16T02:31:31+00:00"
 }
