@@ -1,6 +1,6 @@
 {
- "generated_at": "2026-10-16T03:10:33+00:00",
- "generated_at_bali": "Fri 16 Oct 2026, 11:10 (Bali)",
+ "generated_at": "2026-10-17T03:01:59+00:00",
+ "generated_at_bali": "Sat 17 Oct 2026, 11:01 (Bali)",
  "rto": {
   "published": 9,
   "goal": 100
@@ -8,19 +8,19 @@
  "channel": {
   "subscribers": 156,
   "last28": {
-   "start": "2026-09-18",
-   "end": "2026-10-15",
-   "views": 76,
+   "start": "2026-09-19",
+   "end": "2026-10-16",
+   "views": 65,
    "watch_hours": 0.7,
-   "avg_view_duration_s": 52,
+   "avg_view_duration_s": 61,
    "subs_gained": 0,
    "subs_lost": 0
   },
   "top_recent": {
-   "id": "1FSaRKb9yCQ",
-   "views": 21,
-   "watch_hours": 0.0,
-   "title": "The Next 6 Months Will Change You"
+   "id": "Z2J94yH89SY",
+   "views": 16,
+   "watch_hours": 0.5,
+   "title": "Why Feeling Safe Is Ruining Your Life"
   }
  },
  "long_form": [
@@ -28,23 +28,23 @@
    "id": "Z2J94yH89SY",
    "title": "Why Feeling Safe Is Ruining Your Life",
    "published": "2026-10-12",
-   "views": 23,
-   "likes": 1,
+   "views": 29,
+   "likes": 2,
    "comments": 0
   },
   {
    "id": "Z2J94yH89SY",
    "title": "Why Feeling Safe Is Ruining Your Life",
    "published": "2026-10-12",
-   "views": 23,
-   "likes": 1,
+   "views": 29,
+   "likes": 2,
    "comments": 0
   },
   {
    "id": "IOFPXGzZ53M",
    "title": "Why getting what you want is a mistake",
    "published": "2026-07-07",
-   "views": 61,
+   "views": 62,
    "likes": 3,
    "comments": 1
   },
@@ -52,7 +52,7 @@
    "id": "SC8SfzHsabo",
    "title": "How bullying can change you [for the better]",
    "published": "2025-12-16",
-   "views": 6514,
+   "views": 6515,
    "likes": 12,
    "comments": 2
   },
@@ -92,7 +92,7 @@
    "id": "OLFbWxSN9o8",
    "title": "why going to jail was good for me",
    "published": "2025-11-12",
-   "views": 7571,
+   "views": 7573,
    "likes": 15,
    "comments": 5
   }
@@ -284,7 +284,7 @@
    "id": "7e03kCoQsWw",
    "title": "You Think You Have Time?",
    "published": "2026-08-29",
-   "views": 1177,
+   "views": 1178,
    "likes": 25
   },
   {
@@ -606,9 +606,9 @@
       "edit_phase": "C1: Story",
       "progress": "25%",
       "priority": "Top Priority",
-      "next_owner": "Both",
-      "next_step": "SE (evening): visual guidelines revised; 6 Short script variations ready for Xavy's review. NS: visual mapping on Oct 16 so the footage list for the shoot is clear.",
-      "last_update": "2026-10-15",
+      "next_owner": "Stephan",
+      "next_step": "SE: visual plan revised Act 1 to Conclusion (script line ↔ visual table), mapped to 8 existing footage sets (Batur hike, motorbike lessons, gym/pool, Canggu riding, Bali kid, Finns, beach, run club) so fewer new shots are needed. NS: capture the remaining new shots at the Sat Oct 17 shoot.",
+      "last_update": "2026-10-16",
       "idle_days": 1,
       "stuck": false,
       "stuck_reason": "",
@@ -625,7 +625,7 @@
       "next_owner": "Xavy",
       "next_step": "Script finished (Oct 15). \n\nNext: Xavy aggregates footage and uploads it to Drive for the editor. Edit style: Lindsiann.",
       "last_update": "2026-10-15",
-      "idle_days": 1,
+      "idle_days": 2,
       "stuck": false,
       "stuck_reason": "",
       "active_this_week": true,
@@ -641,7 +641,7 @@
       "next_owner": "Xavy",
       "next_step": "XC pre-production on hold. Began brainstorming ideation",
       "last_update": "2026-08-21",
-      "idle_days": 56,
+      "idle_days": 57,
       "stuck": true,
       "stuck_reason": "on hold / blocked",
       "active_this_week": false,
@@ -657,9 +657,9 @@
       "next_owner": "Xavy",
       "next_step": "XC to begin RW script + aggregate previous footage + new talking head",
       "last_update": "2026-08-21",
-      "idle_days": 56,
+      "idle_days": 57,
       "stuck": true,
-      "stuck_reason": "no update in 56 days",
+      "stuck_reason": "no update in 57 days",
       "active_this_week": false,
       "next_cut_due": null,
       "publish": "2026-11-12"
@@ -673,9 +673,9 @@
       "next_owner": "Xavy",
       "next_step": "XC to begin RW script + aggregate previous footage + new talking head",
       "last_update": "2026-08-21",
-      "idle_days": 56,
+      "idle_days": 57,
       "stuck": true,
-      "stuck_reason": "no update in 56 days",
+      "stuck_reason": "no update in 57 days",
       "active_this_week": false,
       "next_cut_due": null,
       "publish": null
@@ -695,7 +695,7 @@
       "next_owner": "Xavy",
       "next_step": "XC pre-production on hold. Began brainstorming ideation",
       "last_update": "2026-08-21",
-      "idle_days": 56,
+      "idle_days": 57,
       "stuck": true,
       "stuck_reason": "on hold / blocked",
       "active_this_week": false,
@@ -717,7 +717,7 @@
       "next_owner": "Xavy",
       "next_step": "VO generated in ElevenLabs (processing). Script good enough for Ady to start adding VO in Frame.io; final script polish left. Xavy almost done with the Vietnam video rewrite script polish. (Oct 15)\n\nNS: Shoot TH 10.17 + Need Headshot for TH",
       "last_update": "2026-10-15",
-      "idle_days": 1,
+      "idle_days": 2,
       "stuck": false,
       "stuck_reason": "",
       "active_this_week": true,
@@ -733,9 +733,9 @@
       "next_owner": "Xavy",
       "next_step": "XC to begin script + pre-production",
       "last_update": "2026-08-21",
-      "idle_days": 56,
+      "idle_days": 57,
       "stuck": true,
-      "stuck_reason": "no update in 56 days",
+      "stuck_reason": "no update in 57 days",
       "active_this_week": false,
       "next_cut_due": null,
       "publish": null
@@ -758,8 +758,8 @@
       "progress": "25%",
       "priority": "Top Priority",
       "next_owner": "Both",
-      "next_step": "SE (evening): 6 Short script variations ready for Xavy's review. Packaging review not finished yet. NS: compare Medellín analytics with reference videos before Saturday's publish.",
-      "last_update": "2026-10-15",
+      "next_step": ": SE sent publish-time options; Xavy picked option #2 (also lands at 9am California). NS: schedule the upload at that time.",
+      "last_update": "2026-10-16",
       "idle_days": 1,
       "stuck": false,
       "stuck_reason": "",
