@@ -8,7 +8,7 @@
    "status": "In Progress",
    "type": "Priority",
    "next_step": "Get enough short scripts locked for Tuesday's shoot.",
-   "last_update": "2026-10-18: focus set by Xavy. Medellín done (5 kept); Passport Bro + The Wanting shorts next.",
+   "last_update": "2026-10-19: Passport Bro #2–#4 rewritten as Ava v2 from Xavy's feedback; on-screen text hooks added to 5 Medellín + 5 Passport Bro picks. The Wanting shorts next.",
    "videos": [],
    "url": "https://app.notion.com/3fdb7a96dd47817ebc59ebbbc8096bb3"
   },
@@ -18,9 +18,19 @@
    "status": "In Progress",
    "type": "Priority",
    "next_step": "Back up Saturday's footage, send links to Ady, work the edit notes.",
-   "last_update": "2026-10-18: focus set by Xavy. Publish target Oct 24.",
+   "last_update": "2026-10-19: publish moved to Sat Oct 31; editor working through the new TH/VO after Stephan's upload.",
    "videos": [],
    "url": "https://app.notion.com/3fdb7a96dd47819baf3ff76c92b2e89d"
+  },
+  {
+   "title": "Catalogue Library — Phase 1 (clip picking + look-back)",
+   "owner": "Stephan",
+   "status": "Not Started",
+   "type": "Top Project",
+   "next_step": "Agree clip-picking process with Ady (use SA to design process, folder/naming + checklist); start with current project + look back at posted videos. Phase 2 (AI tagging) = 2027.",
+   "last_update": "2026-10-19: added as top project; Xavy's note on why it matters sent to Stephan (Telegram, Bahasa). AI tagging scoped as a later phase (~1 TB footage in Drive).",
+   "videos": [],
+   "url": "https://app.notion.com/3feb7a96dd4781228bf8cae2f74ba3d6"
   },
   {
    "title": "Short-form shoot on Tuesday Oct 20",
@@ -28,7 +38,7 @@
    "status": "Not Started",
    "type": "Top Project",
    "next_step": "Stephan preps gear + shot list Mon; shoot short-form Tue.",
-   "last_update": "2026-10-18: moved from Mon to Tue so Xavy's voice can rest.",
+   "last_update": "2026-10-19: moved again, now Wed Oct 21 (Xavy's voice needs rest + the move to the new place).",
    "videos": [],
    "url": "https://app.notion.com/3fdb7a96dd47812d9953ff434aed5455"
   },
@@ -45,5 +55,5 @@
  ],
  "note": "",
  "source": "notion-mcp",
- "synced_at": "2026-10-19T02:31:38+00:00"
+ "synced_at": "2026-10-20T02:31:28+00:00"
 }
