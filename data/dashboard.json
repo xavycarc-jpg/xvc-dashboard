@@ -476,7 +476,7 @@
     "status": "In Progress",
     "type": "Priority",
     "next_step": "Get enough short scripts locked for Tuesday's shoot.",
-    "last_update": "2026-10-19: Passport Bro #2–#4 rewritten as Ava v2 from Xavy's feedback; on-screen text hooks added to 5 Medellín + 5 Passport Bro picks. The Wanting shorts next.",
+    "last_update": "2026-10-20: Xavy is reworking the short-form direction and building a script machine in Sandcastles that Stephan can run on his own, so scripts go faster from next week. Target: 50 short scripts ready before the first villa (Nov 1).",
     "videos": [],
     "url": "https://app.notion.com/3fdb7a96dd47817ebc59ebbbc8096bb3"
    },
@@ -496,7 +496,7 @@
     "status": "Not Started",
     "type": "Top Project",
     "next_step": "Agree clip-picking process with Ady (use SA to design process, folder/naming + checklist); start with current project + look back at posted videos. Phase 2 (AI tagging) = 2027.",
-    "last_update": "2026-10-19: added as top project; Xavy's note on why it matters sent to Stephan (Telegram, Bahasa). AI tagging scoped as a later phase (~1 TB footage in Drive).",
+    "last_update": "2026-10-20: Xavy set a hard deadline of Oct 31: library set up and finished for all old videos. In the morning brief Stephan was asked to start Phase 1 with Ady.",
     "videos": [],
     "url": "https://app.notion.com/3feb7a96dd4781228bf8cae2f74ba3d6"
    },
@@ -506,7 +506,7 @@
     "status": "Not Started",
     "type": "Top Project",
     "next_step": "Stephan preps gear + shot list Mon; shoot short-form Tue.",
-    "last_update": "2026-10-19: moved again, now Wed Oct 21 (Xavy's voice needs rest + the move to the new place).",
+    "last_update": "2026-10-20: Xavy moved the shoot to Fri Oct 23 (if the teleprompter arrives) or Sat Oct 24; note sent to Stephan at 17:54. At 18:51 Stephan proposed shooting Wed Oct 21 with his phone + CapCut teleprompter; Xavy replied 'Sounds good'. Final date to confirm.",
     "videos": [],
     "url": "https://app.notion.com/3fdb7a96dd47812d9953ff434aed5455"
    },
@@ -516,14 +516,14 @@
     "status": "Not Started",
     "type": "Priority",
     "next_step": "Editor starts first cuts from the initial batch; send any missing footage.",
-    "last_update": "2026-10-18: editor has the initial footage batch.",
+    "last_update": "2026-10-20: Lombok is a backlog video with a hard deadline of Oct 31 (Xavy). Stephan's SA asked for the existing Lombok footage list to build the visual map.",
     "videos": [],
     "url": "https://app.notion.com/3fdb7a96dd47816cac21e7e1e62c10af"
    }
   ],
   "note": "",
   "source": "notion-mcp",
-  "synced_at": "2026-10-20T02:31:28+00:00"
+  "synced_at": "2026-10-21T02:31:44+00:00"
  },
  "pipeline": {
   "stuck_days": 14,
