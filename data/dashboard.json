@@ -471,14 +471,24 @@
   "week_of": "2026-10-19",
   "items": [
    {
+    "title": "Short-form shoot on Tuesday Oct 20",
+    "owner": "Both",
+    "status": "In Progress",
+    "type": "Top Project",
+    "next_step": "Stephan preps gear + shot list Mon; shoot short-form Tue.",
+    "last_update": "2026-10-21: Xavy set the shoot for today, Wed Oct 21, 3–6pm, about 15 shorts (phone + CapCut). Note sent to Stephan at 10:17. 3 rejection-week shorts (S1–S3) drafted for it. Whether the shoot happened is not confirmed yet.",
+    "videos": [],
+    "url": "https://app.notion.com/p/3fdb7a96dd47812d9953ff434aed5455"
+   },
+   {
     "title": "Finish more short-form scripts",
     "owner": "Both",
     "status": "In Progress",
     "type": "Priority",
     "next_step": "Get enough short scripts locked for Tuesday's shoot.",
-    "last_update": "2026-10-20: Xavy is reworking the short-form direction and building a script machine in Sandcastles that Stephan can run on his own, so scripts go faster from next week. Target: 50 short scripts ready before the first villa (Nov 1).",
+    "last_update": "2026-10-21: Short Form Scripts doc expanded: Competitor Replicated (16 titles, 10 side-by-sides), SC V1 column in all 15 side-by-sides, Six Yeses Ava v3, Journal Brainstorm J1–J10 + S1–S3 with Ava v1 scripts. Vault #016 logged. Stephan's new scripts paused until the Sandcastles machine is ready.",
     "videos": [],
-    "url": "https://app.notion.com/3fdb7a96dd47817ebc59ebbbc8096bb3"
+    "url": "https://app.notion.com/p/3fdb7a96dd47817ebc59ebbbc8096bb3"
    },
    {
     "title": "The Wanting long-form edits",
@@ -486,9 +496,9 @@
     "status": "In Progress",
     "type": "Priority",
     "next_step": "Back up Saturday's footage, send links to Ady, work the edit notes.",
-    "last_update": "2026-10-19: publish moved to Sat Oct 31; editor working through the new TH/VO after Stephan's upload.",
+    "last_update": "2026-10-21: Stephan reports the final visual guide is with Ady and the extra footage is shot. Still open: talking-head upload to Descript, shared with Ady.",
     "videos": [],
-    "url": "https://app.notion.com/3fdb7a96dd47819baf3ff76c92b2e89d"
+    "url": "https://app.notion.com/p/3fdb7a96dd47819baf3ff76c92b2e89d"
    },
    {
     "title": "Catalogue Library — Phase 1 (clip picking + look-back)",
@@ -498,17 +508,7 @@
     "next_step": "Agree clip-picking process with Ady (use SA to design process, folder/naming + checklist); start with current project + look back at posted videos. Phase 2 (AI tagging) = 2027.",
     "last_update": "2026-10-20: Xavy set a hard deadline of Oct 31: library set up and finished for all old videos. In the morning brief Stephan was asked to start Phase 1 with Ady.",
     "videos": [],
-    "url": "https://app.notion.com/3feb7a96dd4781228bf8cae2f74ba3d6"
-   },
-   {
-    "title": "Short-form shoot on Tuesday Oct 20",
-    "owner": "Both",
-    "status": "Not Started",
-    "type": "Top Project",
-    "next_step": "Stephan preps gear + shot list Mon; shoot short-form Tue.",
-    "last_update": "2026-10-20: Xavy moved the shoot to Fri Oct 23 (if the teleprompter arrives) or Sat Oct 24; note sent to Stephan at 17:54. At 18:51 Stephan proposed shooting Wed Oct 21 with his phone + CapCut teleprompter; Xavy replied 'Sounds good'. Final date to confirm.",
-    "videos": [],
-    "url": "https://app.notion.com/3fdb7a96dd47812d9953ff434aed5455"
+    "url": "https://app.notion.com/p/3feb7a96dd4781228bf8cae2f74ba3d6"
    },
    {
     "title": "Start Lombok edit cuts",
@@ -518,12 +518,12 @@
     "next_step": "Editor starts first cuts from the initial batch; send any missing footage.",
     "last_update": "2026-10-20: Lombok is a backlog video with a hard deadline of Oct 31 (Xavy). Stephan's SA asked for the existing Lombok footage list to build the visual map.",
     "videos": [],
-    "url": "https://app.notion.com/3fdb7a96dd47816cac21e7e1e62c10af"
+    "url": "https://app.notion.com/p/3fdb7a96dd47816cac21e7e1e62c10af"
    }
   ],
   "note": "",
   "source": "notion-mcp",
-  "synced_at": "2026-10-21T02:31:44+00:00"
+  "synced_at": "2026-10-22T02:31:40+00:00"
  },
  "pipeline": {
   "stuck_days": 14,
