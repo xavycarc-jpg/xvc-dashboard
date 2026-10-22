@@ -1,6 +1,6 @@
 {
- "generated_at": "2026-10-21T03:21:16+00:00",
- "generated_at_bali": "Wed 21 Oct 2026, 11:21 (Bali)",
+ "generated_at": "2026-10-22T03:20:18+00:00",
+ "generated_at_bali": "Thu 22 Oct 2026, 11:20 (Bali)",
  "rto": {
   "published": 11,
   "goal": 100
@@ -8,17 +8,17 @@
  "channel": {
   "subscribers": 156,
   "last28": {
-   "start": "2026-09-23",
-   "end": "2026-10-20",
-   "views": 86,
-   "watch_hours": 1.7,
-   "avg_view_duration_s": 92,
+   "start": "2026-09-24",
+   "end": "2026-10-21",
+   "views": 90,
+   "watch_hours": 1.8,
+   "avg_view_duration_s": 95,
    "subs_gained": 0,
    "subs_lost": 0
   },
   "top_recent": {
    "id": "Z2J94yH89SY",
-   "views": 27,
+   "views": 28,
    "watch_hours": 0.8,
    "title": "Why Feeling Safe Is Ruining Your Life"
   }
@@ -28,7 +28,7 @@
    "id": "y3q1_0ovpgA",
    "title": "Why chasing validation will ruin your life",
    "published": "2026-10-18",
-   "views": 21,
+   "views": 24,
    "likes": 0,
    "comments": 0
   },
@@ -36,7 +36,7 @@
    "id": "y3q1_0ovpgA",
    "title": "Why chasing validation will ruin your life",
    "published": "2026-10-18",
-   "views": 21,
+   "views": 24,
    "likes": 0,
    "comments": 0
   },
@@ -44,7 +44,7 @@
    "id": "Z2J94yH89SY",
    "title": "Why Feeling Safe Is Ruining Your Life",
    "published": "2026-10-12",
-   "views": 32,
+   "views": 33,
    "likes": 2,
    "comments": 0
   },
@@ -52,7 +52,7 @@
    "id": "Z2J94yH89SY",
    "title": "Why Feeling Safe Is Ruining Your Life",
    "published": "2026-10-12",
-   "views": 32,
+   "views": 33,
    "likes": 2,
    "comments": 0
   },
@@ -76,7 +76,7 @@
    "id": "5CQHOpyXWKk",
    "title": "How burnout will change you [for the better]",
    "published": "2025-12-10",
-   "views": 5127,
+   "views": 5128,
    "likes": 4,
    "comments": 1
   },
@@ -539,9 +539,9 @@
       "progress": "25%",
       "priority": "Top Priority",
       "next_owner": "Both",
-      "next_step": "XC: publish moved to next week, Sat Oct 31. NS: editor working through the new TH/VO after SE's upload.",
-      "last_update": "2026-10-19",
-      "idle_days": 2,
+      "next_step": "XC: re-shoot the Hook + some talking head. Publish confirmed Sat Oct 31. NS: SE uploads TH footage to Descript + shares with Ady.",
+      "last_update": "2026-10-22",
+      "idle_days": 0,
       "stuck": false,
       "stuck_reason": "",
       "active_this_week": true,
@@ -557,7 +557,7 @@
       "next_owner": "Both",
       "next_step": "XC: backlog video, hard deadline Oct 31 (Xavy). NS: Stephan sends his SA the list of existing Lombok footage so the visual map can be built.",
       "last_update": "2026-10-20",
-      "idle_days": 1,
+      "idle_days": 2,
       "stuck": false,
       "stuck_reason": "",
       "active_this_week": true,
@@ -573,7 +573,7 @@
       "next_owner": "Xavy",
       "next_step": "XC pre-production on hold. Began brainstorming ideation",
       "last_update": "2026-08-21",
-      "idle_days": 61,
+      "idle_days": 62,
       "stuck": true,
       "stuck_reason": "on hold / blocked",
       "active_this_week": false,
@@ -589,9 +589,9 @@
       "next_owner": "Xavy",
       "next_step": "XC to begin RW script + aggregate previous footage + new talking head",
       "last_update": "2026-08-21",
-      "idle_days": 61,
+      "idle_days": 62,
       "stuck": true,
-      "stuck_reason": "no update in 61 days",
+      "stuck_reason": "no update in 62 days",
       "active_this_week": false,
       "next_cut_due": null,
       "publish": "2026-11-12"
@@ -605,9 +605,9 @@
       "next_owner": "Xavy",
       "next_step": "XC to begin RW script + aggregate previous footage + new talking head",
       "last_update": "2026-08-21",
-      "idle_days": 61,
+      "idle_days": 62,
       "stuck": true,
-      "stuck_reason": "no update in 61 days",
+      "stuck_reason": "no update in 62 days",
       "active_this_week": false,
       "next_cut_due": null,
       "publish": null
@@ -627,7 +627,7 @@
       "next_owner": "Xavy",
       "next_step": "XC pre-production on hold. Began brainstorming ideation",
       "last_update": "2026-08-21",
-      "idle_days": 61,
+      "idle_days": 62,
       "stuck": true,
       "stuck_reason": "on hold / blocked",
       "active_this_week": false,
@@ -649,7 +649,7 @@
       "next_owner": "Xavy",
       "next_step": "XC: backlog video, hard deadline Oct 31 (Xavy). NS: finish the final script polish and get the TH + headshot shot so Ady can complete the cut.",
       "last_update": "2026-10-20",
-      "idle_days": 1,
+      "idle_days": 2,
       "stuck": false,
       "stuck_reason": "",
       "active_this_week": true,
@@ -665,9 +665,9 @@
       "next_owner": "Xavy",
       "next_step": "XC to begin script + pre-production",
       "last_update": "2026-08-21",
-      "idle_days": 61,
+      "idle_days": 62,
       "stuck": true,
-      "stuck_reason": "no update in 61 days",
+      "stuck_reason": "no update in 62 days",
       "active_this_week": false,
       "next_cut_due": null,
       "publish": null
@@ -689,10 +689,10 @@
       "edit_phase": "Versioning",
       "progress": "25%",
       "priority": "Top Priority",
-      "next_owner": "Both",
-      "next_step": "XC: Shorts #2–#4 rewritten as Ava v2 from Xavy's Notion feedback; text-on-screen hooks added to all 5 Passport Bro picks. NS: Xavy reviews the v2s before the Wed Oct 21 short-form shoot.\n\n10.16: SE sent publish-time options; Xavy picked option #2 (also lands at 9am California). NS: schedule the upload at that time.",
-      "last_update": "2026-10-19",
-      "idle_days": 2,
+      "next_owner": "Xavy",
+      "next_step": "XC: SC V1 (Sandcastles) column added to the Short Form Scripts side-by-sides; Passport Bro #1, #3, #4 Sandcastles scripts moved in word for word (232–249 words, about twice the 100–130 target). NS: trim them to target and polish as the next Ava version before filming.",
+      "last_update": "2026-10-21",
+      "idle_days": 1,
       "stuck": false,
       "stuck_reason": "",
       "active_this_week": true,
@@ -702,7 +702,7 @@
     ]
    }
   ],
-  "idea_bank_count": 49
+  "idea_bank_count": 50
  },
  "billing": [
   {
