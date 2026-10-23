@@ -1,6 +1,6 @@
 {
- "generated_at": "2026-10-22T03:20:18+00:00",
- "generated_at_bali": "Thu 22 Oct 2026, 11:20 (Bali)",
+ "generated_at": "2026-10-23T03:25:35+00:00",
+ "generated_at_bali": "Fri 23 Oct 2026, 11:25 (Bali)",
  "rto": {
   "published": 11,
   "goal": 100
@@ -8,9 +8,9 @@
  "channel": {
   "subscribers": 156,
   "last28": {
-   "start": "2026-09-24",
-   "end": "2026-10-21",
-   "views": 90,
+   "start": "2026-09-25",
+   "end": "2026-10-22",
+   "views": 92,
    "watch_hours": 1.8,
    "avg_view_duration_s": 95,
    "subs_gained": 0,
@@ -18,7 +18,7 @@
   },
   "top_recent": {
    "id": "Z2J94yH89SY",
-   "views": 28,
+   "views": 27,
    "watch_hours": 0.8,
    "title": "Why Feeling Safe Is Ruining Your Life"
   }
@@ -44,16 +44,16 @@
    "id": "Z2J94yH89SY",
    "title": "Why Feeling Safe Is Ruining Your Life",
    "published": "2026-10-12",
-   "views": 33,
-   "likes": 2,
+   "views": 34,
+   "likes": 3,
    "comments": 0
   },
   {
    "id": "Z2J94yH89SY",
    "title": "Why Feeling Safe Is Ruining Your Life",
    "published": "2026-10-12",
-   "views": 33,
-   "likes": 2,
+   "views": 34,
+   "likes": 3,
    "comments": 0
   },
   {
@@ -92,7 +92,7 @@
    "id": "mC5SzxQmVi4",
    "title": "How getting laid off left me searching for a new home",
    "published": "2025-11-26",
-   "views": 86,
+   "views": 87,
    "likes": 3,
    "comments": 1
   },
@@ -539,9 +539,9 @@
       "progress": "25%",
       "priority": "Top Priority",
       "next_owner": "Both",
-      "next_step": "XC: re-shoot the Hook + some talking head. Publish confirmed Sat Oct 31. NS: SE uploads TH footage to Descript + shares with Ady.",
+      "next_step": "SE: asked when to shoot the nighttime bedroom scenes; proposes ANNA-style mirror shots Sun morning if the teleprompter arrives, then VO. NS: Xavy picks a time (question logged).",
       "last_update": "2026-10-22",
-      "idle_days": 0,
+      "idle_days": 1,
       "stuck": false,
       "stuck_reason": "",
       "active_this_week": true,
@@ -557,7 +557,7 @@
       "next_owner": "Both",
       "next_step": "XC: backlog video, hard deadline Oct 31 (Xavy). NS: Stephan sends his SA the list of existing Lombok footage so the visual map can be built.",
       "last_update": "2026-10-20",
-      "idle_days": 2,
+      "idle_days": 3,
       "stuck": false,
       "stuck_reason": "",
       "active_this_week": true,
@@ -573,7 +573,7 @@
       "next_owner": "Xavy",
       "next_step": "XC pre-production on hold. Began brainstorming ideation",
       "last_update": "2026-08-21",
-      "idle_days": 62,
+      "idle_days": 63,
       "stuck": true,
       "stuck_reason": "on hold / blocked",
       "active_this_week": false,
@@ -589,9 +589,9 @@
       "next_owner": "Xavy",
       "next_step": "XC to begin RW script + aggregate previous footage + new talking head",
       "last_update": "2026-08-21",
-      "idle_days": 62,
+      "idle_days": 63,
       "stuck": true,
-      "stuck_reason": "no update in 62 days",
+      "stuck_reason": "no update in 63 days",
       "active_this_week": false,
       "next_cut_due": null,
       "publish": "2026-11-12"
@@ -605,9 +605,9 @@
       "next_owner": "Xavy",
       "next_step": "XC to begin RW script + aggregate previous footage + new talking head",
       "last_update": "2026-08-21",
-      "idle_days": 62,
+      "idle_days": 63,
       "stuck": true,
-      "stuck_reason": "no update in 62 days",
+      "stuck_reason": "no update in 63 days",
       "active_this_week": false,
       "next_cut_due": null,
       "publish": null
@@ -627,7 +627,7 @@
       "next_owner": "Xavy",
       "next_step": "XC pre-production on hold. Began brainstorming ideation",
       "last_update": "2026-08-21",
-      "idle_days": 62,
+      "idle_days": 63,
       "stuck": true,
       "stuck_reason": "on hold / blocked",
       "active_this_week": false,
@@ -649,7 +649,7 @@
       "next_owner": "Xavy",
       "next_step": "XC: backlog video, hard deadline Oct 31 (Xavy). NS: finish the final script polish and get the TH + headshot shot so Ady can complete the cut.",
       "last_update": "2026-10-20",
-      "idle_days": 2,
+      "idle_days": 3,
       "stuck": false,
       "stuck_reason": "",
       "active_this_week": true,
@@ -665,9 +665,9 @@
       "next_owner": "Xavy",
       "next_step": "XC to begin script + pre-production",
       "last_update": "2026-08-21",
-      "idle_days": 62,
+      "idle_days": 63,
       "stuck": true,
-      "stuck_reason": "no update in 62 days",
+      "stuck_reason": "no update in 63 days",
       "active_this_week": false,
       "next_cut_due": null,
       "publish": null
@@ -692,7 +692,7 @@
       "next_owner": "Xavy",
       "next_step": "XC: SC V1 (Sandcastles) column added to the Short Form Scripts side-by-sides; Passport Bro #1, #3, #4 Sandcastles scripts moved in word for word (232–249 words, about twice the 100–130 target). NS: trim them to target and polish as the next Ava version before filming.",
       "last_update": "2026-10-21",
-      "idle_days": 1,
+      "idle_days": 2,
       "stuck": false,
       "stuck_reason": "",
       "active_this_week": true,
