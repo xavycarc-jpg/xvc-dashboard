@@ -481,22 +481,12 @@
     "url": "https://app.notion.com/3feb7a96dd4781228bf8cae2f74ba3d6"
    },
    {
-    "title": "Short-form shoot on Thursday Oct 22",
-    "owner": "Both",
-    "status": "In Progress",
-    "type": "Top Project",
-    "next_step": "Moved from Tue (Xavy burnt out). Shoot Thu Oct 22, 3:30–5:30pm at BeLive (2nd floor), shorts only. Xavy physio 2pm, back ~3:15.",
-    "last_update": "2026-10-22: Xavy headed out to film ~15:40 with the 10 Production Day scripts; Stephan confirmed and is prepping spots/concepts per script. Whether it finished and how many shorts were filmed is not confirmed yet.",
-    "videos": [],
-    "url": "https://app.notion.com/3fdb7a96dd47812d9953ff434aed5455"
-   },
-   {
     "title": "Finish more short-form scripts",
     "owner": "Both",
     "status": "In Progress",
     "type": "Priority",
     "next_step": "Get enough short scripts locked for Tuesday's shoot.",
-    "last_update": "2026-10-22: 10 final scripts (C1, C3–C8, C11, C11b, C16) compiled in a live Production Day section (synced blocks). Every short now loops end→start. J11 added, S section merged into J (J12–J14). C10 + J scripts not marked done yet.",
+    "last_update": "2026-10-23: SC column removed from the C section. All 14 J scripts rewritten as talking heads in the style of the C finals, then loops redone on 13 so the last line runs into the first. J15 'Sleep in the Middle' added. J6, J7, J9 still need Xavy's real answers.",
     "videos": [],
     "url": "https://app.notion.com/3fdb7a96dd47817ebc59ebbbc8096bb3"
    },
@@ -511,6 +501,16 @@
     "url": "https://app.notion.com/3fdb7a96dd47819baf3ff76c92b2e89d"
    },
    {
+    "title": "Sunday Oct 25: The Wanting re-shoot at BeLive",
+    "owner": "Both",
+    "status": "Not Started",
+    "type": "Top Project",
+    "next_step": "Sat Oct 24 is a rest day. Stephan's assistant is building the Sunday call sheet from Stephan's Notion mapping (call time, shot list, scripts, wardrobe, gear). It should be ready by Sat evening. The Wanting uploads Sat Oct 31.",
+    "last_update": "2026-10-23: Created. Call sheet requested from SA.",
+    "videos": [],
+    "url": "https://app.notion.com/402b7a96dd4781bdbd71d41718d7fc02"
+   },
+   {
     "title": "Start Lombok edit cuts",
     "owner": "Both",
     "status": "Not Started",
@@ -519,11 +519,21 @@
     "last_update": "2026-10-20: Lombok is a backlog video with a hard deadline of Oct 31 (Xavy). Stephan's SA asked for the existing Lombok footage list to build the visual map.",
     "videos": [],
     "url": "https://app.notion.com/3fdb7a96dd47816cac21e7e1e62c10af"
+   },
+   {
+    "title": "Short-form shoot on Thursday Oct 22",
+    "owner": "Both",
+    "status": "Done",
+    "type": "Top Project",
+    "next_step": "Moved from Tue (Xavy burnt out). Shoot Thu Oct 22, 3:30–5:30pm at BeLive (2nd floor), shorts only. Xavy physio 2pm, back ~3:15.",
+    "last_update": "2026-10-23: Shoot happened at BeLive. 3 shorts filmed (Xavy confirmed). The Wanting not done; re-shoot moved to Sun Oct 25 at BeLive.",
+    "videos": [],
+    "url": "https://app.notion.com/3fdb7a96dd47812d9953ff434aed5455"
    }
   ],
   "note": "",
   "source": "notion-mcp",
-  "synced_at": "2026-10-23T02:31:19+00:00"
+  "synced_at": "2026-10-24T02:30:44+00:00"
  },
  "pipeline": {
   "stuck_days": 14,
