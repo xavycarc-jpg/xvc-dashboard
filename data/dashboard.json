@@ -481,12 +481,22 @@
     "url": "https://app.notion.com/3feb7a96dd4781228bf8cae2f74ba3d6"
    },
    {
+    "title": "Sunday Oct 25: The Wanting re-shoot at BeLive",
+    "owner": "Both",
+    "status": "In Progress",
+    "type": "Top Project",
+    "next_step": "Sat Oct 24 is a rest day. Stephan's assistant is building the Sunday call sheet from Stephan's Notion mapping (call time, shot list, scripts, wardrobe, gear). It should be ready by Sat evening. The Wanting uploads Sat Oct 31.",
+    "last_update": "2026-10-24: Stephan posted the call sheet in Slack and asked Xavy to pick the TH location (5 options). Shoot on Xavy's calendar Sun 10am–7pm at BeLive: TH re-shoot morning, ANNA scenes afternoon.",
+    "videos": [],
+    "url": "https://app.notion.com/402b7a96dd4781bdbd71d41718d7fc02"
+   },
+   {
     "title": "Finish more short-form scripts",
     "owner": "Both",
     "status": "In Progress",
     "type": "Priority",
     "next_step": "Get enough short scripts locked for Tuesday's shoot.",
-    "last_update": "2026-10-23: SC column removed from the C section. All 14 J scripts rewritten as talking heads in the style of the C finals, then loops redone on 13 so the last line runs into the first. J15 'Sleep in the Middle' added. J6, J7, J9 still need Xavy's real answers.",
+    "last_update": "2026-10-24: J1 v4 edited by Xavy (109 words, ~50 sec) with 2 rounds of Ava's notes. 3 scroll-stopping opener options + a pick added to Ava's notes for all 14 J scripts. Next: Xavy picks openers. 50 scripts due Nov 1.",
     "videos": [],
     "url": "https://app.notion.com/3fdb7a96dd47817ebc59ebbbc8096bb3"
    },
@@ -496,19 +506,9 @@
     "status": "In Progress",
     "type": "Priority",
     "next_step": "Re-shoot the hook + some talking head. Stephan uploads TH footage to Descript and shares with Ady. Publish date Oct 31.",
-    "last_update": "2026-10-22: Publish confirmed Sat Oct 31. Stephan asked when to shoot the nighttime bedroom scenes; suggests ANNA-style mirror shots Sun morning if the teleprompter arrives, then VO.",
+    "last_update": "2026-10-24: Call sheet ready for the Sun Oct 25 re-shoot at BeLive (TH morning, ANNA scenes afternoon). TH location still to pick. Publish Sat Oct 31.",
     "videos": [],
     "url": "https://app.notion.com/3fdb7a96dd47819baf3ff76c92b2e89d"
-   },
-   {
-    "title": "Sunday Oct 25: The Wanting re-shoot at BeLive",
-    "owner": "Both",
-    "status": "Not Started",
-    "type": "Top Project",
-    "next_step": "Sat Oct 24 is a rest day. Stephan's assistant is building the Sunday call sheet from Stephan's Notion mapping (call time, shot list, scripts, wardrobe, gear). It should be ready by Sat evening. The Wanting uploads Sat Oct 31.",
-    "last_update": "2026-10-23: Created. Call sheet requested from SA.",
-    "videos": [],
-    "url": "https://app.notion.com/402b7a96dd4781bdbd71d41718d7fc02"
    },
    {
     "title": "Start Lombok edit cuts",
@@ -533,7 +533,7 @@
   ],
   "note": "",
   "source": "notion-mcp",
-  "synced_at": "2026-10-24T02:30:44+00:00"
+  "synced_at": "2026-10-25T02:30:52+00:00"
  },
  "pipeline": {
   "stuck_days": 14,
