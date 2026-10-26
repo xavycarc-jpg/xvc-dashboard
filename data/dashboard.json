@@ -468,72 +468,11 @@
  "notion_ok": true,
  "priorities": {
   "status": "ok",
-  "week_of": "2026-10-19",
-  "items": [
-   {
-    "title": "Catalogue Library — Phase 1 (clip picking + look-back)",
-    "owner": "Stephan",
-    "status": "In Progress",
-    "type": "Top Project",
-    "next_step": "1:1 with Xavy done in person Oct 21. Stephan working with Ady on it; Ady has begun clip-picking on previous videos PPB (Passport Bro) + MED (Medellín). Deadline Oct 31. Phase 2 (AI tagging) = 2027.",
-    "last_update": "2026-10-20: Xavy set a hard deadline of Oct 31: library set up and finished for all old videos. In the morning brief Stephan was asked to start Phase 1 with Ady.",
-    "videos": [],
-    "url": "https://app.notion.com/3feb7a96dd4781228bf8cae2f74ba3d6"
-   },
-   {
-    "title": "Sunday Oct 25: The Wanting re-shoot at BeLive",
-    "owner": "Both",
-    "status": "In Progress",
-    "type": "Top Project",
-    "next_step": "Sat Oct 24 is a rest day. Stephan's assistant is building the Sunday call sheet from Stephan's Notion mapping (call time, shot list, scripts, wardrobe, gear). It should be ready by Sat evening. The Wanting uploads Sat Oct 31.",
-    "last_update": "2026-10-24: Stephan posted the call sheet in Slack and asked Xavy to pick the TH location (5 options). Shoot on Xavy's calendar Sun 10am–7pm at BeLive: TH re-shoot morning, ANNA scenes afternoon.",
-    "videos": [],
-    "url": "https://app.notion.com/402b7a96dd4781bdbd71d41718d7fc02"
-   },
-   {
-    "title": "Finish more short-form scripts",
-    "owner": "Both",
-    "status": "In Progress",
-    "type": "Priority",
-    "next_step": "Get enough short scripts locked for Tuesday's shoot.",
-    "last_update": "2026-10-24: J1 v4 edited by Xavy (109 words, ~50 sec) with 2 rounds of Ava's notes. 3 scroll-stopping opener options + a pick added to Ava's notes for all 14 J scripts. Next: Xavy picks openers. 50 scripts due Nov 1.",
-    "videos": [],
-    "url": "https://app.notion.com/3fdb7a96dd47817ebc59ebbbc8096bb3"
-   },
-   {
-    "title": "The Wanting long-form edits",
-    "owner": "Both",
-    "status": "In Progress",
-    "type": "Priority",
-    "next_step": "Re-shoot the hook + some talking head. Stephan uploads TH footage to Descript and shares with Ady. Publish date Oct 31.",
-    "last_update": "2026-10-24: Call sheet ready for the Sun Oct 25 re-shoot at BeLive (TH morning, ANNA scenes afternoon). TH location still to pick. Publish Sat Oct 31.",
-    "videos": [],
-    "url": "https://app.notion.com/3fdb7a96dd47819baf3ff76c92b2e89d"
-   },
-   {
-    "title": "Start Lombok edit cuts",
-    "owner": "Both",
-    "status": "Not Started",
-    "type": "Priority",
-    "next_step": "Editor starts first cuts from the initial batch; send any missing footage.",
-    "last_update": "2026-10-20: Lombok is a backlog video with a hard deadline of Oct 31 (Xavy). Stephan's SA asked for the existing Lombok footage list to build the visual map.",
-    "videos": [],
-    "url": "https://app.notion.com/3fdb7a96dd47816cac21e7e1e62c10af"
-   },
-   {
-    "title": "Short-form shoot on Thursday Oct 22",
-    "owner": "Both",
-    "status": "Done",
-    "type": "Top Project",
-    "next_step": "Moved from Tue (Xavy burnt out). Shoot Thu Oct 22, 3:30–5:30pm at BeLive (2nd floor), shorts only. Xavy physio 2pm, back ~3:15.",
-    "last_update": "2026-10-23: Shoot happened at BeLive. 3 shorts filmed (Xavy confirmed). The Wanting not done; re-shoot moved to Sun Oct 25 at BeLive.",
-    "videos": [],
-    "url": "https://app.notion.com/3fdb7a96dd47812d9953ff434aed5455"
-   }
-  ],
+  "week_of": "2026-10-26",
+  "items": [],
   "note": "",
   "source": "notion-mcp",
-  "synced_at": "2026-10-25T02:30:52+00:00"
+  "synced_at": "2026-10-26T02:30:48+00:00"
  },
  "pipeline": {
   "stuck_days": 14,
