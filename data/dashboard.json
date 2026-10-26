@@ -1,6 +1,6 @@
 {
- "generated_at": "2026-10-25T03:14:57+00:00",
- "generated_at_bali": "Sun 25 Oct 2026, 11:14 (Bali)",
+ "generated_at": "2026-10-26T03:16:11+00:00",
+ "generated_at_bali": "Mon 26 Oct 2026, 11:16 (Bali)",
  "rto": {
   "published": 11,
   "goal": 100
@@ -8,18 +8,18 @@
  "channel": {
   "subscribers": 156,
   "last28": {
-   "start": "2026-09-27",
-   "end": "2026-10-24",
-   "views": 97,
-   "watch_hours": 2.0,
-   "avg_view_duration_s": 101,
+   "start": "2026-09-28",
+   "end": "2026-10-25",
+   "views": 104,
+   "watch_hours": 2.6,
+   "avg_view_duration_s": 118,
    "subs_gained": 0,
    "subs_lost": 0
   },
   "top_recent": {
    "id": "Z2J94yH89SY",
-   "views": 28,
-   "watch_hours": 0.8,
+   "views": 29,
+   "watch_hours": 1.0,
    "title": "Why Feeling Safe Is Ruining Your Life"
   }
  },
@@ -28,7 +28,7 @@
    "id": "y3q1_0ovpgA",
    "title": "Why chasing validation will ruin your life",
    "published": "2026-10-18",
-   "views": 26,
+   "views": 27,
    "likes": 0,
    "comments": 0
   },
@@ -36,7 +36,7 @@
    "id": "y3q1_0ovpgA",
    "title": "Why chasing validation will ruin your life",
    "published": "2026-10-18",
-   "views": 26,
+   "views": 27,
    "likes": 0,
    "comments": 0
   },
@@ -44,7 +44,7 @@
    "id": "Z2J94yH89SY",
    "title": "Why Feeling Safe Is Ruining Your Life",
    "published": "2026-10-12",
-   "views": 35,
+   "views": 36,
    "likes": 3,
    "comments": 0
   },
@@ -52,7 +52,7 @@
    "id": "Z2J94yH89SY",
    "title": "Why Feeling Safe Is Ruining Your Life",
    "published": "2026-10-12",
-   "views": 35,
+   "views": 36,
    "likes": 3,
    "comments": 0
   },
@@ -92,7 +92,7 @@
    "id": "mC5SzxQmVi4",
    "title": "How getting laid off left me searching for a new home",
    "published": "2025-11-26",
-   "views": 87,
+   "views": 88,
    "likes": 3,
    "comments": 1
   },
@@ -467,12 +467,10 @@
  ],
  "notion_ok": true,
  "priorities": {
-  "status": "ok",
+  "status": "no_access",
   "week_of": "2026-10-26",
   "items": [],
-  "note": "",
-  "source": "notion-mcp",
-  "synced_at": "2026-10-26T02:30:48+00:00"
+  "note": ""
  },
  "pipeline": {
   "stuck_days": 14,
@@ -488,9 +486,9 @@
       "progress": "25%",
       "priority": "Top Priority",
       "next_owner": "Both",
-      "next_step": "SE: call sheet for the Sun Oct 25 BeLive shoot posted in Slack; asked Xavy to pick the talking-head setup (5 location options, question logged). XC: shoot day on the calendar Sun 10am–7pm at BeLive: TH re-shoot in the morning, ANNA scenes 05, 04, 02, 03, 01 in the afternoon. NS: Xavy picks the TH location, then shoot Sunday.",
+      "next_step": "SE (evening): prep done for the Sun Oct 25 shoot: call sheet final, TH script confirmed, shot checklist for all 5 ANNA scenes, gear charged, teleprompter ready. Proposes the hook TH at BeLive and the remaining TH sections at BWork. NS: Xavy confirms the TH split; after the shoot, SE uploads TH footage to Descript for Ady.",
       "last_update": "2026-10-24",
-      "idle_days": 1,
+      "idle_days": 2,
       "stuck": false,
       "stuck_reason": "",
       "active_this_week": true,
@@ -506,7 +504,7 @@
       "next_owner": "Both",
       "next_step": "XC: backlog video, hard deadline Oct 31 (Xavy). NS: Stephan sends his SA the list of existing Lombok footage so the visual map can be built.",
       "last_update": "2026-10-20",
-      "idle_days": 5,
+      "idle_days": 6,
       "stuck": false,
       "stuck_reason": "",
       "active_this_week": true,
@@ -522,7 +520,7 @@
       "next_owner": "Xavy",
       "next_step": "XC pre-production on hold. Began brainstorming ideation",
       "last_update": "2026-08-21",
-      "idle_days": 65,
+      "idle_days": 66,
       "stuck": true,
       "stuck_reason": "on hold / blocked",
       "active_this_week": false,
@@ -538,9 +536,9 @@
       "next_owner": "Xavy",
       "next_step": "XC to begin RW script + aggregate previous footage + new talking head",
       "last_update": "2026-08-21",
-      "idle_days": 65,
+      "idle_days": 66,
       "stuck": true,
-      "stuck_reason": "no update in 65 days",
+      "stuck_reason": "no update in 66 days",
       "active_this_week": false,
       "next_cut_due": null,
       "publish": "2026-11-12"
@@ -554,9 +552,9 @@
       "next_owner": "Xavy",
       "next_step": "XC to begin RW script + aggregate previous footage + new talking head",
       "last_update": "2026-08-21",
-      "idle_days": 65,
+      "idle_days": 66,
       "stuck": true,
-      "stuck_reason": "no update in 65 days",
+      "stuck_reason": "no update in 66 days",
       "active_this_week": false,
       "next_cut_due": null,
       "publish": null
@@ -576,7 +574,7 @@
       "next_owner": "Xavy",
       "next_step": "XC pre-production on hold. Began brainstorming ideation",
       "last_update": "2026-08-21",
-      "idle_days": 65,
+      "idle_days": 66,
       "stuck": true,
       "stuck_reason": "on hold / blocked",
       "active_this_week": false,
@@ -598,7 +596,7 @@
       "next_owner": "Xavy",
       "next_step": "XC: backlog video, hard deadline Oct 31 (Xavy). NS: finish the final script polish and get the TH + headshot shot so Ady can complete the cut.",
       "last_update": "2026-10-20",
-      "idle_days": 5,
+      "idle_days": 6,
       "stuck": false,
       "stuck_reason": "",
       "active_this_week": true,
@@ -614,9 +612,9 @@
       "next_owner": "Xavy",
       "next_step": "XC to begin script + pre-production",
       "last_update": "2026-08-21",
-      "idle_days": 65,
+      "idle_days": 66,
       "stuck": true,
-      "stuck_reason": "no update in 65 days",
+      "stuck_reason": "no update in 66 days",
       "active_this_week": false,
       "next_cut_due": null,
       "publish": null
@@ -641,7 +639,7 @@
       "next_owner": "Xavy",
       "next_step": "XC: SC V1 (Sandcastles) column added to the Short Form Scripts side-by-sides; Passport Bro #1, #3, #4 Sandcastles scripts moved in word for word (232–249 words, about twice the 100–130 target). NS: trim them to target and polish as the next Ava version before filming.",
       "last_update": "2026-10-21",
-      "idle_days": 4,
+      "idle_days": 5,
       "stuck": false,
       "stuck_reason": "",
       "active_this_week": true,
@@ -651,7 +649,7 @@
     ]
    }
   ],
-  "idea_bank_count": 50
+  "idea_bank_count": 58
  },
  "billing": [
   {
