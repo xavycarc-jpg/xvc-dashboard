@@ -467,10 +467,12 @@
  ],
  "notion_ok": true,
  "priorities": {
-  "status": "no_access",
+  "status": "ok",
   "week_of": "2026-10-26",
   "items": [],
-  "note": ""
+  "note": "",
+  "source": "notion-mcp",
+  "synced_at": "2026-10-27T02:30:29+00:00"
  },
  "pipeline": {
   "stuck_days": 14,
