@@ -1,8 +1,59 @@
 {
  "status": "ok",
- "week_of": "2026-10-26",
- "items": [],
+ "week_of": "2026-11-02",
+ "items": [
+  {
+   "title": "Write the scripts for the 2 long forms we'll shoot",
+   "owner": "Xavy",
+   "status": "In Progress",
+   "type": "Priority",
+   "next_step": "Xavy writes them in between the production days, so they're ready before the talking-head shoot later in the week.",
+   "last_update": "",
+   "videos": [],
+   "url": "https://app.notion.com/408b7a96dd47812f8cb7cc6647bf9b46"
+  },
+  {
+   "title": "Nov 1–6: short form, short form, short form (+ Vietnam & Lombok talking heads)",
+   "owner": "Both",
+   "status": "Not Started",
+   "type": "Top Project",
+   "next_step": "Main focus all week is short form: film the ~20 short scripts that are ready (the earlier target was 50). Also finish the talking heads for Vietnam (Right On Time) and Lombok. Stephan's draft schedule plans 3 full long-form shoot days (Nov 2, 4, 5); it needs revising to match this.",
+   "last_update": "2026-10-31: New versions on the shorts: J8 v8, J9 v9 (blended, friend disagreement now on immigration), J10 v8, each built on SC V1 with its hook word for word. Renumbered: J19 → J11, J20 → J12, old J11–J18 → J13–J20. Personal details on J8–J10 still needed from Xavy.",
+   "videos": [],
+   "url": "https://app.notion.com/402b7a96dd478106a906d1f23a1b9312"
+  },
+  {
+   "title": "Map visuals for the 2 long forms + pull usable footage",
+   "owner": "Stephan",
+   "status": "Not Started",
+   "type": "Priority",
+   "next_step": "Stephan + Ady map the visuals for both long forms and pull existing footage we can use. Xavy shares more details on Oct 30.",
+   "last_update": "2026-10-30: Xavy added a footage review for the villa week: Ady and Stephan go through the El Salvador, Ubud and Argentina footage for the 2 long-form scripts still in development.",
+   "videos": [],
+   "url": "https://app.notion.com/408b7a96dd478196941be43b9e2d75c2"
+  },
+  {
+   "title": "Tag footage and get the library going",
+   "owner": "Stephan",
+   "status": "Not Started",
+   "type": "Priority",
+   "next_step": "Stephan + Ady use the downtime between shoots to tag footage and carry on the Catalogue Library work (Phase 1).",
+   "last_update": "",
+   "videos": [],
+   "url": "https://app.notion.com/408b7a96dd4781b09acec130d8b2a173"
+  },
+  {
+   "title": "Talking heads for 2 more long-form videos (second half of the week)",
+   "owner": "Both",
+   "status": "Not Started",
+   "type": "Priority",
+   "next_step": "2 podcasts with 2 guests at the house (Nov 3–5) feed into these 2 talking heads. Xavy is writing the scripts.",
+   "last_update": "2026-10-30: Production Plan lists the 2 new talking heads after Lombok and Vietnam. Podcasts become short clips of a few minutes, and the full episode can go on the BTS channel.",
+   "videos": [],
+   "url": "https://app.notion.com/408b7a96dd478125b81edb5c1f577e68"
+  }
+ ],
  "note": "",
  "source": "notion-mcp",
- "synced_at": "2026-11-01T02:30:45+00:00"
+ "synced_at": "2026-11-02T02:31:03+00:00"
 }
