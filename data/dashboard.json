@@ -471,6 +471,16 @@
   "week_of": "2026-11-02",
   "items": [
    {
+    "title": "Nov 1–6: short form, short form, short form (+ Vietnam & Lombok talking heads)",
+    "owner": "Both",
+    "status": "In Progress",
+    "type": "Top Project",
+    "next_step": "Main focus all week is short form: film the ~20 short scripts that are ready (the earlier target was 50). Also finish the talking heads for Vietnam (Right On Time) and Lombok. Stephan's draft schedule plans 3 full long-form shoot days (Nov 2, 4, 5); it needs revising to match this.",
+    "last_update": "2026-11-02: Stephan's villa schedule marks the C1–C3 and J1 shoot blocks done (to be confirmed by Xavy). C1–C3 scripts restored in the Short Form doc and Production Plan after an Oct 30 overwrite. Lifestyle Shots table added to the Production Plan.",
+    "videos": [],
+    "url": "https://app.notion.com/402b7a96dd478106a906d1f23a1b9312"
+   },
+   {
     "title": "Write the scripts for the 2 long forms we'll shoot",
     "owner": "Xavy",
     "status": "In Progress",
@@ -479,16 +489,6 @@
     "last_update": "",
     "videos": [],
     "url": "https://app.notion.com/408b7a96dd47812f8cb7cc6647bf9b46"
-   },
-   {
-    "title": "Nov 1–6: short form, short form, short form (+ Vietnam & Lombok talking heads)",
-    "owner": "Both",
-    "status": "Not Started",
-    "type": "Top Project",
-    "next_step": "Main focus all week is short form: film the ~20 short scripts that are ready (the earlier target was 50). Also finish the talking heads for Vietnam (Right On Time) and Lombok. Stephan's draft schedule plans 3 full long-form shoot days (Nov 2, 4, 5); it needs revising to match this.",
-    "last_update": "2026-10-31: New versions on the shorts: J8 v8, J9 v9 (blended, friend disagreement now on immigration), J10 v8, each built on SC V1 with its hook word for word. Renumbered: J19 → J11, J20 → J12, old J11–J18 → J13–J20. Personal details on J8–J10 still needed from Xavy.",
-    "videos": [],
-    "url": "https://app.notion.com/402b7a96dd478106a906d1f23a1b9312"
    },
    {
     "title": "Map visuals for the 2 long forms + pull usable footage",
@@ -523,7 +523,7 @@
   ],
   "note": "",
   "source": "notion-mcp",
-  "synced_at": "2026-11-02T02:31:03+00:00"
+  "synced_at": "2026-11-03T02:31:04+00:00"
  },
  "pipeline": {
   "stuck_days": 14,
