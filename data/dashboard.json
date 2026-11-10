@@ -1,18 +1,18 @@
 {
- "generated_at": "2026-11-09T04:42:39+00:00",
- "generated_at_bali": "Mon 09 Nov 2026, 12:42 (Bali)",
+ "generated_at": "2026-11-10T05:58:02+00:00",
+ "generated_at_bali": "Tue 10 Nov 2026, 13:58 (Bali)",
  "rto": {
-  "published": 11,
+  "published": 12,
   "goal": 100
  },
  "channel": {
   "subscribers": 157,
   "last28": {
-   "start": "2026-10-12",
-   "end": "2026-11-08",
-   "views": 125,
-   "watch_hours": 4.0,
-   "avg_view_duration_s": 145,
+   "start": "2026-10-13",
+   "end": "2026-11-09",
+   "views": 111,
+   "watch_hours": 3.6,
+   "avg_view_duration_s": 150,
    "subs_gained": 2,
    "subs_lost": 1
   },
@@ -24,6 +24,14 @@
   }
  },
  "long_form": [
+  {
+   "id": "QdBQk7nayJw",
+   "title": "You still have 10 weeks left in 2026. What are you going to do with them?",
+   "published": "2026-11-09",
+   "views": 26,
+   "likes": 1,
+   "comments": 0
+  },
   {
    "id": "y3q1_0ovpgA",
    "title": "Why chasing validation will ruin your life",
@@ -114,6 +122,13 @@
   }
  ],
  "shorts": [
+  {
+   "id": "GyUHF5q1XJ4",
+   "title": "250 days without alcohol. The hardest part wasn't quitting the drink.",
+   "published": "2026-11-09",
+   "views": 692,
+   "likes": 4
+  },
   {
    "id": "1FSaRKb9yCQ",
    "title": "The Next 6 Months Will Change You",
@@ -430,18 +445,18 @@
    "likes": 6
   },
   {
-   "id": "KMBeC6c7P38",
-   "title": "When Your Old Life Doesn’t Feel Like Yours Anymore",
-   "published": "2026-08-13",
-   "views": 1152,
-   "likes": 21
+   "id": "Af9EoSs0RQs",
+   "title": "What if you don’t actually want more? #personalgrowth #selfimprovement #startingover",
+   "published": "2026-08-12",
+   "views": 972,
+   "likes": 22
   },
   {
-   "id": "D7bYnS0IHuE",
-   "title": "You Made It. So Why Do You Still Feel Empty? #selfgrowth #personalgrowth #success",
-   "published": "2026-08-13",
-   "views": 458,
-   "likes": 7
+   "id": "OFmCtUTodZc",
+   "title": "Maybe your’e not failing, maybe just chasing the wrong things #personalgrowth #selfimprovement",
+   "published": "2026-08-12",
+   "views": 493,
+   "likes": 9
   },
   {
    "id": "PPDUbZ5h9mQ",
@@ -467,12 +482,10 @@
  ],
  "notion_ok": true,
  "priorities": {
-  "status": "ok",
+  "status": "no_access",
   "week_of": "2026-11-09",
   "items": [],
-  "note": "",
-  "source": "notion-mcp",
-  "synced_at": "2026-11-10T02:31:45+00:00"
+  "note": ""
  },
  "pipeline": {
   "stuck_days": 14,
@@ -487,15 +500,15 @@
       "edit_phase": "C1: Story",
       "progress": "25%",
       "priority": "Top Priority",
-      "next_owner": "Stephan",
-      "next_step": "SE: hook revised (Ady + Stephan), full talking head sent to Ady, and Ady is building the Apple-style talking head. NS: Stephan revises the remaining sections.",
-      "last_update": "2026-10-30",
-      "idle_days": 10,
+      "next_owner": "Xavy",
+      "next_step": "Currently editing with new TH created. NS: To finalize headshot and SF",
+      "last_update": "2026-11-10",
+      "idle_days": 0,
       "stuck": false,
       "stuck_reason": "",
       "active_this_week": true,
       "next_cut_due": "2026-06-19",
-      "publish": "2026-10-31"
+      "publish": "2026-11-14"
      },
      {
       "title": "The Price of Living for Others [Lombok]",
@@ -504,14 +517,30 @@
       "progress": "Not Ready",
       "priority": "Awaiting Prod",
       "next_owner": "Xavy",
-      "next_step": "XC: final polish on the hook. Picked Option B (\"I hate that quote. Because I can't argue with it.\" + \"Don't believe me? Here's my list...\") and added the bridge line \"Notice what's on that list...\". NS: continue the polish pass past the hook.",
-      "last_update": "2026-11-06",
-      "idle_days": 3,
+      "next_step": "Editing updated TH. NS: Finalize headshot + SF",
+      "last_update": "2026-11-10",
+      "idle_days": 0,
       "stuck": false,
       "stuck_reason": "",
       "active_this_week": true,
       "next_cut_due": null,
-      "publish": "2025-11-08"
+      "publish": "2026-11-28"
+     },
+     {
+      "title": "Why being yourself is the worst advice for men (physical looks POV)",
+      "pl_state": "Script RW",
+      "edit_phase": "Hook Only",
+      "progress": "100%",
+      "priority": "High",
+      "next_owner": "Xavy",
+      "next_step": "XC to determine production and publish date. \n\nNS: RW script + footage selection",
+      "last_update": "2026-11-10",
+      "idle_days": 0,
+      "stuck": false,
+      "stuck_reason": "",
+      "active_this_week": false,
+      "next_cut_due": null,
+      "publish": null
      },
      {
       "title": "How being open minded ruins your life ",
@@ -520,9 +549,9 @@
       "progress": "Not started",
       "priority": "High",
       "next_owner": "Xavy",
-      "next_step": "XC pre-production on hold. Began brainstorming ideation",
-      "last_update": "2026-08-21",
-      "idle_days": 80,
+      "next_step": "Production On Hold (POH)",
+      "last_update": "2026-11-10",
+      "idle_days": 0,
       "stuck": true,
       "stuck_reason": "on hold / blocked",
       "active_this_week": false,
@@ -538,28 +567,12 @@
       "next_owner": "Xavy",
       "next_step": "XC to begin RW script + aggregate previous footage + new talking head",
       "last_update": "2026-08-21",
-      "idle_days": 80,
+      "idle_days": 81,
       "stuck": true,
-      "stuck_reason": "no update in 80 days",
+      "stuck_reason": "no update in 81 days",
       "active_this_week": false,
       "next_cut_due": null,
       "publish": "2026-11-12"
-     },
-     {
-      "title": "Why being yourself is the worst advice for men (physical looks POV)",
-      "pl_state": "Script RW",
-      "edit_phase": "Hook Only",
-      "progress": "100%",
-      "priority": "High",
-      "next_owner": "Xavy",
-      "next_step": "XC to begin RW script + aggregate previous footage + new talking head",
-      "last_update": "2026-08-21",
-      "idle_days": 80,
-      "stuck": true,
-      "stuck_reason": "no update in 80 days",
-      "active_this_week": false,
-      "next_cut_due": null,
-      "publish": null
      }
     ]
    },
@@ -576,7 +589,7 @@
       "next_owner": "Xavy",
       "next_step": "XC pre-production on hold. Began brainstorming ideation",
       "last_update": "2026-08-21",
-      "idle_days": 80,
+      "idle_days": 81,
       "stuck": true,
       "stuck_reason": "on hold / blocked",
       "active_this_week": false,
@@ -595,15 +608,15 @@
       "edit_phase": "C1: Story",
       "progress": "25%",
       "priority": "Top Priority",
-      "next_owner": "Both",
-      "next_step": "XC+SE: Vietnam talking head shot today at the villa (11:00–12:30, marked done in the villa schedule). NS: Ady starts the Vietnam edit with the new TH.",
-      "last_update": "2026-11-04",
-      "idle_days": 5,
+      "next_owner": "Xavy",
+      "next_step": "Editing updated TH. NS: Finalize headshot + SF",
+      "last_update": "2026-11-10",
+      "idle_days": 0,
       "stuck": false,
       "stuck_reason": "",
       "active_this_week": true,
       "next_cut_due": null,
-      "publish": "2026-10-31"
+      "publish": "2026-11-21"
      },
      {
       "title": "The price of falling behind",
@@ -613,10 +626,10 @@
       "priority": "Awaiting Prod",
       "next_owner": "Xavy",
       "next_step": "XC to begin script + pre-production",
-      "last_update": "2026-08-21",
-      "idle_days": 80,
-      "stuck": true,
-      "stuck_reason": "no update in 80 days",
+      "last_update": "2026-11-10",
+      "idle_days": 0,
+      "stuck": false,
+      "stuck_reason": "",
       "active_this_week": false,
       "next_cut_due": null,
       "publish": null
@@ -639,11 +652,11 @@
       "progress": "25%",
       "priority": "Top Priority",
       "next_owner": "Xavy",
-      "next_step": "XC: SC V1 (Sandcastles) column added to the Short Form Scripts side-by-sides; Passport Bro #1, #3, #4 Sandcastles scripts moved in word for word (232–249 words, about twice the 100–130 target). NS: trim them to target and polish as the next Ava version before filming.",
-      "last_update": "2026-10-21",
-      "idle_days": 19,
-      "stuck": true,
-      "stuck_reason": "no update in 19 days",
+      "next_step": "LF Published.  XC to draft short form to push reach.",
+      "last_update": "2026-11-10",
+      "idle_days": 0,
+      "stuck": false,
+      "stuck_reason": "",
       "active_this_week": true,
       "next_cut_due": null,
       "publish": "2026-10-17"
@@ -767,13 +780,6 @@
    "credits": "6"
   },
   {
-   "title": "The Price of Living for Others [Lombok]",
-   "invoice": "E. Unassigned",
-   "payment": "TBD",
-   "progress": "Not Ready",
-   "credits": ""
-  },
-  {
    "title": "Dear Xavy: My advice to young men",
    "invoice": "E. Unassigned",
    "payment": "TBD",
@@ -795,6 +801,13 @@
    "credits": ""
   },
   {
+   "title": "The Price of Living for Others [Lombok]",
+   "invoice": "E. Unassigned",
+   "payment": "TBD",
+   "progress": "Not Ready",
+   "credits": ""
+  },
+  {
    "title": "How being open minded ruins your life ",
    "invoice": "E. Unassigned",
    "payment": "TBD",
@@ -802,14 +815,14 @@
    "credits": ""
   },
   {
-   "title": "Why immigrants do not belong anywhere",
+   "title": "Why immigrants do not belong here or anywhere",
    "invoice": "E. Unassigned",
    "payment": "TBD",
    "progress": "Not started",
    "credits": ""
   },
   {
-   "title": "This Country was at war for 43 years and liberal activists did not care. ",
+   "title": "This Country was at war for 44 years and liberal activists did not care. ",
    "invoice": "E. Unassigned",
    "payment": "TBD",
    "progress": "Not started",
