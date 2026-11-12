@@ -1,6 +1,6 @@
 {
- "generated_at": "2026-11-11T04:45:11+00:00",
- "generated_at_bali": "Wed 11 Nov 2026, 12:45 (Bali)",
+ "generated_at": "2026-11-12T05:47:30+00:00",
+ "generated_at_bali": "Thu 12 Nov 2026, 13:47 (Bali)",
  "rto": {
   "published": 12,
   "goal": 100
@@ -8,19 +8,19 @@
  "channel": {
   "subscribers": 157,
   "last28": {
-   "start": "2026-10-14",
-   "end": "2026-11-10",
-   "views": 107,
-   "watch_hours": 3.5,
-   "avg_view_duration_s": 154,
+   "start": "2026-10-15",
+   "end": "2026-11-11",
+   "views": 827,
+   "watch_hours": 5.0,
+   "avg_view_duration_s": 45,
    "subs_gained": 2,
    "subs_lost": 1
   },
   "top_recent": {
-   "id": "y3q1_0ovpgA",
-   "views": 43,
-   "watch_hours": 2.1,
-   "title": "Why chasing validation will ruin your life"
+   "id": "GyUHF5q1XJ4",
+   "views": 699,
+   "watch_hours": 1.4,
+   "title": "250 days without alcohol. The hardest part wasn't quitting the drink."
   }
  },
  "long_form": [
@@ -28,7 +28,7 @@
    "id": "QdBQk7nayJw",
    "title": "You still have 10 weeks left in 2026. What are you going to do with them?",
    "published": "2026-11-09",
-   "views": 29,
+   "views": 32,
    "likes": 1,
    "comments": 0
   },
@@ -36,7 +36,7 @@
    "id": "y3q1_0ovpgA",
    "title": "Why chasing validation will ruin your life",
    "published": "2026-10-18",
-   "views": 52,
+   "views": 56,
    "likes": 3,
    "comments": 0
   },
@@ -44,7 +44,7 @@
    "id": "y3q1_0ovpgA",
    "title": "Why chasing validation will ruin your life",
    "published": "2026-10-18",
-   "views": 52,
+   "views": 56,
    "likes": 3,
    "comments": 0
   },
@@ -52,7 +52,7 @@
    "id": "Z2J94yH89SY",
    "title": "Why Feeling Safe Is Ruining Your Life",
    "published": "2026-10-12",
-   "views": 39,
+   "views": 44,
    "likes": 3,
    "comments": 0
   },
@@ -60,7 +60,7 @@
    "id": "Z2J94yH89SY",
    "title": "Why Feeling Safe Is Ruining Your Life",
    "published": "2026-10-12",
-   "views": 39,
+   "views": 44,
    "likes": 3,
    "comments": 0
   },
@@ -68,7 +68,7 @@
    "id": "IOFPXGzZ53M",
    "title": "Why getting what you want is a mistake",
    "published": "2026-07-07",
-   "views": 69,
+   "views": 73,
    "likes": 4,
    "comments": 1
   },
@@ -76,7 +76,7 @@
    "id": "SC8SfzHsabo",
    "title": "How bullying can change you [for the better]",
    "published": "2025-12-16",
-   "views": 6516,
+   "views": 6517,
    "likes": 12,
    "comments": 2
   },
@@ -84,7 +84,7 @@
    "id": "5CQHOpyXWKk",
    "title": "How burnout will change you [for the better]",
    "published": "2025-12-10",
-   "views": 5130,
+   "views": 5132,
    "likes": 4,
    "comments": 1
   },
@@ -92,7 +92,7 @@
    "id": "QjGV6CK1tJo",
    "title": "Why getting fired forced me out of my home",
    "published": "2025-12-03",
-   "views": 44,
+   "views": 45,
    "likes": 1,
    "comments": 1
   },
@@ -100,7 +100,7 @@
    "id": "mC5SzxQmVi4",
    "title": "How getting laid off left me searching for a new home",
    "published": "2025-11-26",
-   "views": 88,
+   "views": 91,
    "likes": 3,
    "comments": 1
   },
@@ -108,7 +108,7 @@
    "id": "UO7p4cAuu_U",
    "title": "35. Unemployed. Single Loser.",
    "published": "2025-11-19",
-   "views": 80,
+   "views": 82,
    "likes": 7,
    "comments": 6
   },
@@ -116,66 +116,80 @@
    "id": "OLFbWxSN9o8",
    "title": "why going to jail was good for me",
    "published": "2025-11-12",
-   "views": 7574,
+   "views": 7576,
    "likes": 15,
    "comments": 5
   }
  ],
  "shorts": [
   {
+   "id": "2QzjglElURQ",
+   "title": "Enjoy your life, and don't force a relationship if you're not financially, emotionally ready.",
+   "published": "2026-11-11",
+   "views": 474,
+   "likes": 5
+  },
+  {
+   "id": "4ofLCLRSazo",
+   "title": "It took me 10 years to realize you can't buy genuine connection with money.",
+   "published": "2026-11-11",
+   "views": 10,
+   "likes": 0
+  },
+  {
    "id": "f0AH7Do3cqs",
    "title": "Self respect starts with what you stop tolerating. What's yours?",
    "published": "2026-11-10",
-   "views": 229,
+   "views": 241,
    "likes": 1
   },
   {
    "id": "dYH_4WeklKI",
    "title": "Being strong doesn't mean pretending you're okay. Why do we still do that?",
    "published": "2026-11-10",
-   "views": 259,
-   "likes": 2
+   "views": 291,
+   "likes": 3
   },
   {
    "id": "GyUHF5q1XJ4",
    "title": "250 days without alcohol. The hardest part wasn't quitting the drink.",
    "published": "2026-11-09",
-   "views": 701,
+   "views": 713,
    "likes": 4
   },
   {
    "id": "1FSaRKb9yCQ",
    "title": "The Next 6 Months Will Change You",
    "published": "2026-09-17",
-   "views": 533,
+   "views": 535,
    "likes": 5
   },
   {
    "id": "nYF5Rxv63jk",
    "title": "Nobody's Coming to Save You",
    "published": "2026-09-16",
-   "views": 432,
+   "views": 433,
    "likes": 11
   },
   {
    "id": "YQZzvDWuWIw",
    "title": "You Lost Someone, Not Your Dream.",
    "published": "2026-09-13",
-   "views": 1021,
+   "views": 1023,
    "likes": 7
   },
   {
    "id": "zOcYB1FIk4E",
    "title": "Become the Man Your Family Can Depend On",
    "published": "2026-09-13",
-   "views": 1101,
+   "views": 1102,
    "likes": 18
   },
   {
    "id": "tQJPlkZngTw",
    "title": "I’m Still Figuring Life Out",
    "published": "2026-09-12",
-   "views": 530,
+   "views": 531,
    "likes": 9
   },
   {
@@ -189,14 +203,14 @@
    "id": "EYdR0nfPnGs",
    "title": "I Didn't Always Know Where My Life Was Going",
    "published": "2026-09-12",
-   "views": 897,
+   "views": 898,
    "likes": 6
   },
   {
    "id": "d4fq1cEwXE8",
    "title": "Stop Chasing Happiness. Start Building Your Life",
    "published": "2026-09-11",
-   "views": 283,
+   "views": 284,
    "likes": 5
   },
   {
@@ -316,7 +330,7 @@
    "title": "Your Mind Is Quietly Becoming Your Life",
    "published": "2026-08-31",
    "views": 979,
-   "likes": 27
+   "likes": 26
   },
   {
    "id": "WtIRmUf6Zos",
@@ -431,18 +445,18 @@
    "likes": 3
   },
   {
-   "id": "-OgRx8I45GM",
-   "title": "The Success Trap Nobody Talks About",
-   "published": "2026-08-15",
-   "views": 468,
-   "likes": 11
+   "id": "sbtjz7R9MjE",
+   "title": "Your Successful Life Might Be The Reason You Can’t Leave",
+   "published": "2026-08-14",
+   "views": 525,
+   "likes": 12
   },
   {
-   "id": "pUqSkPwZxko",
-   "title": "What If Your Dream Life Isn’t Freedom?",
-   "published": "2026-08-15",
-   "views": 355,
-   "likes": 7
+   "id": "kdflsauG97M",
+   "title": "Nothing Is Wrong With Your Life. So Why Leave?",
+   "published": "2026-08-14",
+   "views": 556,
+   "likes": 6
   },
   {
    "id": "KMBeC6c7P38",
@@ -490,18 +504,16 @@
    "id": "VYq0d05J_M8",
    "title": "don't waste another year",
    "published": "2025-11-11",
-   "views": 257,
+   "views": 258,
    "likes": 4
   }
  ],
  "notion_ok": true,
  "priorities": {
-  "status": "ok",
+  "status": "no_access",
   "week_of": "2026-11-09",
   "items": [],
-  "note": "",
-  "source": "notion-mcp",
-  "synced_at": "2026-11-12T02:31:22+00:00"
+  "note": ""
  },
  "pipeline": {
   "stuck_days": 14,
@@ -519,7 +531,7 @@
       "next_owner": "Xavy",
       "next_step": "XC. Draft",
       "last_update": "2026-11-10",
-      "idle_days": 1,
+      "idle_days": 2,
       "stuck": false,
       "stuck_reason": "",
       "active_this_week": false,
@@ -535,7 +547,7 @@
       "next_owner": "Xavy",
       "next_step": "XC to determine production and publish date. Value driver: LA footage and clay molding hook footage already made. Helps push XVC to lock in and get in shape. \n\nNS: RW script + footage selection",
       "last_update": "2026-11-10",
-      "idle_days": 1,
+      "idle_days": 2,
       "stuck": false,
       "stuck_reason": "",
       "active_this_week": false,
@@ -551,7 +563,7 @@
       "next_owner": "Xavy",
       "next_step": "Production On Hold (POH)",
       "last_update": "2026-11-10",
-      "idle_days": 1,
+      "idle_days": 2,
       "stuck": true,
       "stuck_reason": "on hold / blocked",
       "active_this_week": false,
@@ -573,7 +585,7 @@
       "next_owner": "Xavy",
       "next_step": "Production On Hold (POH)",
       "last_update": "2026-11-10",
-      "idle_days": 1,
+      "idle_days": 2,
       "stuck": true,
       "stuck_reason": "on hold / blocked",
       "active_this_week": false,
@@ -595,7 +607,7 @@
       "next_owner": "Xavy",
       "next_step": "XC to begin script + pre-production",
       "last_update": "2026-11-10",
-      "idle_days": 1,
+      "idle_days": 2,
       "stuck": false,
       "stuck_reason": "",
       "active_this_week": false,
@@ -617,7 +629,7 @@
       "next_owner": "Stephan",
       "next_step": "Editing updated TH. NS: Finalize headshot + SF",
       "last_update": "2026-11-10",
-      "idle_days": 1,
+      "idle_days": 2,
       "stuck": false,
       "stuck_reason": "",
       "active_this_week": true,
@@ -633,7 +645,7 @@
       "next_owner": "Stephan",
       "next_step": "Editing updated TH. NS: Finalize headshot + SF",
       "last_update": "2026-11-10",
-      "idle_days": 1,
+      "idle_days": 2,
       "stuck": false,
       "stuck_reason": "",
       "active_this_week": true,
@@ -649,7 +661,7 @@
       "next_owner": "Stephan",
       "next_step": "Currently editing with new TH created. NS: To finalize headshot and SF",
       "last_update": "2026-11-10",
-      "idle_days": 1,
+      "idle_days": 2,
       "stuck": false,
       "stuck_reason": "",
       "active_this_week": true,
@@ -671,7 +683,7 @@
       "next_owner": "Xavy",
       "next_step": "LF Published.  XC to draft short form to push reach.",
       "last_update": "2026-11-10",
-      "idle_days": 1,
+      "idle_days": 2,
       "stuck": false,
       "stuck_reason": "",
       "active_this_week": true,
@@ -875,6 +887,13 @@
   },
   {
    "title": "Discovering Ikigai in real life",
+   "invoice": "E. Unassigned",
+   "payment": "TBD",
+   "progress": "Not started",
+   "credits": ""
+  },
+  {
+   "title": "I'm Proud to Be American. Why Is That Controversial Now?",
    "invoice": "E. Unassigned",
    "payment": "TBD",
    "progress": "Not started",
