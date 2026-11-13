@@ -1,34 +1,42 @@
 {
- "generated_at": "2026-11-12T05:47:30+00:00",
- "generated_at_bali": "Thu 12 Nov 2026, 13:47 (Bali)",
+ "generated_at": "2026-11-13T05:07:19+00:00",
+ "generated_at_bali": "Fri 13 Nov 2026, 13:07 (Bali)",
  "rto": {
-  "published": 12,
+  "published": 13,
   "goal": 100
  },
  "channel": {
   "subscribers": 157,
   "last28": {
-   "start": "2026-10-15",
-   "end": "2026-11-11",
-   "views": 827,
-   "watch_hours": 5.0,
-   "avg_view_duration_s": 45,
+   "start": "2026-10-16",
+   "end": "2026-11-12",
+   "views": 1352,
+   "watch_hours": 6.3,
+   "avg_view_duration_s": 34,
    "subs_gained": 2,
    "subs_lost": 1
   },
   "top_recent": {
    "id": "GyUHF5q1XJ4",
-   "views": 699,
-   "watch_hours": 1.4,
+   "views": 708,
+   "watch_hours": 1.5,
    "title": "250 days without alcohol. The hardest part wasn't quitting the drink."
   }
  },
  "long_form": [
   {
+   "id": "CN1nMUHve5M",
+   "title": "Stop Being a Nice Guy. Start Being",
+   "published": "2026-11-12",
+   "views": 349,
+   "likes": 5,
+   "comments": 0
+  },
+  {
    "id": "QdBQk7nayJw",
    "title": "You still have 10 weeks left in 2026. What are you going to do with them?",
    "published": "2026-11-09",
-   "views": 32,
+   "views": 34,
    "likes": 1,
    "comments": 0
   },
@@ -108,7 +116,7 @@
    "id": "UO7p4cAuu_U",
    "title": "35. Unemployed. Single Loser.",
    "published": "2025-11-19",
-   "views": 82,
+   "views": 83,
    "likes": 7,
    "comments": 6
   },
@@ -116,7 +124,7 @@
    "id": "OLFbWxSN9o8",
    "title": "why going to jail was good for me",
    "published": "2025-11-12",
-   "views": 7576,
+   "views": 7577,
    "likes": 15,
    "comments": 5
   }
@@ -126,42 +134,42 @@
    "id": "2QzjglElURQ",
    "title": "Enjoy your life, and don't force a relationship if you're not financially, emotionally ready.",
    "published": "2026-11-11",
-   "views": 474,
-   "likes": 5
+   "views": 796,
+   "likes": 11
   },
   {
    "id": "4ofLCLRSazo",
    "title": "It took me 10 years to realize you can't buy genuine connection with money.",
    "published": "2026-11-11",
-   "views": 10,
-   "likes": 0
+   "views": 25,
+   "likes": 2
   },
   {
    "id": "f0AH7Do3cqs",
    "title": "Self respect starts with what you stop tolerating. What's yours?",
    "published": "2026-11-10",
-   "views": 241,
+   "views": 246,
    "likes": 1
   },
   {
    "id": "dYH_4WeklKI",
    "title": "Being strong doesn't mean pretending you're okay. Why do we still do that?",
    "published": "2026-11-10",
-   "views": 291,
+   "views": 319,
    "likes": 3
   },
   {
    "id": "GyUHF5q1XJ4",
    "title": "250 days without alcohol. The hardest part wasn't quitting the drink.",
    "published": "2026-11-09",
-   "views": 713,
+   "views": 721,
    "likes": 4
   },
   {
    "id": "1FSaRKb9yCQ",
    "title": "The Next 6 Months Will Change You",
    "published": "2026-09-17",
-   "views": 535,
+   "views": 536,
    "likes": 5
   },
   {
@@ -266,7 +274,7 @@
    "id": "NplXvhqdr54",
    "title": "Money Problems Can Destroy a Man's Peace",
    "published": "2026-09-07",
-   "views": 1469,
+   "views": 1471,
    "likes": 23
   },
   {
@@ -438,11 +446,11 @@
    "likes": 2
   },
   {
-   "id": "Dwj4ZyFJtXE",
-   "title": "What If Success Means Having Less?",
-   "published": "2026-08-16",
-   "views": 109,
-   "likes": 3
+   "id": "pUqSkPwZxko",
+   "title": "What If Your Dream Life Isn’t Freedom?",
+   "published": "2026-08-15",
+   "views": 355,
+   "likes": 7
   },
   {
    "id": "sbtjz7R9MjE",
@@ -510,12 +518,10 @@
  ],
  "notion_ok": true,
  "priorities": {
-  "status": "ok",
+  "status": "no_access",
   "week_of": "2026-11-09",
   "items": [],
-  "note": "",
-  "source": "notion-mcp",
-  "synced_at": "2026-11-13T02:31:51+00:00"
+  "note": ""
  },
  "pipeline": {
   "stuck_days": 14,
@@ -533,7 +539,7 @@
       "next_owner": "Xavy",
       "next_step": "XC. Draft",
       "last_update": "2026-11-10",
-      "idle_days": 2,
+      "idle_days": 3,
       "stuck": false,
       "stuck_reason": "",
       "active_this_week": false,
@@ -549,7 +555,7 @@
       "next_owner": "Xavy",
       "next_step": "XC to determine production and publish date. Value driver: LA footage and clay molding hook footage already made. Helps push XVC to lock in and get in shape. \n\nNS: RW script + footage selection",
       "last_update": "2026-11-10",
-      "idle_days": 2,
+      "idle_days": 3,
       "stuck": false,
       "stuck_reason": "",
       "active_this_week": false,
@@ -565,7 +571,7 @@
       "next_owner": "Xavy",
       "next_step": "Production On Hold (POH)",
       "last_update": "2026-11-10",
-      "idle_days": 2,
+      "idle_days": 3,
       "stuck": true,
       "stuck_reason": "on hold / blocked",
       "active_this_week": false,
@@ -587,7 +593,7 @@
       "next_owner": "Xavy",
       "next_step": "Production On Hold (POH)",
       "last_update": "2026-11-10",
-      "idle_days": 2,
+      "idle_days": 3,
       "stuck": true,
       "stuck_reason": "on hold / blocked",
       "active_this_week": false,
@@ -609,7 +615,7 @@
       "next_owner": "Xavy",
       "next_step": "XC to begin script + pre-production",
       "last_update": "2026-11-10",
-      "idle_days": 2,
+      "idle_days": 3,
       "stuck": false,
       "stuck_reason": "",
       "active_this_week": false,
@@ -631,7 +637,7 @@
       "next_owner": "Stephan",
       "next_step": "Editing updated TH. NS: Finalize headshot + SF",
       "last_update": "2026-11-10",
-      "idle_days": 2,
+      "idle_days": 3,
       "stuck": false,
       "stuck_reason": "",
       "active_this_week": true,
@@ -647,7 +653,7 @@
       "next_owner": "Stephan",
       "next_step": "Editing updated TH. NS: Finalize headshot + SF",
       "last_update": "2026-11-10",
-      "idle_days": 2,
+      "idle_days": 3,
       "stuck": false,
       "stuck_reason": "",
       "active_this_week": true,
@@ -663,7 +669,7 @@
       "next_owner": "Stephan",
       "next_step": "Currently editing with new TH created. NS: To finalize headshot and SF",
       "last_update": "2026-11-10",
-      "idle_days": 2,
+      "idle_days": 3,
       "stuck": false,
       "stuck_reason": "",
       "active_this_week": true,
@@ -685,7 +691,7 @@
       "next_owner": "Xavy",
       "next_step": "LF Published.  XC to draft short form to push reach.",
       "last_update": "2026-11-10",
-      "idle_days": 2,
+      "idle_days": 3,
       "stuck": false,
       "stuck_reason": "",
       "active_this_week": true,
