@@ -1,6 +1,6 @@
 {
- "generated_at": "2026-11-13T05:07:19+00:00",
- "generated_at_bali": "Fri 13 Nov 2026, 13:07 (Bali)",
+ "generated_at": "2026-11-14T04:57:53+00:00",
+ "generated_at_bali": "Sat 14 Nov 2026, 12:57 (Bali)",
  "rto": {
   "published": 13,
   "goal": 100
@@ -8,17 +8,17 @@
  "channel": {
   "subscribers": 157,
   "last28": {
-   "start": "2026-10-16",
-   "end": "2026-11-12",
-   "views": 1352,
-   "watch_hours": 6.3,
-   "avg_view_duration_s": 34,
+   "start": "2026-10-17",
+   "end": "2026-11-13",
+   "views": 1981,
+   "watch_hours": 7.5,
+   "avg_view_duration_s": 28,
    "subs_gained": 2,
    "subs_lost": 1
   },
   "top_recent": {
    "id": "GyUHF5q1XJ4",
-   "views": 708,
+   "views": 722,
    "watch_hours": 1.5,
    "title": "250 days without alcohol. The hardest part wasn't quitting the drink."
   }
@@ -28,7 +28,7 @@
    "id": "CN1nMUHve5M",
    "title": "Stop Being a Nice Guy. Start Being",
    "published": "2026-11-12",
-   "views": 349,
+   "views": 391,
    "likes": 5,
    "comments": 0
   },
@@ -134,14 +134,14 @@
    "id": "2QzjglElURQ",
    "title": "Enjoy your life, and don't force a relationship if you're not financially, emotionally ready.",
    "published": "2026-11-11",
-   "views": 796,
-   "likes": 11
+   "views": 914,
+   "likes": 12
   },
   {
    "id": "4ofLCLRSazo",
    "title": "It took me 10 years to realize you can't buy genuine connection with money.",
    "published": "2026-11-11",
-   "views": 25,
+   "views": 26,
    "likes": 2
   },
   {
@@ -162,7 +162,7 @@
    "id": "GyUHF5q1XJ4",
    "title": "250 days without alcohol. The hardest part wasn't quitting the drink.",
    "published": "2026-11-09",
-   "views": 721,
+   "views": 719,
    "likes": 4
   },
   {
@@ -211,7 +211,7 @@
    "id": "EYdR0nfPnGs",
    "title": "I Didn't Always Know Where My Life Was Going",
    "published": "2026-09-12",
-   "views": 898,
+   "views": 899,
    "likes": 6
   },
   {
@@ -260,7 +260,7 @@
    "id": "suBCyxjwA6Q",
    "title": "You Can Be Smart and Still Have No Leverage",
    "published": "2026-09-08",
-   "views": 1039,
+   "views": 1040,
    "likes": 3
   },
   {
@@ -358,7 +358,7 @@
    "id": "LixvZRLwDUA",
    "title": "Your Next Opponent Is You.",
    "published": "2026-08-28",
-   "views": 1343,
+   "views": 1345,
    "likes": 12
   },
   {
@@ -518,12 +518,10 @@
  ],
  "notion_ok": true,
  "priorities": {
-  "status": "ok",
+  "status": "no_access",
   "week_of": "2026-11-09",
   "items": [],
-  "note": "",
-  "source": "notion-mcp",
-  "synced_at": "2026-11-14T02:31:53+00:00"
+  "note": ""
  },
  "pipeline": {
   "stuck_days": 14,
@@ -541,7 +539,7 @@
       "next_owner": "Xavy",
       "next_step": "XC. Draft",
       "last_update": "2026-11-10",
-      "idle_days": 3,
+      "idle_days": 4,
       "stuck": false,
       "stuck_reason": "",
       "active_this_week": false,
@@ -557,7 +555,7 @@
       "next_owner": "Xavy",
       "next_step": "XC to determine production and publish date. Value driver: LA footage and clay molding hook footage already made. Helps push XVC to lock in and get in shape. \n\nNS: RW script + footage selection",
       "last_update": "2026-11-10",
-      "idle_days": 3,
+      "idle_days": 4,
       "stuck": false,
       "stuck_reason": "",
       "active_this_week": false,
@@ -573,7 +571,7 @@
       "next_owner": "Xavy",
       "next_step": "Production On Hold (POH)",
       "last_update": "2026-11-10",
-      "idle_days": 3,
+      "idle_days": 4,
       "stuck": true,
       "stuck_reason": "on hold / blocked",
       "active_this_week": false,
@@ -595,7 +593,7 @@
       "next_owner": "Xavy",
       "next_step": "Production On Hold (POH)",
       "last_update": "2026-11-10",
-      "idle_days": 3,
+      "idle_days": 4,
       "stuck": true,
       "stuck_reason": "on hold / blocked",
       "active_this_week": false,
@@ -617,7 +615,7 @@
       "next_owner": "Xavy",
       "next_step": "XC to begin script + pre-production",
       "last_update": "2026-11-10",
-      "idle_days": 3,
+      "idle_days": 4,
       "stuck": false,
       "stuck_reason": "",
       "active_this_week": false,
@@ -639,7 +637,7 @@
       "next_owner": "Stephan",
       "next_step": "Editing updated TH. NS: Finalize headshot + SF",
       "last_update": "2026-11-10",
-      "idle_days": 3,
+      "idle_days": 4,
       "stuck": false,
       "stuck_reason": "",
       "active_this_week": true,
@@ -655,7 +653,7 @@
       "next_owner": "Stephan",
       "next_step": "Editing updated TH. NS: Finalize headshot + SF",
       "last_update": "2026-11-10",
-      "idle_days": 3,
+      "idle_days": 4,
       "stuck": false,
       "stuck_reason": "",
       "active_this_week": true,
@@ -671,7 +669,7 @@
       "next_owner": "Stephan",
       "next_step": "Currently editing with new TH created. NS: To finalize headshot and SF",
       "last_update": "2026-11-10",
-      "idle_days": 3,
+      "idle_days": 4,
       "stuck": false,
       "stuck_reason": "",
       "active_this_week": true,
@@ -693,7 +691,7 @@
       "next_owner": "Xavy",
       "next_step": "LF Published.  XC to draft short form to push reach.",
       "last_update": "2026-11-10",
-      "idle_days": 3,
+      "idle_days": 4,
       "stuck": false,
       "stuck_reason": "",
       "active_this_week": true,
