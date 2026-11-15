@@ -1,26 +1,26 @@
 {
- "generated_at": "2026-11-14T04:57:53+00:00",
- "generated_at_bali": "Sat 14 Nov 2026, 12:57 (Bali)",
+ "generated_at": "2026-11-15T04:51:20+00:00",
+ "generated_at_bali": "Sun 15 Nov 2026, 12:51 (Bali)",
  "rto": {
   "published": 13,
   "goal": 100
  },
  "channel": {
-  "subscribers": 157,
+  "subscribers": 158,
   "last28": {
-   "start": "2026-10-17",
-   "end": "2026-11-13",
-   "views": 1981,
-   "watch_hours": 7.5,
-   "avg_view_duration_s": 28,
+   "start": "2026-10-18",
+   "end": "2026-11-14",
+   "views": 2715,
+   "watch_hours": 9.8,
+   "avg_view_duration_s": 26,
    "subs_gained": 2,
    "subs_lost": 1
   },
   "top_recent": {
-   "id": "GyUHF5q1XJ4",
-   "views": 722,
-   "watch_hours": 1.5,
-   "title": "250 days without alcohol. The hardest part wasn't quitting the drink."
+   "id": "2QzjglElURQ",
+   "views": 861,
+   "watch_hours": 1.9,
+   "title": "Enjoy your life, and don't force a relationship if you're not financially, emotionally ready."
   }
  },
  "long_form": [
@@ -28,8 +28,8 @@
    "id": "CN1nMUHve5M",
    "title": "Stop Being a Nice Guy. Start Being",
    "published": "2026-11-12",
-   "views": 391,
-   "likes": 5,
+   "views": 402,
+   "likes": 6,
    "comments": 0
   },
   {
@@ -131,31 +131,38 @@
  ],
  "shorts": [
   {
+   "id": "OpsGbV4_tvY",
+   "title": "Why Men Are Afraid to Approach Women",
+   "published": "2026-11-14",
+   "views": 1146,
+   "likes": 5
+  },
+  {
    "id": "2QzjglElURQ",
    "title": "Enjoy your life, and don't force a relationship if you're not financially, emotionally ready.",
    "published": "2026-11-11",
-   "views": 914,
+   "views": 917,
    "likes": 12
   },
   {
    "id": "4ofLCLRSazo",
    "title": "It took me 10 years to realize you can't buy genuine connection with money.",
    "published": "2026-11-11",
-   "views": 26,
+   "views": 28,
    "likes": 2
   },
   {
    "id": "f0AH7Do3cqs",
    "title": "Self respect starts with what you stop tolerating. What's yours?",
    "published": "2026-11-10",
-   "views": 246,
+   "views": 244,
    "likes": 1
   },
   {
    "id": "dYH_4WeklKI",
    "title": "Being strong doesn't mean pretending you're okay. Why do we still do that?",
    "published": "2026-11-10",
-   "views": 319,
+   "views": 318,
    "likes": 3
   },
   {
@@ -211,7 +218,7 @@
    "id": "EYdR0nfPnGs",
    "title": "I Didn't Always Know Where My Life Was Going",
    "published": "2026-09-12",
-   "views": 899,
+   "views": 900,
    "likes": 6
   },
   {
@@ -274,7 +281,7 @@
    "id": "NplXvhqdr54",
    "title": "Money Problems Can Destroy a Man's Peace",
    "published": "2026-09-07",
-   "views": 1471,
+   "views": 1474,
    "likes": 23
   },
   {
@@ -439,11 +446,11 @@
    "likes": 8
   },
   {
-   "id": "0nJhZj-FbWA",
-   "title": "What If You Don’t Actually Want More?",
-   "published": "2026-08-16",
-   "views": 176,
-   "likes": 2
+   "id": "-OgRx8I45GM",
+   "title": "The Success Trap Nobody Talks About",
+   "published": "2026-08-15",
+   "views": 468,
+   "likes": 11
   },
   {
    "id": "pUqSkPwZxko",
@@ -518,12 +525,10 @@
  ],
  "notion_ok": true,
  "priorities": {
-  "status": "ok",
+  "status": "no_access",
   "week_of": "2026-11-09",
   "items": [],
-  "note": "",
-  "source": "notion-mcp",
-  "synced_at": "2026-11-15T03:43:20+00:00"
+  "note": ""
  },
  "pipeline": {
   "stuck_days": 14,
@@ -541,7 +546,7 @@
       "next_owner": "Xavy",
       "next_step": "XC. Draft",
       "last_update": "2026-11-10",
-      "idle_days": 4,
+      "idle_days": 5,
       "stuck": false,
       "stuck_reason": "",
       "active_this_week": false,
@@ -557,7 +562,7 @@
       "next_owner": "Xavy",
       "next_step": "XC to determine production and publish date. Value driver: LA footage and clay molding hook footage already made. Helps push XVC to lock in and get in shape. \n\nNS: RW script + footage selection",
       "last_update": "2026-11-10",
-      "idle_days": 4,
+      "idle_days": 5,
       "stuck": false,
       "stuck_reason": "",
       "active_this_week": false,
@@ -573,7 +578,7 @@
       "next_owner": "Xavy",
       "next_step": "Production On Hold (POH)",
       "last_update": "2026-11-10",
-      "idle_days": 4,
+      "idle_days": 5,
       "stuck": true,
       "stuck_reason": "on hold / blocked",
       "active_this_week": false,
@@ -595,7 +600,7 @@
       "next_owner": "Xavy",
       "next_step": "Production On Hold (POH)",
       "last_update": "2026-11-10",
-      "idle_days": 4,
+      "idle_days": 5,
       "stuck": true,
       "stuck_reason": "on hold / blocked",
       "active_this_week": false,
@@ -617,7 +622,7 @@
       "next_owner": "Xavy",
       "next_step": "XC to begin script + pre-production",
       "last_update": "2026-11-10",
-      "idle_days": 4,
+      "idle_days": 5,
       "stuck": false,
       "stuck_reason": "",
       "active_this_week": false,
@@ -639,7 +644,7 @@
       "next_owner": "Stephan",
       "next_step": "Editing updated TH. NS: Finalize headshot + SF",
       "last_update": "2026-11-10",
-      "idle_days": 4,
+      "idle_days": 5,
       "stuck": false,
       "stuck_reason": "",
       "active_this_week": true,
@@ -655,7 +660,7 @@
       "next_owner": "Stephan",
       "next_step": "Editing updated TH. NS: Finalize headshot + SF",
       "last_update": "2026-11-10",
-      "idle_days": 4,
+      "idle_days": 5,
       "stuck": false,
       "stuck_reason": "",
       "active_this_week": true,
@@ -671,7 +676,7 @@
       "next_owner": "Stephan",
       "next_step": "Currently editing with new TH created. NS: To finalize headshot and SF",
       "last_update": "2026-11-10",
-      "idle_days": 4,
+      "idle_days": 5,
       "stuck": false,
       "stuck_reason": "",
       "active_this_week": true,
@@ -693,7 +698,7 @@
       "next_owner": "Xavy",
       "next_step": "LF Published.  XC to draft short form to push reach.",
       "last_update": "2026-11-10",
-      "idle_days": 4,
+      "idle_days": 5,
       "stuck": false,
       "stuck_reason": "",
       "active_this_week": true,
