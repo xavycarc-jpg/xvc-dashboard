@@ -1,25 +1,25 @@
 {
- "generated_at": "2026-11-15T04:51:20+00:00",
- "generated_at_bali": "Sun 15 Nov 2026, 12:51 (Bali)",
+ "generated_at": "2026-11-16T04:47:34+00:00",
+ "generated_at_bali": "Mon 16 Nov 2026, 12:47 (Bali)",
  "rto": {
   "published": 13,
   "goal": 100
  },
  "channel": {
-  "subscribers": 158,
+  "subscribers": 160,
   "last28": {
-   "start": "2026-10-18",
-   "end": "2026-11-14",
-   "views": 2715,
-   "watch_hours": 9.8,
-   "avg_view_duration_s": 26,
+   "start": "2026-10-19",
+   "end": "2026-11-15",
+   "views": 2785,
+   "watch_hours": 9.3,
+   "avg_view_duration_s": 24,
    "subs_gained": 2,
    "subs_lost": 1
   },
   "top_recent": {
    "id": "2QzjglElURQ",
-   "views": 861,
-   "watch_hours": 1.9,
+   "views": 920,
+   "watch_hours": 2.1,
    "title": "Enjoy your life, and don't force a relationship if you're not financially, emotionally ready."
   }
  },
@@ -28,15 +28,15 @@
    "id": "CN1nMUHve5M",
    "title": "Stop Being a Nice Guy. Start Being",
    "published": "2026-11-12",
-   "views": 402,
-   "likes": 6,
+   "views": 410,
+   "likes": 7,
    "comments": 0
   },
   {
    "id": "QdBQk7nayJw",
    "title": "You still have 10 weeks left in 2026. What are you going to do with them?",
    "published": "2026-11-09",
-   "views": 34,
+   "views": 35,
    "likes": 1,
    "comments": 0
   },
@@ -44,7 +44,7 @@
    "id": "y3q1_0ovpgA",
    "title": "Why chasing validation will ruin your life",
    "published": "2026-10-18",
-   "views": 56,
+   "views": 57,
    "likes": 3,
    "comments": 0
   },
@@ -52,7 +52,7 @@
    "id": "y3q1_0ovpgA",
    "title": "Why chasing validation will ruin your life",
    "published": "2026-10-18",
-   "views": 56,
+   "views": 57,
    "likes": 3,
    "comments": 0
   },
@@ -131,17 +131,24 @@
  ],
  "shorts": [
   {
+   "id": "Phy-SQtEb-w",
+   "title": "I Spent Years Building a Life I Didn't Want",
+   "published": "2026-11-15",
+   "views": 1375,
+   "likes": 35
+  },
+  {
    "id": "OpsGbV4_tvY",
    "title": "Why Men Are Afraid to Approach Women",
    "published": "2026-11-14",
-   "views": 1146,
-   "likes": 5
+   "views": 1194,
+   "likes": 7
   },
   {
    "id": "2QzjglElURQ",
    "title": "Enjoy your life, and don't force a relationship if you're not financially, emotionally ready.",
    "published": "2026-11-11",
-   "views": 917,
+   "views": 919,
    "likes": 12
   },
   {
@@ -162,14 +169,14 @@
    "id": "dYH_4WeklKI",
    "title": "Being strong doesn't mean pretending you're okay. Why do we still do that?",
    "published": "2026-11-10",
-   "views": 318,
+   "views": 317,
    "likes": 3
   },
   {
    "id": "GyUHF5q1XJ4",
    "title": "250 days without alcohol. The hardest part wasn't quitting the drink.",
    "published": "2026-11-09",
-   "views": 719,
+   "views": 720,
    "likes": 4
   },
   {
@@ -281,7 +288,7 @@
    "id": "NplXvhqdr54",
    "title": "Money Problems Can Destroy a Man's Peace",
    "published": "2026-09-07",
-   "views": 1474,
+   "views": 1475,
    "likes": 23
   },
   {
@@ -439,11 +446,11 @@
    "likes": 1
   },
   {
-   "id": "6_F5ll7uE6s",
-   "title": "You Finally Got Freedom. So Why Go Back?",
-   "published": "2026-08-17",
-   "views": 1116,
-   "likes": 8
+   "id": "Dwj4ZyFJtXE",
+   "title": "What If Success Means Having Less?",
+   "published": "2026-08-16",
+   "views": 109,
+   "likes": 3
   },
   {
    "id": "-OgRx8I45GM",
@@ -525,12 +532,10 @@
  ],
  "notion_ok": true,
  "priorities": {
-  "status": "ok",
+  "status": "no_access",
   "week_of": "2026-11-16",
   "items": [],
-  "note": "",
-  "source": "notion-mcp",
-  "synced_at": "2026-11-16T02:31:07+00:00"
+  "note": ""
  },
  "pipeline": {
   "stuck_days": 14,
@@ -548,7 +553,7 @@
       "next_owner": "Xavy",
       "next_step": "XC. Draft",
       "last_update": "2026-11-10",
-      "idle_days": 5,
+      "idle_days": 6,
       "stuck": false,
       "stuck_reason": "",
       "active_this_week": false,
@@ -564,7 +569,7 @@
       "next_owner": "Xavy",
       "next_step": "XC to determine production and publish date. Value driver: LA footage and clay molding hook footage already made. Helps push XVC to lock in and get in shape. \n\nNS: RW script + footage selection",
       "last_update": "2026-11-10",
-      "idle_days": 5,
+      "idle_days": 6,
       "stuck": false,
       "stuck_reason": "",
       "active_this_week": false,
@@ -580,7 +585,7 @@
       "next_owner": "Xavy",
       "next_step": "Production On Hold (POH)",
       "last_update": "2026-11-10",
-      "idle_days": 5,
+      "idle_days": 6,
       "stuck": true,
       "stuck_reason": "on hold / blocked",
       "active_this_week": false,
@@ -602,7 +607,7 @@
       "next_owner": "Xavy",
       "next_step": "Production On Hold (POH)",
       "last_update": "2026-11-10",
-      "idle_days": 5,
+      "idle_days": 6,
       "stuck": true,
       "stuck_reason": "on hold / blocked",
       "active_this_week": false,
@@ -624,7 +629,7 @@
       "next_owner": "Xavy",
       "next_step": "XC to begin script + pre-production",
       "last_update": "2026-11-10",
-      "idle_days": 5,
+      "idle_days": 6,
       "stuck": false,
       "stuck_reason": "",
       "active_this_week": false,
@@ -646,7 +651,7 @@
       "next_owner": "Stephan",
       "next_step": "Editing updated TH. NS: Finalize headshot + SF",
       "last_update": "2026-11-10",
-      "idle_days": 5,
+      "idle_days": 6,
       "stuck": false,
       "stuck_reason": "",
       "active_this_week": true,
@@ -662,7 +667,7 @@
       "next_owner": "Stephan",
       "next_step": "Editing updated TH. NS: Finalize headshot + SF",
       "last_update": "2026-11-10",
-      "idle_days": 5,
+      "idle_days": 6,
       "stuck": false,
       "stuck_reason": "",
       "active_this_week": true,
@@ -678,7 +683,7 @@
       "next_owner": "Stephan",
       "next_step": "Currently editing with new TH created. NS: To finalize headshot and SF",
       "last_update": "2026-11-10",
-      "idle_days": 5,
+      "idle_days": 6,
       "stuck": false,
       "stuck_reason": "",
       "active_this_week": true,
@@ -700,7 +705,7 @@
       "next_owner": "Xavy",
       "next_step": "LF Published.  XC to draft short form to push reach.",
       "last_update": "2026-11-10",
-      "idle_days": 5,
+      "idle_days": 6,
       "stuck": false,
       "stuck_reason": "",
       "active_this_week": true,
