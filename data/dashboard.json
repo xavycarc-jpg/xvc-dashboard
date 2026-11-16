@@ -525,10 +525,12 @@
  ],
  "notion_ok": true,
  "priorities": {
-  "status": "no_access",
-  "week_of": "2026-11-09",
+  "status": "ok",
+  "week_of": "2026-11-16",
   "items": [],
-  "note": ""
+  "note": "",
+  "source": "notion-mcp",
+  "synced_at": "2026-11-16T02:31:07+00:00"
  },
  "pipeline": {
   "stuck_days": 14,
