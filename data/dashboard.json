@@ -1,6 +1,6 @@
 {
- "generated_at": "2026-11-16T04:47:34+00:00",
- "generated_at_bali": "Mon 16 Nov 2026, 12:47 (Bali)",
+ "generated_at": "2026-11-17T06:35:20+00:00",
+ "generated_at_bali": "Tue 17 Nov 2026, 14:35 (Bali)",
  "rto": {
   "published": 13,
   "goal": 100
@@ -8,19 +8,19 @@
  "channel": {
   "subscribers": 160,
   "last28": {
-   "start": "2026-10-19",
-   "end": "2026-11-15",
-   "views": 2785,
-   "watch_hours": 9.3,
+   "start": "2026-10-20",
+   "end": "2026-11-16",
+   "views": 3960,
+   "watch_hours": 14.2,
    "avg_view_duration_s": 24,
-   "subs_gained": 2,
-   "subs_lost": 1
+   "subs_gained": 4,
+   "subs_lost": 2
   },
   "top_recent": {
-   "id": "2QzjglElURQ",
-   "views": 920,
-   "watch_hours": 2.1,
-   "title": "Enjoy your life, and don't force a relationship if you're not financially, emotionally ready."
+   "id": "OpsGbV4_tvY",
+   "views": 1159,
+   "watch_hours": 4.9,
+   "title": "Why Men Are Afraid to Approach Women"
   }
  },
  "long_form": [
@@ -28,7 +28,7 @@
    "id": "CN1nMUHve5M",
    "title": "Stop Being a Nice Guy. Start Being",
    "published": "2026-11-12",
-   "views": 410,
+   "views": 412,
    "likes": 7,
    "comments": 0
   },
@@ -36,7 +36,7 @@
    "id": "QdBQk7nayJw",
    "title": "You still have 10 weeks left in 2026. What are you going to do with them?",
    "published": "2026-11-09",
-   "views": 35,
+   "views": 36,
    "likes": 1,
    "comments": 0
   },
@@ -134,14 +134,14 @@
    "id": "Phy-SQtEb-w",
    "title": "I Spent Years Building a Life I Didn't Want",
    "published": "2026-11-15",
-   "views": 1375,
-   "likes": 35
+   "views": 1456,
+   "likes": 36
   },
   {
    "id": "OpsGbV4_tvY",
    "title": "Why Men Are Afraid to Approach Women",
    "published": "2026-11-14",
-   "views": 1194,
+   "views": 1262,
    "likes": 7
   },
   {
@@ -225,7 +225,7 @@
    "id": "EYdR0nfPnGs",
    "title": "I Didn't Always Know Where My Life Was Going",
    "published": "2026-09-12",
-   "views": 900,
+   "views": 902,
    "likes": 6
   },
   {
@@ -414,7 +414,7 @@
    "id": "vDWpDdW5GBE",
    "title": "You Look Fine. So Why Do You Feel So Empty?",
    "published": "2026-08-21",
-   "views": 643,
+   "views": 645,
    "likes": 5
   },
   {
@@ -532,12 +532,10 @@
  ],
  "notion_ok": true,
  "priorities": {
-  "status": "ok",
+  "status": "no_access",
   "week_of": "2026-11-16",
   "items": [],
-  "note": "",
-  "source": "notion-mcp",
-  "synced_at": "2026-11-17T02:31:24+00:00"
+  "note": ""
  },
  "pipeline": {
   "stuck_days": 14,
@@ -555,7 +553,7 @@
       "next_owner": "Xavy",
       "next_step": "XC. Draft",
       "last_update": "2026-11-10",
-      "idle_days": 6,
+      "idle_days": 7,
       "stuck": false,
       "stuck_reason": "",
       "active_this_week": false,
@@ -571,7 +569,7 @@
       "next_owner": "Xavy",
       "next_step": "XC to determine production and publish date. Value driver: LA footage and clay molding hook footage already made. Helps push XVC to lock in and get in shape. \n\nNS: RW script + footage selection",
       "last_update": "2026-11-10",
-      "idle_days": 6,
+      "idle_days": 7,
       "stuck": false,
       "stuck_reason": "",
       "active_this_week": false,
@@ -587,7 +585,7 @@
       "next_owner": "Xavy",
       "next_step": "Production On Hold (POH)",
       "last_update": "2026-11-10",
-      "idle_days": 6,
+      "idle_days": 7,
       "stuck": true,
       "stuck_reason": "on hold / blocked",
       "active_this_week": false,
@@ -609,7 +607,7 @@
       "next_owner": "Xavy",
       "next_step": "Production On Hold (POH)",
       "last_update": "2026-11-10",
-      "idle_days": 6,
+      "idle_days": 7,
       "stuck": true,
       "stuck_reason": "on hold / blocked",
       "active_this_week": false,
@@ -631,7 +629,7 @@
       "next_owner": "Xavy",
       "next_step": "XC to begin script + pre-production",
       "last_update": "2026-11-10",
-      "idle_days": 6,
+      "idle_days": 7,
       "stuck": false,
       "stuck_reason": "",
       "active_this_week": false,
@@ -651,9 +649,9 @@
       "progress": "25%",
       "priority": "Top Priority",
       "next_owner": "Stephan",
-      "next_step": "Editing updated TH. NS: Finalize headshot + SF",
+      "next_step": ": almost done editing; no visual map needed. 11.10. Editing updated TH. NS: Finalize headshot + SF",
       "last_update": "2026-11-10",
-      "idle_days": 6,
+      "idle_days": 7,
       "stuck": false,
       "stuck_reason": "",
       "active_this_week": true,
@@ -667,9 +665,9 @@
       "progress": "Not Ready",
       "priority": "Top Priority",
       "next_owner": "Stephan",
-      "next_step": "Editing updated TH. NS: Finalize headshot + SF",
+      "next_step": ": editing begins this week. Needs a visual map first; Stephan assists with it. 11.10. Editing updated TH. NS: Finalize headshot + SF",
       "last_update": "2026-11-10",
-      "idle_days": 6,
+      "idle_days": 7,
       "stuck": false,
       "stuck_reason": "",
       "active_this_week": true,
@@ -682,10 +680,10 @@
       "edit_phase": "C1: Story",
       "progress": "25%",
       "priority": "Top Priority",
-      "next_owner": "Stephan",
-      "next_step": "Currently editing with new TH created. NS: To finalize headshot and SF",
-      "last_update": "2026-11-10",
-      "idle_days": 6,
+      "next_owner": "Both",
+      "next_step": ": aiming to publish this week. 11.16: Stephan focused on finishing the edit today. NS: finish the final cut, then Xavy OK before publish.",
+      "last_update": "2026-11-16",
+      "idle_days": 1,
       "stuck": false,
       "stuck_reason": "",
       "active_this_week": true,
@@ -697,27 +695,10 @@
    {
     "key": "package",
     "label": "Packaging / Publish",
-    "items": [
-     {
-      "title": "“The Passport Bro Addiction” [COL]",
-      "pl_state": "Packaging",
-      "edit_phase": "Versioning",
-      "progress": "25%",
-      "priority": "Top Priority",
-      "next_owner": "Xavy",
-      "next_step": "LF Published.  XC to draft short form to push reach.",
-      "last_update": "2026-11-10",
-      "idle_days": 6,
-      "stuck": false,
-      "stuck_reason": "",
-      "active_this_week": true,
-      "next_cut_due": null,
-      "publish": "2026-10-17"
-     }
-    ]
+    "items": []
    }
   ],
-  "idea_bank_count": 61
+  "idea_bank_count": 63
  },
  "billing": [
   {
@@ -879,6 +860,20 @@
    "invoice": "E. Unassigned",
    "payment": "TBD",
    "progress": "Not Ready",
+   "credits": ""
+  },
+  {
+   "title": "I'm a Walking Contradiction",
+   "invoice": "E. Unassigned",
+   "payment": "TBD",
+   "progress": "Not started",
+   "credits": ""
+  },
+  {
+   "title": "She Left When She Saw I Was Happy Single",
+   "invoice": "E. Unassigned",
+   "payment": "TBD",
+   "progress": "Not started",
    "credits": ""
   },
   {
