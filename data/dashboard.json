@@ -1,6 +1,6 @@
 {
- "generated_at": "2026-11-17T06:35:20+00:00",
- "generated_at_bali": "Tue 17 Nov 2026, 14:35 (Bali)",
+ "generated_at": "2026-11-18T05:56:15+00:00",
+ "generated_at_bali": "Wed 18 Nov 2026, 13:56 (Bali)",
  "rto": {
   "published": 13,
   "goal": 100
@@ -8,19 +8,19 @@
  "channel": {
   "subscribers": 160,
   "last28": {
-   "start": "2026-10-20",
-   "end": "2026-11-16",
-   "views": 3960,
-   "watch_hours": 14.2,
+   "start": "2026-10-21",
+   "end": "2026-11-17",
+   "views": 5402,
+   "watch_hours": 20.4,
    "avg_view_duration_s": 24,
-   "subs_gained": 4,
+   "subs_gained": 6,
    "subs_lost": 2
   },
   "top_recent": {
-   "id": "OpsGbV4_tvY",
-   "views": 1159,
-   "watch_hours": 4.9,
-   "title": "Why Men Are Afraid to Approach Women"
+   "id": "Phy-SQtEb-w",
+   "views": 1390,
+   "watch_hours": 6.0,
+   "title": "I Spent Years Building a Life I Didn't Want"
   }
  },
  "long_form": [
@@ -28,7 +28,7 @@
    "id": "CN1nMUHve5M",
    "title": "Stop Being a Nice Guy. Start Being",
    "published": "2026-11-12",
-   "views": 412,
+   "views": 413,
    "likes": 7,
    "comments": 0
   },
@@ -44,7 +44,7 @@
    "id": "y3q1_0ovpgA",
    "title": "Why chasing validation will ruin your life",
    "published": "2026-10-18",
-   "views": 57,
+   "views": 58,
    "likes": 3,
    "comments": 0
   },
@@ -52,7 +52,7 @@
    "id": "y3q1_0ovpgA",
    "title": "Why chasing validation will ruin your life",
    "published": "2026-10-18",
-   "views": 57,
+   "views": 58,
    "likes": 3,
    "comments": 0
   },
@@ -60,23 +60,23 @@
    "id": "Z2J94yH89SY",
    "title": "Why Feeling Safe Is Ruining Your Life",
    "published": "2026-10-12",
-   "views": 44,
-   "likes": 3,
-   "comments": 0
+   "views": 46,
+   "likes": 4,
+   "comments": 1
   },
   {
    "id": "Z2J94yH89SY",
    "title": "Why Feeling Safe Is Ruining Your Life",
    "published": "2026-10-12",
-   "views": 44,
-   "likes": 3,
-   "comments": 0
+   "views": 46,
+   "likes": 4,
+   "comments": 1
   },
   {
    "id": "IOFPXGzZ53M",
    "title": "Why getting what you want is a mistake",
    "published": "2026-07-07",
-   "views": 73,
+   "views": 74,
    "likes": 4,
    "comments": 1
   },
@@ -84,7 +84,7 @@
    "id": "SC8SfzHsabo",
    "title": "How bullying can change you [for the better]",
    "published": "2025-12-16",
-   "views": 6517,
+   "views": 6518,
    "likes": 12,
    "comments": 2
   },
@@ -134,14 +134,14 @@
    "id": "Phy-SQtEb-w",
    "title": "I Spent Years Building a Life I Didn't Want",
    "published": "2026-11-15",
-   "views": 1456,
+   "views": 1472,
    "likes": 36
   },
   {
    "id": "OpsGbV4_tvY",
    "title": "Why Men Are Afraid to Approach Women",
    "published": "2026-11-14",
-   "views": 1262,
+   "views": 1275,
    "likes": 7
   },
   {
@@ -532,12 +532,10 @@
  ],
  "notion_ok": true,
  "priorities": {
-  "status": "ok",
+  "status": "no_access",
   "week_of": "2026-11-16",
   "items": [],
-  "note": "",
-  "source": "notion-mcp",
-  "synced_at": "2026-11-18T02:31:37+00:00"
+  "note": ""
  },
  "pipeline": {
   "stuck_days": 14,
@@ -555,7 +553,7 @@
       "next_owner": "Xavy",
       "next_step": "XC. Draft",
       "last_update": "2026-11-10",
-      "idle_days": 7,
+      "idle_days": 8,
       "stuck": false,
       "stuck_reason": "",
       "active_this_week": false,
@@ -571,7 +569,7 @@
       "next_owner": "Xavy",
       "next_step": "XC to determine production and publish date. Value driver: LA footage and clay molding hook footage already made. Helps push XVC to lock in and get in shape. \n\nNS: RW script + footage selection",
       "last_update": "2026-11-10",
-      "idle_days": 7,
+      "idle_days": 8,
       "stuck": false,
       "stuck_reason": "",
       "active_this_week": false,
@@ -587,7 +585,7 @@
       "next_owner": "Xavy",
       "next_step": "Production On Hold (POH)",
       "last_update": "2026-11-10",
-      "idle_days": 7,
+      "idle_days": 8,
       "stuck": true,
       "stuck_reason": "on hold / blocked",
       "active_this_week": false,
@@ -609,7 +607,7 @@
       "next_owner": "Xavy",
       "next_step": "Production On Hold (POH)",
       "last_update": "2026-11-10",
-      "idle_days": 7,
+      "idle_days": 8,
       "stuck": true,
       "stuck_reason": "on hold / blocked",
       "active_this_week": false,
@@ -631,7 +629,7 @@
       "next_owner": "Xavy",
       "next_step": "XC to begin script + pre-production",
       "last_update": "2026-11-10",
-      "idle_days": 7,
+      "idle_days": 8,
       "stuck": false,
       "stuck_reason": "",
       "active_this_week": false,
@@ -653,7 +651,7 @@
       "next_owner": "Stephan",
       "next_step": ": almost done editing; no visual map needed. 11.10. Editing updated TH. NS: Finalize headshot + SF",
       "last_update": "2026-11-10",
-      "idle_days": 7,
+      "idle_days": 8,
       "stuck": false,
       "stuck_reason": "",
       "active_this_week": true,
@@ -669,7 +667,7 @@
       "next_owner": "Stephan",
       "next_step": ": editing begins this week. Needs a visual map first; Stephan assists with it. 11.10. Editing updated TH. NS: Finalize headshot + SF",
       "last_update": "2026-11-10",
-      "idle_days": 7,
+      "idle_days": 8,
       "stuck": false,
       "stuck_reason": "",
       "active_this_week": true,
@@ -685,7 +683,7 @@
       "next_owner": "Both",
       "next_step": ": aiming to publish this week. 11.16: Stephan focused on finishing the edit today. NS: finish the final cut, then Xavy OK before publish.",
       "last_update": "2026-11-16",
-      "idle_days": 1,
+      "idle_days": 2,
       "stuck": false,
       "stuck_reason": "",
       "active_this_week": true,
@@ -700,7 +698,7 @@
     "items": []
    }
   ],
-  "idea_bank_count": 63
+  "idea_bank_count": 64
  },
  "billing": [
   {
