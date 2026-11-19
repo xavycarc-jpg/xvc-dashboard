@@ -1,6 +1,6 @@
 {
- "generated_at": "2026-11-18T05:56:15+00:00",
- "generated_at_bali": "Wed 18 Nov 2026, 13:56 (Bali)",
+ "generated_at": "2026-11-19T05:56:37+00:00",
+ "generated_at_bali": "Thu 19 Nov 2026, 13:56 (Bali)",
  "rto": {
   "published": 13,
   "goal": 100
@@ -8,18 +8,18 @@
  "channel": {
   "subscribers": 160,
   "last28": {
-   "start": "2026-10-21",
-   "end": "2026-11-17",
-   "views": 5402,
-   "watch_hours": 20.4,
+   "start": "2026-10-22",
+   "end": "2026-11-18",
+   "views": 5515,
+   "watch_hours": 20.9,
    "avg_view_duration_s": 24,
    "subs_gained": 6,
    "subs_lost": 2
   },
   "top_recent": {
    "id": "Phy-SQtEb-w",
-   "views": 1390,
-   "watch_hours": 6.0,
+   "views": 1471,
+   "watch_hours": 6.4,
    "title": "I Spent Years Building a Life I Didn't Want"
   }
  },
@@ -28,7 +28,7 @@
    "id": "CN1nMUHve5M",
    "title": "Stop Being a Nice Guy. Start Being",
    "published": "2026-11-12",
-   "views": 413,
+   "views": 415,
    "likes": 7,
    "comments": 0
   },
@@ -62,7 +62,7 @@
    "published": "2026-10-12",
    "views": 46,
    "likes": 4,
-   "comments": 1
+   "comments": 2
   },
   {
    "id": "Z2J94yH89SY",
@@ -70,7 +70,7 @@
    "published": "2026-10-12",
    "views": 46,
    "likes": 4,
-   "comments": 1
+   "comments": 2
   },
   {
    "id": "IOFPXGzZ53M",
@@ -78,7 +78,7 @@
    "published": "2026-07-07",
    "views": 74,
    "likes": 4,
-   "comments": 1
+   "comments": 2
   },
   {
    "id": "SC8SfzHsabo",
@@ -86,7 +86,7 @@
    "published": "2025-12-16",
    "views": 6518,
    "likes": 12,
-   "comments": 2
+   "comments": 3
   },
   {
    "id": "5CQHOpyXWKk",
@@ -134,14 +134,14 @@
    "id": "Phy-SQtEb-w",
    "title": "I Spent Years Building a Life I Didn't Want",
    "published": "2026-11-15",
-   "views": 1472,
+   "views": 1471,
    "likes": 36
   },
   {
    "id": "OpsGbV4_tvY",
    "title": "Why Men Are Afraid to Approach Women",
    "published": "2026-11-14",
-   "views": 1275,
+   "views": 1270,
    "likes": 7
   },
   {
@@ -155,7 +155,7 @@
    "id": "4ofLCLRSazo",
    "title": "It took me 10 years to realize you can't buy genuine connection with money.",
    "published": "2026-11-11",
-   "views": 28,
+   "views": 30,
    "likes": 2
   },
   {
@@ -532,12 +532,10 @@
  ],
  "notion_ok": true,
  "priorities": {
-  "status": "ok",
+  "status": "no_access",
   "week_of": "2026-11-16",
   "items": [],
-  "note": "",
-  "source": "notion-mcp",
-  "synced_at": "2026-11-19T02:31:43+00:00"
+  "note": ""
  },
  "pipeline": {
   "stuck_days": 14,
@@ -555,7 +553,7 @@
       "next_owner": "Xavy",
       "next_step": "XC. Draft",
       "last_update": "2026-11-10",
-      "idle_days": 8,
+      "idle_days": 9,
       "stuck": false,
       "stuck_reason": "",
       "active_this_week": false,
@@ -571,7 +569,7 @@
       "next_owner": "Xavy",
       "next_step": "XC to determine production and publish date. Value driver: LA footage and clay molding hook footage already made. Helps push XVC to lock in and get in shape. \n\nNS: RW script + footage selection",
       "last_update": "2026-11-10",
-      "idle_days": 8,
+      "idle_days": 9,
       "stuck": false,
       "stuck_reason": "",
       "active_this_week": false,
@@ -587,7 +585,7 @@
       "next_owner": "Xavy",
       "next_step": "Production On Hold (POH)",
       "last_update": "2026-11-10",
-      "idle_days": 8,
+      "idle_days": 9,
       "stuck": true,
       "stuck_reason": "on hold / blocked",
       "active_this_week": false,
@@ -609,7 +607,7 @@
       "next_owner": "Xavy",
       "next_step": "Production On Hold (POH)",
       "last_update": "2026-11-10",
-      "idle_days": 8,
+      "idle_days": 9,
       "stuck": true,
       "stuck_reason": "on hold / blocked",
       "active_this_week": false,
@@ -631,7 +629,7 @@
       "next_owner": "Xavy",
       "next_step": "XC to begin script + pre-production",
       "last_update": "2026-11-10",
-      "idle_days": 8,
+      "idle_days": 9,
       "stuck": false,
       "stuck_reason": "",
       "active_this_week": false,
@@ -653,7 +651,7 @@
       "next_owner": "Stephan",
       "next_step": ": almost done editing; no visual map needed. 11.10. Editing updated TH. NS: Finalize headshot + SF",
       "last_update": "2026-11-10",
-      "idle_days": 8,
+      "idle_days": 9,
       "stuck": false,
       "stuck_reason": "",
       "active_this_week": true,
@@ -669,7 +667,7 @@
       "next_owner": "Stephan",
       "next_step": ": editing begins this week. Needs a visual map first; Stephan assists with it. 11.10. Editing updated TH. NS: Finalize headshot + SF",
       "last_update": "2026-11-10",
-      "idle_days": 8,
+      "idle_days": 9,
       "stuck": false,
       "stuck_reason": "",
       "active_this_week": true,
@@ -685,7 +683,7 @@
       "next_owner": "Both",
       "next_step": ": aiming to publish this week. 11.16: Stephan focused on finishing the edit today. NS: finish the final cut, then Xavy OK before publish.",
       "last_update": "2026-11-16",
-      "idle_days": 2,
+      "idle_days": 3,
       "stuck": false,
       "stuck_reason": "",
       "active_this_week": true,
