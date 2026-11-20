@@ -1,24 +1,24 @@
 {
- "generated_at": "2026-11-19T05:56:37+00:00",
- "generated_at_bali": "Thu 19 Nov 2026, 13:56 (Bali)",
+ "generated_at": "2026-11-20T05:45:31+00:00",
+ "generated_at_bali": "Fri 20 Nov 2026, 13:45 (Bali)",
  "rto": {
   "published": 13,
   "goal": 100
  },
  "channel": {
-  "subscribers": 160,
+  "subscribers": 159,
   "last28": {
-   "start": "2026-10-22",
-   "end": "2026-11-18",
-   "views": 5515,
-   "watch_hours": 20.9,
+   "start": "2026-10-23",
+   "end": "2026-11-19",
+   "views": 5534,
+   "watch_hours": 21.1,
    "avg_view_duration_s": 24,
    "subs_gained": 6,
    "subs_lost": 2
   },
   "top_recent": {
    "id": "Phy-SQtEb-w",
-   "views": 1471,
+   "views": 1478,
    "watch_hours": 6.4,
    "title": "I Spent Years Building a Life I Didn't Want"
   }
@@ -134,7 +134,7 @@
    "id": "Phy-SQtEb-w",
    "title": "I Spent Years Building a Life I Didn't Want",
    "published": "2026-11-15",
-   "views": 1471,
+   "views": 1472,
    "likes": 36
   },
   {
@@ -485,7 +485,7 @@
    "title": "When Your Old Life Doesn’t Feel Like Yours Anymore",
    "published": "2026-08-13",
    "views": 1152,
-   "likes": 21
+   "likes": 20
   },
   {
    "id": "D7bYnS0IHuE",
@@ -532,12 +532,10 @@
  ],
  "notion_ok": true,
  "priorities": {
-  "status": "ok",
+  "status": "no_access",
   "week_of": "2026-11-16",
   "items": [],
-  "note": "",
-  "source": "notion-mcp",
-  "synced_at": "2026-11-20T02:31:46+00:00"
+  "note": ""
  },
  "pipeline": {
   "stuck_days": 14,
@@ -555,7 +553,7 @@
       "next_owner": "Xavy",
       "next_step": "XC. Draft",
       "last_update": "2026-11-10",
-      "idle_days": 9,
+      "idle_days": 10,
       "stuck": false,
       "stuck_reason": "",
       "active_this_week": false,
@@ -571,7 +569,7 @@
       "next_owner": "Xavy",
       "next_step": "XC to determine production and publish date. Value driver: LA footage and clay molding hook footage already made. Helps push XVC to lock in and get in shape. \n\nNS: RW script + footage selection",
       "last_update": "2026-11-10",
-      "idle_days": 9,
+      "idle_days": 10,
       "stuck": false,
       "stuck_reason": "",
       "active_this_week": false,
@@ -587,7 +585,7 @@
       "next_owner": "Xavy",
       "next_step": "Production On Hold (POH)",
       "last_update": "2026-11-10",
-      "idle_days": 9,
+      "idle_days": 10,
       "stuck": true,
       "stuck_reason": "on hold / blocked",
       "active_this_week": false,
@@ -609,7 +607,7 @@
       "next_owner": "Xavy",
       "next_step": "Production On Hold (POH)",
       "last_update": "2026-11-10",
-      "idle_days": 9,
+      "idle_days": 10,
       "stuck": true,
       "stuck_reason": "on hold / blocked",
       "active_this_week": false,
@@ -631,7 +629,7 @@
       "next_owner": "Xavy",
       "next_step": "XC to begin script + pre-production",
       "last_update": "2026-11-10",
-      "idle_days": 9,
+      "idle_days": 10,
       "stuck": false,
       "stuck_reason": "",
       "active_this_week": false,
@@ -653,7 +651,7 @@
       "next_owner": "Stephan",
       "next_step": ": almost done editing; no visual map needed. 11.10. Editing updated TH. NS: Finalize headshot + SF",
       "last_update": "2026-11-10",
-      "idle_days": 9,
+      "idle_days": 10,
       "stuck": false,
       "stuck_reason": "",
       "active_this_week": true,
@@ -669,7 +667,7 @@
       "next_owner": "Stephan",
       "next_step": ": editing begins this week. Needs a visual map first; Stephan assists with it. 11.10. Editing updated TH. NS: Finalize headshot + SF",
       "last_update": "2026-11-10",
-      "idle_days": 9,
+      "idle_days": 10,
       "stuck": false,
       "stuck_reason": "",
       "active_this_week": true,
@@ -685,7 +683,7 @@
       "next_owner": "Both",
       "next_step": ": aiming to publish this week. 11.16: Stephan focused on finishing the edit today. NS: finish the final cut, then Xavy OK before publish.",
       "last_update": "2026-11-16",
-      "idle_days": 3,
+      "idle_days": 4,
       "stuck": false,
       "stuck_reason": "",
       "active_this_week": true,
