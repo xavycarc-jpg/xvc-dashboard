@@ -1,6 +1,6 @@
 {
- "generated_at": "2026-11-21T05:40:25+00:00",
- "generated_at_bali": "Sat 21 Nov 2026, 13:40 (Bali)",
+ "generated_at": "2026-11-22T05:07:36+00:00",
+ "generated_at_bali": "Sun 22 Nov 2026, 13:07 (Bali)",
  "rto": {
   "published": 13,
   "goal": 100
@@ -8,17 +8,17 @@
  "channel": {
   "subscribers": 159,
   "last28": {
-   "start": "2026-10-24",
-   "end": "2026-11-20",
-   "views": 5532,
+   "start": "2026-10-25",
+   "end": "2026-11-21",
+   "views": 5533,
    "watch_hours": 20.6,
    "avg_view_duration_s": 24,
    "subs_gained": 6,
-   "subs_lost": 2
+   "subs_lost": 3
   },
   "top_recent": {
    "id": "Phy-SQtEb-w",
-   "views": 1470,
+   "views": 1472,
    "watch_hours": 6.4,
    "title": "I Spent Years Building a Life I Didn't Want"
   }
@@ -76,7 +76,7 @@
    "id": "IOFPXGzZ53M",
    "title": "Why getting what you want is a mistake",
    "published": "2026-07-07",
-   "views": 74,
+   "views": 76,
    "likes": 4,
    "comments": 2
   },
@@ -532,12 +532,10 @@
  ],
  "notion_ok": true,
  "priorities": {
-  "status": "ok",
+  "status": "no_access",
   "week_of": "2026-11-16",
   "items": [],
-  "note": "",
-  "source": "notion-mcp",
-  "synced_at": "2026-11-22T02:31:47+00:00"
+  "note": ""
  },
  "pipeline": {
   "stuck_days": 14,
@@ -555,7 +553,7 @@
       "next_owner": "Xavy",
       "next_step": "XC. Draft",
       "last_update": "2026-11-10",
-      "idle_days": 11,
+      "idle_days": 12,
       "stuck": false,
       "stuck_reason": "",
       "active_this_week": false,
@@ -571,7 +569,7 @@
       "next_owner": "Xavy",
       "next_step": "XC to determine production and publish date. Value driver: LA footage and clay molding hook footage already made. Helps push XVC to lock in and get in shape. \n\nNS: RW script + footage selection",
       "last_update": "2026-11-10",
-      "idle_days": 11,
+      "idle_days": 12,
       "stuck": false,
       "stuck_reason": "",
       "active_this_week": false,
@@ -587,7 +585,7 @@
       "next_owner": "Xavy",
       "next_step": "Production On Hold (POH)",
       "last_update": "2026-11-10",
-      "idle_days": 11,
+      "idle_days": 12,
       "stuck": true,
       "stuck_reason": "on hold / blocked",
       "active_this_week": false,
@@ -609,7 +607,7 @@
       "next_owner": "Xavy",
       "next_step": "Production On Hold (POH)",
       "last_update": "2026-11-10",
-      "idle_days": 11,
+      "idle_days": 12,
       "stuck": true,
       "stuck_reason": "on hold / blocked",
       "active_this_week": false,
@@ -631,7 +629,7 @@
       "next_owner": "Xavy",
       "next_step": "XC to begin script + pre-production",
       "last_update": "2026-11-10",
-      "idle_days": 11,
+      "idle_days": 12,
       "stuck": false,
       "stuck_reason": "",
       "active_this_week": false,
@@ -653,7 +651,7 @@
       "next_owner": "Stephan",
       "next_step": ": almost done editing; no visual map needed. 11.10. Editing updated TH. NS: Finalize headshot + SF",
       "last_update": "2026-11-10",
-      "idle_days": 11,
+      "idle_days": 12,
       "stuck": false,
       "stuck_reason": "",
       "active_this_week": true,
@@ -669,7 +667,7 @@
       "next_owner": "Stephan",
       "next_step": ": editing begins this week. Needs a visual map first; Stephan assists with it. 11.10. Editing updated TH. NS: Finalize headshot + SF",
       "last_update": "2026-11-10",
-      "idle_days": 11,
+      "idle_days": 12,
       "stuck": false,
       "stuck_reason": "",
       "active_this_week": true,
@@ -685,7 +683,7 @@
       "next_owner": "Both",
       "next_step": ": aiming to publish this week. 11.16: Stephan focused on finishing the edit today. NS: finish the final cut, then Xavy OK before publish.",
       "last_update": "2026-11-16",
-      "idle_days": 5,
+      "idle_days": 6,
       "stuck": false,
       "stuck_reason": "",
       "active_this_week": true,
