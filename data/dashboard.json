@@ -1,6 +1,6 @@
 {
- "generated_at": "2026-11-23T05:49:21+00:00",
- "generated_at_bali": "Mon 23 Nov 2026, 13:49 (Bali)",
+ "generated_at": "2026-11-24T08:26:35+00:00",
+ "generated_at_bali": "Tue 24 Nov 2026, 16:26 (Bali)",
  "rto": {
   "published": 13,
   "goal": 100
@@ -8,12 +8,12 @@
  "channel": {
   "subscribers": 159,
   "last28": {
-   "start": "2026-10-26",
-   "end": "2026-11-22",
-   "views": 5531,
+   "start": "2026-10-27",
+   "end": "2026-11-23",
+   "views": 5532,
    "watch_hours": 20.6,
    "avg_view_duration_s": 24,
-   "subs_gained": 6,
+   "subs_gained": 5,
    "subs_lost": 3
   },
   "top_recent": {
@@ -225,7 +225,7 @@
    "id": "EYdR0nfPnGs",
    "title": "I Didn't Always Know Where My Life Was Going",
    "published": "2026-09-12",
-   "views": 902,
+   "views": 903,
    "likes": 6
   },
   {
@@ -532,12 +532,10 @@
  ],
  "notion_ok": true,
  "priorities": {
-  "status": "ok",
+  "status": "no_access",
   "week_of": "2026-11-23",
   "items": [],
-  "note": "",
-  "source": "notion-mcp",
-  "synced_at": "2026-11-24T02:31:27+00:00"
+  "note": ""
  },
  "pipeline": {
   "stuck_days": 14,
@@ -547,6 +545,22 @@
     "label": "Script",
     "items": [
      {
+      "title": "How being open minded ruins your life ",
+      "pl_state": "Script Dev",
+      "edit_phase": "",
+      "progress": "Not started",
+      "priority": "High",
+      "next_owner": "Xavy",
+      "next_step": "Production On Hold (POH)",
+      "last_update": "2026-11-10",
+      "idle_days": 14,
+      "stuck": true,
+      "stuck_reason": "on hold / blocked",
+      "active_this_week": false,
+      "next_cut_due": null,
+      "publish": "2026-12-03"
+     },
+     {
       "title": "The Fitness Spiral ",
       "pl_state": "Script RW",
       "edit_phase": "Hook Only",
@@ -555,9 +569,9 @@
       "next_owner": "Xavy",
       "next_step": "XC. Draft",
       "last_update": "2026-11-10",
-      "idle_days": 13,
-      "stuck": false,
-      "stuck_reason": "",
+      "idle_days": 14,
+      "stuck": true,
+      "stuck_reason": "no update in 14 days",
       "active_this_week": false,
       "next_cut_due": null,
       "publish": "2027-01-01"
@@ -571,28 +585,12 @@
       "next_owner": "Xavy",
       "next_step": "XC to determine production and publish date. Value driver: LA footage and clay molding hook footage already made. Helps push XVC to lock in and get in shape. \n\nNS: RW script + footage selection",
       "last_update": "2026-11-10",
-      "idle_days": 13,
-      "stuck": false,
-      "stuck_reason": "",
+      "idle_days": 14,
+      "stuck": true,
+      "stuck_reason": "no update in 14 days",
       "active_this_week": false,
       "next_cut_due": null,
       "publish": null
-     },
-     {
-      "title": "How being open minded ruins your life ",
-      "pl_state": "Script Dev",
-      "edit_phase": "",
-      "progress": "Not started",
-      "priority": "High",
-      "next_owner": "Xavy",
-      "next_step": "Production On Hold (POH)",
-      "last_update": "2026-11-10",
-      "idle_days": 13,
-      "stuck": true,
-      "stuck_reason": "on hold / blocked",
-      "active_this_week": false,
-      "next_cut_due": null,
-      "publish": "2026-12-03"
      }
     ]
    },
@@ -609,7 +607,7 @@
       "next_owner": "Xavy",
       "next_step": "Production On Hold (POH)",
       "last_update": "2026-11-10",
-      "idle_days": 13,
+      "idle_days": 14,
       "stuck": true,
       "stuck_reason": "on hold / blocked",
       "active_this_week": false,
@@ -631,9 +629,9 @@
       "next_owner": "Xavy",
       "next_step": "XC to begin script + pre-production",
       "last_update": "2026-11-10",
-      "idle_days": 13,
-      "stuck": false,
-      "stuck_reason": "",
+      "idle_days": 14,
+      "stuck": true,
+      "stuck_reason": "no update in 14 days",
       "active_this_week": false,
       "next_cut_due": null,
       "publish": null
@@ -653,28 +651,12 @@
       "next_owner": "Both",
       "next_step": ": Stephan doing the final review of the final version today. NS: Xavy OK, then packaging (title, thumbnail, description) and set the upload date.",
       "last_update": "2026-11-22",
-      "idle_days": 1,
+      "idle_days": 2,
       "stuck": false,
       "stuck_reason": "",
       "active_this_week": true,
       "next_cut_due": null,
       "publish": "2026-11-21"
-     },
-     {
-      "title": "The Price of Living for Others [Lombok]",
-      "pl_state": "Editing",
-      "edit_phase": "",
-      "progress": "Not Ready",
-      "priority": "Top Priority",
-      "next_owner": "Stephan",
-      "next_step": ": editing begins this week. Needs a visual map first; Stephan assists with it. 11.10. Editing updated TH. NS: Finalize headshot + SF",
-      "last_update": "2026-11-10",
-      "idle_days": 13,
-      "stuck": false,
-      "stuck_reason": "",
-      "active_this_week": true,
-      "next_cut_due": null,
-      "publish": "2026-11-28"
      },
      {
       "title": "The Wanting  [Bali]",
@@ -685,12 +667,28 @@
       "next_owner": "Both",
       "next_step": ": Stephan doing the final review of the final version today. NS: Xavy OK, then packaging (title, thumbnail, description) and set the upload date.",
       "last_update": "2026-11-22",
-      "idle_days": 1,
+      "idle_days": 2,
       "stuck": false,
       "stuck_reason": "",
       "active_this_week": true,
       "next_cut_due": "2026-06-19",
       "publish": "2026-11-14"
+     },
+     {
+      "title": "The Price of Living for Others [Lombok]",
+      "pl_state": "Editing",
+      "edit_phase": "",
+      "progress": "Not Ready",
+      "priority": "Top Priority",
+      "next_owner": "Stephan",
+      "next_step": ": editing begins this week. Needs a visual map first; Stephan assists with it. 11.10. Editing updated TH. NS: Finalize headshot + SF",
+      "last_update": "2026-11-10",
+      "idle_days": 14,
+      "stuck": true,
+      "stuck_reason": "no update in 14 days",
+      "active_this_week": true,
+      "next_cut_due": null,
+      "publish": "2026-11-28"
      }
     ]
    },
