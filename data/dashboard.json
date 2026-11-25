@@ -1,6 +1,6 @@
 {
- "generated_at": "2026-11-24T08:26:35+00:00",
- "generated_at_bali": "Tue 24 Nov 2026, 16:26 (Bali)",
+ "generated_at": "2026-11-25T07:01:34+00:00",
+ "generated_at_bali": "Wed 25 Nov 2026, 15:01 (Bali)",
  "rto": {
   "published": 13,
   "goal": 100
@@ -8,11 +8,11 @@
  "channel": {
   "subscribers": 159,
   "last28": {
-   "start": "2026-10-27",
-   "end": "2026-11-23",
-   "views": 5532,
-   "watch_hours": 20.6,
-   "avg_view_duration_s": 24,
+   "start": "2026-10-28",
+   "end": "2026-11-24",
+   "views": 5539,
+   "watch_hours": 20.5,
+   "avg_view_duration_s": 23,
    "subs_gained": 5,
    "subs_lost": 3
   },
@@ -141,7 +141,7 @@
    "id": "OpsGbV4_tvY",
    "title": "Why Men Are Afraid to Approach Women",
    "published": "2026-11-14",
-   "views": 1273,
+   "views": 1275,
    "likes": 7
   },
   {
@@ -532,12 +532,10 @@
  ],
  "notion_ok": true,
  "priorities": {
-  "status": "ok",
+  "status": "no_access",
   "week_of": "2026-11-23",
   "items": [],
-  "note": "",
-  "source": "notion-mcp",
-  "synced_at": "2026-11-25T02:31:35+00:00"
+  "note": ""
  },
  "pipeline": {
   "stuck_days": 14,
@@ -555,7 +553,7 @@
       "next_owner": "Xavy",
       "next_step": "Production On Hold (POH)",
       "last_update": "2026-11-10",
-      "idle_days": 14,
+      "idle_days": 15,
       "stuck": true,
       "stuck_reason": "on hold / blocked",
       "active_this_week": false,
@@ -571,9 +569,9 @@
       "next_owner": "Xavy",
       "next_step": "XC. Draft",
       "last_update": "2026-11-10",
-      "idle_days": 14,
+      "idle_days": 15,
       "stuck": true,
-      "stuck_reason": "no update in 14 days",
+      "stuck_reason": "no update in 15 days",
       "active_this_week": false,
       "next_cut_due": null,
       "publish": "2027-01-01"
@@ -587,9 +585,9 @@
       "next_owner": "Xavy",
       "next_step": "XC to determine production and publish date. Value driver: LA footage and clay molding hook footage already made. Helps push XVC to lock in and get in shape. \n\nNS: RW script + footage selection",
       "last_update": "2026-11-10",
-      "idle_days": 14,
+      "idle_days": 15,
       "stuck": true,
-      "stuck_reason": "no update in 14 days",
+      "stuck_reason": "no update in 15 days",
       "active_this_week": false,
       "next_cut_due": null,
       "publish": null
@@ -609,7 +607,7 @@
       "next_owner": "Xavy",
       "next_step": "Production On Hold (POH)",
       "last_update": "2026-11-10",
-      "idle_days": 14,
+      "idle_days": 15,
       "stuck": true,
       "stuck_reason": "on hold / blocked",
       "active_this_week": false,
@@ -631,9 +629,9 @@
       "next_owner": "Xavy",
       "next_step": "XC to begin script + pre-production",
       "last_update": "2026-11-10",
-      "idle_days": 14,
+      "idle_days": 15,
       "stuck": true,
-      "stuck_reason": "no update in 14 days",
+      "stuck_reason": "no update in 15 days",
       "active_this_week": false,
       "next_cut_due": null,
       "publish": null
@@ -653,7 +651,7 @@
       "next_owner": "Both",
       "next_step": ": Stephan doing the final review of the final version today. NS: Xavy OK, then packaging (title, thumbnail, description) and set the upload date.",
       "last_update": "2026-11-22",
-      "idle_days": 2,
+      "idle_days": 3,
       "stuck": false,
       "stuck_reason": "",
       "active_this_week": true,
@@ -669,7 +667,7 @@
       "next_owner": "Both",
       "next_step": ": Stephan doing the final review of the final version today. NS: Xavy OK, then packaging (title, thumbnail, description) and set the upload date.",
       "last_update": "2026-11-22",
-      "idle_days": 2,
+      "idle_days": 3,
       "stuck": false,
       "stuck_reason": "",
       "active_this_week": true,
@@ -685,9 +683,9 @@
       "next_owner": "Stephan",
       "next_step": ": editing begins this week. Needs a visual map first; Stephan assists with it. 11.10. Editing updated TH. NS: Finalize headshot + SF",
       "last_update": "2026-11-10",
-      "idle_days": 14,
+      "idle_days": 15,
       "stuck": true,
-      "stuck_reason": "no update in 14 days",
+      "stuck_reason": "no update in 15 days",
       "active_this_week": true,
       "next_cut_due": null,
       "publish": "2026-11-28"
